@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+dist/
+build/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# fcomp 运行产物（源文件保护，见 docs/adr/0006-isolation-boundary.md）
+.fcomp/
+
+# 编辑器与操作系统
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
