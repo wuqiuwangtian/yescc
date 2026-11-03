@@ -21,7 +21,7 @@ fcomp 自身使用 100–104 保留退出码：
 | 104 | 内部错误 |
 
 - 在 `run` 模式下，若用户程序成功启动，退出码 = 用户程序退出码；fcomp 自身的失败使用上述保留码。
-- `--json` 输出结构化结果到 stdout；人类摘要走 stderr；用户程序的 stdout/stderr 原样保留。
+- `--json` 在构建模式下输出结构化结果到 stdout；`run` 模式下程序拥有 stdout，`--json` 按用法错误拒绝，报告始终落盘；人类摘要走 stderr，用户程序的 stdout/stderr 原样保留。
 - 每次尝试写 `.fcomp/<stem>/report.json`，schema v1 只增不改；破坏性变更升 `schema_version`。
 - 报告必须包含：输入摘要、语言与工具链、诊断、补丁、假设、构建状态、验证范围、耗时、token/费用、隐私字段。
 

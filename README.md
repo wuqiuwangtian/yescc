@@ -8,23 +8,43 @@
 
 ## 当前状态
 
-**M0 已完成**（工程骨架、MIT 许可、Linux/Windows 双平台 CI 全绿），尚无编译能力。首版范围已确认：Python / C / JavaScript 单文件、命令行 MVP、MIT 许可并同步发布到 PyPI；「所有语言」与「编辑器插件」保留为长期目标。进度与验收门见[项目路线图与发布计划](docs/项目路线图与发布计划.md)。
+**M1 已完成**：Python / C / JavaScript 单文件的原生直通、命令行契约、报告与退出码可用；合法代码零改写、零模型调用。容错修复（M2）、模型修复与自然语言生成（M3）尚未实现。
+
+首版范围已确认：三语言单文件、命令行 MVP、MIT 许可并同步发布到 PyPI；「所有语言」与「编辑器插件」保留为长期目标。进度与验收门见[项目路线图与发布计划](docs/项目路线图与发布计划.md)。
+
+## 快速开始
+
+需要 Python ≥3.11 与 [uv](https://docs.astral.sh/uv/)（尚未发布到 PyPI，先从源码运行）：
+
+```bash
+uv sync --extra dev
+uv run fcomp hello.c -o hello       # 构建，参数透传给 gcc
+uv run fcomp run hello.c            # 构建后运行
+uv run fcomp hello.c --explain      # 查看最近一次报告
+```
+
+报告写入 `.fcomp/<文件名>/report.json`；源文件不会被覆盖。
+
+## 已知限制
+
+- 只支持三语言单文件；跨文件与项目构建不支持，未识别语言返回退出码 101。
+- 源码仅支持 UTF-8（可带 BOM）。
+- Windows 上是原生调用（非 WSL），C 工具链使用系统提供的 GCC/MinGW；MSVC 不支持。
+- 通过管道重定向时，用户程序自身的编码设置仍生效，fcomp 不替用户程序改写环境。
 
 ## 文档
 
-- [初版需求报告](docs/初版需求报告.md)：完整愿景、兼容性边界、命令行体验、处理流程、性能成本、验收和分期建议。
+- [初版需求报告](docs/初版需求报告.md)：完整愿景、兼容性边界、命令行体验、处理流程、性能成本、验收和分期。
 - [技术参考与验证计划](docs/技术参考与验证计划.md)：程序修复研究、工具链与编辑器依据、实验设计。
 - [GitHub 开源项目调研](docs/GitHub开源项目调研.md)：5 个相关候选，区分创意参照、修复组件与真实执行后端。
 - [项目路线图与发布计划](docs/项目路线图与发布计划.md)：里程碑与验收门、技术契约、MIT 许可与 GitHub + PyPI 发布流程。
 - [ADR 索引](docs/adr/README.md)：已确认的架构与产品决策。
+- [评测记录](docs/评测/2026-11-03.md)：M1 原生一致性与包装开销基线。
 
 ## 开发
 
-需要 Python ≥3.11 与 [uv](https://docs.astral.sh/uv/)：
-
 ```bash
 uv sync --extra dev
-uv run fcomp --version
 uv run ruff check .
 uv run mypy
 uv run pytest
