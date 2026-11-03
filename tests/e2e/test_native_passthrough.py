@@ -17,6 +17,11 @@ from tests.fixtures.legal_cases import CASES, LegalCase
 pytestmark = pytest.mark.e2e
 
 EXE = ".exe" if os.name == "nt" else ""
+
+# CI 的管道不是控制台：Windows 上 Python 默认会用 cp1252 输出，
+# 中文样例会因此失败。统一按 UTF-8 环境对照，避免把平台默认编码
+# 差异误判成 fcomp 的行为差异。
+_ENV = {**os.environ, "PYTHONIOENCODING": "utf-8"}
 PYTHON = sys.executable
 NODE = shutil.which("node") or shutil.which("node.exe")
 GCC = shutil.which("gcc") or shutil.which("gcc.exe") or shutil.which("cc")
@@ -54,6 +59,7 @@ def _run(
         errors="replace",
         timeout=timeout,
         check=False,
+        env=_ENV,
     )
 
 
