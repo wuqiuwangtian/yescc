@@ -57,6 +57,7 @@ include = [
   "/src/fcomp",
   "/tests",
   "/docs",
+  "/bench",
   "/.github",
   "/LICENSE",
   "/README.md",
@@ -83,6 +84,7 @@ files = ["src"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-ra --strict-markers"
+markers = ["e2e: 端到端测试（需要真实工具链）"]
 
 [tool.coverage.run]
 source = ["fcomp"]

@@ -1,7 +1,6 @@
-"""退出码约定。
+"""错误类型与退出码。
 
-100 及以上由 fcomp 保留，避免与用户程序自身退出码冲突。
-契约见 docs/adr/0005-exit-codes-and-report-contract.md 与路线图 §6.5。
+契约见 docs/adr/0005-exit-codes-and-report-contract.md。
 """
 
 from __future__ import annotations
@@ -10,7 +9,7 @@ from enum import IntEnum
 
 
 class ExitCode(IntEnum):
-    """fcomp 自身退出码。"""
+    """fcomp 自身退出码；100 及以上为保留区间。"""
 
     OK = 0
     USAGE = 100
@@ -18,3 +17,31 @@ class ExitCode(IntEnum):
     BUILD_FAILED = 102
     BUDGET = 103
     INTERNAL = 104
+
+
+class FcompError(Exception):
+    """带退出码的可预期错误。"""
+
+    exit_code: ExitCode = ExitCode.INTERNAL
+
+    def __init__(self, message: str) -> None:
+        super().__init__(message)
+        self.message = message
+
+
+class UsageError(FcompError):
+    """命令行用法错误。"""
+
+    exit_code = ExitCode.USAGE
+
+
+class UnsupportedInput(FcompError):
+    """无法识别的语言或输入。"""
+
+    exit_code = ExitCode.UNSUPPORTED
+
+
+class ToolchainUnavailable(FcompError):
+    """对应语言的工具链不可用。"""
+
+    exit_code = ExitCode.UNSUPPORTED

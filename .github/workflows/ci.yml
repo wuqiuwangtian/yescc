@@ -30,9 +30,30 @@ jobs:
       - run: uv sync --extra dev --locked
       - run: uv run ruff check .
       - run: uv run mypy
-      - run: uv run pytest
+      - run: uv run pytest -m "not e2e"
       - name: CLI smoke test
         run: uv run fcomp --version
+
+  e2e:
+    name: e2e (${{ matrix.os }}, py${{ matrix.python }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python: ["3.11", "3.14"]
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.3.3
+        with:
+          python-version: ${{ matrix.python }}
+          enable-cache: true
+      - run: uv sync --extra dev --locked
+      - name: Verify toolchains
+        run: |
+          gcc --version
+          node --version
+      - run: uv run pytest -m e2e
 
   package:
     name: package smoke
