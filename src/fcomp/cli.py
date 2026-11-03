@@ -154,8 +154,26 @@ def parse(argv: Sequence[str]) -> ParsedCommand:
     return ParsedCommand(action="execute", invocation=invocation)
 
 
+def _configure_stdio() -> None:
+    """非交互式管道下固定 UTF-8。
+
+    Windows 的默认代码页会把中文转成 \\uXXXX 转义甚至直接抛 UnicodeEncodeError；
+    终端交互时保持原样，避免破坏控制台编码。
+    """
+    for stream in (sys.stdout, sys.stderr):
+        try:
+            if stream.isatty():
+                continue
+            reconfigure = getattr(stream, "reconfigure", None)
+            if reconfigure is not None:
+                reconfigure(encoding="utf-8", errors="replace")
+        except (AttributeError, ValueError, OSError):
+            continue
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     """程序入口：返回退出码。"""
+    _configure_stdio()
     args = list(sys.argv[1:] if argv is None else argv)
     try:
         parsed = parse(args)

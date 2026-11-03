@@ -67,7 +67,7 @@ def test_explain_without_report(tmp_path: Path) -> None:
 
 
 def test_broken_c_default_is_friendly(tmp_path: Path) -> None:
-    (tmp_path / "broken.c").write_text("int main(void) { return ; }\n", encoding="utf-8")
+    (tmp_path / "broken.c").write_text("int main(void) { return 0 }\n", encoding="utf-8")
     result = _run(["broken.c"], tmp_path)
     assert result.returncode == 102
     assert "构建未完成" in result.stderr
@@ -75,7 +75,7 @@ def test_broken_c_default_is_friendly(tmp_path: Path) -> None:
 
 
 def test_broken_c_strict_shows_toolchain_output(tmp_path: Path) -> None:
-    (tmp_path / "broken.c").write_text("int main(void) { return ; }\n", encoding="utf-8")
+    (tmp_path / "broken.c").write_text("int main(void) { return 0 }\n", encoding="utf-8")
     result = _run(["broken.c", "--strict"], tmp_path)
     assert result.returncode == 102
     assert "error" in result.stderr.lower()
