@@ -17,6 +17,18 @@ YesCC 是一个「永不扫兴」的 AI 编译器：正确代码原样编译；�
 
 > 开发代号曾为 `fcomp`；仓库、包名与命令已统一为 `yescc`。
 
+## 安装（alpha）
+
+TestPyPI 预览版，依赖仍从 PyPI 拉取：
+
+```bash
+pipx install --index-url https://test.pypi.org/simple/ \
+  --extra-index-url https://pypi.org/simple/ yescc==0.0.1a1
+yescc --version
+```
+
+也可以 `uv tool install` 或从源码运行（见下）。
+
 ## 快速开始
 
 需要 Python ≥3.11 与 [uv](https://docs.astral.sh/uv/)（尚未发布到 PyPI）：
