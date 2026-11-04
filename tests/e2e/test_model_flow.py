@@ -75,7 +75,7 @@ def test_model_generation(tmp_path: Path, fake_model: FakeModelServer) -> None:
     assert result.stdout == "hello\n"
     report = _report(tmp_path, "notes")
     assert report["result"]["status"] == "generated"
-    assert report["result"]["generated"]["source"] == ".yescc/notes/generated.c"
+    assert Path(report["result"]["generated"]["source"]) == Path(".yescc/notes/generated.c")
     assert report["model"]["calls"] == 1
 
 
