@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import importlib
 import os
 import platform
 import shutil
@@ -84,17 +85,22 @@ def _resource_limits(timeout_s: float) -> Callable[[], None] | None:
         return None
 
     def apply() -> None:
-        import resource
-
+        resource = importlib.import_module("resource")
+        setrlimit = getattr(resource, "setrlimit", None)
+        if setrlimit is None:
+            return
         cpu = int(timeout_s) + 1
         limits = [
-            (resource.RLIMIT_CPU, (cpu, cpu)),
-            (resource.RLIMIT_AS, (512 * 1024 * 1024, 512 * 1024 * 1024)),
-            (resource.RLIMIT_FSIZE, (10 * 1024 * 1024, 10 * 1024 * 1024)),
+            ("RLIMIT_CPU", (cpu, cpu)),
+            ("RLIMIT_AS", (512 * 1024 * 1024, 512 * 1024 * 1024)),
+            ("RLIMIT_FSIZE", (10 * 1024 * 1024, 10 * 1024 * 1024)),
         ]
-        for which, value in limits:
+        for name, value in limits:
+            which = getattr(resource, name, None)
+            if which is None:
+                continue
             try:
-                resource.setrlimit(which, value)
+                setrlimit(which, value)
             except (ValueError, OSError):
                 continue
 
