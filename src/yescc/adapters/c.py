@@ -58,7 +58,12 @@ class CAdapter:
     name = "c"
     extensions: tuple[str, ...] = (".c",)
 
+    def __init__(self) -> None:
+        self._cached: ToolchainInfo | None = None
+
     def toolchain(self) -> ToolchainInfo:
+        if self._cached is not None:
+            return self._cached
         executable = _find_gcc()
         version = "unknown"
         try:
@@ -67,7 +72,8 @@ class CAdapter:
                 version = probe.stdout.strip()
         except OSError:
             version = "unknown"
-        return ToolchainInfo(adapter=self.name, command=executable, version=version)
+        self._cached = ToolchainInfo(adapter=self.name, command=executable, version=version)
+        return self._cached
 
     def build(self, source: Path, passthrough: Sequence[str], cwd: Path) -> BuildResult:
         import time

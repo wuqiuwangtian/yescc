@@ -42,6 +42,6 @@ class UnsupportedInput(FcompError):
 
 
 class ToolchainUnavailable(FcompError):
-    """对应语言的工具链不可用。"""
+    """对应语言的工具链不可用：属于环境失败，不进入兜底。"""
 
-    exit_code = ExitCode.UNSUPPORTED
+    exit_code = ExitCode.BUILD_FAILED

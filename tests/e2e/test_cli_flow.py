@@ -66,12 +66,14 @@ def test_explain_without_report(tmp_path: Path) -> None:
     assert "没有找到报告" in result.stderr
 
 
-def test_broken_c_default_is_friendly(tmp_path: Path) -> None:
+def test_broken_c_falls_back_by_default(tmp_path: Path) -> None:
     (tmp_path / "broken.c").write_text("int main(void) { return 0 }\n", encoding="utf-8")
     result = _run(["broken.c"], tmp_path)
-    assert result.returncode == 102
-    assert "构建未完成" in result.stderr
-    assert "error" not in result.stderr.lower()
+    assert result.returncode == 0
+    assert "创意兜底" in result.stderr
+    report = json.loads((tmp_path / ".yescc" / "broken" / "report.json").read_text("utf-8"))
+    assert report["result"]["status"] == "creative_fallback"
+    assert report["result"]["fallback"]["kind"] == "print_input"
 
 
 def test_broken_c_strict_shows_toolchain_output(tmp_path: Path) -> None:
@@ -81,18 +83,27 @@ def test_broken_c_strict_shows_toolchain_output(tmp_path: Path) -> None:
     assert "error" in result.stderr.lower()
 
 
-def test_report_records_failure(tmp_path: Path) -> None:
+def test_no_fallback_records_failure(tmp_path: Path) -> None:
     (tmp_path / "broken.py").write_text("def broken(:\n", encoding="utf-8")
-    result = _run(["broken.py"], tmp_path)
+    result = _run(["broken.py", "--no-fallback"], tmp_path)
     assert result.returncode == 102
     report = json.loads((tmp_path / ".yescc" / "broken" / "report.json").read_text("utf-8"))
     assert report["result"]["status"] == "native_failed"
     assert report["attempts"][0]["exit_code"] != 0
 
 
-def test_unsupported_extension(tmp_path: Path) -> None:
+def test_unknown_text_falls_back(tmp_path: Path) -> None:
     (tmp_path / "notes.txt").write_text("hello\n", encoding="utf-8")
-    result = _run(["notes.txt"], tmp_path)
+    result = _run(["run", "notes.txt"], tmp_path)
+    assert result.returncode == 0
+    assert result.stdout == "hello\n"
+    report = json.loads((tmp_path / ".yescc" / "notes" / "report.json").read_text("utf-8"))
+    assert report["result"]["status"] == "creative_fallback"
+
+
+def test_unsupported_extension_with_strict(tmp_path: Path) -> None:
+    (tmp_path / "notes.txt").write_text("hello\n", encoding="utf-8")
+    result = _run(["notes.txt", "--strict"], tmp_path)
     assert result.returncode == 101
     assert "无法从扩展名识别" in result.stderr
 
@@ -120,6 +131,15 @@ def test_run_mode_json_rejected(tmp_path: Path) -> None:
     (tmp_path / "hello.py").write_text("print('hi')\n", encoding="utf-8")
     result = _run(["run", "hello.py", "--json"], tmp_path)
     assert result.returncode == 100
+
+
+def test_broken_python_falls_back(tmp_path: Path) -> None:
+    (tmp_path / "broken.py").write_text("def broken(:\n", encoding="utf-8")
+    result = _run(["run", "broken.py"], tmp_path)
+    assert result.returncode == 0
+    assert "def broken(:" in result.stdout
+    report = json.loads((tmp_path / ".yescc" / "broken" / "report.json").read_text("utf-8"))
+    assert report["result"]["status"] == "creative_fallback"
 
 
 def test_run_mode_passes_program_exit_code(tmp_path: Path) -> None:

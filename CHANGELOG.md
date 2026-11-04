@@ -4,6 +4,14 @@
 
 ## [Unreleased]
 
+### Added
+
+- M2 确定性修复：Tree-sitter 容错解析；全角标点、缺失括号/引号、常见拼写规则；候选交真实 gcc 验证。
+- 确定性创意兜底：打印原始输入，已知文化梗走本地映射；`--no-fallback` 可关闭。
+- 结果状态机：`native_ok / repaired / creative_fallback / failed`；兜底在 stderr 明示。
+- `--play` 强制娱乐解释；`--explain` 展示修复规则与兜底来源。
+- 53 例受控低级错误样本与回归测试。
+
 ### Changed
 
 - 项目更名为 YesCC：仓库、包名、模块与命令统一为 `yescc`；版本回到 `0.0.1.dev0`。

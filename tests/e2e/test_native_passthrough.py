@@ -103,7 +103,7 @@ def test_legal_case_matches_native(case: LegalCase, tmp_path: Path) -> None:
     report = json.loads(report_file.read_text(encoding="utf-8"))
     assert report["privacy"]["cloud_used"] is False
     assert all(attempt["kind"] == "native" for attempt in report["attempts"])
-    assert report["result"]["status"] == "ran"
+    assert report["result"]["status"] == "native_ok"
 
 
 _C_CASES = [case for case in CASES if case.lang == "c"]

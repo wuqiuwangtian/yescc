@@ -67,3 +67,25 @@ def test_double_dash_in_build_mode() -> None:
 def test_explain_requires_build_mode() -> None:
     with pytest.raises(UsageError):
         parse(["run", "a.py", "--explain"])
+
+
+def test_fallback_flags() -> None:
+    assert parse(["a.c", "--no-fallback"]).invocation.no_fallback is True
+    assert parse(["a.c", "--play"]).invocation.play is True
+
+
+def test_play_conflicts_with_strict() -> None:
+    with pytest.raises(UsageError):
+        parse(["a.c", "--play", "--strict"])
+
+
+def test_play_conflicts_with_no_fallback() -> None:
+    with pytest.raises(UsageError):
+        parse(["a.c", "--play", "--no-fallback"])
+
+
+def test_play_allowed_in_run_mode() -> None:
+    parsed = parse(["run", "notes.txt", "--play", "--", "arg"])
+    assert parsed.invocation.mode == "run"
+    assert parsed.invocation.play is True
+    assert parsed.invocation.run_args == ["arg"]

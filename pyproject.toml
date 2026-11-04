@@ -29,6 +29,8 @@ classifiers = [
 dependencies = [
   "httpx>=0.27",
   "platformdirs>=4.2",
+  "tree-sitter>=0.25",
+  "tree-sitter-c>=0.24",
 ]
 
 [project.optional-dependencies]

@@ -61,4 +61,18 @@ def summarize(payload: dict[str, Any]) -> str:
         lines.append(f"产物：{artifact}")
     if result.get("program_exit") is not None:
         lines.append(f"程序退出码：{result['program_exit']}")
+    repair = result.get("repair")
+    if isinstance(repair, dict):
+        lines.append(f"修复规则：{', '.join(repair.get('rules', [])) or '无'}")
+        lines.append(f"改动字符：{repair.get('changed', 0)}")
+        patched = repair.get("patched_source")
+        if patched:
+            lines.append(f"修复后源码：{patched}")
+    fallback = result.get("fallback")
+    if isinstance(fallback, dict):
+        lines.append(f"兜底类型：{fallback.get('kind', 'unknown')}")
+        lines.append(f"兜底原因：{fallback.get('reason', '')}")
+        source = fallback.get("source")
+        if source:
+            lines.append(f"兜底源码：{source}")
     return "\n".join(lines)

@@ -12,7 +12,7 @@ from yescc import __version__
 from yescc.errors import FcompError, UsageError
 from yescc.pipeline import Invocation, execute, explain
 
-_HELP = """包容你的编译器（yescc）
+_HELP = """YesCC（Yes Compiler Collection）
 
 用法：
   yescc <文件> [工具链参数...]        构建（类似 gcc）
@@ -21,8 +21,10 @@ _HELP = """包容你的编译器（yescc）
 
 选项：
       --lang <语言>   指定语言：python | c | javascript
-      --strict        原生模式：显示原始诊断；M3 起同时关闭 AI 与兜底
+      --strict        原生模式：关闭修复与兜底，显示原始诊断
       --json          以 JSON 输出报告（仅构建模式）
+      --no-fallback   不生成创意兜底；失败时返回 102
+      --play          强制创意兜底（跳过原生与规则）
       --no-cache      禁用缓存（预留，M3 生效）
   -h, --help          显示帮助
       --version       显示版本
@@ -102,6 +104,14 @@ def parse(argv: Sequence[str]) -> ParsedCommand:
             invocation.no_cache = True
             index += 1
             continue
+        if arg == "--no-fallback":
+            invocation.no_fallback = True
+            index += 1
+            continue
+        if arg == "--play":
+            invocation.play = True
+            index += 1
+            continue
         if arg == "--explain":
             invocation.explain = True
             index += 1
@@ -144,6 +154,11 @@ def parse(argv: Sequence[str]) -> ParsedCommand:
         if mode == "run":
             raise UsageError("--explain 只用于构建模式。")
         return ParsedCommand(action="explain", invocation=invocation)
+
+    if invocation.play and invocation.strict:
+        raise UsageError("--play 与 --strict 不能同时使用。")
+    if invocation.play and invocation.no_fallback:
+        raise UsageError("--play 与 --no-fallback 不能同时使用。")
 
     if invocation.json_output and mode == "run":
         raise UsageError("run 模式下 --json 不可用：程序本身拥有 stdout。")

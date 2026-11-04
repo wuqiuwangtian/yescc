@@ -11,7 +11,7 @@ YesCC 是一个「永不扫兴」的 AI 编译器：正确代码原样编译；�
 
 ## 当前状态
 
-**M1.5 已完成**：改名、TTY 状态行与 TestPyPI 演练通过；三语言原生直通、报告与退出码可用。容错修复、模型修复与创意兜底在 M2/M3。
+**M2 已完成**：三语言原生直通、C 规则修复、确定性兜底与状态机可用；模型修复与自然语言生成在 M3。
 
 首版范围：C 为 AI 修复/生成目标；Python / C / JavaScript 保留原生直通；MIT 许可，PyPI + 独立二进制发布。长期目标「所有语言」与「编辑器插件」不变。进度见[路线图](docs/项目路线图与发布计划.md)。
 
@@ -25,6 +25,8 @@ YesCC 是一个「永不扫兴」的 AI 编译器：正确代码原样编译；�
 uv sync --extra dev
 uv run yescc hello.c -o hello       # 构建，参数透传给 gcc
 uv run yescc run hello.c            # 构建后运行
+uv run yescc broken.c -o fixed      # 规则修复（不覆盖源文件）
+uv run yescc idea.txt               # 无法识别时走确定性兜底
 uv run yescc hello.c --explain      # 查看最近一次报告
 ```
 
