@@ -89,3 +89,9 @@ def test_play_allowed_in_run_mode() -> None:
     assert parsed.invocation.mode == "run"
     assert parsed.invocation.play is True
     assert parsed.invocation.run_args == ["arg"]
+
+
+@pytest.mark.parametrize("value", ["nan", "inf", "-inf", "0", "-1"])
+def test_budget_requires_finite_positive_value(value: str) -> None:
+    with pytest.raises(UsageError):
+        parse(["main.c", "--budget", value])

@@ -18,6 +18,7 @@ class Completion:
     completion_tokens: int
     cost_usd: float
     duration_ms: int
+    usage_known: bool = True
 
 
 class ModelError(Exception):

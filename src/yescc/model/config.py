@@ -2,8 +2,11 @@
 
 from __future__ import annotations
 
+import ipaddress
+import math
 import os
 from dataclasses import dataclass
+from urllib.parse import urlsplit
 
 DEFAULT_BASE_URLS: dict[str, str] = {
     "deepseek": "https://api.deepseek.com/v1",
@@ -26,13 +29,19 @@ class ModelSettings:
     base_url: str
     model: str
     api_key: str | None
-    input_price_per_mtok: float
-    output_price_per_mtok: float
+    input_price_per_mtok: float | None
+    output_price_per_mtok: float | None
     timeout_s: float
 
     @property
     def is_local(self) -> bool:
-        return self.base_url.startswith(("http://localhost", "http://127.0.0.1", "http://[::1]"))
+        host = urlsplit(self.base_url).hostname
+        if host == "localhost":
+            return True
+        try:
+            return ipaddress.ip_address(host or "").is_loopback
+        except ValueError:
+            return False
 
 
 def _env(*names: str) -> str | None:
@@ -48,9 +57,19 @@ def _float_env(name: str, default: float) -> float:
     if not raw:
         return default
     try:
-        return float(raw)
+        value = float(raw)
+        return value if math.isfinite(value) and value > 0 else default
     except ValueError:
         return default
+
+
+def _price_env(tier_name: str, common_name: str) -> float | None:
+    raw = _env(tier_name, common_name)
+    try:
+        value = float(raw) if raw is not None else None
+    except ValueError:
+        return None
+    return value if value is not None and math.isfinite(value) and value >= 0 else None
 
 
 def load_settings(
@@ -71,12 +90,14 @@ def load_settings(
     ).lower()
 
     base_url = (
-        _env(prefix + "BASE_URL", legacy + "BASE_URL")
+        (DEFAULT_BASE_URLS.get(provider) if provider_override else None)
+        or _env(prefix + "BASE_URL", legacy + "BASE_URL")
         or (tier == "l3" and _env("YESCC_MODEL_BASE_URL", "FCOMP_MODEL_BASE_URL"))
         or DEFAULT_BASE_URLS.get(provider)
     )
     model = (
         model_override
+        or (DEFAULT_MODELS.get(provider) if provider_override else None)
         or _env(prefix + "NAME", prefix + "MODEL", legacy + "NAME", legacy + "MODEL")
         or (tier == "l3" and _env("YESCC_MODEL_NAME", "FCOMP_MODEL_NAME"))
         or DEFAULT_MODELS.get(provider)
@@ -90,23 +111,19 @@ def load_settings(
 
     if not base_url or not model:
         return None
-    if not api_key and not base_url.startswith(
-        ("http://localhost", "http://127.0.0.1", "http://[::1]")
-    ):
-        return None
-
-    return ModelSettings(
+    settings = ModelSettings(
         provider=provider,
         base_url=base_url.rstrip("/"),
         model=model,
         api_key=api_key,
-        input_price_per_mtok=_float_env(
+        input_price_per_mtok=_price_env(
             prefix + "INPUT_PRICE_PER_MTOK",
-            _float_env("YESCC_MODEL_INPUT_PRICE_PER_MTOK", 0.0),
+            "YESCC_MODEL_INPUT_PRICE_PER_MTOK",
         ),
-        output_price_per_mtok=_float_env(
+        output_price_per_mtok=_price_env(
             prefix + "OUTPUT_PRICE_PER_MTOK",
-            _float_env("YESCC_MODEL_OUTPUT_PRICE_PER_MTOK", 0.0),
+            "YESCC_MODEL_OUTPUT_PRICE_PER_MTOK",
         ),
         timeout_s=_float_env(prefix + "TIMEOUT_S", 60.0),
     )
+    return settings if api_key or settings.is_local else None

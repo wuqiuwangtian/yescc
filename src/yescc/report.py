@@ -83,10 +83,11 @@ def summarize(payload: dict[str, Any]) -> str:
             lines.append(f"输入输出约定：{contract}")
     model = payload.get("model")
     if isinstance(model, dict) and model.get("calls"):
+        cost = f"${model.get('cost_usd', 0)}" if model.get("cost_known", True) else "费用未知"
         lines.append(
             f"模型：{model.get('provider')}/{model.get('name')}（{model.get('tier')}，"
             f"{model.get('calls')} 次，{model.get('prompt_tokens', 0)}+"
-            f"{model.get('completion_tokens', 0)} tokens，${model.get('cost_usd', 0)}）"
+            f"{model.get('completion_tokens', 0)} tokens，{cost}）"
         )
     assumptions = result.get("repair") or {}
     if isinstance(assumptions, dict):

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import math
 import sys
 from collections.abc import Sequence
 from dataclasses import dataclass
@@ -25,7 +26,7 @@ _HELP = """YesCC（Yes Compiler Collection）
       --json          以 JSON 输出报告（仅构建模式）
       --no-fallback   不生成创意兜底；失败时返回 102
       --play          强制创意解释（跳过原生与规则）
-      --offline       禁止任何网络请求，模型路径降级
+      --offline       不发模型请求，模型路径降级
       --budget <USD>  单任务模型费用上限（默认 0.05）
       --max-rounds N  单任务最多模型调用轮数（默认 2）
       --provider NAME 覆盖模型供应商（deepseek/openai/ollama/...）
@@ -142,7 +143,7 @@ def parse(argv: Sequence[str]) -> ParsedCommand:
                 invocation.budget_usd = float(value)
             except ValueError as exc:
                 raise UsageError("--budget 需要一个数字（美元）。") from exc
-            if invocation.budget_usd <= 0:
+            if not math.isfinite(invocation.budget_usd) or invocation.budget_usd <= 0:
                 raise UsageError("--budget 必须大于 0。")
             continue
         if arg == "--max-rounds":

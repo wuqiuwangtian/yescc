@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import difflib
 import json
 import subprocess
 import sys
@@ -168,3 +169,42 @@ def test_trace_and_emit_source(tmp_path: Path, fake_model: FakeModelServer) -> N
     assert result.returncode == 0
     assert "int main(void)" in result.stdout
     assert "yescc: trace" in result.stderr
+    report = _report(tmp_path, "notes")
+    assert report["privacy"]["cloud_used"] is False
+    assert report["privacy"]["uploaded_bytes"] == 0
+    assert report["limits"]["sandboxed"] is False
+
+
+def test_l2_compile_failure_upgrades_to_l3(tmp_path: Path, fake_model: FakeModelServer) -> None:
+    invalid_source = '#include <stdio.h>\nint main(void) { puts("hi"); return missing; }\n'
+    invalid_diff = "".join(difflib.unified_diff(
+        BROKEN_C.splitlines(keepends=True), invalid_source.splitlines(keepends=True),
+        fromfile="main.c", tofile="main.c",
+    ))
+    fake_model.responses.extend([
+        {"diff": invalid_diff}, {"diff": REPAIR_DIFF}, {"diff": invalid_diff}
+    ])
+    (tmp_path / "main.c").write_text(BROKEN_C, encoding="utf-8")
+    result = _run(["run", "main.c"], tmp_path)
+    assert result.returncode == 0, result.stderr
+    assert result.stdout == "hi\n"
+    assert [request["model"] for request in fake_model.requests] == ["fake-l2", "fake-l3"]
+    report = _report(tmp_path, "main")
+    model_builds = [attempt for attempt in report["attempts"] if attempt["kind"] == "model"]
+    assert model_builds[0]["exit_code"] != 0
+    assert model_builds[1]["exit_code"] == 0
+    again = _run(["run", "main.c"], tmp_path)
+    assert again.returncode == 0 and again.stdout == "hi\n"
+    assert len(fake_model.requests) == 3, "编译失败的 L2 候选应被失效，L3 成功候选可复用"
+
+
+def test_budget_block_without_fallback_returns_103(
+    tmp_path: Path, fake_model: FakeModelServer
+) -> None:
+    (tmp_path / "main.c").write_text(BROKEN_C, encoding="utf-8")
+    result = _run(["main.c", "--no-fallback", "--budget", "0.0000001", "--json"], tmp_path)
+    assert result.returncode == 103
+    assert not fake_model.requests
+    report = json.loads(result.stdout)
+    assert report["result"]["status"] == "failed"
+    assert report["budget"]["blocked_reason"]

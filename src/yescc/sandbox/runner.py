@@ -3,12 +3,15 @@
 from __future__ import annotations
 
 import importlib
+import math
 import os
 import platform
 import shutil
+import signal
 import subprocess
 import tempfile
 from collections.abc import Callable
+from contextlib import suppress
 from dataclasses import dataclass
 from functools import lru_cache
 from pathlib import Path
@@ -46,7 +49,8 @@ def default_timeout() -> float:
     if not raw:
         return DEFAULT_TIMEOUT_S
     try:
-        return max(float(raw), 0.1)
+        value = float(raw)
+        return max(value, 0.1) if math.isfinite(value) else DEFAULT_TIMEOUT_S
     except ValueError:
         return DEFAULT_TIMEOUT_S
 
@@ -111,34 +115,56 @@ def _run_once(
     command: list[str],
     *,
     cwd: Path,
-    env: dict[str, str],
+    env: dict[str, str] | None,
     timeout_s: float,
     preexec: Callable[[], None] | None,
 ) -> SandboxOutcome:
+    process = subprocess.Popen(
+        command,
+        cwd=str(cwd),
+        env=env,
+        preexec_fn=preexec,
+        start_new_session=os.name == "posix",
+        creationflags=getattr(subprocess, "CREATE_NEW_PROCESS_GROUP", 0) if os.name == "nt" else 0,
+    )
+    timed_out = False
     try:
-        completed = subprocess.run(
-            command,
-            cwd=str(cwd),
-            env=env,
-            timeout=timeout_s,
-            check=False,
-            preexec_fn=preexec,
-        )
+        returncode = process.wait(timeout=timeout_s)
     except subprocess.TimeoutExpired:
-        return SandboxOutcome(
-            exit_code=124,
-            timed_out=True,
-            sandboxed=True,
-            network_isolated=False,
-            timeout_s=timeout_s,
-        )
+        timed_out = True
+        returncode = 124
+    except KeyboardInterrupt:
+        returncode = 130
+    finally:
+        _stop_process_tree(process)
     return SandboxOutcome(
-        exit_code=completed.returncode,
-        timed_out=False,
+        exit_code=returncode,
+        timed_out=timed_out,
         sandboxed=True,
         network_isolated=False,
         timeout_s=timeout_s,
     )
+
+
+def _stop_process_tree(process: subprocess.Popen[bytes]) -> None:
+    """清理独立进程组；Windows 通过 taskkill 尽力终止仍挂在根进程下的子树。"""
+    if os.name == "posix":
+        killpg = getattr(os, "killpg", None)
+        if killpg is not None:
+            with suppress(ProcessLookupError):
+                killpg(process.pid, getattr(signal, "SIGKILL", 9))
+    elif process.poll() is None:
+        with suppress(OSError, subprocess.SubprocessError):
+            subprocess.run(
+                ["taskkill", "/PID", str(process.pid), "/T", "/F"],
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+                timeout=5,
+                check=False,
+            )
+    if process.poll() is None:
+        process.kill()
+    process.wait()
 
 
 def run_ai_command(
@@ -151,16 +177,8 @@ def run_ai_command(
     """运行 AI 产物。默认在临时目录中执行，`unsafe=True` 时在真实 cwd 执行。"""
     timeout = timeout_s if timeout_s is not None else default_timeout()
     if unsafe:
-        try:
-            completed = subprocess.run(
-                command,
-                cwd=str(cwd),
-                timeout=timeout,
-                check=False,
-            )
-        except subprocess.TimeoutExpired:
-            return SandboxOutcome(124, True, False, False, timeout)
-        return SandboxOutcome(completed.returncode, False, False, False, timeout)
+        outcome = _run_once(command, cwd=cwd, env=None, timeout_s=timeout, preexec=None)
+        return SandboxOutcome(outcome.exit_code, outcome.timed_out, False, False, timeout)
 
     network = _network_isolation_supported()
     full_command = (["unshare", "-n", "--", *command]) if network else command

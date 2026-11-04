@@ -21,7 +21,6 @@ EXE = ".exe" if os.name == "nt" else ""
 # CI 的管道不是控制台：Windows 上 Python 默认会用 cp1252 输出，
 # 中文样例会因此失败。统一按 UTF-8 环境对照，避免把平台默认编码
 # 差异误判成 yescc 的行为差异。
-_ENV = {**os.environ, "PYTHONIOENCODING": "utf-8"}
 PYTHON = sys.executable
 NODE = shutil.which("node") or shutil.which("node.exe")
 GCC = shutil.which("gcc") or shutil.which("gcc.exe") or shutil.which("cc")
@@ -59,7 +58,7 @@ def _run(
         errors="replace",
         timeout=timeout,
         check=False,
-        env=_ENV,
+        env={**os.environ, "PYTHONIOENCODING": "utf-8"},
     )
 
 
@@ -130,3 +129,47 @@ def test_c_build_mode_matches_gcc(case: LegalCase, tmp_path: Path) -> None:
     actual = _run([str(yescc_dir / output_name)], yescc_dir)
     assert actual.stdout == expected.stdout
     assert actual.returncode == expected.returncode
+
+
+@pytest.mark.parametrize("strict", [False, True])
+@pytest.mark.parametrize("flag", ["-E", "-M", "-Wall"])
+def test_native_build_preserves_stdout_and_warnings(
+    tmp_path: Path, strict: bool, flag: str
+) -> None:
+    if GCC is None:
+        pytest.skip("gcc 不可用")
+    source = tmp_path / "main.c"
+    source.write_text(
+        '#warning expected warning\nint main(void) { return 0; }\n' + "int v;\n" * 2000,
+        encoding="utf-8",
+    )
+    expected = _run([GCC, str(source), flag], tmp_path)
+    args = [PYTHON, "-m", "yescc", str(source), flag, "--offline"]
+    actual = _run([*args, "--strict"] if strict else args, tmp_path)
+    assert actual.returncode == expected.returncode == 0
+    assert actual.stdout == expected.stdout
+    assert actual.stderr == expected.stderr
+
+
+def test_strict_failure_forwards_full_diagnostics(tmp_path: Path) -> None:
+    if GCC is None:
+        pytest.skip("gcc 不可用")
+    source = tmp_path / "main.c"
+    source.write_text("\n".join(f"int v{i} = ;" for i in range(100)), encoding="utf-8")
+    expected = _run([GCC, str(source)], tmp_path)
+    actual = _run([PYTHON, "-m", "yescc", str(source), "--strict"], tmp_path)
+    assert len(expected.stderr) > 4000
+    assert actual.returncode == 102
+    assert actual.stderr == expected.stderr
+    assert actual.stdout == expected.stdout
+
+
+def test_json_mode_keeps_compiler_stdout_in_report(tmp_path: Path) -> None:
+    if GCC is None:
+        pytest.skip("gcc 不可用")
+    source = tmp_path / "main.c"
+    source.write_text("int main(void) { return 0; }\n", encoding="utf-8")
+    result = _run([PYTHON, "-m", "yescc", str(source), "-E", "--json"], tmp_path)
+    assert result.returncode == 0
+    report = json.loads(result.stdout)
+    assert "int main(void)" in report["attempts"][0]["stdout"]

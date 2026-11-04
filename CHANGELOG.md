@@ -4,6 +4,20 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- 限制包含缓存的模型候选尝试，清除无效补丁/编译失败候选缓存，避免循环不退出；缓存键补入工具链信息，重试反馈统一随机构建路径以支持稳定命中。
+- 模型请求前保守估算并预留费用，按剩余额度限制输出 token；失败请求也计数，缺云端价格时阻止上传，缺 usage 时保留预留并标记费用未知。
+- L2 修复失败后升级 L3；显式模型/供应商覆盖不再被 L2 路由绕过；本地端点按 hostname 判断。
+- 转发原生构建 stdout/stderr，包括 `gcc -E/-M` 和完整 strict 失败诊断，JSON 模式仍输出单一报告。
+- POSIX 通过独立进程组清理超时、中断和正常父进程退出后的子进程；Windows 增加 `taskkill /T` 尽力清理。
+- 修正报告中的云端使用、上传内容字节数和实际沙箱运行状态；费用未知时摘要与评测脚本不再显示为免费。
+- 增加协作入口 `AGENTS.md`、ADR-0015 与路线图接续信息；配置文档区分已实现的环境变量和未实现的 TOML。
+
+## [0.0.1-alpha] - 2026-11-04
+
+首个公开预览，TestPyPI `0.0.1a2`：[Release](https://github.com/wuqiuwangtian/yescc/releases/tag/v0.0.1-alpha)。以下为该版本已有能力；上方修复尚未发布。
+
 ### Added
 
 - M2 确定性修复：Tree-sitter 容错解析；全角标点、缺失括号/引号、常见拼写规则；候选交真实 gcc 验证。
@@ -43,10 +57,6 @@
 - CI：Linux/Windows × Python 3.11–3.14 的 lint、类型检查、测试与打包冒烟。
 - ADR-0001 至 ADR-0007：首版语言范围、友好终止、实现语言、模型策略、退出码与报告契约、隔离边界、PyPI 分发。
 - 路线图：[docs/项目路线图与发布计划.md](docs/项目路线图与发布计划.md)。
-
-## [0.0.1-alpha] - 2026-11-04
-
-首个公开预览，TestPyPI `0.0.1a2`：[Release](https://github.com/wuqiuwangtian/yescc/releases/tag/v0.0.1-alpha)。
 
 ## [0.1.0] - 未发布
 

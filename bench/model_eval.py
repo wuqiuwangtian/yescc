@@ -133,7 +133,7 @@ def run_case(case: Case, directory: Path) -> dict[str, object]:
         "wall_ms": wall_ms,
         "calls": model.get("calls", 0),
         "tokens": int(model.get("prompt_tokens", 0)) + int(model.get("completion_tokens", 0)),
-        "cost": float(model.get("cost_usd", 0.0)),
+        "cost": float(model.get("cost_usd", 0.0)) if model.get("cost_known", True) else None,
         "stdout": completed.stdout[:80],
     }
 
@@ -151,15 +151,18 @@ def main() -> int:
     print("| 用例 | 类型 | 结果 | 状态 | 墙钟 ms | 调用 | tokens | 费用 USD |")
     print("| --- | --- | --- | --- | --- | --- | --- | --- |")
     for item in results:
+        cost = f"{float(item['cost']):.6f}" if item["cost"] is not None else "未知"
         print(
             f"| {item['name']} | {item['kind']} | {'PASS' if item['passed'] else 'FAIL'} | "
             f"{item['status']} | {item['wall_ms']} | {item['calls']} | {item['tokens']} | "
-            f"{float(item['cost']):.6f} |"
+            f"{cost} |"
         )
     passed = sum(1 for item in results if item["passed"])
-    total_cost = sum(float(item["cost"]) for item in results)
+    total_cost = sum(float(item["cost"]) for item in results if item["cost"] is not None)
+    unknown_costs = sum(item["cost"] is None for item in results)
     print(
-        f"\n通过 {passed}/{len(results)}；总费用 ${total_cost:.6f}；"
+        f"\n通过 {passed}/{len(results)}；已知费用小计 ${total_cost:.6f}"
+        f"（{unknown_costs} 例费用未知）；"
         f"总 tokens {sum(int(item['tokens']) for item in results)}"
     )
     return 0 if passed == len(results) else 1

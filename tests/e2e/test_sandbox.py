@@ -3,13 +3,17 @@
 from __future__ import annotations
 
 import json
+import os
+import signal
 import subprocess
 import sys
+import time
 from pathlib import Path
 
 import pytest
 
 from tests.conftest import FakeModelServer
+from yescc.sandbox import run_ai_command
 
 pytestmark = pytest.mark.e2e
 
@@ -91,3 +95,66 @@ def test_sandbox_timeout(
     report = _report(tmp_path, "notes")
     assert report["result"]["timed_out"] is True
     assert report["limits"]["timeout_s"] == 1.0
+
+
+@pytest.mark.parametrize("unsafe", [False, True])
+def test_timeout_kills_child_processes(tmp_path: Path, unsafe: bool) -> None:
+    leaked = tmp_path / "leaked.txt"
+    ready = tmp_path / "ready"
+    child = f"import time; time.sleep(2); open({str(leaked)!r}, 'w').write('leaked')"
+    parent = (
+        "import subprocess,sys,time; "
+        f"subprocess.Popen([sys.executable, '-c', {child!r}]); "
+        f"open({str(ready)!r}, 'w').write('ready'); time.sleep(60)"
+    )
+    outcome = run_ai_command(
+        [PYTHON, "-c", parent], unsafe=unsafe, cwd=tmp_path, timeout_s=1
+    )
+    assert outcome.timed_out is True
+    assert outcome.exit_code == 124
+    assert ready.exists(), "父进程必须已创建子进程，否则未验证清理行为"
+    time.sleep(2.1)
+    assert not leaked.exists(), "超时后子进程仍然执行了写文件操作"
+
+
+@pytest.mark.skipif(os.name != "posix", reason="POSIX 信号与独立进程组")
+def test_interrupt_cleans_process_group(tmp_path: Path) -> None:
+    ready = tmp_path / "ready"
+    leaked = tmp_path / "leaked"
+    child = f"import time; time.sleep(1.5); open({str(leaked)!r}, 'w').write('leaked')"
+    parent = (
+        "import subprocess,sys,time; "
+        f"subprocess.Popen([sys.executable, '-c', {child!r}]); "
+        f"open({str(ready)!r}, 'w').write('ready'); time.sleep(60)"
+    )
+    wrapper = (
+        "import sys; from pathlib import Path; from yescc.sandbox import run_ai_command; "
+        f"outcome=run_ai_command([sys.executable, '-c', {parent!r}], "
+        f"unsafe=False, cwd=Path({str(tmp_path)!r}), timeout_s=30); "
+        "sys.exit(outcome.exit_code)"
+    )
+    process = subprocess.Popen([PYTHON, "-c", wrapper])
+    try:
+        deadline = time.monotonic() + 5
+        while not ready.exists() and time.monotonic() < deadline:
+            time.sleep(0.02)
+        assert ready.exists()
+        process.send_signal(signal.SIGINT)
+        assert process.wait(timeout=5) == 130
+    finally:
+        if process.poll() is None:
+            process.kill()
+        process.wait()
+    time.sleep(1.6)
+    assert not leaked.exists(), "取消任务后子进程仍然执行了写文件操作"
+
+
+@pytest.mark.skipif(os.name != "posix", reason="POSIX 进程组可清理已退出父进程的后代")
+def test_normal_parent_exit_cleans_remaining_children(tmp_path: Path) -> None:
+    leaked = tmp_path / "leaked"
+    child = f"import time; time.sleep(0.5); open({str(leaked)!r}, 'w').write('leaked')"
+    parent = f"import subprocess,sys; subprocess.Popen([sys.executable, '-c', {child!r}])"
+    outcome = run_ai_command([PYTHON, "-c", parent], unsafe=False, cwd=tmp_path)
+    assert outcome.exit_code == 0
+    time.sleep(0.6)
+    assert not leaked.exists()

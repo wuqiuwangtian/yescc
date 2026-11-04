@@ -18,5 +18,6 @@
 | [0012](0012-model-tiers-and-providers.md) | 模型分级与供应商 | 已接受 |
 | [0013](0013-sandbox-and-run-semantics.md) | 沙箱与运行语义 | 已接受 |
 | [0014](0014-tolerant-parsing-and-rule-repair.md) | 容错解析与规则修复 | 已接受 |
+| [0015](0015-alpha-reliability-contracts.md) | Alpha 可靠性修补契约 | 已实施 |
 
 相关文档：[路线图](../项目路线图与发布计划.md)、[需求报告](../初版需求报告.md)、[技术参考](../技术参考与验证计划.md)。

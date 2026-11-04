@@ -35,3 +35,12 @@ def test_load_corrupt_report(tmp_path: Path) -> None:
     path = tmp_path / "report.json"
     path.write_text("{not json", encoding="utf-8")
     assert load_report(path) is None
+
+
+def test_summary_does_not_present_unknown_cost_as_free() -> None:
+    summary = summarize({
+        "model": {"calls": 1, "cost_usd": 0, "cost_known": False},
+        "result": {"status": "generated"},
+    })
+    assert "费用未知" in summary
+    assert "$0" not in summary
