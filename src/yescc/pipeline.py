@@ -1,7 +1,4 @@
-"""执行流水线：原生直通、规则修复、确定性兜底与报告。
-
-M2 只做确定性路径；模型修复与创意生成在 M3。
-"""
+"""执行流水线：原生直通、规则修复、模型修复/生成与创意兜底。"""
 
 from __future__ import annotations
 
@@ -16,6 +13,7 @@ from typing import Literal
 
 from yescc import __version__
 from yescc.adapters import BuildResult, detect_language, get_adapter
+from yescc.adapters.base import LanguageAdapter
 from yescc.errors import (
     ExitCode,
     ToolchainUnavailable,
@@ -25,6 +23,12 @@ from yescc.errors import (
 from yescc.fallback import fallback_output, generate_c_program
 from yescc.fix import parse_c
 from yescc.fix.engine import attempt_repair, build_in_temp
+from yescc.model import (
+    BudgetExceeded,
+    ModelError,
+    ModelSession,
+    ModelStats,
+)
 from yescc.report import SCHEMA_VERSION, load_report, report_path, summarize, write_report
 from yescc.util import (
     display_path,
@@ -50,6 +54,30 @@ _ENVIRONMENT_FAILURE = re.compile(
 
 _NON_EXECUTABLE_SUFFIXES = {".o", ".obj", ".s", ".asm", ".a", ".lib"}
 
+_SPEC_HINTS = (
+    "写",
+    "实现",
+    "计算",
+    "输出",
+    "输入",
+    "程序",
+    "函数",
+    "排序",
+    "最大",
+    "最小",
+    "统计",
+    "读取",
+    "生成",
+    "game",
+    "program",
+    "write",
+    "calculate",
+    "print",
+    "input",
+    "read",
+    "sort",
+)
+
 
 @dataclass
 class Invocation:
@@ -66,6 +94,35 @@ class Invocation:
     explain: bool = False
     no_fallback: bool = False
     play: bool = False
+    offline: bool = False
+    budget_usd: float = 0.05
+    max_rounds: int = 2
+    provider: str | None = None
+    model: str | None = None
+    emit_source: bool = False
+    trace: bool = False
+
+
+@dataclass
+class Context:
+    """一次任务的共享状态。"""
+
+    argv: list[str]
+    invocation: Invocation
+    source: Path
+    size: int
+    encoding: str
+    text: str
+    cwd: Path
+    started: float
+    attempts: list[dict[str, object]] = field(default_factory=list)
+    diagnostics: list[dict[str, object]] = field(default_factory=list)
+    syntax_errors: list[dict[str, object]] = field(default_factory=list)
+    toolchain: dict[str, str] = field(
+        default_factory=lambda: {"adapter": "unknown", "command": "", "version": ""}
+    )
+    language: str | None = None
+    session: ModelSession | None = None
 
 
 def _validate_source(source: Path | None) -> Path:
@@ -130,6 +187,12 @@ def _as_list_len(value: object) -> int:
     return len(value) if isinstance(value, list) else 0
 
 
+def _changed_chars(original: str, patched: str) -> int:
+    common = min(len(original), len(patched))
+    diff = sum(1 for index in range(common) if original[index] != patched[index])
+    return diff + abs(len(original) - len(patched))
+
+
 def _diff(original: str, patched: str, filename: str) -> str:
     return "".join(
         difflib.unified_diff(
@@ -141,64 +204,14 @@ def _diff(original: str, patched: str, filename: str) -> str:
     )
 
 
-def _payload(
-    *,
-    argv: list[str],
-    invocation: Invocation,
-    language: str | None,
-    source: Path,
-    size: int,
-    encoding: str,
-    toolchain: dict[str, str],
-    diagnostics: list[dict[str, object]],
-    syntax_errors: list[dict[str, object]],
-    attempts: list[dict[str, object]],
-    status: str,
-    artifact: Path | None,
-    program_exit: int | None,
-    repair: dict[str, object] | None,
-    fallback: dict[str, object] | None,
-    total_ms: int,
-    cwd: Path,
-) -> dict[str, object]:
-    return {
-        "schema_version": SCHEMA_VERSION,
-        "tool": {"name": "yescc", "version": __version__},
-        "invocation": {
-            "argv": argv,
-            "mode": invocation.mode,
-            "lang": language or "unknown",
-            "strict": invocation.strict,
-            "play": invocation.play,
-        },
-        "input": {
-            "path": display_path(source, cwd),
-            "sha256": sha256_file(source),
-            "bytes": size,
-            "encoding": encoding,
-        },
-        "toolchain": toolchain,
-        "diagnostics": diagnostics,
-        "syntax_errors": syntax_errors,
-        "attempts": attempts,
-        "result": {
-            "status": status,
-            "artifact": display_path(artifact, cwd) if artifact is not None else None,
-            "program_exit": program_exit,
-            "repair": repair,
-            "fallback": fallback,
-        },
-        "timings": {
-            "total_ms": total_ms,
-            "toolchain_ms": sum(_as_int(item.get("duration_ms", 0)) for item in attempts),
-        },
-        "privacy": {"cloud_used": False, "uploaded_bytes": 0},
-        "limits": {
-            "sandboxed": status in {"repaired", "creative_fallback"},
-            "network_isolated": False,
-            "timeout_s": None,
-        },
-    }
+def _looks_like_spec(text: str) -> bool:
+    stripped = text.strip()
+    return len(stripped) >= 4 and any(hint in stripped.lower() for hint in _SPEC_HINTS)
+
+
+def _trace(ctx: Context, message: str) -> None:
+    if ctx.invocation.trace:
+        print(f"yescc: trace {message}", file=sys.stderr)
 
 
 def _status_line(
@@ -207,8 +220,9 @@ def _status_line(
     repair: dict[str, object] | None,
     fallback: dict[str, object] | None,
     cwd: Path,
+    ai_calls: int,
 ) -> str:
-    parts = ["backend=native", "ai_calls=0"]
+    parts = ["backend=native", f"ai_calls={ai_calls}"]
     if repair is not None:
         parts.append(f"rules={_as_list_len(repair.get('rules'))}")
         parts.append(f"changed={repair.get('changed', 0)}")
@@ -219,84 +233,8 @@ def _status_line(
     return f"yescc: {status} (" + ", ".join(parts) + ")"
 
 
-def _write_and_report(
-    *,
-    argv: list[str],
-    invocation: Invocation,
-    language: str | None,
-    source: Path,
-    size: int,
-    encoding: str,
-    toolchain: dict[str, str],
-    diagnostics: list[dict[str, object]],
-    syntax_errors: list[dict[str, object]],
-    attempts: list[dict[str, object]],
-    status: str,
-    artifact: Path | None,
-    program_exit: int | None,
-    repair: dict[str, object] | None,
-    fallback: dict[str, object] | None,
-    total_ms: int,
-    cwd: Path,
-    failure_message: str | None = None,
-    strict: bool = False,
-) -> int:
-    report_file = report_path(cwd, source)
-    payload = _payload(
-        argv=argv,
-        invocation=invocation,
-        language=language,
-        source=source,
-        size=size,
-        encoding=encoding,
-        toolchain=toolchain,
-        diagnostics=diagnostics,
-        syntax_errors=syntax_errors,
-        attempts=attempts,
-        status=status,
-        artifact=artifact,
-        program_exit=program_exit,
-        repair=repair,
-        fallback=fallback,
-        total_ms=total_ms,
-        cwd=cwd,
-    )
-    write_report(report_file, payload)
-
-    if invocation.json_output:
-        print(json.dumps(payload, ensure_ascii=False, indent=2))
-        return _exit_for_status(status)
-
-    if failure_message is not None:
-        if strict and attempts:
-            last = attempts[-1]
-            sys.stdout.write(str(last.get("stdout", "")))
-            sys.stderr.write(str(last.get("stderr", "")))
-        else:
-            print(failure_message, file=sys.stderr)
-            print(f"诊断已保存：{report_file}；使用 --strict 查看原始输出。", file=sys.stderr)
-        return _exit_for_status(status)
-
-    if fallback is not None:
-        print(
-            "yescc: 原始输入未能按语义完成，已生成创意兜底程序"
-            f"（kind={fallback.get('kind', 'unknown')}，不是原程序的修复）。",
-            file=sys.stderr,
-        )
-    if invocation.strict and attempts:
-        last = attempts[-1]
-        sys.stdout.write(str(last.get("stdout", "")))
-        sys.stderr.write(str(last.get("stderr", "")))
-    if artifact is not None and sys.stderr.isatty():
-        print(_status_line(status, artifact, repair, fallback, cwd), file=sys.stderr)
-
-    if program_exit is not None:
-        return program_exit
-    return _exit_for_status(status)
-
-
 def _exit_for_status(status: str) -> int:
-    if status in {"native_ok", "repaired", "creative_fallback"}:
+    if status in {"native_ok", "repaired", "generated", "creative_fallback"}:
         return int(ExitCode.OK)
     if status == "budget_exceeded":
         return int(ExitCode.BUDGET)
@@ -309,114 +247,366 @@ def _run_artifact(artifact: Path | None, args: list[str], cwd: Path) -> int:
     return run_inherit([str(artifact), *args], cwd=cwd)
 
 
-def _fallback_flow(
+def _finalize(
+    ctx: Context,
     *,
-    argv: list[str],
-    invocation: Invocation,
-    source: Path,
-    text: str,
-    size: int,
-    encoding: str,
-    cwd: Path,
-    started: float,
-    attempts: list[dict[str, object]],
-    language: str | None,
-    reason: str,
+    status: str,
+    artifact: Path | None = None,
+    program_exit: int | None = None,
+    repair: dict[str, object] | None = None,
+    generated: dict[str, object] | None = None,
+    fallback: dict[str, object] | None = None,
+    emitted_source: str | None = None,
+    failure_message: str | None = None,
+    strict: bool = False,
 ) -> int:
+    total_ms = int((time.perf_counter() - ctx.started) * 1000)
+    model_stats = ctx.session.stats if ctx.session is not None else ModelStats()
+    model_payload = (
+        model_stats.as_dict()
+        if (model_stats.calls or model_stats.cache_hits or model_stats.errors)
+        else None
+    )
+    payload = {
+        "schema_version": SCHEMA_VERSION,
+        "tool": {"name": "yescc", "version": __version__},
+        "invocation": {
+            "argv": ctx.argv,
+            "mode": ctx.invocation.mode,
+            "lang": ctx.language or "unknown",
+            "strict": ctx.invocation.strict,
+            "play": ctx.invocation.play,
+            "offline": ctx.invocation.offline,
+        },
+        "input": {
+            "path": display_path(ctx.source, ctx.cwd),
+            "sha256": sha256_file(ctx.source),
+            "bytes": ctx.size,
+            "encoding": ctx.encoding,
+        },
+        "toolchain": ctx.toolchain,
+        "diagnostics": ctx.diagnostics,
+        "syntax_errors": ctx.syntax_errors,
+        "attempts": ctx.attempts,
+        "model": model_payload,
+        "result": {
+            "status": status,
+            "artifact": display_path(artifact, ctx.cwd) if artifact is not None else None,
+            "program_exit": program_exit,
+            "repair": repair,
+            "generated": generated,
+            "fallback": fallback,
+            "emitted_source": emitted_source if ctx.invocation.emit_source else None,
+        },
+        "timings": {
+            "total_ms": total_ms,
+            "toolchain_ms": sum(_as_int(item.get("duration_ms", 0)) for item in ctx.attempts),
+            "model_ms": model_stats.duration_ms,
+        },
+        "privacy": {
+            "cloud_used": bool(model_stats.calls),
+            "uploaded_bytes": 0,
+        },
+        "limits": {
+            "sandboxed": status in {"repaired", "generated", "creative_fallback"},
+            "network_isolated": False,
+            "timeout_s": None,
+        },
+    }
+    report_file = report_path(ctx.cwd, ctx.source)
+    write_report(report_file, payload)
+
+    if ctx.invocation.json_output:
+        print(json.dumps(payload, ensure_ascii=False, indent=2))
+        return program_exit if program_exit is not None else _exit_for_status(status)
+
+    if ctx.invocation.emit_source and emitted_source is not None:
+        stream = sys.stdout if ctx.invocation.mode == "build" else sys.stderr
+        stream.write(emitted_source)
+        if not emitted_source.endswith("\n"):
+            stream.write("\n")
+
+    if failure_message is not None:
+        if strict and ctx.attempts:
+            last = ctx.attempts[-1]
+            sys.stderr.write(str(last.get("stderr", "")))
+        else:
+            print(failure_message, file=sys.stderr)
+            print(f"诊断已保存：{report_file}；使用 --strict 查看原始输出。", file=sys.stderr)
+        return _exit_for_status(status)
+
+    if fallback is not None:
+        print(
+            "yescc: 原始输入未能按语义完成，已生成创意兜底程序"
+            f"（kind={fallback.get('kind', 'unknown')}，不是原程序的修复）。",
+            file=sys.stderr,
+        )
+    if ctx.invocation.strict and ctx.attempts and status == "native_ok":
+        last = ctx.attempts[-1]
+        sys.stderr.write(str(last.get("stderr", "")))
+    if artifact is not None and sys.stderr.isatty():
+        line = _status_line(status, artifact, repair, fallback, ctx.cwd, model_stats.calls)
+        print(line, file=sys.stderr)
+
+    return program_exit if program_exit is not None else _exit_for_status(status)
+
+
+def _write_patched(
+    ctx: Context,
+    patched_source: str,
+    diff_text: str,
+    *,
+    prefix: str = "",
+) -> tuple[Path, Path]:
+    directory = ctx.cwd / ".yescc" / ctx.source.stem
+    directory.mkdir(parents=True, exist_ok=True)
+    name = f"{prefix}{ctx.source.name}" if prefix else ctx.source.name
+    patched = directory / name
+    patched.write_text(patched_source, encoding="utf-8")
+    patch_file = directory / "patch.diff"
+    patch_file.write_text(diff_text, encoding="utf-8")
+    return patched, patch_file
+
+
+def _run_program(ctx: Context, artifact: Path | None) -> int:
+    return _run_artifact(artifact, ctx.invocation.run_args, ctx.cwd)
+
+
+def _model_repair(
+    ctx: Context,
+    adapter: LanguageAdapter,
+    native: BuildResult,
+) -> int | None:
+    session = ctx.session
+    if session is None or not session.available or ctx.language != "c":
+        return None
+    try:
+        outcome = session.repair(ctx.text, ctx.source.name, native.stderr)
+    except (ModelError, BudgetExceeded) as exc:
+        session.stats.errors.append(str(exc))
+        _trace(ctx, f"model repair skipped: {exc}")
+        return None
+    if outcome is None:
+        _trace(ctx, "model repair: no usable diff")
+        return None
+
+    round_number = 1
+    while round_number <= ctx.invocation.max_rounds:
+        result = build_in_temp(
+            adapter,
+            outcome.patched_source,
+            ctx.source.name,
+            ctx.invocation.passthrough,
+            ctx.cwd,
+            ctx.source.parent,
+        )
+        ctx.attempts.append(_attempt("model", round_number, result.build))
+        _trace(
+            ctx,
+            f"model repair build round={round_number} exit={result.build.returncode}",
+        )
+        if result.build.returncode == 0:
+            patched, patch_file = _write_patched(
+                ctx,
+                outcome.patched_source,
+                _diff(ctx.text, outcome.patched_source, ctx.source.name),
+            )
+            repair = {
+                "rules": ["model"],
+                "changed": _changed_chars(ctx.text, outcome.patched_source),
+                "candidate_count": round_number,
+                "patched_source": display_path(patched, ctx.cwd),
+                "patch": display_path(patch_file, ctx.cwd),
+                "assumptions": outcome.assumptions,
+            }
+            program_exit = (
+                _run_program(ctx, result.artifact) if ctx.invocation.mode == "run" else None
+            )
+            return _finalize(
+                ctx,
+                status="repaired",
+                artifact=result.artifact,
+                program_exit=program_exit,
+                repair=repair,
+                emitted_source=outcome.patched_source,
+            )
+        try:
+            outcome = session.repair(
+                ctx.text,
+                ctx.source.name,
+                native.stderr,
+                feedback=result.build.stderr,
+            )
+        except (ModelError, BudgetExceeded) as exc:
+            session.stats.errors.append(str(exc))
+            _trace(ctx, f"model repair retry skipped: {exc}")
+            return None
+        if outcome is None:
+            return None
+        round_number += 1
+    return None
+
+
+def _model_generate(
+    ctx: Context,
+    adapter: LanguageAdapter,
+    *,
+    creative: bool,
+    reason: str,
+) -> int | None:
+    session = ctx.session
+    if session is None or not session.available:
+        return None
+    try:
+        program = session.generate(ctx.text, creative=creative)
+    except (ModelError, BudgetExceeded) as exc:
+        session.stats.errors.append(str(exc))
+        _trace(ctx, f"model generate skipped: {exc}")
+        return None
+    if program is None:
+        return None
+
+    round_number = 1
+    while round_number <= ctx.invocation.max_rounds:
+        result = build_in_temp(
+            adapter,
+            program.source,
+            "generated.c",
+            ctx.invocation.passthrough,
+            ctx.cwd,
+            ctx.source.parent,
+        )
+        ctx.attempts.append(_attempt("model", round_number, result.build))
+        _trace(
+            ctx,
+            f"model generate build round={round_number} exit={result.build.returncode}",
+        )
+        if result.build.returncode == 0:
+            directory = ctx.cwd / ".yescc" / ctx.source.stem
+            directory.mkdir(parents=True, exist_ok=True)
+            filename = "fallback.c" if creative else "generated.c"
+            source_file = directory / filename
+            source_file.write_text(program.source, encoding="utf-8")
+            status = "creative_fallback" if creative else "generated"
+            generated = {
+                "source": display_path(source_file, ctx.cwd),
+                "creative": creative,
+                "io_contract": program.io_contract,
+                "assumptions": program.assumptions,
+            }
+            fallback: dict[str, object] | None = (
+                {
+                    "kind": "model_creative",
+                    "reason": reason,
+                    "source": display_path(source_file, ctx.cwd),
+                }
+                if creative
+                else None
+            )
+            program_exit = (
+                _run_program(ctx, result.artifact) if ctx.invocation.mode == "run" else None
+            )
+            return _finalize(
+                ctx,
+                status=status,
+                artifact=result.artifact,
+                program_exit=program_exit,
+                generated=generated,
+                fallback=fallback,
+                emitted_source=program.source,
+            )
+        try:
+            program = session.generate(
+                ctx.text,
+                creative=creative,
+                feedback=result.build.stderr,
+            )
+        except (ModelError, BudgetExceeded) as exc:
+            session.stats.errors.append(str(exc))
+            _trace(ctx, f"model generate retry skipped: {exc}")
+            return None
+        if program is None:
+            return None
+        round_number += 1
+    return None
+
+
+def _deterministic_fallback(ctx: Context, reason: str) -> int:
     try:
         adapter = get_adapter("c")
         info = adapter.toolchain()
     except ToolchainUnavailable as exc:
-        return _write_and_report(
-            argv=argv,
-            invocation=invocation,
-            language=language,
-            source=source,
-            size=size,
-            encoding=encoding,
-            toolchain={"adapter": language or "unknown", "command": "", "version": ""},
-            diagnostics=[],
-            syntax_errors=[],
-            attempts=attempts,
+        return _finalize(
+            ctx,
             status="failed",
-            artifact=None,
-            program_exit=None,
-            repair=None,
-            fallback=None,
-            total_ms=int((time.perf_counter() - started) * 1000),
-            cwd=cwd,
             failure_message=f"构建失败（环境问题）：{exc.message}",
         )
-
-    output = fallback_output(text)
+    ctx.toolchain = {
+        "adapter": info.adapter,
+        "command": info.command,
+        "version": info.version,
+    }
+    output = fallback_output(ctx.text)
     program = generate_c_program(output.message)
     result = build_in_temp(
-        adapter, program, "fallback.c", invocation.passthrough, cwd, source.parent
+        adapter, program, "fallback.c", ctx.invocation.passthrough, ctx.cwd, ctx.source.parent
     )
-    attempts.append(_attempt("fallback", 1, result.build))
-
+    ctx.attempts.append(_attempt("fallback", 1, result.build))
+    _trace(ctx, f"deterministic fallback exit={result.build.returncode}")
     if result.build.returncode != 0:
-        return _write_and_report(
-            argv=argv,
-            invocation=invocation,
-            language=language,
-            source=source,
-            size=size,
-            encoding=encoding,
-            toolchain={
-                "adapter": info.adapter,
-                "command": info.command,
-                "version": info.version,
-            },
-            diagnostics=_gcc_diagnostics(result.build.stderr),
-            syntax_errors=[],
-            attempts=attempts,
+        ctx.diagnostics = _gcc_diagnostics(result.build.stderr)
+        return _finalize(
+            ctx,
             status="failed",
-            artifact=None,
-            program_exit=None,
-            repair=None,
-            fallback=None,
-            total_ms=int((time.perf_counter() - started) * 1000),
-            cwd=cwd,
             failure_message="兜底程序也未能构建成功；请检查 GCC 环境。",
         )
-
-    directory = cwd / ".yescc" / source.stem
+    directory = ctx.cwd / ".yescc" / ctx.source.stem
     directory.mkdir(parents=True, exist_ok=True)
-    fallback_source = directory / "fallback.c"
-    fallback_source.write_text(program, encoding="utf-8")
-
-    program_exit: int | None = None
-    if invocation.mode == "run":
-        program_exit = _run_artifact(result.artifact, invocation.run_args, cwd)
-
-    return _write_and_report(
-        argv=argv,
-        invocation=invocation,
-        language=language,
-        source=source,
-        size=size,
-        encoding=encoding,
-        toolchain={
-            "adapter": info.adapter,
-            "command": info.command,
-            "version": info.version,
-        },
-        diagnostics=[],
-        syntax_errors=[],
-        attempts=attempts,
+    source_file = directory / "fallback.c"
+    source_file.write_text(program, encoding="utf-8")
+    program_exit = _run_program(ctx, result.artifact) if ctx.invocation.mode == "run" else None
+    return _finalize(
+        ctx,
         status="creative_fallback",
         artifact=result.artifact,
         program_exit=program_exit,
-        repair=None,
         fallback={
             "kind": output.kind,
             "reason": reason,
-            "source": display_path(fallback_source, cwd),
+            "source": display_path(source_file, ctx.cwd),
         },
-        total_ms=int((time.perf_counter() - started) * 1000),
-        cwd=cwd,
+        emitted_source=program,
     )
+
+
+def _fallback(ctx: Context, reason: str) -> int:
+    if ctx.invocation.no_fallback:
+        return _finalize(
+            ctx,
+            status="native_failed",
+            failure_message=reason,
+        )
+    if fallback_output(ctx.text).kind == "easter_egg":
+        return _deterministic_fallback(ctx, reason)
+    if ctx.session is not None and ctx.session.available:
+        if ctx.language is None:
+            creative = ctx.invocation.play or not _looks_like_spec(ctx.text)
+        else:
+            creative = True
+        try:
+            adapter = get_adapter("c")
+            info = adapter.toolchain()
+            ctx.toolchain = {
+                "adapter": info.adapter,
+                "command": info.command,
+                "version": info.version,
+            }
+        except ToolchainUnavailable:
+            return _deterministic_fallback(ctx, reason)
+        generated = _model_generate(ctx, adapter, creative=creative, reason=reason)
+        if generated is not None:
+            return generated
+    return _deterministic_fallback(ctx, reason)
 
 
 def execute(argv: list[str], invocation: Invocation) -> int:
@@ -424,232 +614,133 @@ def execute(argv: list[str], invocation: Invocation) -> int:
     cwd = Path.cwd()
     source = _validate_source(invocation.source)
     size, encoding, text = _read_source(source)
-    started = time.perf_counter()
-    attempts: list[dict[str, object]] = []
+    session = ModelSession(
+        offline=invocation.offline,
+        no_cache=invocation.no_cache,
+        budget_usd=invocation.budget_usd,
+        max_rounds=invocation.max_rounds,
+        provider_override=invocation.provider,
+        model_override=invocation.model,
+    )
+    ctx = Context(
+        argv=argv,
+        invocation=invocation,
+        source=source,
+        size=size,
+        encoding=encoding,
+        text=text,
+        cwd=cwd,
+        started=time.perf_counter(),
+        session=session,
+    )
 
     if invocation.play:
-        return _fallback_flow(
-            argv=argv,
-            invocation=invocation,
-            source=source,
-            text=text,
-            size=size,
-            encoding=encoding,
-            cwd=cwd,
-            started=started,
-            attempts=attempts,
-            language=None,
-            reason="用户请求 --play",
-        )
+        return _fallback(ctx, "用户请求 --play")
 
     try:
         language = detect_language(source, invocation.lang)
     except UnsupportedInput:
         if invocation.strict or invocation.no_fallback:
             raise
-        return _fallback_flow(
-            argv=argv,
-            invocation=invocation,
-            source=source,
-            text=text,
-            size=size,
-            encoding=encoding,
-            cwd=cwd,
-            started=started,
-            attempts=attempts,
-            language=None,
-            reason="未识别的输入类型",
-        )
+        return _fallback(ctx, "未识别的输入类型")
+    ctx.language = language
 
     adapter = get_adapter(language)
     try:
         info = adapter.toolchain()
     except ToolchainUnavailable as exc:
-        return _write_and_report(
-            argv=argv,
-            invocation=invocation,
-            language=language,
-            source=source,
-            size=size,
-            encoding=encoding,
-            toolchain={"adapter": language, "command": "", "version": ""},
-            diagnostics=[],
-            syntax_errors=[],
-            attempts=attempts,
+        return _finalize(
+            ctx,
             status="failed",
-            artifact=None,
-            program_exit=None,
-            repair=None,
-            fallback=None,
-            total_ms=int((time.perf_counter() - started) * 1000),
-            cwd=cwd,
             failure_message=f"构建失败（环境问题）：{exc.message}",
         )
-
-    toolchain = {
+    ctx.toolchain = {
         "adapter": info.adapter,
         "command": info.command,
         "version": info.version,
     }
+
     native = adapter.build(source, invocation.passthrough, cwd)
-    attempts.append(_attempt("native", 1, native))
-    diagnostics = _gcc_diagnostics(native.stderr) if language == "c" else []
-    syntax_errors: list[dict[str, object]] = (
-        [{"start": item.start, "end": item.end} for item in parse_c(text).errors]
-        if language == "c"
-        else []
-    )
+    ctx.attempts.append(_attempt("native", 1, native))
+    _trace(ctx, f"native exit={native.returncode}")
+    if language == "c":
+        ctx.diagnostics = _gcc_diagnostics(native.stderr)
+        ctx.syntax_errors = [
+            {"start": item.start, "end": item.end} for item in parse_c(text).errors
+        ]
 
     if native.returncode == 0:
-        program_exit: int | None = None
-        if invocation.mode == "run":
-            program_exit = adapter.run(source, native, invocation.run_args, cwd).returncode
-        return _write_and_report(
-            argv=argv,
-            invocation=invocation,
-            language=language,
-            source=source,
-            size=size,
-            encoding=encoding,
-            toolchain=toolchain,
-            diagnostics=diagnostics,
-            syntax_errors=syntax_errors,
-            attempts=attempts,
+        program_exit = (
+            adapter.run(source, native, invocation.run_args, cwd).returncode
+            if invocation.mode == "run"
+            else None
+        )
+        return _finalize(
+            ctx,
             status="native_ok",
             artifact=native.artifact,
             program_exit=program_exit,
-            repair=None,
-            fallback=None,
-            total_ms=int((time.perf_counter() - started) * 1000),
-            cwd=cwd,
+            emitted_source=text,
         )
 
     if invocation.strict:
-        return _write_and_report(
-            argv=argv,
-            invocation=invocation,
-            language=language,
-            source=source,
-            size=size,
-            encoding=encoding,
-            toolchain=toolchain,
-            diagnostics=diagnostics,
-            syntax_errors=syntax_errors,
-            attempts=attempts,
+        return _finalize(
+            ctx,
             status="native_failed",
-            artifact=None,
-            program_exit=None,
-            repair=None,
-            fallback=None,
-            total_ms=int((time.perf_counter() - started) * 1000),
-            cwd=cwd,
             failure_message="构建未完成。",
             strict=True,
         )
 
     if _is_environment_failure(native.stderr):
-        return _write_and_report(
-            argv=argv,
-            invocation=invocation,
-            language=language,
-            source=source,
-            size=size,
-            encoding=encoding,
-            toolchain=toolchain,
-            diagnostics=diagnostics,
-            syntax_errors=syntax_errors,
-            attempts=attempts,
+        return _finalize(
+            ctx,
             status="failed",
-            artifact=None,
-            program_exit=None,
-            repair=None,
-            fallback=None,
-            total_ms=int((time.perf_counter() - started) * 1000),
-            cwd=cwd,
             failure_message="构建失败（环境或依赖问题）；没有进入创意兜底。",
         )
 
-    repair_info: dict[str, object] | None = None
     if language == "c":
         outcome = attempt_repair(
             adapter, text, source.name, invocation.passthrough, cwd, source.parent
         )
         for index, (_, build) in enumerate(outcome.attempts, start=2):
-            attempts.append(_attempt("rule", index, build))
+            ctx.attempts.append(_attempt("rule", index, build))
+        _trace(ctx, f"rule candidates={len(outcome.attempts)}")
         if outcome.candidate is not None and outcome.build is not None:
-            directory = cwd / ".yescc" / source.stem
-            directory.mkdir(parents=True, exist_ok=True)
-            patched_source = directory / source.name
-            patched_source.write_text(outcome.candidate.text, encoding="utf-8")
-            diff_file = directory / "patch.diff"
-            diff_file.write_text(
-                _diff(text, outcome.candidate.text, source.name), encoding="utf-8"
+            patched, patch_file = _write_patched(
+                ctx,
+                outcome.candidate.text,
+                _diff(text, outcome.candidate.text, source.name),
             )
-            repair_info = {
+            repair = {
                 "rules": list(outcome.candidate.rules),
                 "changed": outcome.candidate.changed,
                 "candidate_count": len(outcome.attempts),
-                "patched_source": display_path(patched_source, cwd),
-                "patch": display_path(diff_file, cwd),
+                "patched_source": display_path(patched, cwd),
+                "patch": display_path(patch_file, cwd),
+                "assumptions": [],
             }
-            program_exit = None
-            if invocation.mode == "run":
-                program_exit = _run_artifact(outcome.artifact, invocation.run_args, cwd)
-            return _write_and_report(
-                argv=argv,
-                invocation=invocation,
-                language=language,
-                source=source,
-                size=size,
-                encoding=encoding,
-                toolchain=toolchain,
-                diagnostics=diagnostics,
-                syntax_errors=syntax_errors,
-                attempts=attempts,
+            program_exit = _run_program(ctx, outcome.artifact) if invocation.mode == "run" else None
+            return _finalize(
+                ctx,
                 status="repaired",
                 artifact=outcome.artifact,
                 program_exit=program_exit,
-                repair=repair_info,
-                fallback=None,
-                total_ms=int((time.perf_counter() - started) * 1000),
-                cwd=cwd,
+                repair=repair,
+                emitted_source=outcome.candidate.text,
             )
 
+        repaired = _model_repair(ctx, adapter, native)
+        if repaired is not None:
+            return repaired
+
     if invocation.no_fallback:
-        return _write_and_report(
-            argv=argv,
-            invocation=invocation,
-            language=language,
-            source=source,
-            size=size,
-            encoding=encoding,
-            toolchain=toolchain,
-            diagnostics=diagnostics,
-            syntax_errors=syntax_errors,
-            attempts=attempts,
+        return _finalize(
+            ctx,
             status="native_failed",
-            artifact=None,
-            program_exit=None,
-            repair=None,
-            fallback=None,
-            total_ms=int((time.perf_counter() - started) * 1000),
-            cwd=cwd,
             failure_message=f"构建未完成（工具链退出码 {native.returncode}）。",
         )
 
-    return _fallback_flow(
-        argv=argv,
-        invocation=invocation,
-        source=source,
-        text=text,
-        size=size,
-        encoding=encoding,
-        cwd=cwd,
-        started=started,
-        attempts=attempts,
-        language=language,
-        reason="原始构建与规则修复均未成功",
-    )
+    return _fallback(ctx, "原始构建与确定性修复均未成功")
 
 
 def explain(source: Path | None, as_json: bool) -> int:

@@ -11,7 +11,7 @@ YesCC 是一个「永不扫兴」的 AI 编译器：正确代码原样编译；�
 
 ## 当前状态
 
-**M2 已完成**：三语言原生直通、C 规则修复、确定性兜底与状态机可用；模型修复与自然语言生成在 M3。
+**M3 已完成（alpha 前）**：三语言原生直通、C 规则修复、模型修复、自然语言生成与创意兜底可用；公开 alpha 前还需补最小沙箱。
 
 首版范围：C 为 AI 修复/生成目标；Python / C / JavaScript 保留原生直通；MIT 许可，PyPI + 独立二进制发布。长期目标「所有语言」与「编辑器插件」不变。进度见[路线图](docs/项目路线图与发布计划.md)。
 
@@ -40,7 +40,22 @@ uv run yescc hello.c --explain      # 查看最近一次报告
 | 规则修复 | 0.2 | 是 | 0.2 |
 | 模型修复 | 0.2 | 是 | 0.2 |
 | 自然语言生成 | 0.2 | 是 | 0.2 |
+| 创意兜底 | 是 | 是 | 是 |
 | 运行 | 是 | 是 | 是 |
+
+## 模型配置
+
+默认读取环境变量；密钥只放在环境变量或本地 env 文件里，不要写进配置或仓库：
+
+```bash
+export YESCC_MODEL_L3_BASE_URL=https://api.deepseek.com/v1
+export YESCC_MODEL_L3_NAME=deepseek-chat
+export YESCC_MODEL_L3_API_KEY=...
+export YESCC_MODEL_L2_BASE_URL=http://localhost:11434/v1   # 可选，本地小模型
+export YESCC_MODEL_L2_NAME=llama3.2
+```
+
+常用开关：`--offline`（禁网）、`--budget 0.05`、`--max-rounds 2`、`--no-cache`、`--trace`、`--emit-source`。没有可用密钥时自动降级为规则 + 确定性兜底。
 
 ## 已知限制
 

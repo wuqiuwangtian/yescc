@@ -75,4 +75,22 @@ def summarize(payload: dict[str, Any]) -> str:
         source = fallback.get("source")
         if source:
             lines.append(f"兜底源码：{source}")
+    generated = result.get("generated")
+    if isinstance(generated, dict):
+        lines.append(f"生成源码：{generated.get('source', '')}")
+        contract = generated.get("io_contract")
+        if contract:
+            lines.append(f"输入输出约定：{contract}")
+    model = payload.get("model")
+    if isinstance(model, dict) and model.get("calls"):
+        lines.append(
+            f"模型：{model.get('provider')}/{model.get('name')}（{model.get('tier')}，"
+            f"{model.get('calls')} 次，{model.get('prompt_tokens', 0)}+"
+            f"{model.get('completion_tokens', 0)} tokens，${model.get('cost_usd', 0)}）"
+        )
+    assumptions = result.get("repair") or {}
+    if isinstance(assumptions, dict):
+        items = assumptions.get("assumptions")
+        if isinstance(items, list) and items:
+            lines.append("假设：" + "；".join(str(item) for item in items))
     return "\n".join(lines)

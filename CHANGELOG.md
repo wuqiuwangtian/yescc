@@ -12,6 +12,14 @@
 - `--play` 强制娱乐解释；`--explain` 展示修复规则与兜底来源。
 - 53 例受控低级错误样本与回归测试。
 
+### Added
+
+- M3 模型层：OpenAI 兼容 provider、L2/L3 路由、单任务预算、内容寻址缓存与隐私提示。
+- C 模型修复：模型只返回 unified diff，本地严格应用并重新编译，拒绝整文件改写。
+- 自然语言 → C 与模型创意兜底；无密钥或 `--offline` 时降级为确定性兜底。
+- `--offline`、`--budget`、`--max-rounds`、`--provider`、`--model`、`--emit-source`、`--trace`。
+- 报告记录模型、token、费用、耗时、缓存命中与假设。
+
 ### Changed
 
 - 项目更名为 YesCC：仓库、包名、模块与命令统一为 `yescc`；版本回到 `0.0.1.dev0`。
