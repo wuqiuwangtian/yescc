@@ -11,7 +11,7 @@ YesCC 是一个「永不扫兴」的 AI 编译器：正确代码原样编译；�
 
 ## 当前状态
 
-**v0.0.1-alpha（0.0.1a1）**：三语言原生直通、C 规则修复、模型修复、自然语言生成与创意兜底可用；AI 产物默认在最小沙箱中运行。这是 alpha，接口与行为仍可能变化。
+**v0.0.1-alpha（0.0.1a2）**：三语言原生直通、C 规则修复、模型修复、自然语言生成与创意兜底可用；AI 产物默认在最小沙箱中运行。这是 alpha，接口与行为仍可能变化。
 
 首版范围：C 为 AI 修复/生成目标；Python / C / JavaScript 保留原生直通；MIT 许可，PyPI + 独立二进制发布。长期目标「所有语言」与「编辑器插件」不变。进度见[路线图](docs/项目路线图与发布计划.md)。
 
@@ -23,7 +23,7 @@ TestPyPI 预览版，依赖仍从 PyPI 拉取：
 
 ```bash
 pipx install --index-url https://test.pypi.org/simple/ \
-  --extra-index-url https://pypi.org/simple/ yescc==0.0.1a1
+  --extra-index-url https://pypi.org/simple/ yescc==0.0.1a2
 yescc --version
 ```
 
