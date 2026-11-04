@@ -44,7 +44,7 @@ _GCC_DIAGNOSTIC = re.compile(
 _ENVIRONMENT_FAILURE = re.compile(
     r"no space left on device|permission denied|cannot open output file|"
     r"internal compiler error|fatal error:.*no such file or directory|"
-    r"cannot find -l|undefined reference|is a directory",
+    r"cannot find -l|is a directory",
     re.IGNORECASE,
 )
 
