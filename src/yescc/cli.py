@@ -21,7 +21,7 @@ _HELP = """包容你的编译器（yescc）
 
 选项：
       --lang <语言>   指定语言：python | c | javascript
-      --strict        显示工具链原始输出
+      --strict        原生模式：显示原始诊断；M3 起同时关闭 AI 与兜底
       --json          以 JSON 输出报告（仅构建模式）
       --no-cache      禁用缓存（预留，M3 生效）
   -h, --help          显示帮助
