@@ -1,6 +1,6 @@
 # ADR-0004：模型策略与数据边界
 
-- 状态：已接受（2026-11-03）；模型供应商范围由 [ADR-0008](0008-model-provider-coverage.md) 修订
+- 状态：已接受（2026-11-03）；供应商范围由 [ADR-0008](0008-model-provider-coverage.md) 扩展，模型策略由 [ADR-0012](0012-model-tiers-and-providers.md) 修订；模型供应商范围由 [ADR-0008](0008-model-provider-coverage.md) 修订
 - 相关：[需求报告 §8](../初版需求报告.md)、[路线图 §6.9](../项目路线图与发布计划.md)
 
 ## 背景
