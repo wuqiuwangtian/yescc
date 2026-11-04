@@ -39,11 +39,13 @@ def _output_argument(passthrough: Sequence[str]) -> str | None:
 
 
 def _default_artifact(source: Path, passthrough: Sequence[str], cwd: Path) -> Path | None:
+    if "-fsyntax-only" in passthrough:
+        return None
     output = _output_argument(passthrough)
     if output is not None:
         path = Path(output)
         return path if path.is_absolute() else cwd / path
-    if "-E" in passthrough:
+    if any(flag in passthrough for flag in ("-E", "-M", "-MM")):
         return None
     if "-c" in passthrough:
         return cwd / f"{source.stem}.o"
@@ -82,7 +84,11 @@ class CAdapter:
         command = [self.toolchain().command, str(source), *passthrough]
         completed = run_capture(command, cwd=cwd)
         predicted = _default_artifact(source, passthrough, cwd)
-        artifact = predicted if predicted is not None and predicted.exists() else None
+        artifact = (
+            predicted
+            if completed.returncode == 0 and predicted is not None and predicted.exists()
+            else None
+        )
         return BuildResult(
             command=command,
             returncode=completed.returncode,

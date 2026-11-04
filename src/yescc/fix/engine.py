@@ -63,6 +63,25 @@ def _destination(cwd: Path, passthrough: Sequence[str], artifact: Path) -> Path:
     return cwd / artifact.name
 
 
+def _resolve_paths(passthrough: Sequence[str], cwd: Path) -> list[str]:
+    """内部临时构建仍按用户 cwd 解释相对搜索路径，原生参数不受影响。"""
+    options = {"-I", "-L", "-iquote", "-isystem", "-idirafter", "-include", "-imacros"}
+    result: list[str] = []
+    pending = False
+    for arg in passthrough:
+        if pending:
+            result.append(str((cwd / arg).resolve()))
+            pending = False
+        elif arg in options:
+            result.append(arg)
+            pending = True
+        elif arg.startswith(("-I", "-L")) and len(arg) > 2:
+            result.append(arg[:2] + str((cwd / arg[2:]).resolve()))
+        else:
+            result.append(arg)
+    return result
+
+
 def build_in_temp(
     adapter: LanguageAdapter,
     text: str,
@@ -78,7 +97,9 @@ def build_in_temp(
             shutil.copy2(header, directory / header.name)
         target = directory / filename
         target.write_text(text, encoding="utf-8")
-        build = adapter.build(target, _without_output(passthrough), directory)
+        arguments = _resolve_paths(_without_output(passthrough), cwd)
+        arguments.extend(["-iquote", str(source_dir.resolve())])
+        build = adapter.build(target, arguments, directory)
         artifact: Path | None = None
         if build.returncode == 0 and build.artifact is not None:
             destination = _destination(cwd, passthrough, build.artifact)

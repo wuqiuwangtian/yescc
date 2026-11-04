@@ -12,7 +12,7 @@ import subprocess
 import tempfile
 from collections.abc import Callable
 from contextlib import suppress
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from functools import lru_cache
 from pathlib import Path
 
@@ -42,6 +42,9 @@ class SandboxOutcome:
     sandboxed: bool
     network_isolated: bool
     timeout_s: float
+    environment_filtered: bool = False
+    process_tree_cleanup: str = "none"
+    resource_limits: str = "none"
 
 
 def default_timeout() -> float:
@@ -143,6 +146,9 @@ def _run_once(
         sandboxed=True,
         network_isolated=False,
         timeout_s=timeout_s,
+        environment_filtered=env is not None,
+        process_tree_cleanup="posix_group" if os.name == "posix" else "windows_taskkill",
+        resource_limits="posix_best_effort" if preexec is not None else "none",
     )
 
 
@@ -178,7 +184,7 @@ def run_ai_command(
     timeout = timeout_s if timeout_s is not None else default_timeout()
     if unsafe:
         outcome = _run_once(command, cwd=cwd, env=None, timeout_s=timeout, preexec=None)
-        return SandboxOutcome(outcome.exit_code, outcome.timed_out, False, False, timeout)
+        return replace(outcome, sandboxed=False)
 
     network = _network_isolation_supported()
     full_command = (["unshare", "-n", "--", *command]) if network else command
@@ -191,13 +197,7 @@ def run_ai_command(
             timeout_s=timeout,
             preexec=_resource_limits(timeout),
         )
-        return SandboxOutcome(
-            exit_code=outcome.exit_code,
-            timed_out=outcome.timed_out,
-            sandboxed=True,
-            network_isolated=network,
-            timeout_s=timeout,
-        )
+        return replace(outcome, network_isolated=network)
     finally:
         shutil.rmtree(temporary, ignore_errors=True)
 

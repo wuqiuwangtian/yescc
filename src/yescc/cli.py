@@ -3,10 +3,13 @@
 from __future__ import annotations
 
 import math
+import signal
 import sys
+import threading
 from collections.abc import Sequence
 from dataclasses import dataclass
 from pathlib import Path
+from types import FrameType
 from typing import Literal
 
 from yescc import __version__
@@ -185,9 +188,7 @@ def parse(argv: Sequence[str]) -> ParsedCommand:
             break
         if arg.startswith("-") and arg != "-":
             if mode == "run":
-                raise UsageError(
-                    f"run 模式不接受工具链参数：{arg}；程序参数请放在 -- 之后。"
-                )
+                raise UsageError(f"run 模式不接受工具链参数：{arg}；程序参数请放在 -- 之后。")
             invocation.passthrough.append(arg)
             if arg in _VALUE_OPTIONS:
                 value, index = _take_value(args, index, arg)
@@ -237,10 +238,18 @@ def _configure_stdio() -> None:
             continue
 
 
+def _console_break(signum: int, frame: FrameType | None) -> None:
+    raise KeyboardInterrupt
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     """程序入口：返回退出码。"""
     _configure_stdio()
     args = list(sys.argv[1:] if argv is None else argv)
+    break_signal = getattr(signal, "SIGBREAK", None)
+    previous_break = None
+    if break_signal is not None and threading.current_thread() is threading.main_thread():
+        previous_break = signal.signal(break_signal, _console_break)
     try:
         parsed = parse(args)
         if parsed.action == "help":
@@ -257,6 +266,9 @@ def main(argv: Sequence[str] | None = None) -> int:
         return int(exc.exit_code)
     except KeyboardInterrupt:
         return 130
+    finally:
+        if previous_break is not None and break_signal is not None:
+            signal.signal(break_signal, previous_break)
 
 
 if __name__ == "__main__":

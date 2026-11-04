@@ -107,6 +107,8 @@ uv run pytest
 
 真实模型评测不在 CI 中执行，记录写入 [docs/评测](docs/评测/README.md)。
 
+固定 200 例基准和离线/真实/暖缓存模式见 [bench/README](bench/README.md)。离线执行明确区分 130 个已评测样本和 70 个模型任务未评测；Linux/Windows CI 保留各自原始 JSON。
+
 接手开发先读 [AGENTS.md](AGENTS.md) 和[路线图 §10](docs/项目路线图与发布计划.md#10-待决事项与下一步)；贡献流程见 [CONTRIBUTING.md](CONTRIBUTING.md)。
 
 ## 许可

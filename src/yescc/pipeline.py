@@ -344,12 +344,22 @@ def _finalize(
                 "sandboxed": sandbox.sandboxed,
                 "network_isolated": sandbox.network_isolated,
                 "timeout_s": sandbox.timeout_s,
+                "environment_filtered": sandbox.environment_filtered,
+                "process_tree_cleanup": sandbox.process_tree_cleanup,
+                "resource_limits": sandbox.resource_limits,
+                "filesystem_isolated": False,
+                "output_limited": False,
             }
             if sandbox is not None
             else {
                 "sandboxed": False,
                 "network_isolated": False,
                 "timeout_s": None,
+                "environment_filtered": False,
+                "process_tree_cleanup": "none",
+                "resource_limits": "none",
+                "filesystem_isolated": False,
+                "output_limited": False,
             }
         ),
     }
