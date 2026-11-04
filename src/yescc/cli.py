@@ -1,4 +1,4 @@
-"""fcomp 命令行入口与参数解析。"""
+"""yescc 命令行入口与参数解析。"""
 
 from __future__ import annotations
 
@@ -8,16 +8,16 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Literal
 
-from fcomp import __version__
-from fcomp.errors import FcompError, UsageError
-from fcomp.pipeline import Invocation, execute, explain
+from yescc import __version__
+from yescc.errors import FcompError, UsageError
+from yescc.pipeline import Invocation, execute, explain
 
-_HELP = """包容你的编译器（fcomp）
+_HELP = """包容你的编译器（yescc）
 
 用法：
-  fcomp <文件> [工具链参数...]        构建（类似 gcc）
-  fcomp run <文件> [-- 程序参数...]    构建后运行
-  fcomp <文件> --explain              查看最近一次报告
+  yescc <文件> [工具链参数...]        构建（类似 gcc）
+  yescc run <文件> [-- 程序参数...]    构建后运行
+  yescc <文件> --explain              查看最近一次报告
 
 选项：
       --lang <语言>   指定语言：python | c | javascript
@@ -29,7 +29,7 @@ _HELP = """包容你的编译器（fcomp）
 
 说明：
   * 合法输入原样交给真实工具链，不修改源码、不调用模型。
-  * 报告保存于 .fcomp/<文件名>/report.json。
+  * 报告保存于 .yescc/<文件名>/report.json。
   * 退出码：0 成功；100 用法；101 不支持；102 构建失败；103 预算/超时；104 内部错误。
 """
 
@@ -149,7 +149,7 @@ def parse(argv: Sequence[str]) -> ParsedCommand:
         raise UsageError("run 模式下 --json 不可用：程序本身拥有 stdout。")
 
     if invocation.source is None:
-        raise UsageError("缺少输入文件。用法见 `fcomp --help`。")
+        raise UsageError("缺少输入文件。用法见 `yescc --help`。")
 
     return ParsedCommand(action="execute", invocation=invocation)
 
@@ -181,13 +181,13 @@ def main(argv: Sequence[str] | None = None) -> int:
             print(_HELP)
             return 0
         if parsed.action == "version":
-            print(f"fcomp {__version__}")
+            print(f"yescc {__version__}")
             return 0
         if parsed.action == "explain":
             return explain(parsed.invocation.source, parsed.invocation.json_output)
         return execute(args, parsed.invocation)
     except FcompError as exc:
-        print(f"fcomp: {exc.message}", file=sys.stderr)
+        print(f"yescc: {exc.message}", file=sys.stderr)
         return int(exc.exit_code)
     except KeyboardInterrupt:
         return 130

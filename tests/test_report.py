@@ -4,11 +4,11 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from fcomp.report import load_report, report_path, summarize, write_report
+from yescc.report import load_report, report_path, summarize, write_report
 
 
 def test_report_path_uses_cwd_and_stem(tmp_path: Path) -> None:
-    assert report_path(tmp_path, Path("src/main.c")) == tmp_path / ".fcomp" / "main" / "report.json"
+    assert report_path(tmp_path, Path("src/main.c")) == tmp_path / ".yescc" / "main" / "report.json"
 
 
 def test_write_and_load_roundtrip(tmp_path: Path) -> None:

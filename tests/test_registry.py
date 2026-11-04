@@ -6,8 +6,8 @@ from pathlib import Path
 
 import pytest
 
-from fcomp.adapters import detect_language, get_adapter, list_languages
-from fcomp.errors import UnsupportedInput
+from yescc.adapters import detect_language, get_adapter, list_languages
+from yescc.errors import UnsupportedInput
 
 
 def test_registered_languages() -> None:

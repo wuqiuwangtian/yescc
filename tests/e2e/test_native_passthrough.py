@@ -11,8 +11,8 @@ from pathlib import Path
 
 import pytest
 
-from fcomp.util import sha256_file
 from tests.fixtures.legal_cases import CASES, LegalCase
+from yescc.util import sha256_file
 
 pytestmark = pytest.mark.e2e
 
@@ -20,7 +20,7 @@ EXE = ".exe" if os.name == "nt" else ""
 
 # CI 的管道不是控制台：Windows 上 Python 默认会用 cp1252 输出，
 # 中文样例会因此失败。统一按 UTF-8 环境对照，避免把平台默认编码
-# 差异误判成 fcomp 的行为差异。
+# 差异误判成 yescc 的行为差异。
 _ENV = {**os.environ, "PYTHONIOENCODING": "utf-8"}
 PYTHON = sys.executable
 NODE = shutil.which("node") or shutil.which("node.exe")
@@ -76,8 +76,8 @@ def _native(case: LegalCase, source: Path, cwd: Path) -> subprocess.CompletedPro
     return _run([str(binary), *case.args], cwd, case.stdin)
 
 
-def _fcomp(case: LegalCase, source: Path, cwd: Path) -> subprocess.CompletedProcess[str]:
-    return _run([PYTHON, "-m", "fcomp", "run", str(source), "--", *case.args], cwd, case.stdin)
+def _yescc(case: LegalCase, source: Path, cwd: Path) -> subprocess.CompletedProcess[str]:
+    return _run([PYTHON, "-m", "yescc", "run", str(source), "--", *case.args], cwd, case.stdin)
 
 
 @pytest.mark.parametrize("case", CASES, ids=[case.name for case in CASES])
@@ -86,20 +86,20 @@ def test_legal_case_matches_native(case: LegalCase, tmp_path: Path) -> None:
         pytest.skip(f"{case.lang} 工具链不可用")
 
     native_dir = tmp_path / "native dir"
-    fcomp_dir = tmp_path / "fcomp dir"
+    yescc_dir = tmp_path / "yescc dir"
     native_source = _materialize(case, native_dir)
-    fcomp_source = _materialize(case, fcomp_dir)
-    before = sha256_file(fcomp_source)
+    yescc_source = _materialize(case, yescc_dir)
+    before = sha256_file(yescc_source)
 
     expected = _native(case, native_source, native_dir)
-    actual = _fcomp(case, fcomp_source, fcomp_dir)
+    actual = _yescc(case, yescc_source, yescc_dir)
 
     assert actual.stdout == expected.stdout
     assert actual.stderr == expected.stderr
     assert actual.returncode == expected.returncode
 
-    assert sha256_file(fcomp_source) == before, "合法输入被修改了源码"
-    report_file = fcomp_dir / ".fcomp" / "main" / "report.json"
+    assert sha256_file(yescc_source) == before, "合法输入被修改了源码"
+    report_file = yescc_dir / ".yescc" / "main" / "report.json"
     report = json.loads(report_file.read_text(encoding="utf-8"))
     assert report["privacy"]["cloud_used"] is False
     assert all(attempt["kind"] == "native" for attempt in report["attempts"])
@@ -115,18 +115,18 @@ def test_c_build_mode_matches_gcc(case: LegalCase, tmp_path: Path) -> None:
         pytest.skip("gcc 不可用")
 
     native_dir = tmp_path / "native dir"
-    fcomp_dir = tmp_path / "fcomp dir"
+    yescc_dir = tmp_path / "yescc dir"
     native_source = _materialize(case, native_dir)
-    fcomp_source = _materialize(case, fcomp_dir)
+    yescc_source = _materialize(case, yescc_dir)
     native_binary = native_dir / f"native{EXE}"
     output_name = f"out{EXE}"
 
     native = _run([GCC, str(native_source), "-o", str(native_binary)], native_dir)
-    built = _run([PYTHON, "-m", "fcomp", str(fcomp_source), "-o", output_name], fcomp_dir)
+    built = _run([PYTHON, "-m", "yescc", str(yescc_source), "-o", output_name], yescc_dir)
     assert native.returncode == built.returncode == 0, built.stderr
-    assert (fcomp_dir / output_name).exists()
+    assert (yescc_dir / output_name).exists()
 
     expected = _run([str(native_binary)], native_dir)
-    actual = _run([str(fcomp_dir / output_name)], fcomp_dir)
+    actual = _run([str(yescc_dir / output_name)], yescc_dir)
     assert actual.stdout == expected.stdout
     assert actual.returncode == expected.returncode

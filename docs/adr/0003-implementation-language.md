@@ -5,13 +5,13 @@
 
 ## 背景
 
-fcomp 的核心工作是进程编排：调用原工具链、解析诊断、在预算内调用模型、验证结果、落盘报告。它不需要自己实现编译器后端，对运行时性能的要求主要是启动开销。
+yescc 的核心工作是进程编排：调用原工具链、解析诊断、在预算内调用模型、验证结果、落盘报告。它不需要自己实现编译器后端，对运行时性能的要求主要是启动开销。
 
 ## 决策
 
 - 语言：**Python ≥3.11**（`from __future__ import annotations` 可用，`tomllib` 内建）。
 - 环境与锁：**uv**；提交 `uv.lock`。
-- 构建：**hatchling**；`src/` 布局；`fcomp` 控制台入口。
+- 构建：**hatchling**；`src/` 布局；`yescc` 控制台入口。
 - 运行时依赖：仅 `httpx`（模型调用）与 `platformdirs`（配置/缓存路径）。
 - 不引入 `typer`/`rich` 等重量级 CLI 框架，使用标准库 `argparse`。
 - 质量门槛：`ruff` + `mypy --strict` + `pytest`，CI 覆盖 Linux/Windows 与 Python 3.11–3.14。

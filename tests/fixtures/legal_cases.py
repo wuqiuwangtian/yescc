@@ -65,7 +65,7 @@ class Greeter:
     def greet(self):
         return f'hi {self.name}'
 
-print(Greeter('fcomp').greet())
+print(Greeter('yescc').greet())
 """,
     ),
     LegalCase(

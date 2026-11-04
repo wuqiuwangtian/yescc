@@ -11,11 +11,11 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Literal
 
-from fcomp import __version__
-from fcomp.adapters import BuildResult, detect_language, get_adapter
-from fcomp.errors import ExitCode, UnsupportedInput, UsageError
-from fcomp.report import SCHEMA_VERSION, load_report, report_path, summarize, write_report
-from fcomp.util import (
+from yescc import __version__
+from yescc.adapters import BuildResult, detect_language, get_adapter
+from yescc.errors import ExitCode, UnsupportedInput, UsageError
+from yescc.report import SCHEMA_VERSION, load_report, report_path, summarize, write_report
+from yescc.util import (
     display_path,
     read_text_utf8,
     sha256_file,
@@ -42,7 +42,7 @@ class Invocation:
 
 def _validate_source(source: Path | None) -> Path:
     if source is None:
-        raise UsageError("缺少输入文件。用法见 `fcomp --help`。")
+        raise UsageError("缺少输入文件。用法见 `yescc --help`。")
     if not source.exists():
         raise UsageError(f"输入文件不存在：{source}")
     if not source.is_file():
@@ -90,7 +90,7 @@ def _payload(
 ) -> dict[str, object]:
     return {
         "schema_version": SCHEMA_VERSION,
-        "tool": {"name": "fcomp", "version": __version__},
+        "tool": {"name": "yescc", "version": __version__},
         "invocation": {
             "argv": argv,
             "mode": invocation.mode,
@@ -114,6 +114,14 @@ def _payload(
         "privacy": {"cloud_used": False, "uploaded_bytes": 0},
         "limits": {"sandboxed": False, "network_isolated": False},
     }
+
+
+def _status_line(build: BuildResult, cwd: Path) -> str:
+    """TTY 下的一行成功状态；管道下不输出，保持 gcc 式安静。"""
+    parts = ["backend=native", "ai_calls=0"]
+    if build.artifact is not None:
+        parts.append(f"artifact={display_path(build.artifact, cwd)}")
+    return "yescc: ok (" + ", ".join(parts) + ")"
 
 
 def _print_failure(build: BuildResult, report_file: Path, strict: bool) -> None:
@@ -191,6 +199,8 @@ def execute(argv: list[str], invocation: Invocation) -> int:
             cwd=cwd,
         )
         write_report(report_file, payload)
+        if sys.stderr.isatty() and not invocation.json_output:
+            print(_status_line(build, cwd), file=sys.stderr)
         if invocation.strict and build.stderr:
             sys.stderr.write(build.stderr)
         return run.returncode
@@ -229,6 +239,8 @@ def execute(argv: list[str], invocation: Invocation) -> int:
             sys.stderr.write(build.stderr)
     elif build.returncode != 0:
         _print_failure(build, report_file, strict=False)
+    elif sys.stderr.isatty():
+        print(_status_line(build, cwd), file=sys.stderr)
 
     return int(ExitCode.OK) if build.returncode == 0 else int(ExitCode.BUILD_FAILED)
 

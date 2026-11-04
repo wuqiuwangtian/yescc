@@ -18,7 +18,7 @@ def _run(
     args: list[str], cwd: Path, stdin: str = ""
 ) -> subprocess.CompletedProcess[str]:
     return subprocess.run(
-        [PYTHON, "-m", "fcomp", *args],
+        [PYTHON, "-m", "yescc", *args],
         cwd=str(cwd),
         input=stdin,
         capture_output=True,
@@ -36,7 +36,7 @@ def test_help_and_version(tmp_path: Path) -> None:
     assert "用法" in help_result.stdout
     version_result = _run(["--version"], tmp_path)
     assert version_result.returncode == 0
-    assert "fcomp" in version_result.stdout
+    assert "yescc" in version_result.stdout
 
 
 def test_json_report(tmp_path: Path) -> None:
@@ -85,7 +85,7 @@ def test_report_records_failure(tmp_path: Path) -> None:
     (tmp_path / "broken.py").write_text("def broken(:\n", encoding="utf-8")
     result = _run(["broken.py"], tmp_path)
     assert result.returncode == 102
-    report = json.loads((tmp_path / ".fcomp" / "broken" / "report.json").read_text("utf-8"))
+    report = json.loads((tmp_path / ".yescc" / "broken" / "report.json").read_text("utf-8"))
     assert report["result"]["status"] == "native_failed"
     assert report["attempts"][0]["exit_code"] != 0
 

@@ -9,7 +9,7 @@ from enum import IntEnum
 
 
 class ExitCode(IntEnum):
-    """fcomp 自身退出码；100 及以上为保留区间。"""
+    """yescc 自身退出码；100 及以上为保留区间。"""
 
     OK = 0
     USAGE = 100

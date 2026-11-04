@@ -7,14 +7,14 @@ import shutil
 from collections.abc import Sequence
 from pathlib import Path
 
-from fcomp.adapters.base import (
+from yescc.adapters.base import (
     AdapterCapabilities,
     BuildResult,
     RunResult,
     ToolchainInfo,
 )
-from fcomp.errors import ToolchainUnavailable, UsageError
-from fcomp.util import run_capture
+from yescc.errors import ToolchainUnavailable, UsageError
+from yescc.util import run_capture
 
 _OBJECT_SUFFIXES = {".o", ".obj", ".s", ".asm"}
 
@@ -93,7 +93,7 @@ class CAdapter:
         import time
 
         started = time.perf_counter()
-        from fcomp.util import run_inherit
+        from yescc.util import run_inherit
 
         returncode = run_inherit([str(artifact), *args], cwd=cwd)
         return RunResult(

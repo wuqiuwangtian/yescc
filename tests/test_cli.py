@@ -6,13 +6,13 @@ from pathlib import Path
 
 import pytest
 
-from fcomp.cli import main, parse
-from fcomp.errors import ExitCode, UsageError
+from yescc.cli import main, parse
+from yescc.errors import ExitCode, UsageError
 
 
 def test_version(capsys: pytest.CaptureFixture[str]) -> None:
     assert main(["--version"]) == 0
-    assert "fcomp" in capsys.readouterr().out
+    assert "yescc" in capsys.readouterr().out
 
 
 def test_help(capsys: pytest.CaptureFixture[str]) -> None:

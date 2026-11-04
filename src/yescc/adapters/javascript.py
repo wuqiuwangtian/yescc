@@ -7,14 +7,14 @@ import time
 from collections.abc import Sequence
 from pathlib import Path
 
-from fcomp.adapters.base import (
+from yescc.adapters.base import (
     AdapterCapabilities,
     BuildResult,
     RunResult,
     ToolchainInfo,
 )
-from fcomp.errors import ToolchainUnavailable, UsageError
-from fcomp.util import run_capture, run_inherit
+from yescc.errors import ToolchainUnavailable, UsageError
+from yescc.util import run_capture, run_inherit
 
 
 def _find_node() -> str:
@@ -45,7 +45,7 @@ class JavaScriptAdapter:
     def build(self, source: Path, passthrough: Sequence[str], cwd: Path) -> BuildResult:
         if passthrough:
             raise UsageError(
-                "JavaScript 构建模式不接受工具链参数；运行参数请使用 `fcomp run <file> -- <args>`。"
+                "JavaScript 构建模式不接受工具链参数；运行参数请使用 `yescc run <file> -- <args>`。"
             )
         started = time.perf_counter()
         command = [self.toolchain().command, "--check", str(source)]

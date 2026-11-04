@@ -4,11 +4,11 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from fcomp.adapters.base import LanguageAdapter
-from fcomp.adapters.c import CAdapter
-from fcomp.adapters.javascript import JavaScriptAdapter
-from fcomp.adapters.python import PythonAdapter
-from fcomp.errors import UnsupportedInput
+from yescc.adapters.base import LanguageAdapter
+from yescc.adapters.c import CAdapter
+from yescc.adapters.javascript import JavaScriptAdapter
+from yescc.adapters.python import PythonAdapter
+from yescc.errors import UnsupportedInput
 
 _ADAPTERS: dict[str, LanguageAdapter] = {
     "python": PythonAdapter(),

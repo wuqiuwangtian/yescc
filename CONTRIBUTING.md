@@ -1,6 +1,6 @@
 # 贡献指南
 
-感谢你考虑为 fcomp（包容你的编译器）做贡献。本项目仍处于早期阶段，先把「合法代码原生一致、失败不伪造成功」守住，再谈扩展。
+感谢你考虑为 yescc（包容你的编译器）做贡献。本项目仍处于早期阶段，先把「合法代码原生一致、失败不伪造成功」守住，再谈扩展。
 
 ## 开发环境
 
@@ -10,7 +10,7 @@
 git clone https://github.com/wuqiuwangtian/forgiving-compiler.git
 cd forgiving-compiler
 uv sync --extra dev
-uv run fcomp --version
+uv run yescc --version
 ```
 
 ## 提交前检查

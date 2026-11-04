@@ -8,14 +8,14 @@ import time
 from collections.abc import Sequence
 from pathlib import Path
 
-from fcomp.adapters.base import (
+from yescc.adapters.base import (
     AdapterCapabilities,
     BuildResult,
     RunResult,
     ToolchainInfo,
 )
-from fcomp.errors import UsageError
-from fcomp.util import python_executable, run_capture, run_inherit
+from yescc.errors import UsageError
+from yescc.util import python_executable, run_capture, run_inherit
 
 
 class PythonAdapter:
@@ -34,7 +34,7 @@ class PythonAdapter:
     def build(self, source: Path, passthrough: Sequence[str], cwd: Path) -> BuildResult:
         if passthrough:
             raise UsageError(
-                "Python 构建模式不接受工具链参数；运行参数请使用 `fcomp run <file> -- <args>`。"
+                "Python 构建模式不接受工具链参数；运行参数请使用 `yescc run <file> -- <args>`。"
             )
         started = time.perf_counter()
         command = [python_executable(), "-m", "py_compile", str(source)]

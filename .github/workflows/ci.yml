@@ -32,7 +32,7 @@ jobs:
       - run: uv run mypy
       - run: uv run pytest -m "not e2e"
       - name: CLI smoke test
-        run: uv run fcomp --version
+        run: uv run yescc --version
 
   e2e:
     name: e2e (${{ matrix.os }}, py${{ matrix.python }})
@@ -66,4 +66,4 @@ jobs:
       - run: uv build
       - run: uv venv /tmp/pkgcheck
       - run: uv pip install --python /tmp/pkgcheck/bin/python dist/*.whl
-      - run: /tmp/pkgcheck/bin/fcomp --version
+      - run: /tmp/pkgcheck/bin/yescc --version

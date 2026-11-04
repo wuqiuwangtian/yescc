@@ -1,4 +1,4 @@
-"""测量 fcomp 的包装额外开销（对应路线图 G1）。
+"""测量 yescc 的包装额外开销（对应路线图 G1）。
 
 用法：
     uv run python bench/overhead.py [--repeat 20]
@@ -44,7 +44,7 @@ def measure(language: str, repeat: int) -> dict[str, float] | None:
         for _ in range(repeat):
             started = time.perf_counter()
             completed = subprocess.run(
-                [sys.executable, "-m", "fcomp", filename, "--json"],
+                [sys.executable, "-m", "yescc", filename, "--json"],
                 cwd=directory,
                 capture_output=True,
                 text=True,

@@ -3,9 +3,9 @@ requires = ["hatchling>=1.27"]
 build-backend = "hatchling.build"
 
 [project]
-name = "fcomp"
-version = "0.1.0.dev0"
-description = "包容你的编译器：合法代码原生直通，出错或自然语言时在预算内修复并真实执行。"
+name = "yescc"
+version = "0.0.1.dev0"
+description = "YesCC：永不扫兴的 AI 编译器。合法代码原样编译，错误与自然语言尽量变成可运行程序。"
 readme = "README.md"
 requires-python = ">=3.11"
 license = "MIT"
@@ -41,20 +41,20 @@ dev = [
 ]
 
 [project.scripts]
-fcomp = "fcomp.cli:main"
+yescc = "yescc.cli:main"
 
 [project.urls]
-Homepage = "https://github.com/wuqiuwangtian/forgiving-compiler"
-Repository = "https://github.com/wuqiuwangtian/forgiving-compiler"
-Issues = "https://github.com/wuqiuwangtian/forgiving-compiler/issues"
-Changelog = "https://github.com/wuqiuwangtian/forgiving-compiler/blob/main/CHANGELOG.md"
+Homepage = "https://github.com/wuqiuwangtian/yescc"
+Repository = "https://github.com/wuqiuwangtian/yescc"
+Issues = "https://github.com/wuqiuwangtian/yescc/issues"
+Changelog = "https://github.com/wuqiuwangtian/yescc/blob/main/CHANGELOG.md"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/fcomp"]
+packages = ["src/yescc"]
 
 [tool.hatch.build.targets.sdist]
 include = [
-  "/src/fcomp",
+  "/src/yescc",
   "/tests",
   "/docs",
   "/bench",
@@ -87,5 +87,5 @@ addopts = "-ra --strict-markers"
 markers = ["e2e: 端到端测试（需要真实工具链）"]
 
 [tool.coverage.run]
-source = ["fcomp"]
+source = ["yescc"]
 branch = true

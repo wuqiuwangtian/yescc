@@ -9,14 +9,14 @@ import json
 from pathlib import Path
 from typing import Any
 
-from fcomp.util import json_safe
+from yescc.util import json_safe
 
 SCHEMA_VERSION = "1"
 
 
 def report_path(cwd: Path, source: Path) -> Path:
-    """报告固定落在工作目录的 .fcomp/<stem>/report.json。"""
-    return cwd / ".fcomp" / source.stem / "report.json"
+    """报告固定落在工作目录的 .yescc/<stem>/report.json。"""
+    return cwd / ".yescc" / source.stem / "report.json"
 
 
 def write_report(path: Path, payload: dict[str, Any]) -> None:

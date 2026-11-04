@@ -7,7 +7,7 @@ from pathlib import Path
 
 import pytest
 
-from fcomp.adapters.c import _default_artifact, _output_argument
+from yescc.adapters.c import _default_artifact, _output_argument
 
 
 @pytest.mark.parametrize(
