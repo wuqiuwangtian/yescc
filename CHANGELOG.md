@@ -20,6 +20,11 @@
 - `--offline`、`--budget`、`--max-rounds`、`--provider`、`--model`、`--emit-source`、`--trace`。
 - 报告记录模型、token、费用、耗时、缓存命中与假设。
 
+### Added
+
+- 最小运行沙箱：AI 产物在临时目录执行，环境变量白名单、超时、POSIX 资源限额与尽力断网；`--unsafe-run` 可覆盖。
+- 报告记录 `sandboxed` / `network_isolated` / `timeout_s` 与 `timed_out`。
+
 ### Changed
 
 - 项目更名为 YesCC：仓库、包名、模块与命令统一为 `yescc`；版本回到 `0.0.1.dev0`。
@@ -39,7 +44,7 @@
 - ADR-0001 至 ADR-0007：首版语言范围、友好终止、实现语言、模型策略、退出码与报告契约、隔离边界、PyPI 分发。
 - 路线图：[docs/项目路线图与发布计划.md](docs/项目路线图与发布计划.md)。
 
-## [0.0.1-alpha] - 未发布
+## [0.0.1-alpha] - 2026-11-04
 
 M3 后发布的公开预览，见路线图 Alpha。
 

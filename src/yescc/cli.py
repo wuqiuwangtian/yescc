@@ -32,6 +32,7 @@ _HELP = """YesCC（Yes Compiler Collection）
       --model NAME    覆盖模型名
       --emit-source   输出修复/生成后的完整源码
       --trace         输出每层尝试与模型调用摘要
+      --unsafe-run    AI 产物在真实 cwd 运行（默认临时目录沙箱）
       --no-cache      禁用模型缓存
   -h, --help          显示帮助
       --version       显示版本
@@ -129,6 +130,10 @@ def parse(argv: Sequence[str]) -> ParsedCommand:
             continue
         if arg == "--trace":
             invocation.trace = True
+            index += 1
+            continue
+        if arg == "--unsafe-run":
+            invocation.unsafe_run = True
             index += 1
             continue
         if arg == "--budget":

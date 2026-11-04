@@ -30,10 +30,10 @@ from yescc.model import (
     ModelStats,
 )
 from yescc.report import SCHEMA_VERSION, load_report, report_path, summarize, write_report
+from yescc.sandbox import SandboxOutcome, run_ai_command
 from yescc.util import (
     display_path,
     read_text_utf8,
-    run_inherit,
     sha256_file,
     truncate,
 )
@@ -101,6 +101,7 @@ class Invocation:
     model: str | None = None
     emit_source: bool = False
     trace: bool = False
+    unsafe_run: bool = False
 
 
 @dataclass
@@ -241,10 +242,15 @@ def _exit_for_status(status: str) -> int:
     return int(ExitCode.BUILD_FAILED)
 
 
-def _run_artifact(artifact: Path | None, args: list[str], cwd: Path) -> int:
+def _run_program(ctx: Context, artifact: Path | None) -> tuple[int, SandboxOutcome]:
     if artifact is None or artifact.suffix.lower() in _NON_EXECUTABLE_SUFFIXES:
         raise UsageError("本次构建没有产生可执行文件，无法运行。")
-    return run_inherit([str(artifact), *args], cwd=cwd)
+    outcome = run_ai_command(
+        [str(artifact), *ctx.invocation.run_args],
+        unsafe=ctx.invocation.unsafe_run,
+        cwd=ctx.cwd,
+    )
+    return outcome.exit_code, outcome
 
 
 def _finalize(
@@ -256,6 +262,7 @@ def _finalize(
     repair: dict[str, object] | None = None,
     generated: dict[str, object] | None = None,
     fallback: dict[str, object] | None = None,
+    sandbox: SandboxOutcome | None = None,
     emitted_source: str | None = None,
     failure_message: str | None = None,
     strict: bool = False,
@@ -296,6 +303,7 @@ def _finalize(
             "repair": repair,
             "generated": generated,
             "fallback": fallback,
+            "timed_out": sandbox.timed_out if sandbox is not None else False,
             "emitted_source": emitted_source if ctx.invocation.emit_source else None,
         },
         "timings": {
@@ -307,11 +315,19 @@ def _finalize(
             "cloud_used": bool(model_stats.calls),
             "uploaded_bytes": 0,
         },
-        "limits": {
-            "sandboxed": status in {"repaired", "generated", "creative_fallback"},
-            "network_isolated": False,
-            "timeout_s": None,
-        },
+        "limits": (
+            {
+                "sandboxed": sandbox.sandboxed,
+                "network_isolated": sandbox.network_isolated,
+                "timeout_s": sandbox.timeout_s,
+            }
+            if sandbox is not None
+            else {
+                "sandboxed": status in {"repaired", "generated", "creative_fallback"},
+                "network_isolated": False,
+                "timeout_s": None,
+            }
+        ),
     }
     report_file = report_path(ctx.cwd, ctx.source)
     write_report(report_file, payload)
@@ -368,10 +384,6 @@ def _write_patched(
     return patched, patch_file
 
 
-def _run_program(ctx: Context, artifact: Path | None) -> int:
-    return _run_artifact(artifact, ctx.invocation.run_args, ctx.cwd)
-
-
 def _model_repair(
     ctx: Context,
     adapter: LanguageAdapter,
@@ -419,12 +431,14 @@ def _model_repair(
                 "patch": display_path(patch_file, ctx.cwd),
                 "assumptions": outcome.assumptions,
             }
-            program_exit = (
-                _run_program(ctx, result.artifact) if ctx.invocation.mode == "run" else None
-            )
+            sandbox: SandboxOutcome | None = None
+            program_exit: int | None = None
+            if ctx.invocation.mode == "run":
+                program_exit, sandbox = _run_program(ctx, result.artifact)
             return _finalize(
                 ctx,
                 status="repaired",
+                sandbox=sandbox,
                 artifact=result.artifact,
                 program_exit=program_exit,
                 repair=repair,
@@ -503,14 +517,16 @@ def _model_generate(
                 if creative
                 else None
             )
-            program_exit = (
-                _run_program(ctx, result.artifact) if ctx.invocation.mode == "run" else None
-            )
+            sandbox: SandboxOutcome | None = None
+            program_exit: int | None = None
+            if ctx.invocation.mode == "run":
+                program_exit, sandbox = _run_program(ctx, result.artifact)
             return _finalize(
                 ctx,
                 status=status,
                 artifact=result.artifact,
                 program_exit=program_exit,
+                sandbox=sandbox,
                 generated=generated,
                 fallback=fallback,
                 emitted_source=program.source,
@@ -564,12 +580,16 @@ def _deterministic_fallback(ctx: Context, reason: str) -> int:
     directory.mkdir(parents=True, exist_ok=True)
     source_file = directory / "fallback.c"
     source_file.write_text(program, encoding="utf-8")
-    program_exit = _run_program(ctx, result.artifact) if ctx.invocation.mode == "run" else None
+    sandbox: SandboxOutcome | None = None
+    program_exit: int | None = None
+    if ctx.invocation.mode == "run":
+        program_exit, sandbox = _run_program(ctx, result.artifact)
     return _finalize(
         ctx,
         status="creative_fallback",
         artifact=result.artifact,
         program_exit=program_exit,
+        sandbox=sandbox,
         fallback={
             "kind": output.kind,
             "reason": reason,
@@ -719,12 +739,16 @@ def execute(argv: list[str], invocation: Invocation) -> int:
                 "patch": display_path(patch_file, cwd),
                 "assumptions": [],
             }
-            program_exit = _run_program(ctx, outcome.artifact) if invocation.mode == "run" else None
+            sandbox = None
+            program_exit = None
+            if invocation.mode == "run":
+                program_exit, sandbox = _run_program(ctx, outcome.artifact)
             return _finalize(
                 ctx,
                 status="repaired",
                 artifact=outcome.artifact,
                 program_exit=program_exit,
+                sandbox=sandbox,
                 repair=repair,
                 emitted_source=outcome.candidate.text,
             )
