@@ -46,7 +46,7 @@
 
 ## [0.0.1-alpha] - 2026-11-04
 
-M3 后发布的公开预览，见路线图 Alpha。
+首个公开预览，TestPyPI `0.0.1a2`：[Release](https://github.com/wuqiuwangtian/yescc/releases/tag/v0.0.1-alpha)。
 
 ## [0.1.0] - 未发布
 
