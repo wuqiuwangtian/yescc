@@ -20,7 +20,6 @@
 | [0014](0014-tolerant-parsing-and-rule-repair.md) | 容错解析与规则修复 | 已接受 |
 | [0015](0015-alpha-reliability-contracts.md) | Alpha 可靠性修补契约 | 已实施 |
 | [0016](0016-m4-evidence-and-platform-boundaries.md) | M4 基准、对抗验收与跨平台边界 | 已实施，G4 已通过 |
+| [0017](0017-exact-context-patch-normalization.md) | 唯一精确上下文与补丁元数据重算 | 已实施，用户确认 |
 
 相关文档：[路线图](../项目路线图与发布计划.md)、[需求报告](../初版需求报告.md)、[技术参考](../技术参考与验证计划.md)。
-
-[ADR-0017](0017-exact-context-patch-normalization.md)：模型 diff 元数据重算和唯一精确上下文定位（已实施；用户确认）。
