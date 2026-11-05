@@ -70,14 +70,27 @@ jobs:
             dist/m5-*.json
 
   package:
-    name: package smoke
-    runs-on: ubuntu-latest
+    name: package smoke (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
     steps:
       - uses: actions/checkout@v7
       - uses: astral-sh/setup-uv@v10.3.3
         with:
+          python-version: "3.11"
           enable-cache: true
+      - run: uv sync --extra dev --locked
       - run: uv build
-      - run: uv venv /tmp/pkgcheck
-      - run: uv pip install --python /tmp/pkgcheck/bin/python dist/*.whl
-      - run: /tmp/pkgcheck/bin/yescc --version
+      - name: Clean wheel install, CLI paths and license inventory
+        run: uv run python -m bench.package_smoke --output dist/package-smoke.json
+      - name: Retain RC package evidence
+        uses: actions/upload-artifact@v7.0.2
+        with:
+          name: rc-package-${{ runner.os }}
+          path: |
+            dist/*.whl
+            dist/*.tar.gz
+            dist/package-smoke.json

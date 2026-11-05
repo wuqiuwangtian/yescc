@@ -4,15 +4,16 @@ build-backend = "hatchling.build"
 
 [project]
 name = "yescc"
-version = "0.0.1a2"
+version = "0.1.0rc1"
 description = "YesCC：永不扫兴的 AI 编译器。合法代码原样编译，错误与自然语言尽量变成可运行程序。"
 readme = "README.md"
 requires-python = ">=3.11"
 license = "MIT"
+license-files = ["LICENSE", "THIRD_PARTY_NOTICES.md"]
 authors = [{ name = "五秋望田", email = "wuqiuwangtian@users.noreply.github.com" }]
 keywords = ["compiler", "llm", "error-repair", "cli", "ai"]
 classifiers = [
-  "Development Status :: 2 - Pre-Alpha",
+  "Development Status :: 4 - Beta",
   "Environment :: Console",
   "Intended Audience :: Developers",
   "Natural Language :: Chinese (Simplified)",
@@ -60,8 +61,11 @@ include = [
   "/tests",
   "/docs",
   "/bench",
+  "/examples",
   "/.github",
   "/LICENSE",
+  "/THIRD_PARTY_NOTICES.md",
+  "/uv.lock",
   "/README.md",
   "/CHANGELOG.md",
   "/CONTRIBUTING.md",
