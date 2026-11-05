@@ -61,12 +61,19 @@ class OpenAICompatibleProvider:
         if not isinstance(content, str):
             raise ModelError("模型响应内容不是文本")
 
-        usage = data.get("usage") or {}
-        prompt_tokens = int(usage.get("prompt_tokens") or 0)
-        completion_tokens = int(usage.get("completion_tokens") or 0)
+        usage = data.get("usage")
+        usage_known = (
+            isinstance(usage, dict)
+            and type(usage.get("prompt_tokens")) is int
+            and type(usage.get("completion_tokens")) is int
+            and usage["prompt_tokens"] >= 0
+            and usage["completion_tokens"] >= 0
+        )
+        prompt_tokens = usage["prompt_tokens"] if usage_known else 0
+        completion_tokens = usage["completion_tokens"] if usage_known else 0
         cost = (
-            prompt_tokens / 1_000_000 * self.settings.input_price_per_mtok
-            + completion_tokens / 1_000_000 * self.settings.output_price_per_mtok
+            prompt_tokens / 1_000_000 * (self.settings.input_price_per_mtok or 0.0)
+            + completion_tokens / 1_000_000 * (self.settings.output_price_per_mtok or 0.0)
         )
         return Completion(
             text=content,
@@ -74,4 +81,5 @@ class OpenAICompatibleProvider:
             completion_tokens=completion_tokens,
             cost_usd=cost,
             duration_ms=duration_ms,
+            usage_known=usage_known,
         )

@@ -33,7 +33,7 @@ def load(key: str) -> dict[str, Any] | None:
         data = json.loads(path.read_text(encoding="utf-8"))
     except (OSError, ValueError):
         return None
-    value = data.get("value")
+    value = data.get("value") if isinstance(data, dict) else None
     return value if isinstance(value, dict) else None
 
 
@@ -47,5 +47,13 @@ def store(key: str, value: dict[str, Any]) -> None:
             encoding="utf-8",
         )
         temporary.replace(directory / f"{key}.json")
+    except OSError:
+        return
+
+
+def discard(key: str) -> None:
+    """无效候选不得在后续任务中继续作为缓存答案复用。"""
+    try:
+        (_cache_dir() / f"{key}.json").unlink(missing_ok=True)
     except OSError:
         return

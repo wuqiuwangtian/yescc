@@ -3,11 +3,25 @@
 from __future__ import annotations
 
 import json
+import os
 import threading
 from collections.abc import Iterator
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+from pathlib import Path
 
 import pytest
+
+
+@pytest.fixture(autouse=True)
+def isolated_model_environment(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    """回归测试不继承开发者的付费模型配置、凭据与缓存。"""
+    for name in os.environ:
+        if name.startswith(("YESCC_MODEL_", "FCOMP_MODEL_")):
+            monkeypatch.delenv(name)
+    monkeypatch.delenv("YESCC_RUN_TIMEOUT_S", raising=False)
+    monkeypatch.setenv("YESCC_CACHE_DIR", str(tmp_path / "cache"))
+    monkeypatch.setenv("YESCC_CONFIG_DIR", str(tmp_path / "config"))
+    monkeypatch.setenv("YESCC_SUPPRESS_NOTICE", "1")
 
 
 class FakeModelServer:
@@ -16,6 +30,7 @@ class FakeModelServer:
     def __init__(self) -> None:
         self.responses: list[object] = []
         self.requests: list[dict[str, object]] = []
+        self.usage: object = {"prompt_tokens": 10, "completion_tokens": 5}
         owner = self
 
         class Handler(BaseHTTPRequestHandler):
@@ -36,7 +51,7 @@ class FakeModelServer:
                 body = json.dumps(
                     {
                         "choices": [{"message": {"role": "assistant", "content": text}}],
-                        "usage": {"prompt_tokens": 10, "completion_tokens": 5},
+                        "usage": owner.usage,
                     }
                 ).encode("utf-8")
                 self.send_response(200)

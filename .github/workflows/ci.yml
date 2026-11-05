@@ -2,8 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    branches: [main, "fix/**", "feat/**"]
   pull_request:
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -54,6 +55,13 @@ jobs:
           gcc --version
           node --version
       - run: uv run pytest -m e2e
+      - name: M4 offline benchmark (no model requests)
+        run: uv run python -m bench.harness --output dist/m4-offline.json
+      - name: Retain M4 benchmark evidence
+        uses: actions/upload-artifact@v7.0.2
+        with:
+          name: m4-${{ runner.os }}-py${{ matrix.python }}
+          path: dist/m4-offline.json
 
   package:
     name: package smoke

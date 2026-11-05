@@ -7,9 +7,9 @@
 需要 Python ≥3.11 与 [uv](https://docs.astral.sh/uv/)：
 
 ```bash
-git clone https://github.com/wuqiuwangtian/forgiving-compiler.git
-cd forgiving-compiler
-uv sync --extra dev
+git clone https://github.com/wuqiuwangtian/yescc.git
+cd yescc
+uv sync --extra dev --locked
 uv run yescc --version
 ```
 
@@ -22,6 +22,8 @@ uv run pytest
 ```
 
 CI 会在 Linux 与 Windows 的 Python 3.11–3.14 上重复这些检查；本地至少跑一遍。真实模型调用不在 CI 中执行，涉及模型行为的变化请附本地评测记录。
+
+首次接手（包括 AI）先读 [AGENTS.md](AGENTS.md) 和[路线图 §10](docs/项目路线图与发布计划.md#10-待决事项与下一步)。普通回归使用 `tests/conftest.py` 中的假模型，不需要真实 API key；付费评测须遵循当前会话授权和路线图 A3。跨会话进度只更新路线图，行为变更同步 README/ADR/CHANGELOG，证据放 `docs/评测/`，避免多份状态表互相冲突。
 
 ## 提交与分支
 

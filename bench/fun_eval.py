@@ -24,7 +24,7 @@ INPUTS: tuple[str, ...] = (
 
 
 def main() -> int:
-    rows: list[tuple[str, bool, str, str, int, int, float, int]] = []
+    rows: list[tuple[str, bool, str, str, int, int, float | None, int]] = []
     with tempfile.TemporaryDirectory(prefix="yescc-fun-") as raw:
         root = Path(raw)
         for index, text in enumerate(INPUTS):
@@ -58,7 +58,7 @@ def main() -> int:
                     str(((report.get("result") or {}).get("fallback") or {}).get("kind")),
                     int(model.get("calls", 0)),
                     int(model.get("prompt_tokens", 0)) + int(model.get("completion_tokens", 0)),
-                    float(model.get("cost_usd", 0.0)),
+                    float(model.get("cost_usd", 0.0)) if model.get("cost_known", True) else None,
                     wall_ms,
                 )
             )
@@ -68,8 +68,9 @@ def main() -> int:
                 f"calls={model.get('calls', 0)} | {wall_ms} ms"
             )
     passed = sum(1 for row in rows if row[1])
-    cost = sum(row[6] for row in rows)
-    print(f"\n可执行 {passed}/{len(rows)}；总费用 ${cost:.6f}")
+    cost = sum(row[6] for row in rows if row[6] is not None)
+    unknown_costs = sum(row[6] is None for row in rows)
+    print(f"\n可执行 {passed}/{len(rows)}；已知费用小计 ${cost:.6f}（{unknown_costs} 例费用未知）")
     return 0 if passed == len(rows) else 1
 
 

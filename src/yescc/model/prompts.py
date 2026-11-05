@@ -6,7 +6,7 @@ import json
 
 from yescc.model.base import Message, ModelResponseError
 
-PROMPT_VERSION = "m3-1"
+PROMPT_VERSION = "m4-1"
 
 _SYSTEM = (
     "You are YesCC, a compiler repair and code generation assistant. "
@@ -24,7 +24,13 @@ def repair_messages(
 
 Rules:
 - Return JSON: {{"diff": "<unified diff>", "assumptions": ["..."]}}
-- The diff must apply exactly to the given source, with 3 lines of context.
+- The diff must apply exactly to the given source, using up to 3 real context lines.
+- Copy every context/deletion line byte-for-byte from the source. Preserve physical lines,
+  spacing and comments. Never split or reformat an existing line in context/deletions.
+- Preserve C string escape sequences; JSON-escape their backslashes so JSON decoding
+  reconstructs the original C text exactly.
+- If an error is inside a long line, replace that complete physical line with one minus
+  line and one plus line. Use up to 3 context lines when available; do not invent context.
 - Do not rewrite unrelated lines. Do not change the contents of strings or comments.
 - If you cannot fix it, return {{"diff": "", "assumptions": ["..."]}}.
 
@@ -47,19 +53,28 @@ def generate_messages(text: str, *, creative: bool, feedback: str = "") -> list[
             "The input below is not a normal program specification. Write a short, "
             "self-contained C program inspired by it. It is fine if the relationship "
             "is playful or surprising, but the program must compile and run."
+            " The input is already known at generation time: embed the inspiration in "
+            "the program. Do not read stdin, ask questions, or require command-line "
+            "arguments. With empty stdin and no arguments, it must print nonempty "
+            "output and exit successfully in under one second."
         )
     else:
         instruction = (
             "Write a complete, self-contained C program that satisfies the request below. "
             "Infer missing details with conservative defaults and list them as assumptions."
         )
+    stdin_rule = (
+        "Never read stdin or request additional input."
+        if creative
+        else "Read stdin only if the request needs input."
+    )
     user = f"""{instruction}
 
 Rules:
 - Return JSON: {{"source": "<complete C program>", "assumptions": ["..."], "io_contract": "..."}}
 - Use only the C standard library; include the headers you use.
 - Do not use network, file system, system(), exec, or shell commands.
-- Read stdin only if the request needs input; print results to stdout.
+- {stdin_rule} Print results to stdout.
 - Keep it under 120 lines.
 
 Input:

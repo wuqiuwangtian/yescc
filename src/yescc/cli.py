@@ -2,11 +2,17 @@
 
 from __future__ import annotations
 
+import math
+import os
+import signal
 import sys
+import threading
 from collections.abc import Sequence
+from contextlib import suppress
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Literal
+from types import FrameType
+from typing import Literal, NoReturn
 
 from yescc import __version__
 from yescc.errors import FcompError, UsageError
@@ -25,7 +31,7 @@ _HELP = """YesCC（Yes Compiler Collection）
       --json          以 JSON 输出报告（仅构建模式）
       --no-fallback   不生成创意兜底；失败时返回 102
       --play          强制创意解释（跳过原生与规则）
-      --offline       禁止任何网络请求，模型路径降级
+      --offline       不发模型请求，模型路径降级
       --budget <USD>  单任务模型费用上限（默认 0.05）
       --max-rounds N  单任务最多模型调用轮数（默认 2）
       --provider NAME 覆盖模型供应商（deepseek/openai/ollama/...）
@@ -142,7 +148,7 @@ def parse(argv: Sequence[str]) -> ParsedCommand:
                 invocation.budget_usd = float(value)
             except ValueError as exc:
                 raise UsageError("--budget 需要一个数字（美元）。") from exc
-            if invocation.budget_usd <= 0:
+            if not math.isfinite(invocation.budget_usd) or invocation.budget_usd <= 0:
                 raise UsageError("--budget 必须大于 0。")
             continue
         if arg == "--max-rounds":
@@ -184,9 +190,7 @@ def parse(argv: Sequence[str]) -> ParsedCommand:
             break
         if arg.startswith("-") and arg != "-":
             if mode == "run":
-                raise UsageError(
-                    f"run 模式不接受工具链参数：{arg}；程序参数请放在 -- 之后。"
-                )
+                raise UsageError(f"run 模式不接受工具链参数：{arg}；程序参数请放在 -- 之后。")
             invocation.passthrough.append(arg)
             if arg in _VALUE_OPTIONS:
                 value, index = _take_value(args, index, arg)
@@ -236,10 +240,18 @@ def _configure_stdio() -> None:
             continue
 
 
+def _console_break(signum: int, frame: FrameType | None) -> None:
+    raise KeyboardInterrupt
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     """程序入口：返回退出码。"""
     _configure_stdio()
     args = list(sys.argv[1:] if argv is None else argv)
+    break_signal = getattr(signal, "SIGBREAK", None)
+    previous_break = None
+    if break_signal is not None and threading.current_thread() is threading.main_thread():
+        previous_break = signal.signal(break_signal, _console_break)
     try:
         parsed = parse(args)
         if parsed.action == "help":
@@ -256,7 +268,29 @@ def main(argv: Sequence[str] | None = None) -> int:
         return int(exc.exit_code)
     except KeyboardInterrupt:
         return 130
+    finally:
+        if previous_break is not None and break_signal is not None:
+            signal.signal(break_signal, previous_break)
+
+
+def entrypoint() -> NoReturn:
+    """命令入口保留 POSIX 信号终止；main() 仍可供 Python 调用者读取原始返回值。"""
+    code = main()
+    if os.name == "posix" and code < 0:
+        signum = -code
+        with suppress(BrokenPipeError):
+            sys.stdout.flush()
+            sys.stderr.flush()
+        with suppress(OSError, ValueError):
+            signal.signal(signum, signal.SIG_DFL)
+        set_mask = getattr(signal, "pthread_sigmask", None)
+        unblock = getattr(signal, "SIG_UNBLOCK", None)
+        if set_mask is not None and unblock is not None:
+            set_mask(unblock, {signum})
+        os.kill(os.getpid(), signum)
+        sys.exit(128 + signum)  # 不支持信号重发的平台的 shell 状态兜底。
+    sys.exit(code)
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    entrypoint()

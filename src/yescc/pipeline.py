@@ -205,6 +205,16 @@ def _diff(original: str, patched: str, filename: str) -> str:
     )
 
 
+def _compiler_feedback(build: BuildResult) -> str:
+    """模型重试不依赖随机构建目录，保证同一诊断可复用缓存。"""
+    if len(build.command) < 2:
+        return build.stderr
+    directory = Path(build.command[1]).parent
+    return build.stderr.replace(str(directory), "<yescc-build>").replace(
+        directory.as_posix(), "<yescc-build>"
+    )
+
+
 def _looks_like_spec(text: str) -> bool:
     stripped = text.strip()
     return len(stripped) >= 4 and any(hint in stripped.lower() for hint in _SPEC_HINTS)
@@ -269,6 +279,11 @@ def _finalize(
 ) -> int:
     total_ms = int((time.perf_counter() - ctx.started) * 1000)
     model_stats = ctx.session.stats if ctx.session is not None else ModelStats()
+    build_exit = (
+        int(ExitCode.BUDGET)
+        if status == "failed" and ctx.session is not None and ctx.session.budget_reason
+        else _exit_for_status(status)
+    )
     model_payload = (
         model_stats.as_dict()
         if (model_stats.calls or model_stats.cache_hits or model_stats.errors)
@@ -312,20 +327,39 @@ def _finalize(
             "model_ms": model_stats.duration_ms,
         },
         "privacy": {
-            "cloud_used": bool(model_stats.calls),
-            "uploaded_bytes": 0,
+            "cloud_used": model_stats.cloud_used,
+            "uploaded_bytes": model_stats.uploaded_bytes,
         },
+        "budget": (
+            {
+                "limit_usd": ctx.session.budget.max_usd,
+                "committed_usd": ctx.session.budget.spent_usd,
+                "attempts": ctx.session.attempts,
+                "blocked_reason": ctx.session.budget_reason,
+            }
+            if ctx.session is not None else None
+        ),
         "limits": (
             {
                 "sandboxed": sandbox.sandboxed,
                 "network_isolated": sandbox.network_isolated,
                 "timeout_s": sandbox.timeout_s,
+                "environment_filtered": sandbox.environment_filtered,
+                "process_tree_cleanup": sandbox.process_tree_cleanup,
+                "resource_limits": sandbox.resource_limits,
+                "filesystem_isolated": False,
+                "output_limited": False,
             }
             if sandbox is not None
             else {
-                "sandboxed": status in {"repaired", "generated", "creative_fallback"},
+                "sandboxed": False,
                 "network_isolated": False,
                 "timeout_s": None,
+                "environment_filtered": False,
+                "process_tree_cleanup": "none",
+                "resource_limits": "none",
+                "filesystem_isolated": False,
+                "output_limited": False,
             }
         ),
     }
@@ -334,7 +368,7 @@ def _finalize(
 
     if ctx.invocation.json_output:
         print(json.dumps(payload, ensure_ascii=False, indent=2))
-        return program_exit if program_exit is not None else _exit_for_status(status)
+        return program_exit if program_exit is not None else build_exit
 
     if ctx.invocation.emit_source and emitted_source is not None:
         stream = sys.stdout if ctx.invocation.mode == "build" else sys.stderr
@@ -343,13 +377,11 @@ def _finalize(
             stream.write("\n")
 
     if failure_message is not None:
-        if strict and ctx.attempts:
-            last = ctx.attempts[-1]
-            sys.stderr.write(str(last.get("stderr", "")))
-        else:
+        # strict 的完整原生输出已在 execute 中转发，不回放报告中的截断文本。
+        if not strict:
             print(failure_message, file=sys.stderr)
             print(f"诊断已保存：{report_file}；使用 --strict 查看原始输出。", file=sys.stderr)
-        return _exit_for_status(status)
+        return build_exit
 
     if fallback is not None:
         print(
@@ -357,14 +389,11 @@ def _finalize(
             f"（kind={fallback.get('kind', 'unknown')}，不是原程序的修复）。",
             file=sys.stderr,
         )
-    if ctx.invocation.strict and ctx.attempts and status == "native_ok":
-        last = ctx.attempts[-1]
-        sys.stderr.write(str(last.get("stderr", "")))
     if artifact is not None and sys.stderr.isatty():
         line = _status_line(status, artifact, repair, fallback, ctx.cwd, model_stats.calls)
         print(line, file=sys.stderr)
 
-    return program_exit if program_exit is not None else _exit_for_status(status)
+    return program_exit if program_exit is not None else build_exit
 
 
 def _write_patched(
@@ -392,9 +421,12 @@ def _model_repair(
     session = ctx.session
     if session is None or not session.available or ctx.language != "c":
         return None
+    session.toolchain = ctx.toolchain
     try:
         outcome = session.repair(ctx.text, ctx.source.name, native.stderr)
     except (ModelError, BudgetExceeded) as exc:
+        if isinstance(exc, BudgetExceeded):
+            session.budget_reason = str(exc)
         session.stats.errors.append(str(exc))
         _trace(ctx, f"model repair skipped: {exc}")
         return None
@@ -445,13 +477,16 @@ def _model_repair(
                 emitted_source=outcome.patched_source,
             )
         try:
+            session.discard_response()
             outcome = session.repair(
                 ctx.text,
                 ctx.source.name,
                 native.stderr,
-                feedback=result.build.stderr,
+                feedback=_compiler_feedback(result.build),
             )
         except (ModelError, BudgetExceeded) as exc:
+            if isinstance(exc, BudgetExceeded):
+                session.budget_reason = str(exc)
             session.stats.errors.append(str(exc))
             _trace(ctx, f"model repair retry skipped: {exc}")
             return None
@@ -471,9 +506,12 @@ def _model_generate(
     session = ctx.session
     if session is None or not session.available:
         return None
+    session.toolchain = ctx.toolchain
     try:
         program = session.generate(ctx.text, creative=creative)
     except (ModelError, BudgetExceeded) as exc:
+        if isinstance(exc, BudgetExceeded):
+            session.budget_reason = str(exc)
         session.stats.errors.append(str(exc))
         _trace(ctx, f"model generate skipped: {exc}")
         return None
@@ -532,12 +570,15 @@ def _model_generate(
                 emitted_source=program.source,
             )
         try:
+            session.discard_response()
             program = session.generate(
                 ctx.text,
                 creative=creative,
-                feedback=result.build.stderr,
+                feedback=_compiler_feedback(result.build),
             )
         except (ModelError, BudgetExceeded) as exc:
+            if isinstance(exc, BudgetExceeded):
+                session.budget_reason = str(exc)
             session.stats.errors.append(str(exc))
             _trace(ctx, f"model generate retry skipped: {exc}")
             return None
@@ -690,6 +731,11 @@ def execute(argv: list[str], invocation: Invocation) -> int:
         ]
 
     if native.returncode == 0:
+        if not invocation.json_output:
+            sys.stdout.write(native.stdout)
+            sys.stderr.write(native.stderr)
+            sys.stdout.flush()
+            sys.stderr.flush()
         program_exit = (
             adapter.run(source, native, invocation.run_args, cwd).returncode
             if invocation.mode == "run"
@@ -704,6 +750,9 @@ def execute(argv: list[str], invocation: Invocation) -> int:
         )
 
     if invocation.strict:
+        if not invocation.json_output:
+            sys.stdout.write(native.stdout)
+            sys.stderr.write(native.stderr)
         return _finalize(
             ctx,
             status="native_failed",
@@ -760,7 +809,7 @@ def execute(argv: list[str], invocation: Invocation) -> int:
     if invocation.no_fallback:
         return _finalize(
             ctx,
-            status="native_failed",
+            status="failed" if session.budget_reason else "native_failed",
             failure_message=f"构建未完成（工具链退出码 {native.returncode}）。",
         )
 

@@ -43,7 +43,7 @@ dev = [
 ]
 
 [project.scripts]
-yescc = "yescc.cli:main"
+yescc = "yescc.cli:entrypoint"
 
 [project.urls]
 Homepage = "https://github.com/wuqiuwangtian/yescc"
@@ -65,6 +65,7 @@ include = [
   "/README.md",
   "/CHANGELOG.md",
   "/CONTRIBUTING.md",
+  "/AGENTS.md",
   "/CODE_OF_CONDUCT.md",
   "/SECURITY.md",
   "/pyproject.toml",
