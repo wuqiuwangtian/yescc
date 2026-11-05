@@ -1,0 +1,98 @@
+[
+  {
+    "id": "fun_17",
+    "status": "creative_fallback",
+    "model_errors": [],
+    "io_contract": "Reads one line from stdin. Counts UTF-8 CJK characters and prints the count, then prints one 'Woof! (汪汪)' line per pair of CJK characters. If no CJK characters are present, prints a sleeping-dog message instead."
+  },
+  {
+    "id": "fun_16",
+    "status": "creative_fallback",
+    "model_errors": [],
+    "io_contract": "Reads one line from stdin. If the line (without trailing newline) equals '喵喵喵', prints '喵!' followed by a newline; otherwise prints '喵?' followed by a newline."
+  },
+  {
+    "id": "fun_15",
+    "status": "creative_fallback",
+    "model_errors": [],
+    "io_contract": "Reads one line from stdin. If it consists only of digits, prints the digit count, the sum of the first and last digits, and a frequency table of each digit. Otherwise prints 'not a digit string'."
+  },
+  {
+    "id": "fun_06",
+    "status": "creative_fallback",
+    "model_errors": [],
+    "io_contract": "Reads one positive integer (number of days) from stdin. Prints a per-day status line and a summary of how many days the moon worked versus slacked. Exits with status 1 on invalid input."
+  },
+  {
+    "id": "fun_05",
+    "status": "creative_fallback",
+    "model_errors": [],
+    "io_contract": "Reads one integer from stdin (number of tokens the cat types). Prints the generated token sequence and a playful verdict to stdout. Exits 1 on invalid input."
+  },
+  {
+    "id": "fun_03",
+    "status": "creative_fallback",
+    "model_errors": [],
+    "io_contract": "Reads one line from stdin. If it equals '你好世界' (UTF-8), prints 'Hello, world!'; otherwise prints 'Not the expected greeting, but hello anyway!'."
+  },
+  {
+    "id": "fun_02",
+    "status": "creative_fallback",
+    "model_errors": [],
+    "io_contract": "Reads one line from stdin. Prints the length and whether it is odd or even. If the length is odd, prints the line unchanged; if even, prints it reversed. Empty input prints 'empty'."
+  },
+  {
+    "id": "complex_positive_count",
+    "status": "failed",
+    "model_errors": [
+      "patch: 上下文不匹配",
+      "patch: 上下文不匹配"
+    ],
+    "io_contract": null
+  },
+  {
+    "id": "complex_triangle",
+    "status": "failed",
+    "model_errors": [
+      "patch: 上下文不匹配",
+      "patch: 上下文不匹配"
+    ],
+    "io_contract": null
+  },
+  {
+    "id": "complex_digit_count",
+    "status": "failed",
+    "model_errors": [
+      "patch: 上下文不匹配",
+      "patch: 上下文不匹配"
+    ],
+    "io_contract": null
+  },
+  {
+    "id": "complex_lcm",
+    "status": "failed",
+    "model_errors": [
+      "patch: 上下文不匹配",
+      "patch: 上下文不匹配"
+    ],
+    "io_contract": null
+  },
+  {
+    "id": "complex_factorial",
+    "status": "failed",
+    "model_errors": [
+      "patch: 上下文不匹配",
+      "patch: 上下文不匹配"
+    ],
+    "io_contract": null
+  },
+  {
+    "id": "complex_product",
+    "status": "failed",
+    "model_errors": [
+      "patch: 上下文不匹配",
+      "patch: 上下文不匹配"
+    ],
+    "io_contract": null
+  }
+]
