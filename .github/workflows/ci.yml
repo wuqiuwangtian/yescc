@@ -57,11 +57,17 @@ jobs:
       - run: uv run pytest -m e2e
       - name: M4 offline benchmark (no model requests)
         run: uv run python -m bench.harness --output dist/m4-offline.json
-      - name: Retain M4 benchmark evidence
+      - name: M5 failure audit and independent oracle checks
+        run: |
+          uv run python -m bench.failure_audit --output dist/m5-failure-audit.json
+          uv run python -m bench.oracle_checks --output dist/m5-oracle-crosscheck.json
+      - name: Retain benchmark evidence
         uses: actions/upload-artifact@v7.0.2
         with:
           name: m4-${{ runner.os }}-py${{ matrix.python }}
-          path: dist/m4-offline.json
+          path: |
+            dist/m4-offline.json
+            dist/m5-*.json
 
   package:
     name: package smoke

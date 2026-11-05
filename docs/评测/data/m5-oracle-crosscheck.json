@@ -1,0 +1,3340 @@
+{
+  "mode": "independent-python-oracle",
+  "human_reviewed": false,
+  "dataset_sha256": "d24f6ce70b73f746e932c6b932d6aeb4c2c88bff4ec1724bf7465b1c648a2ab2",
+  "platform": "Linux",
+  "python": "3.11.15",
+  "tasks": 40,
+  "checks": 508,
+  "passed": 40,
+  "rows": [
+    {
+      "id": "sum",
+      "fixed_oracle_correct": true,
+      "checks": [
+        {
+          "stdin": "2 3\n",
+          "expected": "5",
+          "actual": "5\n",
+          "passed": true
+        },
+        {
+          "stdin": "-4 4\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        },
+        {
+          "stdin": "0 0\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        },
+        {
+          "stdin": "832 -773\n",
+          "expected": "59",
+          "actual": "59\n",
+          "passed": true
+        },
+        {
+          "stdin": "-390 -736\n",
+          "expected": "-1126",
+          "actual": "-1126\n",
+          "passed": true
+        },
+        {
+          "stdin": "-532 -568\n",
+          "expected": "-1100",
+          "actual": "-1100\n",
+          "passed": true
+        },
+        {
+          "stdin": "-415 -226\n",
+          "expected": "-641",
+          "actual": "-641\n",
+          "passed": true
+        },
+        {
+          "stdin": "-608 323\n",
+          "expected": "-285",
+          "actual": "-285\n",
+          "passed": true
+        },
+        {
+          "stdin": "566 730\n",
+          "expected": "1296",
+          "actual": "1296\n",
+          "passed": true
+        },
+        {
+          "stdin": "290 -137\n",
+          "expected": "153",
+          "actual": "153\n",
+          "passed": true
+        },
+        {
+          "stdin": "-818 -385\n",
+          "expected": "-1203",
+          "actual": "-1203\n",
+          "passed": true
+        },
+        {
+          "stdin": "-479 -66\n",
+          "expected": "-545",
+          "actual": "-545\n",
+          "passed": true
+        },
+        {
+          "stdin": "-240 -441\n",
+          "expected": "-681",
+          "actual": "-681\n",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "id": "difference",
+      "fixed_oracle_correct": true,
+      "checks": [
+        {
+          "stdin": "3 8\n",
+          "expected": "-5",
+          "actual": "-5\n",
+          "passed": true
+        },
+        {
+          "stdin": "-2 -3\n",
+          "expected": "1",
+          "actual": "1\n",
+          "passed": true
+        },
+        {
+          "stdin": "0 0\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        },
+        {
+          "stdin": "681 -776\n",
+          "expected": "1457",
+          "actual": "1457\n",
+          "passed": true
+        },
+        {
+          "stdin": "-958 -623\n",
+          "expected": "-335",
+          "actual": "-335\n",
+          "passed": true
+        },
+        {
+          "stdin": "-826 -128\n",
+          "expected": "-698",
+          "actual": "-698\n",
+          "passed": true
+        },
+        {
+          "stdin": "384 473\n",
+          "expected": "-89",
+          "actual": "-89\n",
+          "passed": true
+        },
+        {
+          "stdin": "-319 369\n",
+          "expected": "-688",
+          "actual": "-688\n",
+          "passed": true
+        },
+        {
+          "stdin": "-346 443\n",
+          "expected": "-789",
+          "actual": "-789\n",
+          "passed": true
+        },
+        {
+          "stdin": "653 746\n",
+          "expected": "-93",
+          "actual": "-93\n",
+          "passed": true
+        },
+        {
+          "stdin": "699 348\n",
+          "expected": "351",
+          "actual": "351\n",
+          "passed": true
+        },
+        {
+          "stdin": "69 606\n",
+          "expected": "-537",
+          "actual": "-537\n",
+          "passed": true
+        },
+        {
+          "stdin": "-188 -316\n",
+          "expected": "128",
+          "actual": "128\n",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "id": "product",
+      "fixed_oracle_correct": true,
+      "checks": [
+        {
+          "stdin": "-3 4\n",
+          "expected": "-12",
+          "actual": "-12\n",
+          "passed": true
+        },
+        {
+          "stdin": "0 7\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        },
+        {
+          "stdin": "6 6\n",
+          "expected": "36",
+          "actual": "36\n",
+          "passed": true
+        },
+        {
+          "stdin": "417 -866\n",
+          "expected": "-361122",
+          "actual": "-361122\n",
+          "passed": true
+        },
+        {
+          "stdin": "590 685\n",
+          "expected": "404150",
+          "actual": "404150\n",
+          "passed": true
+        },
+        {
+          "stdin": "403 -671\n",
+          "expected": "-270413",
+          "actual": "-270413\n",
+          "passed": true
+        },
+        {
+          "stdin": "824 -532\n",
+          "expected": "-438368",
+          "actual": "-438368\n",
+          "passed": true
+        },
+        {
+          "stdin": "458 -925\n",
+          "expected": "-423650",
+          "actual": "-423650\n",
+          "passed": true
+        },
+        {
+          "stdin": "-964 -369\n",
+          "expected": "355716",
+          "actual": "355716\n",
+          "passed": true
+        },
+        {
+          "stdin": "-833 -682\n",
+          "expected": "568106",
+          "actual": "568106\n",
+          "passed": true
+        },
+        {
+          "stdin": "-346 698\n",
+          "expected": "-241508",
+          "actual": "-241508\n",
+          "passed": true
+        },
+        {
+          "stdin": "-644 -518\n",
+          "expected": "333592",
+          "actual": "333592\n",
+          "passed": true
+        },
+        {
+          "stdin": "515 -387\n",
+          "expected": "-199305",
+          "actual": "-199305\n",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "id": "maximum",
+      "fixed_oracle_correct": true,
+      "checks": [
+        {
+          "stdin": "-3 -5\n",
+          "expected": "-3",
+          "actual": "-3\n",
+          "passed": true
+        },
+        {
+          "stdin": "2 9\n",
+          "expected": "9",
+          "actual": "9\n",
+          "passed": true
+        },
+        {
+          "stdin": "4 4\n",
+          "expected": "4",
+          "actual": "4\n",
+          "passed": true
+        },
+        {
+          "stdin": "-380 -295\n",
+          "expected": "-295",
+          "actual": "-295\n",
+          "passed": true
+        },
+        {
+          "stdin": "556 -568\n",
+          "expected": "556",
+          "actual": "556\n",
+          "passed": true
+        },
+        {
+          "stdin": "532 162\n",
+          "expected": "532",
+          "actual": "532\n",
+          "passed": true
+        },
+        {
+          "stdin": "561 31\n",
+          "expected": "561",
+          "actual": "561\n",
+          "passed": true
+        },
+        {
+          "stdin": "382 506\n",
+          "expected": "506",
+          "actual": "506\n",
+          "passed": true
+        },
+        {
+          "stdin": "-80 805\n",
+          "expected": "805",
+          "actual": "805\n",
+          "passed": true
+        },
+        {
+          "stdin": "-108 646\n",
+          "expected": "646",
+          "actual": "646\n",
+          "passed": true
+        },
+        {
+          "stdin": "-975 -830\n",
+          "expected": "-830",
+          "actual": "-830\n",
+          "passed": true
+        },
+        {
+          "stdin": "870 -547\n",
+          "expected": "870",
+          "actual": "870\n",
+          "passed": true
+        },
+        {
+          "stdin": "487 -552\n",
+          "expected": "487",
+          "actual": "487\n",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "id": "minimum",
+      "fixed_oracle_correct": true,
+      "checks": [
+        {
+          "stdin": "-3 -5\n",
+          "expected": "-5",
+          "actual": "-5\n",
+          "passed": true
+        },
+        {
+          "stdin": "2 9\n",
+          "expected": "2",
+          "actual": "2\n",
+          "passed": true
+        },
+        {
+          "stdin": "4 4\n",
+          "expected": "4",
+          "actual": "4\n",
+          "passed": true
+        },
+        {
+          "stdin": "24 173\n",
+          "expected": "24",
+          "actual": "24\n",
+          "passed": true
+        },
+        {
+          "stdin": "-115 -267\n",
+          "expected": "-267",
+          "actual": "-267\n",
+          "passed": true
+        },
+        {
+          "stdin": "500 85\n",
+          "expected": "85",
+          "actual": "85\n",
+          "passed": true
+        },
+        {
+          "stdin": "385 196\n",
+          "expected": "196",
+          "actual": "196\n",
+          "passed": true
+        },
+        {
+          "stdin": "183 -395\n",
+          "expected": "-395",
+          "actual": "-395\n",
+          "passed": true
+        },
+        {
+          "stdin": "828 -948\n",
+          "expected": "-948",
+          "actual": "-948\n",
+          "passed": true
+        },
+        {
+          "stdin": "511 -507\n",
+          "expected": "-507",
+          "actual": "-507\n",
+          "passed": true
+        },
+        {
+          "stdin": "-290 -750\n",
+          "expected": "-750",
+          "actual": "-750\n",
+          "passed": true
+        },
+        {
+          "stdin": "-545 967\n",
+          "expected": "-545",
+          "actual": "-545\n",
+          "passed": true
+        },
+        {
+          "stdin": "-957 111\n",
+          "expected": "-957",
+          "actual": "-957\n",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "id": "absolute",
+      "fixed_oracle_correct": true,
+      "checks": [
+        {
+          "stdin": "-8\n",
+          "expected": "8",
+          "actual": "8\n",
+          "passed": true
+        },
+        {
+          "stdin": "0\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        },
+        {
+          "stdin": "9\n",
+          "expected": "9",
+          "actual": "9\n",
+          "passed": true
+        },
+        {
+          "stdin": "481013987\n",
+          "expected": "481013987",
+          "actual": "481013987\n",
+          "passed": true
+        },
+        {
+          "stdin": "785783249\n",
+          "expected": "785783249",
+          "actual": "785783249\n",
+          "passed": true
+        },
+        {
+          "stdin": "-415660561\n",
+          "expected": "415660561",
+          "actual": "415660561\n",
+          "passed": true
+        },
+        {
+          "stdin": "-643194173\n",
+          "expected": "643194173",
+          "actual": "643194173\n",
+          "passed": true
+        },
+        {
+          "stdin": "-735980353\n",
+          "expected": "735980353",
+          "actual": "735980353\n",
+          "passed": true
+        },
+        {
+          "stdin": "-867026220\n",
+          "expected": "867026220",
+          "actual": "867026220\n",
+          "passed": true
+        },
+        {
+          "stdin": "910609036\n",
+          "expected": "910609036",
+          "actual": "910609036\n",
+          "passed": true
+        },
+        {
+          "stdin": "435863764\n",
+          "expected": "435863764",
+          "actual": "435863764\n",
+          "passed": true
+        },
+        {
+          "stdin": "561032\n",
+          "expected": "561032",
+          "actual": "561032\n",
+          "passed": true
+        },
+        {
+          "stdin": "411263420\n",
+          "expected": "411263420",
+          "actual": "411263420\n",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "id": "sign",
+      "fixed_oracle_correct": true,
+      "checks": [
+        {
+          "stdin": "-8\n",
+          "expected": "-1",
+          "actual": "-1\n",
+          "passed": true
+        },
+        {
+          "stdin": "0\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        },
+        {
+          "stdin": "9\n",
+          "expected": "1",
+          "actual": "1\n",
+          "passed": true
+        },
+        {
+          "stdin": "427609910\n",
+          "expected": "1",
+          "actual": "1\n",
+          "passed": true
+        },
+        {
+          "stdin": "-932691574\n",
+          "expected": "-1",
+          "actual": "-1\n",
+          "passed": true
+        },
+        {
+          "stdin": "119701930\n",
+          "expected": "1",
+          "actual": "1\n",
+          "passed": true
+        },
+        {
+          "stdin": "819921856\n",
+          "expected": "1",
+          "actual": "1\n",
+          "passed": true
+        },
+        {
+          "stdin": "157856791\n",
+          "expected": "1",
+          "actual": "1\n",
+          "passed": true
+        },
+        {
+          "stdin": "-990594909\n",
+          "expected": "-1",
+          "actual": "-1\n",
+          "passed": true
+        },
+        {
+          "stdin": "133678197\n",
+          "expected": "1",
+          "actual": "1\n",
+          "passed": true
+        },
+        {
+          "stdin": "647574426\n",
+          "expected": "1",
+          "actual": "1\n",
+          "passed": true
+        },
+        {
+          "stdin": "142066981\n",
+          "expected": "1",
+          "actual": "1\n",
+          "passed": true
+        },
+        {
+          "stdin": "-394112395\n",
+          "expected": "-1",
+          "actual": "-1\n",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "id": "parity",
+      "fixed_oracle_correct": true,
+      "checks": [
+        {
+          "stdin": "-3\n",
+          "expected": "ODD",
+          "actual": "ODD\n",
+          "passed": true
+        },
+        {
+          "stdin": "0\n",
+          "expected": "EVEN",
+          "actual": "EVEN\n",
+          "passed": true
+        },
+        {
+          "stdin": "8\n",
+          "expected": "EVEN",
+          "actual": "EVEN\n",
+          "passed": true
+        },
+        {
+          "stdin": "-434249536\n",
+          "expected": "EVEN",
+          "actual": "EVEN\n",
+          "passed": true
+        },
+        {
+          "stdin": "-356005688\n",
+          "expected": "EVEN",
+          "actual": "EVEN\n",
+          "passed": true
+        },
+        {
+          "stdin": "-238845523\n",
+          "expected": "ODD",
+          "actual": "ODD\n",
+          "passed": true
+        },
+        {
+          "stdin": "-902941219\n",
+          "expected": "ODD",
+          "actual": "ODD\n",
+          "passed": true
+        },
+        {
+          "stdin": "-425796980\n",
+          "expected": "EVEN",
+          "actual": "EVEN\n",
+          "passed": true
+        },
+        {
+          "stdin": "417060433\n",
+          "expected": "ODD",
+          "actual": "ODD\n",
+          "passed": true
+        },
+        {
+          "stdin": "747889683\n",
+          "expected": "ODD",
+          "actual": "ODD\n",
+          "passed": true
+        },
+        {
+          "stdin": "-968443607\n",
+          "expected": "ODD",
+          "actual": "ODD\n",
+          "passed": true
+        },
+        {
+          "stdin": "349051448\n",
+          "expected": "EVEN",
+          "actual": "EVEN\n",
+          "passed": true
+        },
+        {
+          "stdin": "346536133\n",
+          "expected": "ODD",
+          "actual": "ODD\n",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "id": "sum_to_n",
+      "fixed_oracle_correct": true,
+      "checks": [
+        {
+          "stdin": "0\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        },
+        {
+          "stdin": "1\n",
+          "expected": "1",
+          "actual": "1\n",
+          "passed": true
+        },
+        {
+          "stdin": "100\n",
+          "expected": "5050",
+          "actual": "5050\n",
+          "passed": true
+        },
+        {
+          "stdin": "3598\n",
+          "expected": "6474601",
+          "actual": "6474601\n",
+          "passed": true
+        },
+        {
+          "stdin": "9520\n",
+          "expected": "45319960",
+          "actual": "45319960\n",
+          "passed": true
+        },
+        {
+          "stdin": "2269\n",
+          "expected": "2575315",
+          "actual": "2575315\n",
+          "passed": true
+        },
+        {
+          "stdin": "3611\n",
+          "expected": "6521466",
+          "actual": "6521466\n",
+          "passed": true
+        },
+        {
+          "stdin": "6407\n",
+          "expected": "20528028",
+          "actual": "20528028\n",
+          "passed": true
+        },
+        {
+          "stdin": "8756\n",
+          "expected": "38338146",
+          "actual": "38338146\n",
+          "passed": true
+        },
+        {
+          "stdin": "7932\n",
+          "expected": "31462278",
+          "actual": "31462278\n",
+          "passed": true
+        },
+        {
+          "stdin": "5524\n",
+          "expected": "15260050",
+          "actual": "15260050\n",
+          "passed": true
+        },
+        {
+          "stdin": "1314\n",
+          "expected": "863955",
+          "actual": "863955\n",
+          "passed": true
+        },
+        {
+          "stdin": "478\n",
+          "expected": "114481",
+          "actual": "114481\n",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "id": "factorial",
+      "fixed_oracle_correct": true,
+      "checks": [
+        {
+          "stdin": "0\n",
+          "expected": "1",
+          "actual": "1\n",
+          "passed": true
+        },
+        {
+          "stdin": "1\n",
+          "expected": "1",
+          "actual": "1\n",
+          "passed": true
+        },
+        {
+          "stdin": "10\n",
+          "expected": "3628800",
+          "actual": "3628800\n",
+          "passed": true
+        },
+        {
+          "stdin": "16\n",
+          "expected": "20922789888000",
+          "actual": "20922789888000\n",
+          "passed": true
+        },
+        {
+          "stdin": "3\n",
+          "expected": "6",
+          "actual": "6\n",
+          "passed": true
+        },
+        {
+          "stdin": "5\n",
+          "expected": "120",
+          "actual": "120\n",
+          "passed": true
+        },
+        {
+          "stdin": "17\n",
+          "expected": "355687428096000",
+          "actual": "355687428096000\n",
+          "passed": true
+        },
+        {
+          "stdin": "12\n",
+          "expected": "479001600",
+          "actual": "479001600\n",
+          "passed": true
+        },
+        {
+          "stdin": "14\n",
+          "expected": "87178291200",
+          "actual": "87178291200\n",
+          "passed": true
+        },
+        {
+          "stdin": "19\n",
+          "expected": "121645100408832000",
+          "actual": "121645100408832000\n",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "id": "fibonacci",
+      "fixed_oracle_correct": true,
+      "checks": [
+        {
+          "stdin": "0\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        },
+        {
+          "stdin": "1\n",
+          "expected": "1",
+          "actual": "1\n",
+          "passed": true
+        },
+        {
+          "stdin": "10\n",
+          "expected": "55",
+          "actual": "55\n",
+          "passed": true
+        },
+        {
+          "stdin": "28\n",
+          "expected": "317811",
+          "actual": "317811\n",
+          "passed": true
+        },
+        {
+          "stdin": "38\n",
+          "expected": "39088169",
+          "actual": "39088169\n",
+          "passed": true
+        },
+        {
+          "stdin": "25\n",
+          "expected": "75025",
+          "actual": "75025\n",
+          "passed": true
+        },
+        {
+          "stdin": "15\n",
+          "expected": "610",
+          "actual": "610\n",
+          "passed": true
+        },
+        {
+          "stdin": "34\n",
+          "expected": "5702887",
+          "actual": "5702887\n",
+          "passed": true
+        },
+        {
+          "stdin": "26\n",
+          "expected": "121393",
+          "actual": "121393\n",
+          "passed": true
+        },
+        {
+          "stdin": "29\n",
+          "expected": "514229",
+          "actual": "514229\n",
+          "passed": true
+        },
+        {
+          "stdin": "21\n",
+          "expected": "10946",
+          "actual": "10946\n",
+          "passed": true
+        },
+        {
+          "stdin": "31\n",
+          "expected": "1346269",
+          "actual": "1346269\n",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "id": "gcd",
+      "fixed_oracle_correct": true,
+      "checks": [
+        {
+          "stdin": "12 18\n",
+          "expected": "6",
+          "actual": "6\n",
+          "passed": true
+        },
+        {
+          "stdin": "0 0\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        },
+        {
+          "stdin": "0 9\n",
+          "expected": "9",
+          "actual": "9\n",
+          "passed": true
+        },
+        {
+          "stdin": "544 842\n",
+          "expected": "2",
+          "actual": "2\n",
+          "passed": true
+        },
+        {
+          "stdin": "965 601\n",
+          "expected": "1",
+          "actual": "1\n",
+          "passed": true
+        },
+        {
+          "stdin": "773 662\n",
+          "expected": "1",
+          "actual": "1\n",
+          "passed": true
+        },
+        {
+          "stdin": "227 936\n",
+          "expected": "1",
+          "actual": "1\n",
+          "passed": true
+        },
+        {
+          "stdin": "132 588\n",
+          "expected": "12",
+          "actual": "12\n",
+          "passed": true
+        },
+        {
+          "stdin": "209 50\n",
+          "expected": "1",
+          "actual": "1\n",
+          "passed": true
+        },
+        {
+          "stdin": "784 618\n",
+          "expected": "2",
+          "actual": "2\n",
+          "passed": true
+        },
+        {
+          "stdin": "652 364\n",
+          "expected": "4",
+          "actual": "4\n",
+          "passed": true
+        },
+        {
+          "stdin": "409 300\n",
+          "expected": "1",
+          "actual": "1\n",
+          "passed": true
+        },
+        {
+          "stdin": "330 109\n",
+          "expected": "1",
+          "actual": "1\n",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "id": "lcm",
+      "fixed_oracle_correct": true,
+      "checks": [
+        {
+          "stdin": "12 18\n",
+          "expected": "36",
+          "actual": "36\n",
+          "passed": true
+        },
+        {
+          "stdin": "0 9\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        },
+        {
+          "stdin": "0 0\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        },
+        {
+          "stdin": "38 121\n",
+          "expected": "4598",
+          "actual": "4598\n",
+          "passed": true
+        },
+        {
+          "stdin": "957 875\n",
+          "expected": "837375",
+          "actual": "837375\n",
+          "passed": true
+        },
+        {
+          "stdin": "5 334\n",
+          "expected": "1670",
+          "actual": "1670\n",
+          "passed": true
+        },
+        {
+          "stdin": "814 826\n",
+          "expected": "336182",
+          "actual": "336182\n",
+          "passed": true
+        },
+        {
+          "stdin": "501 129\n",
+          "expected": "21543",
+          "actual": "21543\n",
+          "passed": true
+        },
+        {
+          "stdin": "616 265\n",
+          "expected": "163240",
+          "actual": "163240\n",
+          "passed": true
+        },
+        {
+          "stdin": "446 631\n",
+          "expected": "281426",
+          "actual": "281426\n",
+          "passed": true
+        },
+        {
+          "stdin": "289 444\n",
+          "expected": "128316",
+          "actual": "128316\n",
+          "passed": true
+        },
+        {
+          "stdin": "539 882\n",
+          "expected": "9702",
+          "actual": "9702\n",
+          "passed": true
+        },
+        {
+          "stdin": "330 264\n",
+          "expected": "1320",
+          "actual": "1320\n",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "id": "power",
+      "fixed_oracle_correct": true,
+      "checks": [
+        {
+          "stdin": "2 8\n",
+          "expected": "256",
+          "actual": "256\n",
+          "passed": true
+        },
+        {
+          "stdin": "0 0\n",
+          "expected": "1",
+          "actual": "1\n",
+          "passed": true
+        },
+        {
+          "stdin": "-3 3\n",
+          "expected": "-27",
+          "actual": "-27\n",
+          "passed": true
+        },
+        {
+          "stdin": "1 7\n",
+          "expected": "1",
+          "actual": "1\n",
+          "passed": true
+        },
+        {
+          "stdin": "2 4\n",
+          "expected": "16",
+          "actual": "16\n",
+          "passed": true
+        },
+        {
+          "stdin": "-2 7\n",
+          "expected": "-128",
+          "actual": "-128\n",
+          "passed": true
+        },
+        {
+          "stdin": "5 7\n",
+          "expected": "78125",
+          "actual": "78125\n",
+          "passed": true
+        },
+        {
+          "stdin": "3 3\n",
+          "expected": "27",
+          "actual": "27\n",
+          "passed": true
+        },
+        {
+          "stdin": "-4 1\n",
+          "expected": "-4",
+          "actual": "-4\n",
+          "passed": true
+        },
+        {
+          "stdin": "-4 2\n",
+          "expected": "16",
+          "actual": "16\n",
+          "passed": true
+        },
+        {
+          "stdin": "0 3\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        },
+        {
+          "stdin": "0 5\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "id": "digit_sum",
+      "fixed_oracle_correct": true,
+      "checks": [
+        {
+          "stdin": "0\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        },
+        {
+          "stdin": "-1023\n",
+          "expected": "6",
+          "actual": "6\n",
+          "passed": true
+        },
+        {
+          "stdin": "999\n",
+          "expected": "27",
+          "actual": "27\n",
+          "passed": true
+        },
+        {
+          "stdin": "863606022\n",
+          "expected": "33",
+          "actual": "33\n",
+          "passed": true
+        },
+        {
+          "stdin": "-431097713\n",
+          "expected": "35",
+          "actual": "35\n",
+          "passed": true
+        },
+        {
+          "stdin": "-591474582\n",
+          "expected": "45",
+          "actual": "45\n",
+          "passed": true
+        },
+        {
+          "stdin": "-934152223\n",
+          "expected": "31",
+          "actual": "31\n",
+          "passed": true
+        },
+        {
+          "stdin": "905197640\n",
+          "expected": "41",
+          "actual": "41\n",
+          "passed": true
+        },
+        {
+          "stdin": "-425431367\n",
+          "expected": "35",
+          "actual": "35\n",
+          "passed": true
+        },
+        {
+          "stdin": "595011512\n",
+          "expected": "29",
+          "actual": "29\n",
+          "passed": true
+        },
+        {
+          "stdin": "-91524800\n",
+          "expected": "29",
+          "actual": "29\n",
+          "passed": true
+        },
+        {
+          "stdin": "680624755\n",
+          "expected": "43",
+          "actual": "43\n",
+          "passed": true
+        },
+        {
+          "stdin": "138374987\n",
+          "expected": "50",
+          "actual": "50\n",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "id": "digit_count",
+      "fixed_oracle_correct": true,
+      "checks": [
+        {
+          "stdin": "0\n",
+          "expected": "1",
+          "actual": "1\n",
+          "passed": true
+        },
+        {
+          "stdin": "-1023\n",
+          "expected": "4",
+          "actual": "4\n",
+          "passed": true
+        },
+        {
+          "stdin": "9\n",
+          "expected": "1",
+          "actual": "1\n",
+          "passed": true
+        },
+        {
+          "stdin": "430075522\n",
+          "expected": "9",
+          "actual": "9\n",
+          "passed": true
+        },
+        {
+          "stdin": "288702041\n",
+          "expected": "9",
+          "actual": "9\n",
+          "passed": true
+        },
+        {
+          "stdin": "392564230\n",
+          "expected": "9",
+          "actual": "9\n",
+          "passed": true
+        },
+        {
+          "stdin": "-297753004\n",
+          "expected": "9",
+          "actual": "9\n",
+          "passed": true
+        },
+        {
+          "stdin": "710995387\n",
+          "expected": "9",
+          "actual": "9\n",
+          "passed": true
+        },
+        {
+          "stdin": "92798367\n",
+          "expected": "8",
+          "actual": "8\n",
+          "passed": true
+        },
+        {
+          "stdin": "267263113\n",
+          "expected": "9",
+          "actual": "9\n",
+          "passed": true
+        },
+        {
+          "stdin": "-27139604\n",
+          "expected": "8",
+          "actual": "8\n",
+          "passed": true
+        },
+        {
+          "stdin": "315591951\n",
+          "expected": "9",
+          "actual": "9\n",
+          "passed": true
+        },
+        {
+          "stdin": "128899038\n",
+          "expected": "9",
+          "actual": "9\n",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "id": "reverse_number",
+      "fixed_oracle_correct": true,
+      "checks": [
+        {
+          "stdin": "0\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        },
+        {
+          "stdin": "1200\n",
+          "expected": "21",
+          "actual": "21\n",
+          "passed": true
+        },
+        {
+          "stdin": "123\n",
+          "expected": "321",
+          "actual": "321\n",
+          "passed": true
+        },
+        {
+          "stdin": "328062919\n",
+          "expected": "919260823",
+          "actual": "919260823\n",
+          "passed": true
+        },
+        {
+          "stdin": "169534699\n",
+          "expected": "996435961",
+          "actual": "996435961\n",
+          "passed": true
+        },
+        {
+          "stdin": "525534578\n",
+          "expected": "875435525",
+          "actual": "875435525\n",
+          "passed": true
+        },
+        {
+          "stdin": "165985207\n",
+          "expected": "702589561",
+          "actual": "702589561\n",
+          "passed": true
+        },
+        {
+          "stdin": "721063491\n",
+          "expected": "194360127",
+          "actual": "194360127\n",
+          "passed": true
+        },
+        {
+          "stdin": "669781714\n",
+          "expected": "417187966",
+          "actual": "417187966\n",
+          "passed": true
+        },
+        {
+          "stdin": "737918331\n",
+          "expected": "133819737",
+          "actual": "133819737\n",
+          "passed": true
+        },
+        {
+          "stdin": "684874211\n",
+          "expected": "112478486",
+          "actual": "112478486\n",
+          "passed": true
+        },
+        {
+          "stdin": "869863557\n",
+          "expected": "755368968",
+          "actual": "755368968\n",
+          "passed": true
+        },
+        {
+          "stdin": "429662469\n",
+          "expected": "964266924",
+          "actual": "964266924\n",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "id": "palindrome_number",
+      "fixed_oracle_correct": true,
+      "checks": [
+        {
+          "stdin": "0\n",
+          "expected": "1",
+          "actual": "1\n",
+          "passed": true
+        },
+        {
+          "stdin": "1221\n",
+          "expected": "1",
+          "actual": "1\n",
+          "passed": true
+        },
+        {
+          "stdin": "120\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        },
+        {
+          "stdin": "548803869\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        },
+        {
+          "stdin": "649920726\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        },
+        {
+          "stdin": "299226873\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        },
+        {
+          "stdin": "579114779\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        },
+        {
+          "stdin": "481305732\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        },
+        {
+          "stdin": "427927120\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        },
+        {
+          "stdin": "123365097\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        },
+        {
+          "stdin": "856919867\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        },
+        {
+          "stdin": "497087879\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        },
+        {
+          "stdin": "841294917\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "id": "prime",
+      "fixed_oracle_correct": true,
+      "checks": [
+        {
+          "stdin": "1\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        },
+        {
+          "stdin": "2\n",
+          "expected": "1",
+          "actual": "1\n",
+          "passed": true
+        },
+        {
+          "stdin": "49\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        },
+        {
+          "stdin": "17\n",
+          "expected": "1",
+          "actual": "1\n",
+          "passed": true
+        },
+        {
+          "stdin": "858982\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        },
+        {
+          "stdin": "881183\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        },
+        {
+          "stdin": "145977\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        },
+        {
+          "stdin": "681917\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        },
+        {
+          "stdin": "309334\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        },
+        {
+          "stdin": "408217\n",
+          "expected": "1",
+          "actual": "1\n",
+          "passed": true
+        },
+        {
+          "stdin": "874980\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        },
+        {
+          "stdin": "225455\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        },
+        {
+          "stdin": "260905\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        },
+        {
+          "stdin": "965265\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "id": "divisor_count",
+      "fixed_oracle_correct": true,
+      "checks": [
+        {
+          "stdin": "1\n",
+          "expected": "1",
+          "actual": "1\n",
+          "passed": true
+        },
+        {
+          "stdin": "12\n",
+          "expected": "6",
+          "actual": "6\n",
+          "passed": true
+        },
+        {
+          "stdin": "17\n",
+          "expected": "2",
+          "actual": "2\n",
+          "passed": true
+        },
+        {
+          "stdin": "9141\n",
+          "expected": "8",
+          "actual": "8\n",
+          "passed": true
+        },
+        {
+          "stdin": "4599\n",
+          "expected": "12",
+          "actual": "12\n",
+          "passed": true
+        },
+        {
+          "stdin": "9046\n",
+          "expected": "4",
+          "actual": "4\n",
+          "passed": true
+        },
+        {
+          "stdin": "1259\n",
+          "expected": "2",
+          "actual": "2\n",
+          "passed": true
+        },
+        {
+          "stdin": "5223\n",
+          "expected": "4",
+          "actual": "4\n",
+          "passed": true
+        },
+        {
+          "stdin": "456\n",
+          "expected": "16",
+          "actual": "16\n",
+          "passed": true
+        },
+        {
+          "stdin": "6679\n",
+          "expected": "2",
+          "actual": "2\n",
+          "passed": true
+        },
+        {
+          "stdin": "4322\n",
+          "expected": "4",
+          "actual": "4\n",
+          "passed": true
+        },
+        {
+          "stdin": "8031\n",
+          "expected": "4",
+          "actual": "4\n",
+          "passed": true
+        },
+        {
+          "stdin": "6091\n",
+          "expected": "2",
+          "actual": "2\n",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "id": "leap_year",
+      "fixed_oracle_correct": true,
+      "checks": [
+        {
+          "stdin": "1900\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        },
+        {
+          "stdin": "2000\n",
+          "expected": "1",
+          "actual": "1\n",
+          "passed": true
+        },
+        {
+          "stdin": "2024\n",
+          "expected": "1",
+          "actual": "1\n",
+          "passed": true
+        },
+        {
+          "stdin": "3309\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        },
+        {
+          "stdin": "8843\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        },
+        {
+          "stdin": "3110\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        },
+        {
+          "stdin": "2637\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        },
+        {
+          "stdin": "3684\n",
+          "expected": "1",
+          "actual": "1\n",
+          "passed": true
+        },
+        {
+          "stdin": "339\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        },
+        {
+          "stdin": "8223\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        },
+        {
+          "stdin": "7865\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        },
+        {
+          "stdin": "9330\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        },
+        {
+          "stdin": "3935\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "id": "triangle",
+      "fixed_oracle_correct": true,
+      "checks": [
+        {
+          "stdin": "3 4 5\n",
+          "expected": "YES",
+          "actual": "YES\n",
+          "passed": true
+        },
+        {
+          "stdin": "1 2 3\n",
+          "expected": "NO",
+          "actual": "NO\n",
+          "passed": true
+        },
+        {
+          "stdin": "0 5 5\n",
+          "expected": "NO",
+          "actual": "NO\n",
+          "passed": true
+        },
+        {
+          "stdin": "-5 17 17\n",
+          "expected": "NO",
+          "actual": "NO\n",
+          "passed": true
+        },
+        {
+          "stdin": "9 9 -5\n",
+          "expected": "NO",
+          "actual": "NO\n",
+          "passed": true
+        },
+        {
+          "stdin": "15 1 0\n",
+          "expected": "NO",
+          "actual": "NO\n",
+          "passed": true
+        },
+        {
+          "stdin": "13 11 0\n",
+          "expected": "NO",
+          "actual": "NO\n",
+          "passed": true
+        },
+        {
+          "stdin": "10 16 0\n",
+          "expected": "NO",
+          "actual": "NO\n",
+          "passed": true
+        },
+        {
+          "stdin": "7 5 5\n",
+          "expected": "YES",
+          "actual": "YES\n",
+          "passed": true
+        },
+        {
+          "stdin": "-3 4 8\n",
+          "expected": "NO",
+          "actual": "NO\n",
+          "passed": true
+        },
+        {
+          "stdin": "0 10 -1\n",
+          "expected": "NO",
+          "actual": "NO\n",
+          "passed": true
+        },
+        {
+          "stdin": "1 -5 15\n",
+          "expected": "NO",
+          "actual": "NO\n",
+          "passed": true
+        },
+        {
+          "stdin": "-4 4 11\n",
+          "expected": "NO",
+          "actual": "NO\n",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "id": "median_three",
+      "fixed_oracle_correct": true,
+      "checks": [
+        {
+          "stdin": "3 1 2\n",
+          "expected": "2",
+          "actual": "2\n",
+          "passed": true
+        },
+        {
+          "stdin": "-3 -1 -2\n",
+          "expected": "-2",
+          "actual": "-2\n",
+          "passed": true
+        },
+        {
+          "stdin": "7 7 1\n",
+          "expected": "7",
+          "actual": "7\n",
+          "passed": true
+        },
+        {
+          "stdin": "-3 19 -4\n",
+          "expected": "-3",
+          "actual": "-3\n",
+          "passed": true
+        },
+        {
+          "stdin": "12 6 1\n",
+          "expected": "6",
+          "actual": "6\n",
+          "passed": true
+        },
+        {
+          "stdin": "17 5 12\n",
+          "expected": "12",
+          "actual": "12\n",
+          "passed": true
+        },
+        {
+          "stdin": "9 -1 -5\n",
+          "expected": "-1",
+          "actual": "-1\n",
+          "passed": true
+        },
+        {
+          "stdin": "5 7 6\n",
+          "expected": "6",
+          "actual": "6\n",
+          "passed": true
+        },
+        {
+          "stdin": "14 8 -5\n",
+          "expected": "8",
+          "actual": "8\n",
+          "passed": true
+        },
+        {
+          "stdin": "-4 5 15\n",
+          "expected": "5",
+          "actual": "5\n",
+          "passed": true
+        },
+        {
+          "stdin": "13 13 -5\n",
+          "expected": "13",
+          "actual": "13\n",
+          "passed": true
+        },
+        {
+          "stdin": "-2 10 0\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        },
+        {
+          "stdin": "12 4 11\n",
+          "expected": "11",
+          "actual": "11\n",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "id": "sort_three",
+      "fixed_oracle_correct": true,
+      "checks": [
+        {
+          "stdin": "3 1 2\n",
+          "expected": "1 2 3",
+          "actual": "1 2 3\n",
+          "passed": true
+        },
+        {
+          "stdin": "-3 0 -2\n",
+          "expected": "-3 -2 0",
+          "actual": "-3 -2 0\n",
+          "passed": true
+        },
+        {
+          "stdin": "7 7 1\n",
+          "expected": "1 7 7",
+          "actual": "1 7 7\n",
+          "passed": true
+        },
+        {
+          "stdin": "-5 13 19\n",
+          "expected": "-5 13 19",
+          "actual": "-5 13 19\n",
+          "passed": true
+        },
+        {
+          "stdin": "0 7 15\n",
+          "expected": "0 7 15",
+          "actual": "0 7 15\n",
+          "passed": true
+        },
+        {
+          "stdin": "-3 -3 5\n",
+          "expected": "-3 -3 5",
+          "actual": "-3 -3 5\n",
+          "passed": true
+        },
+        {
+          "stdin": "0 -3 2\n",
+          "expected": "-3 0 2",
+          "actual": "-3 0 2\n",
+          "passed": true
+        },
+        {
+          "stdin": "-4 9 -3\n",
+          "expected": "-4 -3 9",
+          "actual": "-4 -3 9\n",
+          "passed": true
+        },
+        {
+          "stdin": "9 7 3\n",
+          "expected": "3 7 9",
+          "actual": "3 7 9\n",
+          "passed": true
+        },
+        {
+          "stdin": "5 6 3\n",
+          "expected": "3 5 6",
+          "actual": "3 5 6\n",
+          "passed": true
+        },
+        {
+          "stdin": "16 3 8\n",
+          "expected": "3 8 16",
+          "actual": "3 8 16\n",
+          "passed": true
+        },
+        {
+          "stdin": "0 -1 9\n",
+          "expected": "-1 0 9",
+          "actual": "-1 0 9\n",
+          "passed": true
+        },
+        {
+          "stdin": "2 11 14\n",
+          "expected": "2 11 14",
+          "actual": "2 11 14\n",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "id": "array_sum",
+      "fixed_oracle_correct": true,
+      "checks": [
+        {
+          "stdin": "0\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        },
+        {
+          "stdin": "4\n-2 0 5 1\n",
+          "expected": "4",
+          "actual": "4\n",
+          "passed": true
+        },
+        {
+          "stdin": "1\n-8\n",
+          "expected": "-8",
+          "actual": "-8\n",
+          "passed": true
+        },
+        {
+          "stdin": "8 -3 7 -7 2 -7 -3 2 6\n",
+          "expected": "-3",
+          "actual": "-3\n",
+          "passed": true
+        },
+        {
+          "stdin": "2 4 6\n",
+          "expected": "10",
+          "actual": "10\n",
+          "passed": true
+        },
+        {
+          "stdin": "12 -7 8 -3 8 -1 -7 3 5 6 -8 7 -4\n",
+          "expected": "7",
+          "actual": "7\n",
+          "passed": true
+        },
+        {
+          "stdin": "11 3 -4 5 3 1 5 0 2 7 2 -4\n",
+          "expected": "20",
+          "actual": "20\n",
+          "passed": true
+        },
+        {
+          "stdin": "8 -2 -6 1 -7 -5 -6 0 -3\n",
+          "expected": "-28",
+          "actual": "-28\n",
+          "passed": true
+        },
+        {
+          "stdin": "7 6 -2 2 -1 -7 -2 -8\n",
+          "expected": "-12",
+          "actual": "-12\n",
+          "passed": true
+        },
+        {
+          "stdin": "8 -4 -5 1 2 4 -2 7 -1\n",
+          "expected": "2",
+          "actual": "2\n",
+          "passed": true
+        },
+        {
+          "stdin": "3 5 0 1\n",
+          "expected": "6",
+          "actual": "6\n",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "id": "array_max",
+      "fixed_oracle_correct": true,
+      "checks": [
+        {
+          "stdin": "3\n-5 -2 -9\n",
+          "expected": "-2",
+          "actual": "-2\n",
+          "passed": true
+        },
+        {
+          "stdin": "1\n0\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        },
+        {
+          "stdin": "4\n1 9 9 2\n",
+          "expected": "9",
+          "actual": "9\n",
+          "passed": true
+        },
+        {
+          "stdin": "7 -8 -3 8 -4 4 3 -4\n",
+          "expected": "8",
+          "actual": "8\n",
+          "passed": true
+        },
+        {
+          "stdin": "7 2 -7 7 -8 -6 6 2\n",
+          "expected": "7",
+          "actual": "7\n",
+          "passed": true
+        },
+        {
+          "stdin": "14 7 1 -6 1 5 0 0 -1 4 -4 7 -3 2 -2\n",
+          "expected": "7",
+          "actual": "7\n",
+          "passed": true
+        },
+        {
+          "stdin": "9 -5 0 -4 0 4 -5 -5 -2 -6\n",
+          "expected": "4",
+          "actual": "4\n",
+          "passed": true
+        },
+        {
+          "stdin": "5 -4 -3 6 -5 5\n",
+          "expected": "6",
+          "actual": "6\n",
+          "passed": true
+        },
+        {
+          "stdin": "5 -5 8 4 8 -4\n",
+          "expected": "8",
+          "actual": "8\n",
+          "passed": true
+        },
+        {
+          "stdin": "14 4 4 2 7 5 8 2 -7 -4 4 -6 7 -1 8\n",
+          "expected": "8",
+          "actual": "8\n",
+          "passed": true
+        },
+        {
+          "stdin": "10 4 -2 7 -7 -4 -7 5 2 -8 2\n",
+          "expected": "7",
+          "actual": "7\n",
+          "passed": true
+        },
+        {
+          "stdin": "13 8 7 -5 -3 -7 6 5 -7 6 1 -6 6 5\n",
+          "expected": "8",
+          "actual": "8\n",
+          "passed": true
+        },
+        {
+          "stdin": "8 1 -2 7 -4 0 -7 1 -1\n",
+          "expected": "7",
+          "actual": "7\n",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "id": "array_min",
+      "fixed_oracle_correct": true,
+      "checks": [
+        {
+          "stdin": "3\n-5 -2 -9\n",
+          "expected": "-9",
+          "actual": "-9\n",
+          "passed": true
+        },
+        {
+          "stdin": "1\n0\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        },
+        {
+          "stdin": "4\n1 9 9 2\n",
+          "expected": "1",
+          "actual": "1\n",
+          "passed": true
+        },
+        {
+          "stdin": "4 -5 -4 -3 7\n",
+          "expected": "-5",
+          "actual": "-5\n",
+          "passed": true
+        },
+        {
+          "stdin": "7 -3 0 1 -1 -1 -7 8\n",
+          "expected": "-7",
+          "actual": "-7\n",
+          "passed": true
+        },
+        {
+          "stdin": "7 7 5 7 -1 7 -8 6\n",
+          "expected": "-8",
+          "actual": "-8\n",
+          "passed": true
+        },
+        {
+          "stdin": "13 0 2 4 8 3 -5 -3 -1 -2 2 -1 2 7\n",
+          "expected": "-5",
+          "actual": "-5\n",
+          "passed": true
+        },
+        {
+          "stdin": "13 5 -8 5 2 -2 7 -8 -4 -2 -2 -6 6 -7\n",
+          "expected": "-8",
+          "actual": "-8\n",
+          "passed": true
+        },
+        {
+          "stdin": "10 -4 7 2 -5 -4 8 -5 5 0 7\n",
+          "expected": "-5",
+          "actual": "-5\n",
+          "passed": true
+        },
+        {
+          "stdin": "10 -4 -2 5 -2 0 2 -3 -8 3 2\n",
+          "expected": "-8",
+          "actual": "-8\n",
+          "passed": true
+        },
+        {
+          "stdin": "8 -7 3 0 -1 -5 -1 -2 3\n",
+          "expected": "-7",
+          "actual": "-7\n",
+          "passed": true
+        },
+        {
+          "stdin": "5 0 -4 4 -6 7\n",
+          "expected": "-6",
+          "actual": "-6\n",
+          "passed": true
+        },
+        {
+          "stdin": "14 6 5 -3 -5 -8 2 6 -3 5 -8 -4 -1 4 8\n",
+          "expected": "-8",
+          "actual": "-8\n",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "id": "positive_count",
+      "fixed_oracle_correct": true,
+      "checks": [
+        {
+          "stdin": "0\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        },
+        {
+          "stdin": "4\n-2 0 5 1\n",
+          "expected": "2",
+          "actual": "2\n",
+          "passed": true
+        },
+        {
+          "stdin": "3\n-1 -2 -3\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        },
+        {
+          "stdin": "11 8 -3 0 7 -6 8 -5 -5 -3 3 -3\n",
+          "expected": "4",
+          "actual": "4\n",
+          "passed": true
+        },
+        {
+          "stdin": "4 5 -2 6 1\n",
+          "expected": "3",
+          "actual": "3\n",
+          "passed": true
+        },
+        {
+          "stdin": "7 -6 3 -2 -1 -3 8 -4\n",
+          "expected": "2",
+          "actual": "2\n",
+          "passed": true
+        },
+        {
+          "stdin": "11 -4 -7 5 7 0 -8 -3 -4 -5 1 2\n",
+          "expected": "4",
+          "actual": "4\n",
+          "passed": true
+        },
+        {
+          "stdin": "7 6 6 -3 -3 2 5 1\n",
+          "expected": "5",
+          "actual": "5\n",
+          "passed": true
+        },
+        {
+          "stdin": "11 4 5 -2 -4 2 1 0 -5 -6 1 1\n",
+          "expected": "6",
+          "actual": "6\n",
+          "passed": true
+        },
+        {
+          "stdin": "11 -7 5 -3 5 -1 -1 -3 2 5 1 6\n",
+          "expected": "6",
+          "actual": "6\n",
+          "passed": true
+        },
+        {
+          "stdin": "11 -5 -2 -8 2 6 2 -1 4 -6 5 -2\n",
+          "expected": "5",
+          "actual": "5\n",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "id": "even_count",
+      "fixed_oracle_correct": true,
+      "checks": [
+        {
+          "stdin": "0\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        },
+        {
+          "stdin": "4\n-2 0 5 1\n",
+          "expected": "2",
+          "actual": "2\n",
+          "passed": true
+        },
+        {
+          "stdin": "3\n1 3 5\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        },
+        {
+          "stdin": "9 7 -8 -4 -2 8 -4 -8 -2 8\n",
+          "expected": "8",
+          "actual": "8\n",
+          "passed": true
+        },
+        {
+          "stdin": "13 6 0 -2 -8 3 5 7 -5 -1 4 -3 -1 -4\n",
+          "expected": "6",
+          "actual": "6\n",
+          "passed": true
+        },
+        {
+          "stdin": "1 -2\n",
+          "expected": "1",
+          "actual": "1\n",
+          "passed": true
+        },
+        {
+          "stdin": "1 6\n",
+          "expected": "1",
+          "actual": "1\n",
+          "passed": true
+        },
+        {
+          "stdin": "5 7 3 1 -7 -1\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        },
+        {
+          "stdin": "4 3 6 -4 3\n",
+          "expected": "2",
+          "actual": "2\n",
+          "passed": true
+        },
+        {
+          "stdin": "3 1 -4 -5\n",
+          "expected": "1",
+          "actual": "1\n",
+          "passed": true
+        },
+        {
+          "stdin": "5 6 0 -6 -4 2\n",
+          "expected": "5",
+          "actual": "5\n",
+          "passed": true
+        },
+        {
+          "stdin": "4 -1 -6 -5 -7\n",
+          "expected": "1",
+          "actual": "1\n",
+          "passed": true
+        },
+        {
+          "stdin": "1 0\n",
+          "expected": "1",
+          "actual": "1\n",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "id": "linear_search",
+      "fixed_oracle_correct": true,
+      "checks": [
+        {
+          "stdin": "0\n3\n",
+          "expected": "-1",
+          "actual": "-1\n",
+          "passed": true
+        },
+        {
+          "stdin": "4\n2 7 7 1\n7\n",
+          "expected": "1",
+          "actual": "1\n",
+          "passed": true
+        },
+        {
+          "stdin": "2\n1 2\n9\n",
+          "expected": "-1",
+          "actual": "-1\n",
+          "passed": true
+        },
+        {
+          "stdin": "10 -7 2 8 -4 -8 8 -1 -1 1 -4 99\n",
+          "expected": "-1",
+          "actual": "-1\n",
+          "passed": true
+        },
+        {
+          "stdin": "13 2 2 -4 -7 0 -8 6 0 7 2 3 7 0 0\n",
+          "expected": "4",
+          "actual": "4\n",
+          "passed": true
+        },
+        {
+          "stdin": "14 -6 8 -8 3 -2 -5 -2 -5 -2 -5 7 3 -2 2 -8\n",
+          "expected": "2",
+          "actual": "2\n",
+          "passed": true
+        },
+        {
+          "stdin": "12 -5 -3 -5 8 3 -1 -7 0 -4 -2 -3 -6 -3\n",
+          "expected": "1",
+          "actual": "1\n",
+          "passed": true
+        },
+        {
+          "stdin": "10 -5 -3 -2 -1 1 -8 0 3 -2 7 1\n",
+          "expected": "4",
+          "actual": "4\n",
+          "passed": true
+        },
+        {
+          "stdin": "7 -5 0 6 -2 7 -6 -1 -5\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        },
+        {
+          "stdin": "9 1 2 5 -4 -6 -8 1 2 7 7\n",
+          "expected": "8",
+          "actual": "8\n",
+          "passed": true
+        },
+        {
+          "stdin": "13 3 -6 -7 -6 -7 4 -5 0 -5 -7 -1 -2 1 3\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        },
+        {
+          "stdin": "8 4 2 6 3 -3 -5 -6 7 -3\n",
+          "expected": "4",
+          "actual": "4\n",
+          "passed": true
+        },
+        {
+          "stdin": "0 99\n",
+          "expected": "-1",
+          "actual": "-1\n",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "id": "reverse_array",
+      "fixed_oracle_correct": true,
+      "checks": [
+        {
+          "stdin": "0\n",
+          "expected": "",
+          "actual": "\n",
+          "passed": true
+        },
+        {
+          "stdin": "1\n4\n",
+          "expected": "4",
+          "actual": "4 \n",
+          "passed": true
+        },
+        {
+          "stdin": "4\n1 -2 3 0\n",
+          "expected": "0 3 -2 1",
+          "actual": "0 3 -2 1 \n",
+          "passed": true
+        },
+        {
+          "stdin": "10 4 8 1 5 -4 5 -2 0 -5 8\n",
+          "expected": "8 -5 0 -2 5 -4 5 1 8 4",
+          "actual": "8 -5 0 -2 5 -4 5 1 8 4 \n",
+          "passed": true
+        },
+        {
+          "stdin": "13 1 6 2 6 2 1 -1 -2 -2 0 3 -2 6\n",
+          "expected": "6 -2 3 0 -2 -2 -1 1 2 6 2 6 1",
+          "actual": "6 -2 3 0 -2 -2 -1 1 2 6 2 6 1 \n",
+          "passed": true
+        },
+        {
+          "stdin": "7 -8 8 2 5 4 -5 -1\n",
+          "expected": "-1 -5 4 5 2 8 -8",
+          "actual": "-1 -5 4 5 2 8 -8 \n",
+          "passed": true
+        },
+        {
+          "stdin": "7 0 -3 -5 -1 -3 -5 -1\n",
+          "expected": "-1 -5 -3 -1 -5 -3 0",
+          "actual": "-1 -5 -3 -1 -5 -3 0 \n",
+          "passed": true
+        },
+        {
+          "stdin": "7 3 8 2 6 -3 2 0\n",
+          "expected": "0 2 -3 6 2 8 3",
+          "actual": "0 2 -3 6 2 8 3 \n",
+          "passed": true
+        },
+        {
+          "stdin": "12 -6 7 -5 3 7 3 -5 7 2 6 -4 -7\n",
+          "expected": "-7 -4 6 2 7 -5 3 7 3 -5 7 -6",
+          "actual": "-7 -4 6 2 7 -5 3 7 3 -5 7 -6 \n",
+          "passed": true
+        },
+        {
+          "stdin": "9 7 1 -7 1 -6 0 -8 -3 -7\n",
+          "expected": "-7 -3 -8 0 -6 1 -7 1 7",
+          "actual": "-7 -3 -8 0 -6 1 -7 1 7 \n",
+          "passed": true
+        },
+        {
+          "stdin": "4 7 -1 1 2\n",
+          "expected": "2 1 -1 7",
+          "actual": "2 1 -1 7 \n",
+          "passed": true
+        },
+        {
+          "stdin": "9 0 1 1 1 8 -7 7 -5 5\n",
+          "expected": "5 -5 7 -7 8 1 1 1 0",
+          "actual": "5 -5 7 -7 8 1 1 1 0 \n",
+          "passed": true
+        },
+        {
+          "stdin": "14 5 1 5 7 -8 4 -6 -3 -5 1 0 5 5 6\n",
+          "expected": "6 5 5 0 1 -5 -3 -6 4 -8 7 5 1 5",
+          "actual": "6 5 5 0 1 -5 -3 -6 4 -8 7 5 1 5 \n",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "id": "sort_array",
+      "fixed_oracle_correct": true,
+      "checks": [
+        {
+          "stdin": "0\n",
+          "expected": "",
+          "actual": "\n",
+          "passed": true
+        },
+        {
+          "stdin": "1\n4\n",
+          "expected": "4",
+          "actual": "4 \n",
+          "passed": true
+        },
+        {
+          "stdin": "5\n3 -2 3 0 1\n",
+          "expected": "-2 0 1 3 3",
+          "actual": "-2 0 1 3 3 \n",
+          "passed": true
+        },
+        {
+          "stdin": "9 -8 3 -6 1 5 -5 -6 2 0\n",
+          "expected": "-8 -6 -6 -5 0 1 2 3 5",
+          "actual": "-8 -6 -6 -5 0 1 2 3 5 \n",
+          "passed": true
+        },
+        {
+          "stdin": "5 6 -8 -7 -3 3\n",
+          "expected": "-8 -7 -3 3 6",
+          "actual": "-8 -7 -3 3 6 \n",
+          "passed": true
+        },
+        {
+          "stdin": "12 5 -8 5 5 2 -7 -2 -4 -1 -3 2 6\n",
+          "expected": "-8 -7 -4 -3 -2 -1 2 2 5 5 5 6",
+          "actual": "-8 -7 -4 -3 -2 -1 2 2 5 5 5 6 \n",
+          "passed": true
+        },
+        {
+          "stdin": "7 3 -6 4 7 7 -3 8\n",
+          "expected": "-6 -3 3 4 7 7 8",
+          "actual": "-6 -3 3 4 7 7 8 \n",
+          "passed": true
+        },
+        {
+          "stdin": "13 1 -7 -1 5 -6 4 1 -1 2 -5 2 8 0\n",
+          "expected": "-7 -6 -5 -1 -1 0 1 1 2 2 4 5 8",
+          "actual": "-7 -6 -5 -1 -1 0 1 1 2 2 4 5 8 \n",
+          "passed": true
+        },
+        {
+          "stdin": "10 -6 4 4 -6 -2 6 2 -4 -1 2\n",
+          "expected": "-6 -6 -4 -2 -1 2 2 4 4 6",
+          "actual": "-6 -6 -4 -2 -1 2 2 4 4 6 \n",
+          "passed": true
+        },
+        {
+          "stdin": "8 2 0 4 -2 -7 2 -3 7\n",
+          "expected": "-7 -3 -2 0 2 2 4 7",
+          "actual": "-7 -3 -2 0 2 2 4 7 \n",
+          "passed": true
+        },
+        {
+          "stdin": "6 6 -8 3 -3 2 5\n",
+          "expected": "-8 -3 2 3 5 6",
+          "actual": "-8 -3 2 3 5 6 \n",
+          "passed": true
+        },
+        {
+          "stdin": "6 -4 7 -3 6 -3 -6\n",
+          "expected": "-6 -4 -3 -3 6 7",
+          "actual": "-6 -4 -3 -3 6 7 \n",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "id": "unique_count",
+      "fixed_oracle_correct": true,
+      "checks": [
+        {
+          "stdin": "0\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        },
+        {
+          "stdin": "4\n2 2 2 2\n",
+          "expected": "1",
+          "actual": "1\n",
+          "passed": true
+        },
+        {
+          "stdin": "5\n3 -2 3 0 1\n",
+          "expected": "4",
+          "actual": "4\n",
+          "passed": true
+        },
+        {
+          "stdin": "11 0 -4 -7 8 8 1 -7 7 0 -3 -3\n",
+          "expected": "7",
+          "actual": "7\n",
+          "passed": true
+        },
+        {
+          "stdin": "1 -8\n",
+          "expected": "1",
+          "actual": "1\n",
+          "passed": true
+        },
+        {
+          "stdin": "10 8 5 -8 -6 -5 -4 2 -2 8 -6\n",
+          "expected": "8",
+          "actual": "8\n",
+          "passed": true
+        },
+        {
+          "stdin": "11 0 2 -8 5 8 -8 -1 -2 -1 -7 5\n",
+          "expected": "8",
+          "actual": "8\n",
+          "passed": true
+        },
+        {
+          "stdin": "8 2 -8 -6 -4 -7 -4 -3 5\n",
+          "expected": "7",
+          "actual": "7\n",
+          "passed": true
+        },
+        {
+          "stdin": "4 5 4 -3 -1\n",
+          "expected": "4",
+          "actual": "4\n",
+          "passed": true
+        },
+        {
+          "stdin": "8 5 -4 -2 -1 -4 -3 4 -5\n",
+          "expected": "7",
+          "actual": "7\n",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "id": "second_largest",
+      "fixed_oracle_correct": true,
+      "checks": [
+        {
+          "stdin": "0\n",
+          "expected": "NONE",
+          "actual": "NONE\n",
+          "passed": true
+        },
+        {
+          "stdin": "3\n2 2 2\n",
+          "expected": "NONE",
+          "actual": "NONE\n",
+          "passed": true
+        },
+        {
+          "stdin": "5\n3 -2 3 0 1\n",
+          "expected": "1",
+          "actual": "1\n",
+          "passed": true
+        },
+        {
+          "stdin": "10 -8 -5 3 -2 2 -3 3 -3 7 -7\n",
+          "expected": "3",
+          "actual": "3\n",
+          "passed": true
+        },
+        {
+          "stdin": "7 6 0 6 7 4 2 2\n",
+          "expected": "6",
+          "actual": "6\n",
+          "passed": true
+        },
+        {
+          "stdin": "11 5 -8 -6 1 8 6 3 8 0 2 -2\n",
+          "expected": "6",
+          "actual": "6\n",
+          "passed": true
+        },
+        {
+          "stdin": "14 -3 -7 7 5 3 -7 -8 1 5 3 -3 -8 -5 5\n",
+          "expected": "5",
+          "actual": "5\n",
+          "passed": true
+        },
+        {
+          "stdin": "9 -6 -7 0 0 2 3 -5 0 4\n",
+          "expected": "3",
+          "actual": "3\n",
+          "passed": true
+        },
+        {
+          "stdin": "6 -7 5 -5 7 1 8\n",
+          "expected": "7",
+          "actual": "7\n",
+          "passed": true
+        },
+        {
+          "stdin": "12 -3 3 7 1 8 7 -1 -2 -6 -7 0 5\n",
+          "expected": "7",
+          "actual": "7\n",
+          "passed": true
+        },
+        {
+          "stdin": "7 7 -4 -8 -1 8 7 -6\n",
+          "expected": "7",
+          "actual": "7\n",
+          "passed": true
+        },
+        {
+          "stdin": "8 1 6 -8 -2 -5 6 -7 -1\n",
+          "expected": "1",
+          "actual": "1\n",
+          "passed": true
+        },
+        {
+          "stdin": "4 5 2 -2 -6\n",
+          "expected": "2",
+          "actual": "2\n",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "id": "text_length",
+      "fixed_oracle_correct": true,
+      "checks": [
+        {
+          "stdin": "\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        },
+        {
+          "stdin": "hello\n",
+          "expected": "5",
+          "actual": "5\n",
+          "passed": true
+        },
+        {
+          "stdin": "a b!\n",
+          "expected": "4",
+          "actual": "4\n",
+          "passed": true
+        },
+        {
+          "stdin": "0e!EE!uu10A0E9e1\n",
+          "expected": "16",
+          "actual": "16\n",
+          "passed": true
+        },
+        {
+          "stdin": "z0Uzz\n",
+          "expected": "5",
+          "actual": "5\n",
+          "passed": true
+        },
+        {
+          "stdin": "z\n",
+          "expected": "1",
+          "actual": "1\n",
+          "passed": true
+        },
+        {
+          "stdin": "?aZUzE9a!19uUEza1EAoz!zOo\n",
+          "expected": "25",
+          "actual": "25\n",
+          "passed": true
+        },
+        {
+          "stdin": "AuI?9zU_III0 O!_E10oAo0__1AaA9!ia?1\n",
+          "expected": "35",
+          "actual": "35\n",
+          "passed": true
+        },
+        {
+          "stdin": "!U-0za!o1e?OZIZ-e0u?EaO-1Aa?e\n",
+          "expected": "29",
+          "actual": "29\n",
+          "passed": true
+        },
+        {
+          "stdin": "E0i0-AEiuUz ?UEzz!\n",
+          "expected": "18",
+          "actual": "18\n",
+          "passed": true
+        },
+        {
+          "stdin": "oauEoUIoO-0O-!ou!AIaE-zu-\n",
+          "expected": "25",
+          "actual": "25\n",
+          "passed": true
+        },
+        {
+          "stdin": "?-iI0aIA EZOaz2 Ua 0o-ZZ\n",
+          "expected": "24",
+          "actual": "24\n",
+          "passed": true
+        },
+        {
+          "stdin": "0OAu9-_Oi99U9?ozUo _z\n",
+          "expected": "21",
+          "actual": "21\n",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "id": "uppercase",
+      "fixed_oracle_correct": true,
+      "checks": [
+        {
+          "stdin": "\n",
+          "expected": "",
+          "actual": "\n",
+          "passed": true
+        },
+        {
+          "stdin": "Abc 12!\n",
+          "expected": "ABC 12!",
+          "actual": "ABC 12!\n",
+          "passed": true
+        },
+        {
+          "stdin": "already-UP\n",
+          "expected": "ALREADY-UP",
+          "actual": "ALREADY-UP\n",
+          "passed": true
+        },
+        {
+          "stdin": "!eAo UoO_2O!zae?191201OaZe?12?a\n",
+          "expected": "!EAO UOO_2O!ZAE?191201OAZE?12?A",
+          "actual": "!EAO UOO_2O!ZAE?191201OAZE?12?A\n",
+          "passed": true
+        },
+        {
+          "stdin": "?aUz22\n",
+          "expected": "?AUZ22",
+          "actual": "?AUZ22\n",
+          "passed": true
+        },
+        {
+          "stdin": "O_0-iie\n",
+          "expected": "O_0-IIE",
+          "actual": "O_0-IIE\n",
+          "passed": true
+        },
+        {
+          "stdin": "aE _EuI!eaz9-i?U!Au Oa2ezu\n",
+          "expected": "AE _EUI!EAZ9-I?U!AU OA2EZU",
+          "actual": "AE _EUI!EAZ9-I?U!AU OA2EZU\n",
+          "passed": true
+        },
+        {
+          "stdin": " e-eZo!o_oZA2A_I!aIZ?IA ?Z??_Oa_eA\n",
+          "expected": " E-EZO!O_OZA2A_I!AIZ?IA ?Z??_OA_EA",
+          "actual": " E-EZO!O_OZA2A_I!AIZ?IA ?Z??_OA_EA\n",
+          "passed": true
+        },
+        {
+          "stdin": "_E2Zeuoe\n",
+          "expected": "_E2ZEUOE",
+          "actual": "_E2ZEUOE\n",
+          "passed": true
+        },
+        {
+          "stdin": "0Uo_Z!o0?zO0O1 IOuAU-2!?_z21Z2oAaEi9Oz\n",
+          "expected": "0UO_Z!O0?ZO0O1 IOUAU-2!?_Z21Z2OAAEI9OZ",
+          "actual": "0UO_Z!O0?ZO0O1 IOUAU-2!?_Z21Z2OAAEI9OZ\n",
+          "passed": true
+        },
+        {
+          "stdin": "i\n",
+          "expected": "I",
+          "actual": "I\n",
+          "passed": true
+        },
+        {
+          "stdin": "IE-_9-z2-OA9-2 U1?u !I1iI1i!i2ZA-az?\n",
+          "expected": "IE-_9-Z2-OA9-2 U1?U !I1II1I!I2ZA-AZ?",
+          "actual": "IE-_9-Z2-OA9-2 U1?U !I1II1I!I2ZA-AZ?\n",
+          "passed": true
+        },
+        {
+          "stdin": "zU091 -U2eioUaiA!zAOzEz!aau -\n",
+          "expected": "ZU091 -U2EIOUAIA!ZAOZEZ!AAU -",
+          "actual": "ZU091 -U2EIOUAIA!ZAOZEZ!AAU -\n",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "id": "lowercase",
+      "fixed_oracle_correct": true,
+      "checks": [
+        {
+          "stdin": "\n",
+          "expected": "",
+          "actual": "\n",
+          "passed": true
+        },
+        {
+          "stdin": "AbC 12!\n",
+          "expected": "abc 12!",
+          "actual": "abc 12!\n",
+          "passed": true
+        },
+        {
+          "stdin": "already-low\n",
+          "expected": "already-low",
+          "actual": "already-low\n",
+          "passed": true
+        },
+        {
+          "stdin": "21uOe2ai A?ooo90!i0-Z!91IZoz oi-1U\n",
+          "expected": "21uoe2ai a?ooo90!i0-z!91izoz oi-1u",
+          "actual": "21uoe2ai a?ooo90!i0-z!91izoz oi-1u\n",
+          "passed": true
+        },
+        {
+          "stdin": "zo1AOaA?UU!U_z\n",
+          "expected": "zo1aoaa?uu!u_z",
+          "actual": "zo1aoaa?uu!u_z\n",
+          "passed": true
+        },
+        {
+          "stdin": "9?- a9A_22_z?Zeu Uu?ei\n",
+          "expected": "9?- a9a_22_z?zeu uu?ei",
+          "actual": "9?- a9a_22_z?zeu uu?ei\n",
+          "passed": true
+        },
+        {
+          "stdin": "A1299E-9 Z0__?2Iu_? IA_aZ?OO2Uuaz0\n",
+          "expected": "a1299e-9 z0__?2iu_? ia_az?oo2uuaz0",
+          "actual": "a1299e-9 z0__?2iu_? ia_az?oo2uuaz0\n",
+          "passed": true
+        },
+        {
+          "stdin": "910ZO9UEae2zi E12_eIuz\n",
+          "expected": "910zo9ueae2zi e12_eiuz",
+          "actual": "910zo9ueae2zi e12_eiuz\n",
+          "passed": true
+        },
+        {
+          "stdin": "29_A\n",
+          "expected": "29_a",
+          "actual": "29_a\n",
+          "passed": true
+        },
+        {
+          "stdin": "z2OUO2oUo-?_z-zuEu2Z!-ZaO-Ouaz99\n",
+          "expected": "z2ouo2ouo-?_z-zueu2z!-zao-ouaz99",
+          "actual": "z2ouo2ouo-?_z-zueu2z!-zao-ouaz99\n",
+          "passed": true
+        },
+        {
+          "stdin": "iEeZ!1U0iI9Z1a?I2EoZ00i\n",
+          "expected": "ieez!1u0ii9z1a?i2eoz00i",
+          "actual": "ieez!1u0ii9z1a?i2eoz00i\n",
+          "passed": true
+        },
+        {
+          "stdin": "_E1Z!o1a?_1_I2u?aoaI-ea0U U!Ii U-9izU\n",
+          "expected": "_e1z!o1a?_1_i2u?aoai-ea0u u!ii u-9izu",
+          "actual": "_e1z!o1a?_1_i2u?aoai-ea0u u!ii u-9izu\n",
+          "passed": true
+        },
+        {
+          "stdin": "-2oz29z_u2?iaaZ !uzoa10iUAO-aa1E Aoa-\n",
+          "expected": "-2oz29z_u2?iaaz !uzoa10iuao-aa1e aoa-",
+          "actual": "-2oz29z_u2?iaaz !uzoa10iuao-aa1e aoa-\n",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "id": "vowel_count",
+      "fixed_oracle_correct": true,
+      "checks": [
+        {
+          "stdin": "\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        },
+        {
+          "stdin": "AEiou xyz\n",
+          "expected": "5",
+          "actual": "5\n",
+          "passed": true
+        },
+        {
+          "stdin": "Hello World\n",
+          "expected": "3",
+          "actual": "3\n",
+          "passed": true
+        },
+        {
+          "stdin": "AeEIOo22I-2-0Z 1Iz2A!IOaE?UUZ!Z\n",
+          "expected": "15",
+          "actual": "15\n",
+          "passed": true
+        },
+        {
+          "stdin": "_-Uez1i0A?z\n",
+          "expected": "4",
+          "actual": "4\n",
+          "passed": true
+        },
+        {
+          "stdin": "ZE io!_Oo\n",
+          "expected": "5",
+          "actual": "5\n",
+          "passed": true
+        },
+        {
+          "stdin": "oiiae9A12zO-9??ZaI02 UUiA9z a-9-U\n",
+          "expected": "15",
+          "actual": "15\n",
+          "passed": true
+        },
+        {
+          "stdin": "UE0_i99aAI1AZ9 Ua_izzU09!0aa?Zi\n",
+          "expected": "14",
+          "actual": "14\n",
+          "passed": true
+        },
+        {
+          "stdin": "A29-0UA-z!2211a_? UE2-1zu\n",
+          "expected": "7",
+          "actual": "7\n",
+          "passed": true
+        },
+        {
+          "stdin": "1I2a1i ?EuZ_ EOz2uo\n",
+          "expected": "9",
+          "actual": "9\n",
+          "passed": true
+        },
+        {
+          "stdin": "!eAO99 I!AE9I1! e?I?-i2-uZ2OA\n",
+          "expected": "13",
+          "actual": "13\n",
+          "passed": true
+        },
+        {
+          "stdin": "aiAzi2iz1AU_Ou1uZ\n",
+          "expected": "10",
+          "actual": "10\n",
+          "passed": true
+        },
+        {
+          "stdin": "a!00E!IuIz0z iO9EOo  0Ie!_O__  \n",
+          "expected": "13",
+          "actual": "13\n",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "id": "text_palindrome",
+      "fixed_oracle_correct": true,
+      "checks": [
+        {
+          "stdin": "\n",
+          "expected": "1",
+          "actual": "1\n",
+          "passed": true
+        },
+        {
+          "stdin": "abba\n",
+          "expected": "1",
+          "actual": "1\n",
+          "passed": true
+        },
+        {
+          "stdin": "Abba\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        },
+        {
+          "stdin": "--ai12u?1o!u!?uZE?u1eA1\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        },
+        {
+          "stdin": "aa2I\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        },
+        {
+          "stdin": "E0U-u?e\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        },
+        {
+          "stdin": "2\n",
+          "expected": "1",
+          "actual": "1\n",
+          "passed": true
+        },
+        {
+          "stdin": "E9Ui-i0 !EZIZ-a0i\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        },
+        {
+          "stdin": "20u-2-92\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        },
+        {
+          "stdin": "9_ia2?OAiA?!_e!0 U_iui_Au?\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        },
+        {
+          "stdin": "!_2?U-IeZe\n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        },
+        {
+          "stdin": "I\n",
+          "expected": "1",
+          "actual": "1\n",
+          "passed": true
+        },
+        {
+          "stdin": "2oE-Z0AI2ae-?eE2a0AE-o  Z9O1UOZoOaA \n",
+          "expected": "0",
+          "actual": "0\n",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "id": "reverse_text",
+      "fixed_oracle_correct": true,
+      "checks": [
+        {
+          "stdin": "\n",
+          "expected": "",
+          "actual": "\n",
+          "passed": true
+        },
+        {
+          "stdin": "abc\n",
+          "expected": "cba",
+          "actual": "cba\n",
+          "passed": true
+        },
+        {
+          "stdin": "a b!\n",
+          "expected": "!b a",
+          "actual": "!b a\n",
+          "passed": true
+        },
+        {
+          "stdin": "029e9uUEI9O a__I21aazi9OA?eAeA12O0UE\n",
+          "expected": "EU0O21AeAe?AO9izaa12I__a O9IEUu9e920",
+          "actual": "EU0O21AeAe?AO9izaa12I__a O9IEUu9e920\n",
+          "passed": true
+        },
+        {
+          "stdin": "O1AoI2 9eu210?Z0iI_EOAI!zUA0o-U\n",
+          "expected": "U-o0AUz!IAOE_Ii0Z?012ue9 2IoA1O",
+          "actual": "U-o0AUz!IAOE_Ii0Z?012ue9 2IoA1O\n",
+          "passed": true
+        },
+        {
+          "stdin": "!ue!_!u_1-UA\n",
+          "expected": "AU-1_u!_!eu!",
+          "actual": "AU-1_u!_!eu!\n",
+          "passed": true
+        },
+        {
+          "stdin": " AeZo_Z92!eZ-2 9 \n",
+          "expected": " 9 2-Ze!29Z_oZeA ",
+          "actual": " 9 2-Ze!29Z_oZeA \n",
+          "passed": true
+        },
+        {
+          "stdin": "IzAUzoI_?2?_O2?\n",
+          "expected": "?2O_?2?_IozUAzI",
+          "actual": "?2O_?2?_IozUAzI\n",
+          "passed": true
+        },
+        {
+          "stdin": "9 !OI9uEU \n",
+          "expected": " UEu9IO! 9",
+          "actual": " UEu9IO! 9\n",
+          "passed": true
+        },
+        {
+          "stdin": "Z09-zOeAaua1!2_ui-iU-!2eoeu9Oo Uo!-EO\n",
+          "expected": "OE-!oU oO9ueoe2!-Ui-iu_2!1auaAeOz-90Z",
+          "actual": "OE-!oU oO9ueoe2!-Ui-iu_2!1auaAeOz-90Z\n",
+          "passed": true
+        },
+        {
+          "stdin": "2Zo-_\n",
+          "expected": "_-oZ2",
+          "actual": "_-oZ2\n",
+          "passed": true
+        },
+        {
+          "stdin": "iZ!e-2z?E- !o9uu oA_e_2Ia9\n",
+          "expected": "9aI2_e_Ao uu9o! -E?z2-e!Zi",
+          "actual": "9aI2_e_Ao uu9o! -E?z2-e!Zi\n",
+          "passed": true
+        },
+        {
+          "stdin": "Oa_2eu922i0eiZUZZuu-Ia?eau_I9oe9\n",
+          "expected": "9eo9I_uae?aI-uuZZUZie0i229ue2_aO",
+          "actual": "9eo9I_uae?aI-uuZZUZie0i229ue2_aO\n",
+          "passed": true
+        }
+      ],
+      "passed": true
+    }
+  ]
+}

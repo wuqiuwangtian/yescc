@@ -73,6 +73,7 @@ class ModelRepair:
     patched_source: str
     assumptions: list[str]
     diff: str
+    normalizations: list[str] = field(default_factory=list)
 
 
 @dataclass(frozen=True)
@@ -296,7 +297,8 @@ class ModelSession:
                 feedback = "模型未提供可用补丁"
                 continue
             try:
-                patched = apply_unified_diff(source, diff)
+                normalizations: list[str] = []
+                patched = apply_unified_diff(source, diff, normalizations=normalizations)
             except PatchError as exc:
                 feedback = str(exc)
                 self.stats.errors.append(f"patch: {exc}")
@@ -310,6 +312,7 @@ class ModelSession:
                 patched_source=patched,
                 assumptions=assumption_list,
                 diff=diff,
+                normalizations=normalizations,
             )
         self.budget_reason = f"已达到最大候选尝试次数 {self.max_rounds}"
         return None

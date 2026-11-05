@@ -462,6 +462,8 @@ def _model_repair(
                 "patched_source": display_path(patched, ctx.cwd),
                 "patch": display_path(patch_file, ctx.cwd),
                 "assumptions": outcome.assumptions,
+                "patch_normalizations": outcome.normalizations,
+                "raw_diff": outcome.diff,
             }
             sandbox: SandboxOutcome | None = None
             program_exit: int | None = None

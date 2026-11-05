@@ -16,7 +16,7 @@
 - CLI 费用单位是 USD；维护者付费评测的授权约束见路线图 A3。云端缺单价时不发请求；费用未知时检查 `cost_known`，不能把费用小计当作总费用。
 - 运行隔离是尽力隔离。POSIX 清理独立进程组，Windows 用 `taskkill /T` 尽力清理；不能据此宣称阻止文件系统访问或所有进程逃逸。
 - 报告 schema v1 只增不改。隐私字段、运行限制和验证结论必须来自实际行为；变更前读 [ADR-0015](docs/adr/0015-alpha-reliability-contracts.md)。
-- M4 的基准、对抗和平台边界见 [ADR-0016](docs/adr/0016-m4-evidence-and-platform-boundaries.md)；评测入口见 [bench/README](bench/README.md)。70 个模型样本在离线模式中必须标为未评测；固定数据/指纹的修改需单独说明，不能用改 oracle 提高已有模型得分。
+- M4 的基准、对抗和平台边界见 [ADR-0016](docs/adr/0016-m4-evidence-and-platform-boundaries.md)；评测入口见 [bench/README](bench/README.md)。70 个模型样本在离线模式中必须标为未评测；固定数据/指纹的修改需单独说明，不能用改 oracle 提高已有模型得分。M5 补丁接受规则见 [ADR-0017](docs/adr/0017-exact-context-patch-normalization.md)：仅允许唯一精确旧文本定位，不得引入模糊匹配；原始 diff 与调整记录保留。
 
 ## 协作与交付
 

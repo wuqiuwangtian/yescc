@@ -46,3 +46,16 @@ JSON 按 cold/warm、类别及样本记录：执行/未评测、构建状态、�
 执行器 stdout/stderr 先落临时文件，只读取各 1 MiB，输出过量判失败；该限制属于评测器，不得写成 YesCC 运行输出已限流。程序在产品的尽力隔离路径运行；不是恶意代码安全认证。
 
 CI 在 Linux/Windows × Python 3.11/3.14 运行离线集并保存 artifact `m4-<OS>-py<版本>`。真实结果和 CI 链接见 [docs/评测](../docs/评测/README.md)；当前任务状态只维护在[路线图 §10](../docs/项目路线图与发布计划.md#10-待决事项与下一步)。
+
+
+## M5 独立审计（全部离线）
+
+```bash
+uv run python -m bench.failure_audit --output dist/m5-failure-audit.json
+uv run python -m bench.oracle_checks --output dist/m5-oracle-crosscheck.json
+uv run pytest tests/e2e/test_captured_patches.py -q
+```
+
+失败审计使用 24 个独立的错误输入和本地假供应商，检查退出码、状态、无误报产物、源文件不变与 stdout/落盘报告一致；不支持语言/编码在报告建立前返回，明确记录没有报告。第二实现使用 Python 内建与标准库，从规格计算 40 个任务的结果，再与真实 GCC 构建的参考程序核对 508 个输入；它不修改 M4 固定数据，不代表人工复核。捕获的 8 个真实响应离线重放，交原样冻结 oracle 验证；不能把重放结果称作模型新 pass@1。
+
+四组原生 CI 同时运行审计并把结果作为 `m4-<OS>-py<版本>` artifact 中的 `m5-*.json` 保存。新增 oracle probe 只用于复核参考程序，不混入固定 200 例成绩。
