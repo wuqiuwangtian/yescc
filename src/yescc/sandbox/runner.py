@@ -10,6 +10,7 @@ import shutil
 import signal
 import subprocess
 import tempfile
+import time
 from collections.abc import Callable
 from contextlib import suppress
 from dataclasses import dataclass, replace
@@ -131,8 +132,16 @@ def _run_once(
         creationflags=getattr(subprocess, "CREATE_NEW_PROCESS_GROUP", 0) if os.name == "nt" else 0,
     )
     timed_out = False
+    deadline = time.monotonic() + timeout_s
     try:
-        returncode = process.wait(timeout=timeout_s)
+        while True:
+            try:
+                # Windows 的长 WaitForSingleObject 会延后执行 Python 信号处理器。
+                returncode = process.wait(timeout=min(0.1, max(0, deadline - time.monotonic())))
+                break
+            except subprocess.TimeoutExpired:
+                if time.monotonic() >= deadline:
+                    raise
     except subprocess.TimeoutExpired:
         timed_out = True
         returncode = 124

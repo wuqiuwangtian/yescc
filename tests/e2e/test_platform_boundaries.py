@@ -55,8 +55,11 @@ def test_encoded_unicode_path_and_program_contract(
     elif lang == "javascript":
         native = [shutil.which("node") or "node", str(source)]
     else:
-        binary = directory / "原生 executable.exe"
-        built = subprocess.run(["gcc", str(source), "-o", str(binary)], capture_output=True)
+        binary = directory / "native executable.exe"
+        # 与 run 的默认相对输出保持同一条件；部分 MinGW ld 不接受非 ASCII 绝对输出路径。
+        built = subprocess.run(
+            ["gcc", str(source), "-o", binary.name], cwd=directory, capture_output=True
+        )
         assert built.returncode == 0, built.stderr
         native = [str(binary)]
     env = {**os.environ, "PYTHONIOENCODING": "utf-8"}
@@ -103,6 +106,8 @@ def test_repair_resolves_include_paths_from_original_directory(tmp_path: Path) -
         encoding="utf-8",
     )
     output = tmp_path / "output space" / "fixed.exe"
+    # 旧 GCC 在链接阶段才报告 prinf，先保证输出目录存在，避免把环境错误当修复任务。
+    output.parent.mkdir()
     result = subprocess.run(
         [
             sys.executable,
@@ -141,6 +146,29 @@ def test_non_linking_build_does_not_report_stale_executable(tmp_path: Path, flag
     )
     assert result.returncode == 0
     assert json.loads(result.stdout)["result"]["artifact"] is None
+
+
+def test_unicode_absolute_output_matches_native_toolchain_boundary(tmp_path: Path) -> None:
+    source = tmp_path / "main.c"
+    source.write_text("int main(void){return 0;}\n")
+    directory = tmp_path / "中文 path"
+    directory.mkdir()
+    output = directory / "输出.exe"
+    expected = subprocess.run(["gcc", str(source), "-o", str(output)], capture_output=True)
+    actual = subprocess.run(
+        [sys.executable, "-m", "yescc", str(source), "-o", str(output), "--strict", "--json"],
+        cwd=tmp_path,
+        capture_output=True,
+        encoding="utf-8",
+        timeout=20,
+    )
+    report = json.loads(actual.stdout)
+    assert report["attempts"][0]["exit_code"] == expected.returncode
+    assert actual.returncode == (0 if expected.returncode == 0 else 102)
+    assert not report["privacy"]["cloud_used"]
+    assert report["result"]["status"] == (
+        "native_ok" if expected.returncode == 0 else "native_failed"
+    )
 
 
 @pytest.mark.skipif(os.name != "nt", reason="Windows 原生 CTRL_BREAK 控制事件")

@@ -205,6 +205,7 @@ def run_case(case: Case, root: Path, models: bool, budget: float) -> dict[str, o
         "model_builds": sum(a["kind"] == "model" for a in report["attempts"]),
         "duration_ms": int((time.perf_counter() - started) * 1000),
         "budget_blocked": report.get("budget", {}).get("blocked_reason"),
+        "model_errors": model.get("errors", []),
         "limits": report["limits"],
     }
 
