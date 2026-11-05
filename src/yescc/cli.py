@@ -3,14 +3,16 @@
 from __future__ import annotations
 
 import math
+import os
 import signal
 import sys
 import threading
 from collections.abc import Sequence
+from contextlib import suppress
 from dataclasses import dataclass
 from pathlib import Path
 from types import FrameType
-from typing import Literal
+from typing import Literal, NoReturn
 
 from yescc import __version__
 from yescc.errors import FcompError, UsageError
@@ -271,5 +273,24 @@ def main(argv: Sequence[str] | None = None) -> int:
             signal.signal(break_signal, previous_break)
 
 
+def entrypoint() -> NoReturn:
+    """命令入口保留 POSIX 信号终止；main() 仍可供 Python 调用者读取原始返回值。"""
+    code = main()
+    if os.name == "posix" and code < 0:
+        signum = -code
+        with suppress(BrokenPipeError):
+            sys.stdout.flush()
+            sys.stderr.flush()
+        with suppress(OSError, ValueError):
+            signal.signal(signum, signal.SIG_DFL)
+        set_mask = getattr(signal, "pthread_sigmask", None)
+        unblock = getattr(signal, "SIG_UNBLOCK", None)
+        if set_mask is not None and unblock is not None:
+            set_mask(unblock, {signum})
+        os.kill(os.getpid(), signum)
+        sys.exit(128 + signum)  # 不支持信号重发的平台的 shell 状态兜底。
+    sys.exit(code)
+
+
 if __name__ == "__main__":
-    sys.exit(main())
+    entrypoint()

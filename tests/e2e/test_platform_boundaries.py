@@ -211,3 +211,45 @@ finally:
     report = json.loads((tmp_path / ".yescc/notes/report.json").read_text("utf-8"))
     assert report["result"]["program_exit"] == 130
     assert report["limits"]["process_tree_cleanup"] == "windows_taskkill"
+
+
+@pytest.mark.skipif(os.name != "posix", reason="POSIX 用户程序的原始信号终止")
+@pytest.mark.parametrize("lang", ["python", "c", "javascript"])
+@pytest.mark.parametrize("signal_name", ["SIGTERM", "SIGINT"])
+@pytest.mark.parametrize("entry", ["module", "console"])
+def test_native_program_signal_matches_original_process(
+    tmp_path: Path, lang: str, signal_name: str, entry: str
+) -> None:
+    if lang == "python":
+        source = tmp_path / "probe.py"
+        source.write_text(f"import os,signal\nos.kill(os.getpid(),signal.{signal_name})\n")
+        command = [sys.executable, str(source)]
+    elif lang == "javascript":
+        source = tmp_path / "probe.js"
+        source.write_text(f"process.kill(process.pid,'{signal_name}');\n")
+        command = [shutil.which("node") or "node", str(source)]
+    else:
+        source = tmp_path / "probe.c"
+        source.write_text(
+            f"#include <signal.h>\nint main(void){{raise({signal_name});return 0;}}\n"
+        )
+        binary = tmp_path / "probe"
+        subprocess.run(["gcc", str(source), "-o", str(binary)], check=True, capture_output=True)
+        command = [str(binary)]
+    expected = subprocess.run(command, cwd=tmp_path, capture_output=True, timeout=10)
+    cli = (
+        [sys.executable, "-m", "yescc"]
+        if entry == "module"
+        else [str(Path(sys.executable).with_name("yescc"))]
+    )
+    actual = subprocess.run(
+        [*cli, "run", str(source)], cwd=tmp_path, capture_output=True, timeout=10
+    )
+    assert (actual.returncode, actual.stdout, actual.stderr) == (
+        expected.returncode,
+        expected.stdout,
+        expected.stderr,
+    )
+    report = json.loads((tmp_path / ".yescc/probe/report.json").read_text("utf-8"))
+    assert report["result"]["program_exit"] == expected.returncode
+    assert report["result"]["status"] == "native_ok"

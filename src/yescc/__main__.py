@@ -1,8 +1,6 @@
 """支持 ``python -m yescc``。"""
 
-import sys
-
-from yescc.cli import main
+from yescc.cli import entrypoint
 
 if __name__ == "__main__":
-    sys.exit(main())
+    entrypoint()

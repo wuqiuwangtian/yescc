@@ -43,7 +43,7 @@ dev = [
 ]
 
 [project.scripts]
-yescc = "yescc.cli:main"
+yescc = "yescc.cli:entrypoint"
 
 [project.urls]
 Homepage = "https://github.com/wuqiuwangtian/yescc"
