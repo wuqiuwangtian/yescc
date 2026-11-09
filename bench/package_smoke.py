@@ -267,6 +267,24 @@ def verify(wheel: Path, directory: Path) -> dict[str, object]:
             flags=("--play", "--offline"),
         )
         case(
+            "multi_error",
+            ".c",
+            (ROOT / "examples/multi_error.c").read_text("utf-8"),
+            "repaired",
+            "value=7\n",
+            flags=("--offline", "--no-fallback"),
+        )
+        mixed = case(
+            "mixed_language",
+            ".c",
+            "int main(void){cout<<“hello”;}\n",
+            "creative_fallback",
+            None,
+            flags=("--offline",),
+            json_build=True,
+        )
+        assert any("C++" in item for item in mixed["result"]["fallback"]["guidance"])
+        case(
             "strict",
             ".c",
             "int main(void){return strict_missing;}\n",

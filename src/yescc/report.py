@@ -72,6 +72,9 @@ def summarize(payload: dict[str, Any]) -> str:
     if isinstance(fallback, dict):
         lines.append(f"兜底类型：{fallback.get('kind', 'unknown')}")
         lines.append(f"兜底原因：{fallback.get('reason', '')}")
+        guidance = fallback.get("guidance")
+        if isinstance(guidance, list):
+            lines.extend(str(item) for item in guidance)
         source = fallback.get("source")
         if source:
             lines.append(f"兜底源码：{source}")

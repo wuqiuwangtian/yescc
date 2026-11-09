@@ -14,7 +14,7 @@ from dataclasses import asdict
 from pathlib import Path
 
 from tests.conftest import FakeModelServer
-from tests.fixtures.failure_cases import CASES, FailureCase
+from tests.fixtures.failure_cases import CASES, VERSION, FailureCase
 
 
 def audit_case(case: FailureCase, directory: Path, endpoint: str) -> dict[str, object]:
@@ -115,6 +115,7 @@ def main() -> int:
         "mode": "local-fake-provider",
         "platform": platform.system(),
         "python": platform.python_version(),
+        "dataset_version": VERSION,
         "dataset_sha256": fingerprint(),
         "total": len(rows),
         "passed": sum(row["passed"] for row in rows),

@@ -69,6 +69,9 @@ uv build
 uv run python -m bench.package_smoke --output dist/package-smoke.json
 ```
 
-默认检查 pyproject 版本对应的 wheel，也可 `--wheel <路径>`。脚本在仓库外创建新环境，按 `uv.lock` 导出的运行时约束安装 wheel；以 `python -I -m yescc` 和 console 版本命令确认加载安装包，避免误用 editable 源码。10 条 CLI 路径使用真实 Python/GCC/Node，模型交互只到本地假供应商，检查源码不变、状态/退出/输出/请求次数和脱敏落盘。
+默认检查 pyproject 版本对应的 wheel，也可 `--wheel <路径>`。脚本在仓库外创建新环境，按 `uv.lock` 导出的运行时约束安装 wheel；以 `python -I -m yescc` 和 console 版本命令确认加载安装包，避免误用 editable 源码。12 条 CLI 路径使用真实 Python/GCC/Node，模型交互只到本地假供应商，检查源码不变、状态/退出/输出/请求次数和脱敏落盘。
 
 结果包含 wheel/lock 哈希、每条路径结论、实际安装的 10 个运行时依赖与 YesCC 的原始许可文本/哈希。已复核标识变化、新依赖或缺失原始许可会令检查失败；不是自动判断任意许可兼容性的工具。范围不含开发工具、系统 GCC/Node/Python 的再分发许可，也不含尚未构建的独立二进制。第三方声明见 [THIRD_PARTY_NOTICES](../THIRD_PARTY_NOTICES.md)。CI 在 Linux/Windows 各保留 `rc-package-<OS>` artifact（wheel、sdist、证据 JSON）。
+
+
+RC2 的失败审计版本为 `m5-failure-v2`：预算用例从漏分号改为未声明符号，因为 L1 新增分号规则后原输入会在进入模型前修好。仅改变这一个独立审计输入；旧原始记录不回写。模型流程测试也改用未知函数以维持模型路径覆盖。M4 数据、分母与 oracle 保持不变。新增 8 个多错误场景的 RC1/RC2 离线对照单列，不并入固定 200 例成绩。

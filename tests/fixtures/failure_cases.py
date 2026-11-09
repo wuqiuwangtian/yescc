@@ -4,6 +4,8 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
+VERSION = "m5-failure-v2"
+
 
 @dataclass(frozen=True)
 class FailureCase:
@@ -99,7 +101,7 @@ CASES = (
     FailureCase(
         "budget_blocked",
         ".c",
-        "int main(void){int budget_probe=1 return budget_probe;}\n",
+        "int main(void){return missing_budget_probe;}\n",
         exit_code=103,
         status="failed",
         flags=("--no-fallback", "--budget", "0.0000001"),

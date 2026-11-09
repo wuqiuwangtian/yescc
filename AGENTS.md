@@ -18,6 +18,8 @@
 - 报告 schema v1 只增不改。隐私字段、运行限制和验证结论必须来自实际行为；变更前读 [ADR-0015](docs/adr/0015-alpha-reliability-contracts.md)。
 - M4 的基准、对抗和平台边界见 [ADR-0016](docs/adr/0016-m4-evidence-and-platform-boundaries.md)；评测入口见 [bench/README](bench/README.md)。70 个模型样本在离线模式中必须标为未评测；固定数据/指纹的修改需单独说明，不能用改 oracle 提高已有模型得分。M5 补丁接受规则见 [ADR-0017](docs/adr/0017-exact-context-patch-normalization.md)：仅允许唯一精确旧文本定位，不得引入模糊匹配；原始 diff 与调整记录保留。
 
+- C 组合规则和降级说明见 [ADR-0018](docs/adr/0018-bounded-rule-refinement-and-degradation.md)：规则阶段最多 24 次候选构建、每条路径最多 4 次细化；不删除语句、猜变量或自动切换 C++。
+
 ## 协作与交付
 
 - 若会话已授权多 agent 并行，分派前明确文件归属、依赖、基线与验收；共享工作区中避免两个 agent 同时写同一文件。主导者负责整合后检查，子任务“完成”不等于整个项目验收通过。

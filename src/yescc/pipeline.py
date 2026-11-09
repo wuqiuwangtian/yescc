@@ -21,6 +21,7 @@ from yescc.errors import (
     UsageError,
 )
 from yescc.fallback import fallback_output, generate_c_program
+from yescc.fallback.guidance import degradation_guidance
 from yescc.fix import parse_c
 from yescc.fix.engine import attempt_repair, build_in_temp
 from yescc.model import (
@@ -337,7 +338,8 @@ def _finalize(
                 "attempts": ctx.session.attempts,
                 "blocked_reason": ctx.session.budget_reason,
             }
-            if ctx.session is not None else None
+            if ctx.session is not None
+            else None
         ),
         "limits": (
             {
@@ -389,6 +391,10 @@ def _finalize(
             f"（kind={fallback.get('kind', 'unknown')}，不是原程序的修复）。",
             file=sys.stderr,
         )
+        guidance = fallback.get("guidance")
+        if isinstance(guidance, list):
+            for hint in guidance:
+                print(f"yescc: {hint}", file=sys.stderr)
     if artifact is not None and sys.stderr.isatty():
         line = _status_line(status, artifact, repair, fallback, ctx.cwd, model_stats.calls)
         print(line, file=sys.stderr)
@@ -635,6 +641,17 @@ def _deterministic_fallback(ctx: Context, reason: str) -> int:
         sandbox=sandbox,
         fallback={
             "kind": output.kind,
+            "guidance": degradation_guidance(
+                ctx.text,
+                language=ctx.language,
+                kind=output.kind,
+                offline=ctx.invocation.offline,
+                model_available=ctx.session is not None and ctx.session.available,
+                model_attempted=ctx.session is not None
+                and bool(ctx.session.stats.calls or ctx.session.stats.cache_hits),
+                budget_blocked=ctx.session is not None and bool(ctx.session.budget_reason),
+                rule_builds=sum(item["kind"] == "rule" for item in ctx.attempts),
+            ),
             "reason": reason,
             "source": display_path(source_file, ctx.cwd),
         },
@@ -771,7 +788,7 @@ def execute(argv: list[str], invocation: Invocation) -> int:
 
     if language == "c":
         outcome = attempt_repair(
-            adapter, text, source.name, invocation.passthrough, cwd, source.parent
+            adapter, text, source.name, invocation.passthrough, cwd, source.parent, native.stderr
         )
         for index, (_, build) in enumerate(outcome.attempts, start=2):
             ctx.attempts.append(_attempt("rule", index, build))
