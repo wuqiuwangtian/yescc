@@ -413,9 +413,9 @@ def _write_patched(
     directory.mkdir(parents=True, exist_ok=True)
     name = f"{prefix}{ctx.source.name}" if prefix else ctx.source.name
     patched = directory / name
-    patched.write_text(patched_source, encoding="utf-8")
+    patched.write_text(patched_source, encoding="utf-8", newline="")
     patch_file = directory / "patch.diff"
-    patch_file.write_text(diff_text, encoding="utf-8")
+    patch_file.write_text(diff_text, encoding="utf-8", newline="")
     return patched, patch_file
 
 

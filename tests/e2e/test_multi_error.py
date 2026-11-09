@@ -34,7 +34,7 @@ CASES = [
     ),
     (
         "loop",
-        '#include <stdio.h>\nint main(void){\nint sum=0\n'
+        "#include <stdio.h>\nint main(void){\nint sum=0\n"
         'for(int i=0;i<4;i++){sum+=i}\nprintf("%d\\n",sum)\nreturn 0\n}\n',
         [("", "6\n")],
     ),
@@ -46,7 +46,7 @@ CASES = [
     ),
     (
         "protected",
-        'include <stdio.h>\n// prinf，保留“这段”注释\n'
+        "include <stdio.h>\n// prinf，保留“这段”注释\n"
         'int mian(void){puts("prinf，hello；"); retrun 0}\n',
         [("", "prinf，hello；\n")],
     ),
@@ -54,10 +54,14 @@ CASES = [
 ]
 
 
+@pytest.mark.parametrize("line_ending", ["\n", "\r\n"], ids=["LF", "CRLF"])
 @pytest.mark.parametrize(("name", "source", "checks"), CASES, ids=[row[0] for row in CASES])
-def test_multi_error_behavior(name: str, source: str, checks: list, tmp_path: Path) -> None:
+def test_multi_error_behavior(
+    name: str, source: str, checks: list, tmp_path: Path, line_ending: str
+) -> None:
     path = tmp_path / (name + ".c")
-    path.write_text(source, encoding="utf-8")
+    source = source.replace("\n", line_ending)
+    path.write_bytes(source.encode("utf-8"))
     before = path.read_bytes()
     for stdin, expected in checks:
         result = subprocess.run(
@@ -120,3 +124,31 @@ def test_cpp_is_not_silently_translated_and_guidance_matches_report(
         timeout=10,
     )
     assert all(item in explained.stdout for item in hints)
+
+
+def test_temp_build_preserves_crlf_for_compiler_coordinates(tmp_path: Path, monkeypatch) -> None:
+    from yescc.adapters.c import CAdapter
+    from yescc.fix.engine import attempt_repair
+
+    source = next(row[1] for row in CASES if row[0] == "loop").replace("\n", "\r\n")
+    path = tmp_path / "loop.c"
+    path.write_bytes(source.encode())
+    adapter = CAdapter()
+    original = adapter.build(path, [], tmp_path)
+    write = Path.write_text
+
+    def windows_translation(target, text, *args, **kwargs):
+        if (
+            target.name == "loop.c"
+            and target.parent.name.startswith("yescc-build-")
+            and kwargs.get("newline") is None
+        ):
+            text = text.replace("\n", "\r\n")
+        return write(target, text, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "write_text", windows_translation)
+    repaired = attempt_repair(adapter, source, path.name, [], tmp_path, tmp_path, original.stderr)
+    assert repaired.candidate is not None and repaired.artifact is not None
+    actual = subprocess.run([str(repaired.artifact)], capture_output=True, text=True, timeout=5)
+    assert actual.returncode == 0 and actual.stdout == "6\n"
+    assert path.read_bytes() == source.encode()

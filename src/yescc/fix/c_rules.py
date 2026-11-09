@@ -178,7 +178,8 @@ def _quote_variants(text: str) -> list[tuple[str, tuple[str, ...]]]:
 
 def _fix_include(text: str) -> str:
     pattern = re.compile(
-        r'(?m)^([ \t]*)(include[ \t]+(?:<[A-Za-z0-9_./-]+>|"[A-Za-z0-9_./-]+"))[ \t]*(?=//|/\*|$)'
+        r'(?m)^([ \t]*)(include[ \t]+(?:<[A-Za-z0-9_./-]+>|"[A-Za-z0-9_./-]+"))'
+        r"[ \t]*(?=//|/\*|\r?$)"
     )
     spans = protected_spans(text)
     return pattern.sub(

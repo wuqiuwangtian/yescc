@@ -106,7 +106,7 @@ def build_in_temp(
         for header in source_dir.glob("*.h"):
             shutil.copy2(header, directory / header.name)
         target = directory / filename
-        target.write_text(text, encoding="utf-8")
+        target.write_text(text, encoding="utf-8", newline="")
         arguments = _resolve_paths(_without_output(passthrough), cwd)
         arguments.extend(["-iquote", str(source_dir.resolve())])
         build = adapter.build(target, arguments, directory)
