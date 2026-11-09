@@ -294,6 +294,44 @@ def verify(wheel: Path, directory: Path) -> dict[str, object]:
             exit_code=102,
         )
         case("program_exit", ".py", "raise SystemExit(7)\n", "native_ok", "", exit_code=7)
+        for name, suffix, source, args, expected in (
+            ("json_missing", ".c", None, ("--json", "--offline"), 100),
+            (
+                "json_budget",
+                ".c",
+                "int main(void){return 0;}\n",
+                ("--budget", "-1", "--json", "--offline"),
+                100,
+            ),
+            ("json_unknown", ".xyz", "hello\n", ("--strict", "--json", "--offline"), 101),
+            (
+                "json_no_fallback",
+                ".txt",
+                "请创造一台时光机\n",
+                ("--no-fallback", "--json", "--offline"),
+                101,
+            ),
+        ):
+            cwd = directory / name
+            cwd.mkdir()
+            file = cwd / (name + suffix)
+            if source is not None:
+                file.write_text(source, encoding="utf-8")
+            response = run([str(python), "-I", "-m", "yescc", file.name, *args], cwd, env)
+            payload = json.loads(response.stdout)
+            assert response.returncode == expected and not response.stderr
+            assert payload["report_kind"] == "command_error"
+            assert payload["error"]["exit_code"] == expected
+            assert not (cwd / ".yescc").exists()
+            rows.append(
+                {
+                    "id": name,
+                    "status": "command_error",
+                    "exit_code": expected,
+                    "model_calls": 0,
+                    "passed": True,
+                }
+            )
         server.status_code = 429
         failed = case(
             "redacted",

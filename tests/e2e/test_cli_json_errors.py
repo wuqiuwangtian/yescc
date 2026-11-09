@@ -1,0 +1,98 @@
+"""独立黑盒 D1/D2：预期命令错误必须可机器读取，退出码优先级保持不变。"""
+
+from __future__ import annotations
+
+import json
+import subprocess
+import sys
+from pathlib import Path
+
+import pytest
+
+pytestmark = pytest.mark.e2e
+
+
+def run(args: list[str], root: Path) -> subprocess.CompletedProcess[str]:
+    return subprocess.run(
+        [sys.executable, "-m", "yescc", *args],
+        cwd=root,
+        capture_output=True,
+        encoding="utf-8",
+        timeout=30,
+    )
+
+
+@pytest.mark.parametrize(
+    ("args", "code", "phase"),
+    [
+        (["missing.c", "--json"], 100, "execute"),
+        (["--budget", "-1", "ok.c", "--json"], 100, "parse"),
+        (["--max-rounds", "bad", "--json", "ok.c"], 100, "parse"),
+        (["input.xyz", "--strict", "--json"], 101, "execute"),
+        (["reject.txt", "--no-fallback", "--json"], 101, "execute"),
+        (["bad.py", "--json"], 101, "execute"),
+        (["--json"], 100, "parse"),
+        (["run", "ok.c", "--json"], 100, "parse"),
+        (["run", "ok.c", "-I", "--json"], 100, "parse"),
+        (["ok.c", "--explain", "--json"], 100, "explain"),
+        (["--explain", "--json"], 100, "explain"),
+    ],
+)
+def test_expected_command_errors_are_json(
+    args: list[str],
+    code: int,
+    phase: str,
+    tmp_path: Path,
+) -> None:
+    (tmp_path / "input.xyz").write_text("hello\n")
+    (tmp_path / "reject.txt").write_text("请创造一台时光机\n", encoding="utf-8")
+    (tmp_path / "bad.py").write_bytes(b"\xff\xfe")
+    result = run([*args, "--offline"], tmp_path)
+    assert result.returncode == code and result.stderr == ""
+    payload = json.loads(result.stdout)
+    assert payload["schema_version"] == "1"
+    assert payload["report_kind"] == "command_error"
+    assert payload["error"]["exit_code"] == code
+    assert payload["error"]["phase"] == phase
+    assert payload["error"]["message"]
+    assert all(key not in payload for key in ("input", "privacy", "budget", "model", "toolchain"))
+    assert not (tmp_path / ".yescc").exists()
+
+
+def test_command_error_does_not_overwrite_previous_report(tmp_path: Path) -> None:
+    source = tmp_path / "ok.c"
+    source.write_text("int main(void){return 0;}\n")
+    first = run(["ok.c", "--offline", "--json"], tmp_path)
+    assert first.returncode == 0
+    payload = json.loads(first.stdout)
+    assert payload["result"]["status"] == "native_ok" and "report_kind" not in payload
+    report = tmp_path / ".yescc/ok/report.json"
+    before = report.read_bytes()
+    source.unlink()
+    failed = run(["ok.c", "--json", "--offline"], tmp_path)
+    assert json.loads(failed.stdout)["report_kind"] == "command_error"
+    assert report.read_bytes() == before
+
+
+@pytest.mark.parametrize(
+    "args",
+    [
+        ["run", "missing.py", "--", "--json"],
+        ["--model", "--json"],
+        ["-o", "--json"],
+        ["--budget", "--json"],
+    ],
+)
+def test_argument_values_and_program_arguments_are_not_json_flags(
+    args: list[str],
+    tmp_path: Path,
+) -> None:
+    result = run(args, tmp_path)
+    assert result.returncode == 100 and not result.stdout
+    assert result.stderr.startswith("yescc:")
+
+
+def test_program_json_argument_is_passed_through(tmp_path: Path) -> None:
+    (tmp_path / "args.py").write_text("import sys;print(sys.argv[1])\n")
+    result = run(["run", "args.py", "--", "--json"], tmp_path)
+    assert result.returncode == 0 and result.stdout == "--json\n" and not result.stderr

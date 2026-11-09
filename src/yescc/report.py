@@ -98,3 +98,27 @@ def summarize(payload: dict[str, Any]) -> str:
         if isinstance(items, list) and items:
             lines.append("假设：" + "；".join(str(item) for item in items))
     return "\n".join(lines)
+
+
+def command_error_payload(
+    argv: list[str],
+    error: Exception,
+    *,
+    exit_code: int,
+    phase: str,
+) -> dict[str, Any]:
+    """命令错误不是构建报告；只记录已确认的事实，不推测输入和费用。"""
+    from yescc import __version__
+
+    return {
+        "schema_version": SCHEMA_VERSION,
+        "report_kind": "command_error",
+        "tool": {"name": "yescc", "version": __version__},
+        "invocation": {"argv": argv},
+        "error": {
+            "type": type(error).__name__,
+            "exit_code": exit_code,
+            "message": str(error),
+            "phase": phase,
+        },
+    }

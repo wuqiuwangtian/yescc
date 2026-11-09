@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 import math
 import os
 import signal
@@ -17,6 +18,7 @@ from typing import Literal, NoReturn
 from yescc import __version__
 from yescc.errors import FcompError, UsageError
 from yescc.pipeline import Invocation, execute, explain
+from yescc.report import command_error_payload
 
 _HELP = """YesCC（Yes Compiler Collection）
 
@@ -28,12 +30,12 @@ _HELP = """YesCC（Yes Compiler Collection）
 选项：
       --lang <语言>   指定语言：python | c | javascript
       --strict        原生模式：关闭修复与兜底，显示原始诊断
-      --json          以 JSON 输出报告（仅构建模式）
-      --no-fallback   不生成创意兜底；失败时返回 102
+      --json          输出单一 JSON（构建/解释报告或可预期命令错误）
+      --no-fallback   不生成创意兜底；保留用法/输入/构建/预算等失败码
       --play          强制创意解释（跳过原生与规则）
       --offline       不发模型请求，模型路径降级
       --budget <USD>  单任务模型费用上限（默认 0.05）
-      --max-rounds N  单任务最多模型调用轮数（默认 2）
+      --max-rounds N  候选尝试（含缓存）与请求次数上限（默认 2）
       --provider NAME 覆盖模型供应商（deepseek/openai/ollama/...）
       --model NAME    覆盖模型名
       --emit-source   输出修复/生成后的完整源码
@@ -223,6 +225,24 @@ def parse(argv: Sequence[str]) -> ParsedCommand:
     return ParsedCommand(action="execute", invocation=invocation)
 
 
+_CLI_VALUE_FLAGS = {"--budget", "--max-rounds", "--provider", "--model", "--lang"}
+
+
+def _requests_json(argv: list[str]) -> bool:
+    """识别有语法意义的开关，包括解析器尚未走到的参数；不扫描 -- 后或选项值。"""
+    run_mode = bool(argv and argv[0] == "run")
+    value_flags = _CLI_VALUE_FLAGS if run_mode else _CLI_VALUE_FLAGS | _VALUE_OPTIONS
+    index = 1 if run_mode else 0
+    while index < len(argv):
+        arg = argv[index]
+        if arg == "--":
+            return False
+        if arg == "--json":
+            return True
+        index += 2 if arg in value_flags else 1
+    return False
+
+
 def _configure_stdio() -> None:
     """非交互式管道下固定 UTF-8。
 
@@ -252,6 +272,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     previous_break = None
     if break_signal is not None and threading.current_thread() is threading.main_thread():
         previous_break = signal.signal(break_signal, _console_break)
+    phase = "parse"
     try:
         parsed = parse(args)
         if parsed.action == "help":
@@ -261,10 +282,16 @@ def main(argv: Sequence[str] | None = None) -> int:
             print(f"yescc {__version__}")
             return 0
         if parsed.action == "explain":
+            phase = "explain"
             return explain(parsed.invocation.source, parsed.invocation.json_output)
+        phase = "execute"
         return execute(args, parsed.invocation)
     except FcompError as exc:
-        print(f"yescc: {exc.message}", file=sys.stderr)
+        if _requests_json(args):
+            payload = command_error_payload(args, exc, exit_code=int(exc.exit_code), phase=phase)
+            print(json.dumps(payload, ensure_ascii=False, indent=2))
+        else:
+            print(f"yescc: {exc.message}", file=sys.stderr)
         return int(exc.exit_code)
     except KeyboardInterrupt:
         return 130

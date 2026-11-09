@@ -56,7 +56,7 @@ uv run python -m bench.oracle_checks --output dist/m5-oracle-crosscheck.json
 uv run pytest tests/e2e/test_captured_patches.py -q
 ```
 
-失败审计使用 24 个独立的错误输入和本地假供应商，检查退出码、状态、无误报产物、源文件不变与 stdout/落盘报告一致；不支持语言/编码在报告建立前返回，明确记录没有报告。第二实现使用 Python 内建与标准库，从规格计算 40 个任务的结果，再与真实 GCC 构建的参考程序核对 508 个输入；它不修改 M4 固定数据，不代表人工复核。捕获的 8 个真实响应离线重放，交原样冻结 oracle 验证；不能把重放结果称作模型新 pass@1。
+失败审计使用 24 个独立的错误输入和本地假供应商，检查退出码、状态、无误报产物、源文件不变与 stdout/落盘报告一致；不支持语言/编码在构建报告建立前返回；RC3 明确记录无落盘构建报告但收到 command_error JSON，不混称为 stdout 匹配落盘报告。第二实现使用 Python 内建与标准库，从规格计算 40 个任务的结果，再与真实 GCC 构建的参考程序核对 508 个输入；它不修改 M4 固定数据，不代表人工复核。捕获的 8 个真实响应离线重放，交原样冻结 oracle 验证；不能把重放结果称作模型新 pass@1。
 
 四组原生 CI 同时运行审计并把结果作为 `m4-<OS>-py<版本>` artifact 中的 `m5-*.json` 保存。新增 oracle probe 只用于复核参考程序，不混入固定 200 例成绩。
 
@@ -69,7 +69,7 @@ uv build
 uv run python -m bench.package_smoke --output dist/package-smoke.json
 ```
 
-默认检查 pyproject 版本对应的 wheel，也可 `--wheel <路径>`。脚本在仓库外创建新环境，按 `uv.lock` 导出的运行时约束安装 wheel；以 `python -I -m yescc` 和 console 版本命令确认加载安装包，避免误用 editable 源码。12 条 CLI 路径使用真实 Python/GCC/Node，模型交互只到本地假供应商，检查源码不变、状态/退出/输出/请求次数和脱敏落盘。
+默认检查 pyproject 版本对应的 wheel，也可 `--wheel <路径>`。脚本在仓库外创建新环境，按 `uv.lock` 导出的运行时约束安装 wheel；以 `python -I -m yescc` 和 console 版本命令确认加载安装包，避免误用 editable 源码。16 条 CLI 路径使用真实 Python/GCC/Node，模型交互只到本地假供应商，检查源码不变、状态/退出/输出/请求次数和脱敏落盘。
 
 结果包含 wheel/lock 哈希、每条路径结论、实际安装的 10 个运行时依赖与 YesCC 的原始许可文本/哈希。已复核标识变化、新依赖或缺失原始许可会令检查失败；不是自动判断任意许可兼容性的工具。范围不含开发工具、系统 GCC/Node/Python 的再分发许可，也不含尚未构建的独立二进制。第三方声明见 [THIRD_PARTY_NOTICES](../THIRD_PARTY_NOTICES.md)。CI 在 Linux/Windows 各保留 `rc-package-<OS>` artifact（wheel、sdist、证据 JSON）。
 

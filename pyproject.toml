@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "yescc"
-version = "0.1.0rc2"
+version = "0.1.0rc3"
 description = "YesCC：永不扫兴的 AI 编译器。合法代码原样编译，错误与自然语言尽量变成可运行程序。"
 readme = "README.md"
 requires-python = ">=3.11"

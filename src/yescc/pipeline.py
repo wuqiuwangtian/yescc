@@ -842,8 +842,7 @@ def explain(source: Path | None, as_json: bool) -> int:
     report_file = report_path(Path.cwd(), source)
     payload = load_report(report_file)
     if payload is None:
-        print(f"没有找到报告：{report_file}。先运行一次构建再查看。", file=sys.stderr)
-        return int(ExitCode.USAGE)
+        raise UsageError(f"没有找到报告：{report_file}。先运行一次构建再查看。")
     if as_json:
         print(json.dumps(payload, ensure_ascii=False, indent=2))
     else:

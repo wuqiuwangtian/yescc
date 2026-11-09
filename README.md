@@ -17,7 +17,7 @@ YesCC 是一个「永不扫兴」的 AI 编译器：正确代码原样编译；�
 
 仓库中的后续修复不代表已更新 TestPyPI 安装包；当前开发状态、未发布变更和接续任务统一见[路线图 §10](docs/项目路线图与发布计划.md#10-待决事项与下一步)。
 
-源码已进入 `0.1.0rc2` 候选准备；尚未上传索引或创建 Release。固定基准、安装验收与费用见[评测入口](docs/评测/README.md)，待完成项统一见路线图 §10。
+源码已进入 `0.1.0rc3` 候选准备；尚未上传索引或创建 Release。固定基准、安装验收与费用见[评测入口](docs/评测/README.md)，待完成项统一见路线图 §10。
 
 首版范围：C 为 AI 修复/生成目标；Python / C / JavaScript 保留原生直通；MIT 许可，PyPI + 独立二进制发布。长期目标「所有语言」与「编辑器插件」不变。进度见[路线图](docs/项目路线图与发布计划.md)。
 
@@ -85,6 +85,8 @@ export YESCC_MODEL_L2_NAME=llama3.2
 云端模型必须配置两项单价，未知价格时不发请求；请求前保守估算并预留费用，剩余预算限制输出 token。缺 usage 或请求失败会保留预留，`model.cost_known=false` 时费用总额未知，`cost_usd` 只表示已知部分小计。回环本地端点可不填价格，但不能声称受到金额限制。`--max-rounds` 同时限制候选尝试（含缓存）与实际请求；L2 修复失败后有 L3 就升级，显式 `--model` / `--provider` 跳过自动 L2。详见 [ADR-0015](docs/adr/0015-alpha-reliability-contracts.md)。
 
 C 规则阶段最多构建 24 个候选、每条路径最多细化 4 次；可组合机械标点/拼写错误并使用 GCC 的分号建议。遇到 C++ 写法或语义错误仍可能无法修复。确定性兜底会在 stderr 和报告中说明模型路径与失败原因；`print_input` 只回显输入。规则与报告边界见 [ADR-0018](docs/adr/0018-bounded-rule-refinement-and-degradation.md)。
+
+构建/解释模式的 `--json` 在可预期命令错误时也返回一个 JSON 对象：若 `report_kind` 为 `command_error`，读取 `error.exit_code` / `error.message`；否则按原 schema v1 构建报告处理。错误对象只输出到 stdout，不覆盖旧构建报告。`--no-fallback` 不改退出码分类：用法 100、不支持输入 101、构建失败 102、预算等限制 103。见 [ADR-0019](docs/adr/0019-command-error-json-envelope.md)。
 
 ## 已知限制
 

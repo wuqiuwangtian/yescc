@@ -59,15 +59,20 @@ def audit_case(case: FailureCase, directory: Path, endpoint: str) -> dict[str, o
     status = report["result"]["status"] if report else None
     artifact = report["result"]["artifact"] if report else None
     unchanged = hashlib.sha256(source.read_bytes()).hexdigest() == before
-    stdout_matches = (
-        json.loads(completed.stdout) == report if report else not completed.stdout.strip()
+    stdout_payload = json.loads(completed.stdout) if completed.stdout.strip() else None
+    command_error = (
+        isinstance(stdout_payload, dict)
+        and stdout_payload.get("report_kind") == "command_error"
+        and stdout_payload.get("error", {}).get("exit_code") == completed.returncode
+        and not completed.stderr
     )
+    stdout_matches = report is not None and stdout_payload == report
     passed = (
         completed.returncode == case.exit_code
         and status == case.status
         and artifact is None
         and unchanged
-        and stdout_matches
+        and (stdout_matches or (report is None and case.status is None and command_error))
     )
     return {
         "id": case.name,
@@ -77,6 +82,7 @@ def audit_case(case: FailureCase, directory: Path, endpoint: str) -> dict[str, o
         "source_unchanged": unchanged,
         "report_exists": report is not None,
         "stdout_matches_report": stdout_matches,
+        "command_error_received": command_error,
         "passed": passed,
         "model_calls": (report.get("model") or {}).get("calls", 0) if report else 0,
         "stderr": completed.stderr[:500],
