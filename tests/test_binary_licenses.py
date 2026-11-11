@@ -23,7 +23,7 @@ def test_builtin_third_party_code_cannot_be_covered_by_cpython_license_alone(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
     _isolate_inventory(monkeypatch)
-    monkeypatch.setattr(binary_licenses.sys, "builtin_module_names", ("_ssl", "zlib"))
+    monkeypatch.setattr(binary_licenses, "_builtin_components", lambda: {"OpenSSL", "zlib"})
     bundle = tmp_path / "bundle"
     bundle.mkdir()
     source = tmp_path / "libpython3.11.so"
@@ -45,7 +45,7 @@ def test_unknown_native_file_stays_unresolved(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
     _isolate_inventory(monkeypatch)
-    monkeypatch.setattr(binary_licenses.sys, "builtin_module_names", ())
+    monkeypatch.setattr(binary_licenses, "_builtin_components", set)
     bundle = tmp_path / "bundle"
     bundle.mkdir()
     (bundle / "unknown.dll").write_bytes(b"unidentified binary fixture")
@@ -62,7 +62,7 @@ def test_dynamic_dependency_requires_actual_bundled_library_and_notice(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
     _isolate_inventory(monkeypatch)
-    monkeypatch.setattr(binary_licenses.sys, "builtin_module_names", ())
+    monkeypatch.setattr(binary_licenses, "_builtin_components", set)
     stdlib = tmp_path / "stdlib"
     stdlib.mkdir()
     (stdlib / "LICENSE.txt").write_text("fixture CPython notice\n")

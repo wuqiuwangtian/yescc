@@ -50,6 +50,14 @@ _REFERENCES = {
 }
 
 
+def _builtin_components() -> set[str]:
+    return {
+        component
+        for extension, component in _EXTENSION_COMPONENTS.items()
+        if extension in sys.builtin_module_names
+    }
+
+
 def _sha(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
@@ -295,11 +303,7 @@ def collect(bundle: Path, workdir: Path, output: Path) -> dict[str, Any]:
 
     files = []
     # PBS 等发行版把附带库编进 libpython；仅扫独立扩展文件会把这些漏成已覆盖。
-    builtin_components = {
-        component
-        for extension, component in _EXTENSION_COMPONENTS.items()
-        if extension in sys.builtin_module_names
-    }
+    builtin_components = _builtin_components()
     native_components: set[str] = set(builtin_components)
     dynamic_requirements: dict[str, set[str]] = {}
     static_extension_components: set[str] = set()

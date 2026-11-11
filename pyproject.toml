@@ -45,6 +45,7 @@ dev = [
 release = [
     "pyinstaller==6.22.3",
     "twine==7.0.0",
+    "zstandard==0.25.0",
 ]
 
 [project.scripts]

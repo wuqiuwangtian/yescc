@@ -48,7 +48,7 @@ jobs:
         run: uv sync --python /usr/bin/python3 --extra dev --extra release --locked
       - name: Prepare Windows builder
         if: runner.os == 'Windows'
-        run: uv sync --python 3.11 --extra dev --extra release --locked
+        run: uv sync --no-managed-python --python 3.14 --extra dev --extra release --locked
       - name: Verify external toolchains
         run: |
           gcc --version

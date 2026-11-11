@@ -16,7 +16,8 @@ from bench.binary_smoke import verify
 
 def verify_archive(archive: Path, expected_version: str) -> dict:
     with tempfile.TemporaryDirectory(prefix="yescc-native-install-") as raw:
-        root = Path(raw)
+        # Windows TEMP may use an 8.3 alias; compare canonical paths on both sides.
+        root = Path(raw).resolve()
         if archive.name.endswith(".tar.gz"):
             with tarfile.open(archive, "r:gz") as packed:
                 packed.extractall(root, filter="data")
