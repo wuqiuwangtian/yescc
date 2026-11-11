@@ -15,12 +15,15 @@
 - 模型候选尝试、请求次数、费用预留、时间分别受限；缓存命中也消耗一次候选尝试，无效补丁/无法编译的源码应失效缓存。显式模型/供应商覆盖不得被 L2 路由绕开。
 - CLI 费用单位是 USD；维护者付费评测的授权约束见路线图 A3。云端缺单价时不发请求；费用未知时检查 `cost_known`，不能把费用小计当作总费用。
 - 运行隔离是尽力隔离。POSIX 清理独立进程组，Windows 用 `taskkill /T` 尽力清理；不能据此宣称阻止文件系统访问或所有进程逃逸。
-- 报告 schema v1 只增不改。隐私字段、运行限制和验证结论必须来自实际行为；变更前读 [ADR-0015](docs/adr/0015-alpha-reliability-contracts.md)。
-- M4 的基准、对抗和平台边界见 [ADR-0016](docs/adr/0016-m4-evidence-and-platform-boundaries.md)；评测入口见 [bench/README](bench/README.md)。70 个模型样本在离线模式中必须标为未评测；固定数据/指纹的修改需单独说明，不能用改 oracle 提高已有模型得分。
+- 报告 schema v1 只增不改。隐私字段、运行限制和验证结论必须来自实际行为；变更前读 [ADR-0015](docs/adr/0015-alpha-reliability-contracts.md)。命令错误 JSON 对象见 [ADR-0019](docs/adr/0019-command-error-json-envelope.md)，不能混称为构建报告或填造输入/费用。
+- M4 的基准、对抗和平台边界见 [ADR-0016](docs/adr/0016-m4-evidence-and-platform-boundaries.md)；评测入口见 [bench/README](bench/README.md)。70 个模型样本在离线模式中必须标为未评测；固定数据/指纹的修改需单独说明，不能用改 oracle 提高已有模型得分。M5 补丁接受规则见 [ADR-0017](docs/adr/0017-exact-context-patch-normalization.md)：仅允许唯一精确旧文本定位，不得引入模糊匹配；原始 diff 与调整记录保留。
+
+- C 组合规则和降级说明见 [ADR-0018](docs/adr/0018-bounded-rule-refinement-and-degradation.md)：规则阶段最多 24 次候选构建、每条路径最多 4 次细化；不删除语句、猜变量或自动切换 C++。
 
 ## 协作与交付
 
 - 若会话已授权多 agent 并行，分派前明确文件归属、依赖、基线与验收；共享工作区中避免两个 agent 同时写同一文件。主导者负责整合后检查，子任务“完成”不等于整个项目验收通过。
+- 独立 AI 黑盒/定向复测使用不继承开发历史的子 agent（`fork_turns=none`），只交付用户材料与被测版本，限制测试目录写入；主导者复核原始证据与材料完整性。共享文件系统的协议约束不等于强制隔离，AI 测试不称人工验收。
 - 行为变更同步更新相关 ADR、README 和 CHANGELOG；任务状态只更新路线图，测试证据放 `docs/评测/`。不按会话新增重复的计划或交接文件。
 - 交接说明已验证项、未验证平台、下一项可执行工作及 Git 状态。用 Git 查询实际提交；本地提交、推送、CI、发布分别表述，不把旧 alpha 发布算作新修复已发布。
 - 使用任务分支和 Conventional Commits，提交前检查实际 diff。推送、PR、合并及发布按已有授权处理；用户只要求提交时完成本地提交。

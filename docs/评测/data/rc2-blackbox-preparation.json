@@ -1,0 +1,91 @@
+{
+  "kind": "blind-ai-workspace-preparation",
+  "workspace": "~/ai-tests/yescc-rc2",
+  "product_version": "0.1.0rc2",
+  "product_code_commit": "083a3e3f032c921e623a4675fe4731ade9cbb4cd",
+  "wheel_sha256": "d153d525186d95596a5b908ccc0c63fd2e80420de3c1e556246ee541cd888d7d",
+  "ci_run": "https://github.com/wuqiuwangtian/yescc/actions/runs/42589623695",
+  "review_executed": false,
+  "human_test": false,
+  "scope": "WSL/Linux, independent AI black-box, no real model services",
+  "material_sha256": {
+    ".launcher.py": "707a0e56f7b7db866893027f2b7eb9d5c07757457b918f7e3004bd41f89dc9c6",
+    "AGENTS.md": "86c674158547f39b5d2c005a07af39df40ac0cdf2abbace8f4e2b03b5d64f38e",
+    "给测试AI的提示词.txt": "8c71ef420af7d0e700c9ac4aeec93972ceb553d6e2922e961da9e7e4ede97b3c",
+    "model-test.example.json": "2f6cb8ed4dfa43471015f6922619cff6ea63cf887a4372a09f7db20810a7a2d7",
+    "产品说明.txt": "6b56c1a4b9354310855b898c41e3d2116afc91ce2fa5d83381b85baaf0650734",
+    "测试环境说明.txt": "e24c85ed3ac8ac1841560c79271eb6b9edcdc645b80019837a70a61bc823653e",
+    "tools.json": "e05f40779835c769da5c6102ab15d9669b2b1fe47b175994118a9c9a8eb81637"
+  },
+  "owner_setup_checks": [
+    {
+      "kind": "owner-setup-check",
+      "command": [
+        "bin/yescc",
+        "--version"
+      ],
+      "stdout_first_line": "yescc 0.1.0rc2"
+    },
+    {
+      "kind": "owner-setup-check",
+      "command": [
+        "bin/test-env",
+        "gcc",
+        "--version"
+      ],
+      "stdout_first_line": "gcc (GCC) 16.2.1 20260810"
+    },
+    {
+      "kind": "owner-setup-check",
+      "command": [
+        "bin/test-env",
+        "node",
+        "--version"
+      ],
+      "stdout_first_line": "v26.3.0"
+    },
+    {
+      "credential_inheritance": false,
+      "local_fake_config": true,
+      "remote_config_rejected": true,
+      "native_c_startup": true
+    }
+  ],
+  "runtime_sha256": {
+    "lib/python3.11/site-packages/yescc/py.typed": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "lib/python3.11/site-packages/yescc/util.py": "45ce9a455b8699784e28217fcdd6a7840310bef126f4adc5418efaa6267c2dce",
+    "lib/python3.11/site-packages/yescc/__main__.py": "b8e0fc6239cf07f8c225dd9e7698b686865304da0b6cc444dda822d1063cacbc",
+    "lib/python3.11/site-packages/yescc/report.py": "2c6f5abe047adda2ac3be691217687b538a5cc5e93587afc611892daac621b59",
+    "lib/python3.11/site-packages/yescc/errors.py": "1c561029a49df07fb884f48e150eb05473497a0d941376d1f3323803475dfe17",
+    "lib/python3.11/site-packages/yescc/__init__.py": "010eaecb449d534f6fb58df58a369eb65d2e263cb44f7fb17e49a90ad7a4b8fe",
+    "lib/python3.11/site-packages/yescc/patch.py": "2b2daa96319d016daf284205d8af429eddf903ea05efd1c7c6977cd332e1a775",
+    "lib/python3.11/site-packages/yescc/cli.py": "129e85eca0a12cce4479d41476817fa2414912171f5d53523825ae7921b2a751",
+    "lib/python3.11/site-packages/yescc/pipeline.py": "ded82491285b590c1237548a574ff9f900751152bfd894d7a93101e9cf1292e3",
+    "lib/python3.11/site-packages/yescc/fix/feedback.py": "d4d5ad7893993b72feb6df8a4bc3703a6021427c0d0b55b9c25cf7f334095a57",
+    "lib/python3.11/site-packages/yescc/fix/engine.py": "74ae49de7868a9b89143d5b138d26f33adaf6048b1bf5d27d8b4688f1314fc13",
+    "lib/python3.11/site-packages/yescc/fix/parser.py": "c843e1bdc3e7683a4c65370b3eda2fa27f2439bb571ded171c55689de5843b3d",
+    "lib/python3.11/site-packages/yescc/fix/__init__.py": "61795abae9b8f8f20132b8fb8a4c405e144d2098dc59609314ad1450960da7f6",
+    "lib/python3.11/site-packages/yescc/fix/lexer.py": "013e45ff043660558e80ccfc3e4fca6cfe4556a7174a1613fa15222ff8fdd851",
+    "lib/python3.11/site-packages/yescc/fix/c_rules.py": "c3f5e6427b0b0cb55f0b02dae653eadf2ce827ddf506131afb86b64177f32fec",
+    "lib/python3.11/site-packages/yescc/model/cache.py": "b1bd6377a60181975f18db442397056d75674f545d1211033a78eba7a82190c6",
+    "lib/python3.11/site-packages/yescc/model/session.py": "c2899f7b378bd0ee8b68db5786f0dbc7f23fe492224f5dc874dc1e2d744a2713",
+    "lib/python3.11/site-packages/yescc/model/prompts.py": "19e85724fca23fa0882c08fd6d9e3801e5417ec3a6c268d189d6f888e3448580",
+    "lib/python3.11/site-packages/yescc/model/__init__.py": "7dd3993af6a8a724cfb3aded88b3c68ed1e6e2db07960ce5cecccf2128a1e738",
+    "lib/python3.11/site-packages/yescc/model/openai_compat.py": "9a74b169b0500cb5e022cd6e91cb1f8b07ba28f9b264d0a0492ae5a8b7bde920",
+    "lib/python3.11/site-packages/yescc/model/config.py": "9ed7e96819b01024b80cdde4f6f1ad4e87b598123b41fdff8fd96271c8420c5d",
+    "lib/python3.11/site-packages/yescc/model/base.py": "286d89b8fd83640f126ec19d10012f7e58136acf35841c2a291ea08ae637eb8b",
+    "lib/python3.11/site-packages/yescc/model/budget.py": "b1500b36b6a0f40947ee5c61b09eb26f93c6e66ddba4411df3b4cdb4cf118df9",
+    "lib/python3.11/site-packages/yescc/adapters/c.py": "74563fe471ca6fe3f07baa3f53751a6d3b6149edf4cd4b3e4aeafdd9e522ac46",
+    "lib/python3.11/site-packages/yescc/adapters/python.py": "cd57275865cc9b9c4ef888450a98a48ba1ca3affd1ec8415d407a6d20f4c70d7",
+    "lib/python3.11/site-packages/yescc/adapters/registry.py": "944fb41c8473fe0031ac1d69e5054084dfb0e20364774481bf37e618a998cf1c",
+    "lib/python3.11/site-packages/yescc/adapters/__init__.py": "caa055b45ec1bdd187db21a5f68a7b37f2c59a2d740a6c27e42cf1d1479551b4",
+    "lib/python3.11/site-packages/yescc/adapters/javascript.py": "d847a0d353e5569ee9a38777469aea04e03416fabb89d2327fea1294f12765c4",
+    "lib/python3.11/site-packages/yescc/adapters/base.py": "335c2afb1458db5c5d7e12304b5eb4a9c3ba87727174b8e4644a0e9733242df8",
+    "lib/python3.11/site-packages/yescc/sandbox/__init__.py": "f42b633b56818431eb836fe0c7a377ee1c0ec11e5130794325f1e802cd665400",
+    "lib/python3.11/site-packages/yescc/sandbox/runner.py": "1da9284024221e0be691a1aba0a4a66075cf2249d256d95975445dcd0f845d6a",
+    "lib/python3.11/site-packages/yescc/fallback/guidance.py": "f4939c3910d68b55de2ba0371afcb38c4d272810edb13d091b54790cb32553cb",
+    "lib/python3.11/site-packages/yescc/fallback/deterministic.py": "07f9065cf4de01e22663f6779c00cf81219cc0f3f89335a8b8df349658d0ee13",
+    "lib/python3.11/site-packages/yescc/fallback/__init__.py": "74f84974071dbb6b18410a922e731778274aa9bb7d45db82c34b6b88f5390fbc",
+    "bin/yescc": "e380ffded419d4df4d53818801c5400cad88dc47b54574a917f83d28aedab1a6"
+  }
+}

@@ -36,16 +36,20 @@ class OpenAICompatibleProvider:
             "stream": False,
         }
 
+        def redact(text: str) -> str:
+            key = self.settings.api_key
+            return text.replace(key, "[REDACTED]") if key else text
+
         started = time.perf_counter()
         try:
             with httpx.Client(timeout=self.settings.timeout_s) as client:
                 response = client.post(url, headers=headers, json=payload)
         except httpx.HTTPError as exc:
-            raise ModelError(f"模型请求失败：{exc}") from exc
+            raise ModelError(f"模型请求失败：{redact(str(exc))}") from None
 
         duration_ms = int((time.perf_counter() - started) * 1000)
         if response.status_code >= 400:
-            body = response.text[:300]
+            body = redact(response.text)[:300]
             raise ModelError(f"模型返回 HTTP {response.status_code}：{body}")
 
         try:

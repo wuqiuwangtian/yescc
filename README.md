@@ -17,7 +17,7 @@ YesCC 是一个「永不扫兴」的 AI 编译器：正确代码原样编译；�
 
 仓库中的后续修复不代表已更新 TestPyPI 安装包；当前开发状态、未发布变更和接续任务统一见[路线图 §10](docs/项目路线图与发布计划.md#10-待决事项与下一步)。
 
-M4 已通过双平台 Gate；固定基准、已知失败与费用见 [M4 验证记录](docs/评测/2026-11-05.md)。该记录不代表新的稳定版本发布。
+源码已进入 `0.1.0rc4` 候选准备；尚未上传索引或创建 Release。固定基准、安装验收与费用见[评测入口](docs/评测/README.md)，待完成项统一见路线图 §10。
 
 首版范围：C 为 AI 修复/生成目标；Python / C / JavaScript 保留原生直通；MIT 许可，PyPI + 独立二进制发布。长期目标「所有语言」与「编辑器插件」不变。进度见[路线图](docs/项目路线图与发布计划.md)。
 
@@ -37,29 +37,34 @@ yescc --version
 
 ## 快速开始
 
-需要 Python ≥3.11 与 [uv](https://docs.astral.sh/uv/)（尚未发布到 PyPI）：
+需要 Python ≥3.11、[uv](https://docs.astral.sh/uv/) 和 PATH 中的 GCC。在已检出的源码仓库根目录运行（开发分支见路线图 §10）：
 
 ```bash
-uv sync --extra dev
-uv run yescc hello.c -o hello       # 构建，参数透传给 gcc
-uv run yescc run hello.c            # 构建后运行
-uv run yescc broken.c -o fixed      # 规则修复（不覆盖源文件）
-uv run yescc idea.txt               # 无法识别时走确定性兜底
-uv run yescc hello.c --explain      # 查看最近一次报告
+uv sync --locked
+uv run yescc --version
+uv run yescc run examples/hello.c --offline    # 输出 hello，原生直通
+uv run yescc run examples/broken.c --offline   # 输出 repaired，规则修复
+uv run yescc run examples/multi_error.c --offline --no-fallback  # 输出 value=7，多错误 C
+uv run yescc run examples/idea.txt --offline   # 明示 creative_fallback
+uv run yescc examples/broken.c --explain       # 查看刚才的报告
 ```
+
+上述四例不需要模型密钥。`--offline` 禁止模型请求；最后的 `idea.txt` 演示本地确定性创意兜底，并非按原意修复。源码中的全角分号是故意保留的错误，YesCC 的修复产物另存。
 
 报告写入 `.yescc/<文件名>/report.json`；源文件不会被覆盖。
 
-## 能力矩阵（v0.1 目标）
+## 能力矩阵（当前源码）
 
 | 能力 | Python | C | JavaScript |
 | --- | --- | --- | --- |
 | 原生直通 | 是 | 是 | 是 |
-| 规则修复 | 0.2 | 是 | 0.2 |
-| 模型修复 | 0.2 | 是 | 0.2 |
-| 自然语言生成 | 0.2 | 是 | 0.2 |
+| 规则修复 | 规划 0.2 | 是 | 规划 0.2 |
+| 模型修复 | 规划 0.2 | 是 | 规划 0.2 |
+| 自然语言生成 | 规划 0.2 | 是 | 规划 0.2 |
 | 创意兜底 | 是 | 是 | 是 |
 | 运行 | 是 | 是 | 是 |
+
+Windows 原生安装、隐私数据流、清理方式和 FAQ 见[使用与隐私指南](docs/使用与隐私指南.md)。模型补丁按唯一精确旧文本定位，可重算错误行号/行数；原始 diff 与调整说明保留在报告，正文不匹配、歧义和重叠仍拒绝，见 [ADR-0017](docs/adr/0017-exact-context-patch-normalization.md)。
 
 ## 模型配置
 
@@ -78,6 +83,10 @@ export YESCC_MODEL_L2_NAME=llama3.2
 常用开关：`--offline`（不发模型请求）、`--budget 0.05`（USD）、`--max-rounds 2`、`--no-cache`、`--trace`、`--emit-source`。没有可用密钥时自动降级为规则 + 确定性兜底。
 
 云端模型必须配置两项单价，未知价格时不发请求；请求前保守估算并预留费用，剩余预算限制输出 token。缺 usage 或请求失败会保留预留，`model.cost_known=false` 时费用总额未知，`cost_usd` 只表示已知部分小计。回环本地端点可不填价格，但不能声称受到金额限制。`--max-rounds` 同时限制候选尝试（含缓存）与实际请求；L2 修复失败后有 L3 就升级，显式 `--model` / `--provider` 跳过自动 L2。详见 [ADR-0015](docs/adr/0015-alpha-reliability-contracts.md)。
+
+C 规则阶段最多构建 24 个候选、每条路径最多细化 4 次；可组合机械标点/拼写错误并使用 GCC 的分号建议。遇到 C++ 写法或语义错误仍可能无法修复。确定性兜底会在 stderr 和报告中说明模型路径与失败原因；`print_input` 只回显输入。规则与报告边界见 [ADR-0018](docs/adr/0018-bounded-rule-refinement-and-degradation.md)。
+
+构建/解释模式的 `--json` 在可预期命令错误时也返回一个 JSON 对象：若 `report_kind` 为 `command_error`，读取 `error.exit_code` / `error.message`；否则按原 schema v1 构建报告处理。错误对象只输出到 stdout，不覆盖旧构建报告。显式指定不支持的 `--lang`（包括带 `--play` 时）返回 101，不进入创意兜底；已支持的语言别名保留。`--no-fallback` 不改退出码分类：用法 100、不支持输入 101、构建失败 102、预算等限制 103。见 [ADR-0019](docs/adr/0019-command-error-json-envelope.md)。
 
 ## 已知限制
 
@@ -117,3 +126,13 @@ uv run pytest
 ## 许可
 
 [MIT](LICENSE) © 2026 五秋望田（wuqiuwangtian）
+
+
+## English summary
+
+YesCC wraps Python, GCC and Node.js. Valid programs use their native toolchain
+without model calls. C errors may be repaired with rules or bounded model attempts;
+every candidate is compiled before use. Natural-language generation targets C.
+Creative fallback is reported separately. Source files are preserved. AI execution
+uses best-effort isolation and is not a security boundary. The current source RC
+has not been published; see the roadmap for verification and remaining release work.

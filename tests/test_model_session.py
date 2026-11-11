@@ -167,9 +167,13 @@ def test_missing_usage_keeps_cost_reservation(usage, fake_model: FakeModelServer
 
 @pytest.mark.parametrize(
     ("url", "expected"),
-    [("http://localhost:11434/v1", True), ("http://127.0.0.1:8000/v1", True),
-     ("http://[::1]/v1", True), ("http://localhost.example.com/v1", False),
-     ("http://127.0.0.1.example.com/v1", False)],
+    [
+        ("http://localhost:11434/v1", True),
+        ("http://127.0.0.1:8000/v1", True),
+        ("http://[::1]/v1", True),
+        ("http://localhost.example.com/v1", False),
+        ("http://127.0.0.1.example.com/v1", False),
+    ],
 )
 def test_local_classification_uses_hostname(url: str, expected: bool) -> None:
     settings = ModelSettings("test", url, "test", None, None, None, 1)
@@ -201,3 +205,34 @@ def test_cache_is_invalidated_by_toolchain_change(fake_model: FakeModelServer) -
     second.toolchain = {"version": "2"}
     assert second.generate("输出 hello", creative=False) is not None
     assert len(fake_model.requests) == 2
+
+
+@pytest.mark.parametrize("prefix_length", [0, 270, 400])
+def test_provider_redacts_echoed_key_before_truncation(
+    prefix_length: int, fake_model: FakeModelServer
+) -> None:
+    import httpx
+
+    from yescc.model.openai_compat import OpenAICompatibleProvider
+
+    settings = load_settings("l3")
+    settings = replace(settings, api_key="dummy-secret-api-key-for-audit")
+    response = httpx.Response(429, text="x" * prefix_length + settings.api_key)
+    with patch("httpx.Client.post", return_value=response), pytest.raises(ModelError) as caught:
+        OpenAICompatibleProvider(settings).complete([], max_tokens=10)
+    assert "dummy-secret" not in str(caught.value)
+    assert "HTTP 429" in str(caught.value)
+
+
+def test_provider_redacts_key_in_transport_error(fake_model: FakeModelServer) -> None:
+    import httpx
+
+    from yescc.model.openai_compat import OpenAICompatibleProvider
+
+    settings = replace(load_settings("l3"), api_key="dummy-transport-secret")
+    with (
+        patch("httpx.Client.post", side_effect=httpx.ConnectError(settings.api_key)),
+        pytest.raises(ModelError) as caught,
+    ):
+        OpenAICompatibleProvider(settings).complete([], max_tokens=10)
+    assert settings.api_key not in str(caught.value)

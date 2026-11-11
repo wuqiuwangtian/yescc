@@ -8,7 +8,8 @@ from __future__ import annotations
 import re
 from dataclasses import dataclass
 
-from yescc.fix.lexer import Span, code_segments, protected_spans, unterminated_quote
+from yescc.fix.lexer import Span, code_segments, in_spans, protected_spans, unterminated_quote
+from yescc.fix.parser import missing_semicolons, parse_c
 
 FULLWIDTH_MAP: dict[str, str] = {
     "，": ",",
@@ -61,13 +62,28 @@ class Candidate:
     changed: int
 
 
-def _changed(original: str, patched: str) -> int:
+def changed_count(original: str, patched: str) -> int:
     common = min(len(original), len(patched))
     diff = sum(1 for index in range(common) if original[index] != patched[index])
     return diff + abs(len(original) - len(patched))
 
 
 def _replace_outside(text: str, spans: list[Span]) -> str:
+    # 先只归一化成对智能引号的边界，再保护其内部文字。
+    chars = list(text)
+    index = 0
+    while index < len(text):
+        quote = text[index]
+        if quote in {"“", "‘"} and not in_spans(index, spans):
+            closer = "”" if quote == "“" else "’"
+            end = text.find(closer, index + 1)
+            chars[index] = '"' if quote == "“" else "'"
+            if end != -1 and "\n" not in text[index:end]:
+                chars[end] = '"' if quote == "“" else "'"
+                index = end
+        index += 1
+    text = "".join(chars)
+    spans = protected_spans(text)
     chars = list(text)
     for start, end in code_segments(text, spans):
         for index in range(start, end):
@@ -78,14 +94,13 @@ def _replace_outside(text: str, spans: list[Span]) -> str:
 
 
 def _fix_typos(text: str, spans: list[Span]) -> str:
-    chars = list(text)
+    edits: list[tuple[int, int, str]] = []
     for start, end in code_segments(text, spans):
-        segment = "".join(chars[start:end])
-        for match in _TYPO_PATTERN.finditer(segment):
-            replacement = TYPO_MAP[match.group(0)]
-            absolute = start + match.start()
-            chars[absolute : absolute + len(match.group(0))] = list(replacement)
-    return "".join(chars)
+        for match in _TYPO_PATTERN.finditer(text[start:end]):
+            edits.append((start + match.start(), start + match.end(), TYPO_MAP[match.group(0)]))
+    for start, end, replacement in sorted(edits, reverse=True):
+        text = text[:start] + replacement + text[end:]
+    return text
 
 
 def _unmatched_openers(text: str) -> list[tuple[str, int]]:
@@ -161,19 +176,43 @@ def _quote_variants(text: str) -> list[tuple[str, tuple[str, ...]]]:
     return variants
 
 
+def _fix_include(text: str) -> str:
+    pattern = re.compile(
+        r'(?m)^([ \t]*)(include[ \t]+(?:<[A-Za-z0-9_./-]+>|"[A-Za-z0-9_./-]+"))'
+        r"[ \t]*(?=//|/\*|\r?$)"
+    )
+    spans = protected_spans(text)
+    return pattern.sub(
+        lambda match: (
+            match.group(0)
+            if in_spans(match.start(2), spans)
+            else match.group(1) + "#" + match.group(0)[len(match.group(1)) :]
+        ),
+        text,
+    )
+
+
+def insert_missing_semicolons(text: str) -> str:
+    positions = missing_semicolons(text)
+    spans = protected_spans(text)
+    for position in reversed(positions):
+        if not in_spans(position, spans):
+            text = text[:position] + ";" + text[position:]
+    return text
+
+
 def generate_candidates(original: str) -> list[Candidate]:
     """生成去重后的候选，按改动量排序；调用方负责编译验证。"""
-    spans = protected_spans(original)
     bases: list[tuple[str, tuple[str, ...]]] = [(original, ())]
-
-    fullwidth = _replace_outside(original, spans)
-    if fullwidth != original:
-        bases.append((fullwidth, ("fullwidth",)))
-        bases.append((_fix_typos(fullwidth, protected_spans(fullwidth)), ("fullwidth", "typo")))
-
-    typos = _fix_typos(original, spans)
-    if typos != original:
-        bases.append((typos, ("typo",)))
+    for rule, transform in (
+        ("fullwidth", lambda text: _replace_outside(text, protected_spans(text))),
+        ("typo", lambda text: _fix_typos(text, protected_spans(text))),
+        ("include_hash", _fix_include),
+    ):
+        for text, rules in list(bases):
+            patched = transform(text)
+            if patched != text:
+                bases.append((patched, rules + (rule,)))
 
     expanded: list[tuple[str, tuple[str, ...]]] = []
     for text, rules in bases:
@@ -185,13 +224,21 @@ def generate_candidates(original: str) -> list[Candidate]:
         for quoted, quote_rules in _quote_variants(text):
             expanded.append((quoted, rules + quote_rules))
 
+    for text, rules in list(expanded):
+        patched = insert_missing_semicolons(text)
+        if patched != text:
+            expanded.append((patched, rules + ("semicolon_ast",)))
+
     seen: dict[str, Candidate] = {}
     for text, rules in expanded:
         if text == original:
             continue
-        candidate = Candidate(text=text, rules=rules, changed=_changed(original, text))
+        candidate = Candidate(text=text, rules=rules, changed=changed_count(original, text))
         previous = seen.get(text)
         if previous is None or len(candidate.rules) < len(previous.rules):
             seen[text] = candidate
 
-    return sorted(seen.values(), key=lambda item: (item.changed, len(item.rules)))[:12]
+    return sorted(
+        seen.values(),
+        key=lambda item: (parse_c(item.text).has_error, item.changed, len(item.rules)),
+    )[:12]

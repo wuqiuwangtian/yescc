@@ -1,0 +1,25 @@
+这是一个独立 WSL/Linux 测试目录，未提供项目源码、历史样例或已有测试结果。
+
+入口：
+  ./bin/yescc --version
+  ./bin/yescc --help
+  ./bin/test-env gcc --version
+  ./bin/test-env python --version
+  ./bin/test-env node --version
+
+bin/yescc 调用独立安装的候选版本，清除继承的用户环境和模型配置。
+bin/test-env 用同样的环境执行你指定的原生命令，供行为对照或启动本机假服务。
+缓存、配置、HOME、临时目录都指向本工作区，避免影响维护者原有数据。
+入口不会自动添加 --offline；请在不需要模型的测试中显式使用该参数。
+配置/缓存重置只能删除 state/ 下自己产生的数据，不操作 .runtime/。
+
+若需要测试兼容模型接口：
+- 自己实现并启动仅绑定 127.0.0.1 或 ::1 的假服务。
+- 将 model-test.example.json 复制为 model-test.json，修改端口和模型名称。
+- 文件的 l2/l3 可单独出现，支持 base_url、name、input_price_per_mtok、output_price_per_mtok、timeout_s。
+- 只能使用回环端点；测试入口固定注入 blackbox-dummy-key，不接受真实密钥。
+- example 文件不会自动生效。删除 model-test.json 后恢复无模型配置。
+- 协议以通用 OpenAI 兼容 Chat Completions 为接口；可以观察自己服务收到的请求并构造响应。
+
+环境脚手架检查配置地址，不是产品本身的 URL 校验。它不提供强文件系统/网络隔离。
+不要绕过入口、读取 .runtime/ 或更改安装。真实供应商质量、账单和其他操作系统均不在本工作区结论范围内。
