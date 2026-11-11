@@ -218,6 +218,10 @@ def build(output: Path) -> dict:
         "archive": archive.name,
         "archive_sha256": digest(archive),
         "licenses_complete": license_report["coverage_complete"],
+        "license_unresolved": license_report["unresolved"],
+        "windows_provenance_errors": (license_report.get("windows_provenance") or {}).get(
+            "errors", []
+        ),
         "manifest": manifest,
     }
     (output / "binary-build.json").write_text(

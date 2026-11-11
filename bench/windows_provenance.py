@@ -43,13 +43,39 @@ def _normalized(data: bytes) -> str:
     return " ".join(data.decode("utf-8-sig").split())
 
 
+def _openssl_observation(module: Any) -> dict[str, Any]:
+    # CPython keeps the historical major/minor/fix/patch/status tuple; OpenSSL 3
+    # puts its semantic patch in the fourth field. Read the loaded library text.
+    # https://docs.python.org/3.14/library/ssl.html#ssl.OPENSSL_VERSION
+    text = getattr(module, "OPENSSL_VERSION", None)
+    legacy = getattr(module, "OPENSSL_VERSION_INFO", None)
+    match = (
+        re.fullmatch(
+            r"OpenSSL ([0-9]+\.[0-9]+\.[0-9]+[a-z]?)"
+            r"(?:[ \t]+[0-9]{1,2}[ \t]+[A-Za-z]{3}[ \t]+[0-9]{4})?",
+            text,
+        )
+        if isinstance(text, str)
+        else None
+    )
+    return {
+        "version": match[1] if match else None,
+        "version_string": text,
+        "legacy_version_info": list(legacy) if isinstance(legacy, tuple) else legacy,
+        "basis": "exact OpenSSL release token from ssl.OPENSSL_VERSION",
+    }
+
+
 def _descriptor() -> dict[str, Any] | None:
     if sys.platform != "win32":
         return None
     git = getattr(sys, "_git", ())
-    observed = {}
+    try:
+        openssl = _openssl_observation(importlib.import_module("ssl"))
+    except ImportError as exc:
+        openssl = {"version": None, "error": f"{type(exc).__name__}: {exc}"}
+    observed = {"openssl": openssl["version"]}
     for component, module_name, attribute in (
-        ("openssl", "ssl", "OPENSSL_VERSION_INFO"),
         ("expat", "pyexpat", "version_info"),
         ("mpdecimal", "_decimal", "__libmpdec_version__"),
         ("zstd", "compression.zstd", "zstd_version"),
@@ -63,6 +89,7 @@ def _descriptor() -> dict[str, Any] | None:
         )
     return {
         "observed_versions": observed,
+        "observed_details": {"openssl": openssl},
         "version": platform.python_version(),
         "runtime_version_string": sys.version,
         "prefix": str(Path(sys.base_prefix).resolve()),
@@ -76,6 +103,25 @@ def _notice_components(node: dict[str, Any]) -> set[str]:
         node.get("owning_component", "cpython"),
         "Microsoft-CRT",
     }
+
+
+def _check_observed_versions(
+    components: dict[str, Any], observed_versions: dict[str, Any], errors: list[str]
+) -> set[str]:
+    available = set(components)
+    for name, observed in observed_versions.items():
+        component = components.get(name)
+        if component is None:
+            continue
+        component["observed_runtime_version"] = observed
+        component["version_matches_runtime"] = observed == component["version"]
+        if not component["version_matches_runtime"]:
+            available.discard(name)
+            errors.append(
+                f"{name}: actual runtime version {observed} differs from declared source "
+                f"{component['version']}"
+            )
+    return available
 
 
 def prepare_windows_sources(
@@ -306,19 +352,9 @@ def prepare_windows_sources(
                 )
             except (OSError, ValueError, TypeError, KeyError) as exc:
                 report["errors"].append(f"{name}: {type(exc).__name__}: {exc}")
-        available = set(report["components"])
-        for name, observed in descriptor.get("observed_versions", {}).items():
-            component = report["components"].get(name)
-            if component is None:
-                continue
-            component["observed_runtime_version"] = observed
-            component["version_matches_runtime"] = observed == component["version"]
-            if not component["version_matches_runtime"]:
-                available.discard(name)
-                report["errors"].append(
-                    f"{name}: actual runtime version {observed} differs from declared source "
-                    f"{component['version']}"
-                )
+        available = _check_observed_versions(
+            report["components"], descriptor.get("observed_versions", {}), report["errors"]
+        )
         for node in selected:
             missing = sorted(_notice_components(node) - available)
             node["covered"] = not missing

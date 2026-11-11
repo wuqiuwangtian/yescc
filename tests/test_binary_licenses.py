@@ -239,6 +239,45 @@ def test_windows_release_revision_mismatch_never_claims_bound_sources(
     assert any("revision" in reason for reason in report["errors"])
 
 
+@pytest.mark.parametrize(
+    ("version_string", "expected"),
+    [
+        ("OpenSSL 3.5.9 29 Sep 2026", "3.5.9"),
+        ("OpenSSL 3.5.8 29 Sep 2026", "3.5.8"),
+        ("LibreSSL 3.5.9", None),
+        ("OpenSSL 3.5", None),
+        ("OpenSSL 3.5.9-dev 29 Sep 2026", None),
+        ("OpenSSL 3.5.9 vendor-build", None),
+        (None, None),
+    ],
+)
+def test_windows_openssl_loaded_release_must_match_exact_source(
+    version_string: str | None, expected: str | None
+) -> None:
+    from types import SimpleNamespace
+
+    from bench import windows_provenance
+
+    module = SimpleNamespace(OPENSSL_VERSION=version_string, OPENSSL_VERSION_INFO=(3, 5, 0, 9, 15))
+    observation = windows_provenance._openssl_observation(module)
+    assert observation["version"] == expected
+    assert observation["version_string"] == version_string
+    assert observation["legacy_version_info"] == [3, 5, 0, 9, 15]
+    components = {"openssl": {"version": "3.5.9"}}
+    errors: list[str] = []
+    available = windows_provenance._check_observed_versions(
+        components, {"openssl": observation["version"]}, errors
+    )
+    matches = expected == "3.5.9"
+    assert ("openssl" in available) is matches
+    assert components["openssl"]["version_matches_runtime"] is matches
+    if matches:
+        assert not errors
+    else:
+        assert len(errors) == 1
+        assert "differs from declared source 3.5.9" in errors[0]
+
+
 @pytest.mark.parametrize("covered", [True, False])
 def test_windows_cpython_native_keeps_third_party_dependency_evidence(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch, covered: bool
