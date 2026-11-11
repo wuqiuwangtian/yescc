@@ -11,7 +11,7 @@ YesCC 是一个「永不扫兴」的 AI 编译器：正确代码原样编译；�
 - **错误代码尽力挽救**：规则 → 便宜/本地模型 → 强模型，每层都交真实工具链验证。
 - **无意义输入也给出创造性解释**：确定性兜底、文化梗、模型创意解释；结果状态单独标注，绝不冒充原程序。
 
-![真实离线 CLI 三例](docs/assets/yescc-demo.gif)
+![真实离线 CLI 三例](https://raw.githubusercontent.com/wuqiuwangtian/yescc/f9ed40cbff7368eb6fb89548ac5253dbd5f46151/docs/assets/yescc-demo.gif)
 
 图中为实际离线输出；创意兜底仅回显输入，不表示实现原始意图。
 
