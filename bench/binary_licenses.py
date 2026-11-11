@@ -76,7 +76,15 @@ def _toc_entries(value: object) -> list[tuple[str, str, str]]:
     if isinstance(value, (list, tuple)):
         if len(value) == 3 and all(isinstance(item, str) for item in value):
             destination, source, kind = value
-            if kind in {"BINARY", "EXTENSION", "EXECUTABLE", "DATA", "SYMLINK", "PYZ", "PKG"}:
+            if kind in {
+                "BINARY",
+                "EXTENSION",
+                "EXECUTABLE",
+                "DATA",
+                "SYMLINK",
+                "PYZ",
+                "PKG",
+            } or kind.startswith(("PYMODULE", "PYSOURCE")):
                 rows.append((destination, source, kind))
         else:
             for item in value:
@@ -90,6 +98,34 @@ def _needed_libraries(source: Path) -> set[str]:
         return set()
     data = _run([readelf, "-d", str(source)])
     return set(re.findall(r"\(NEEDED\).*?\[([^\]]+)\]", data or ""))
+
+
+def _is_notice(item: Path) -> bool:
+    normalized = str(item).replace("\\", "/")
+    parts = normalized.split("/")
+    if not any(p.endswith((".dist-info", ".egg-info")) for p in parts):
+        return False
+    return ".dist-info/licenses/" in normalized or parts[-1].upper() in {
+        "LICENSE",
+        "LICENSE.TXT",
+        "LICENSE.MD",
+        "LICENCE",
+        "COPYING",
+        "COPYING.TXT",
+        "NOTICE",
+        "NOTICE.TXT",
+    }
+
+
+def _installed_owners() -> dict[Path, metadata.Distribution]:
+    # PYZ 可能包含有效runtime graph之外的typing_extensions/packaging或运行时hooks。
+    owners = {}
+    for dist in metadata.distributions():
+        for item in dist.files or []:
+            path = Path(dist.locate_file(item)).resolve()
+            if path.is_file():
+                owners[path] = dist
+    return owners
 
 
 def _installed_runtime() -> list[metadata.Distribution]:
@@ -158,7 +194,31 @@ def _system_notices(source: Path) -> tuple[str | None, list[Path]]:
     return None, []
 
 
-def collect(bundle: Path, workdir: Path, output: Path) -> dict[str, Any]:
+def _bundled_source_stanza(component: str, notices: list[Path]) -> dict[str, str] | None:
+    # Ubuntu Python 源包内置的 libmpdec 有独立的原始许可 stanza；不推断任意CPython附件。
+    if component != "libmpdec":
+        return None
+    for notice in notices:
+        for paragraph in notice.read_text("utf-8", errors="replace").split("\n\n"):
+            if (
+                paragraph.startswith("Files: Modules/_decimal/libmpdec/")
+                and "Copyright:" in paragraph
+                and "License:" in paragraph
+                and "Redistribution and use" in paragraph
+                and "THIS SOFTWARE" in paragraph
+            ):
+                return {
+                    "source": str(notice),
+                    "source_sha256": _sha(notice),
+                    "stanza_sha256": hashlib.sha256(paragraph.encode()).hexdigest(),
+                    "files": "Modules/_decimal/libmpdec/*",
+                }
+    return None
+
+
+def collect(
+    bundle: Path, workdir: Path, output: Path, *, provenance: Path | None = None
+) -> dict[str, Any]:
     """写 bundle/licenses 原文和 output JSON；不把未识别库或静态依赖判成已覆盖。"""
     bundle, workdir, output = bundle.resolve(), workdir.resolve(), output.resolve()
     if not bundle.is_dir() or not workdir.is_dir():
@@ -190,7 +250,7 @@ def collect(bundle: Path, workdir: Path, output: Path) -> dict[str, Any]:
             source = Path(dist.locate_file(item)).resolve()
             if source.is_file():
                 owners[source] = name
-                if ".dist-info/licenses/" in str(item).replace("\\", "/"):
+                if _is_notice(item):
                     notices.append(copy_notice(source, name))
         components.append(
             {
@@ -281,10 +341,69 @@ def collect(bundle: Path, workdir: Path, output: Path) -> dict[str, Any]:
             {"component": "pyinstaller", "reason": "build distribution not installed"}
         )
 
+    installed_owners = _installed_owners()
+
+    def owner_for(source: Path) -> str | None:
+        if source in owners:
+            return owners[source]
+        dist = installed_owners.get(source)
+        if dist is None:
+            return None
+        name = str(dist.metadata["Name"]).lower().replace("_", "-")
+        if not any(component["name"] == name for component in components):
+            notices = []
+            for item in dist.files or []:
+                original = Path(dist.locate_file(item)).resolve()
+                if original.is_file() and _is_notice(item):
+                    notices.append(copy_notice(original, name))
+            components.append(
+                {
+                    "name": name,
+                    "version": dist.version,
+                    "notices": notices,
+                    "declared_license": dist.metadata.get("License-Expression")
+                    or dist.metadata.get("License"),
+                    "source_artifacts": _source_artifacts(name, dist.version),
+                    "project_urls": dist.metadata.get_all("Project-URL") or [],
+                    "reason": "actually bundled outside effective runtime requirements",
+                }
+            )
+            if not notices:
+                unresolved.append(
+                    {"component": name, "reason": "bundled owner license texts missing"}
+                )
+        owners[source] = name
+        return name
+
+    prepared_provenance = None
+    provenance_components: dict[str, list[str]] = {}
+    if provenance is not None:
+        from bench.python_provenance import read_verified_python_provenance
+
+        prepared_provenance = read_verified_python_provenance(provenance)
+        if prepared_provenance.get("verified"):
+            copy_notice(provenance, "python-provenance")
+            copy_notice(Path(prepared_provenance["metadata_path"]), "python-provenance")
+            by_archive = {row["archive_path"]: row for row in prepared_provenance["license_files"]}
+            definitions = (
+                prepared_provenance["python_metadata"].get("build_info", {}).get("extensions", {})
+            )
+            for extension, component in _EXTENSION_COMPONENTS.items():
+                nodes = definitions.get(extension, [])
+                paths = set()
+                for node in nodes:
+                    value = node.get("license_paths") or node.get("license_path") or []
+                    paths.update([value] if isinstance(value, str) else value)
+                if nodes and paths and paths <= by_archive.keys():
+                    provenance_components[component] = [
+                        copy_notice(Path(by_archive[name]["file"]), "python-provenance")
+                        for name in sorted(paths)
+                    ]
+
     mappings: dict[str, dict[str, Any]] = {}
     toc_records = []
     for toc in sorted(workdir.rglob("*.toc")):
-        if not toc.name.startswith(("Analysis-", "COLLECT-")):
+        if not toc.name.startswith(("Analysis-", "COLLECT-", "PYZ-")):
             continue
         try:
             entries = _toc_entries(ast.literal_eval(toc.read_text("utf-8")))
@@ -301,12 +420,41 @@ def collect(bundle: Path, workdir: Path, output: Path) -> dict[str, Any]:
     if not toc_records:
         unresolved.append({"component": "build-toc", "reason": "no Analysis/COLLECT TOC found"})
 
+    pure_modules = []
+    for destination, origin in sorted(mappings.items()):
+        if not origin["kind"].startswith(("PYMODULE", "PYSOURCE")):
+            continue
+        source = Path(origin["source"]).resolve()
+        owner = owner_for(source)
+        if owner is None and (
+            source.is_relative_to(ROOT / "src/yescc") or source.is_relative_to(ROOT / "freezer")
+        ):
+            owner = "yescc"
+        if (
+            owner is None
+            and source.is_relative_to(stdlib)
+            and not any(
+                p in {"site-packages", "dist-packages"} for p in source.relative_to(stdlib).parts
+            )
+        ):
+            owner = "cpython"
+        row = {"module": destination, "origin": origin, "license_component": owner}
+        pure_modules.append(row)
+        if owner is None:
+            unresolved.append(
+                {
+                    "component": destination,
+                    "reason": "bundled Python source owner/license not resolved",
+                }
+            )
+
     files = []
     # PBS 等发行版把附带库编进 libpython；仅扫独立扩展文件会把这些漏成已覆盖。
     builtin_components = _builtin_components()
     native_components: set[str] = set(builtin_components)
     dynamic_requirements: dict[str, set[str]] = {}
     static_extension_components: set[str] = set()
+    source_stanzas: dict[str, dict[str, str]] = {}
     for path in sorted(bundle.rglob("*")):
         if not path.is_file() and not path.is_symlink():
             continue
@@ -334,7 +482,7 @@ def collect(bundle: Path, workdir: Path, output: Path) -> dict[str, Any]:
         is_native = is_native or path.suffix.lower() in {".dll", ".pyd", ".so", ".exe"}
         if is_native:
             source = Path(origin["source"]).resolve() if origin else None
-            owner = owners.get(source) if source else None
+            owner = owner_for(source) if source else None
             if owner:
                 record["license_component"] = owner
             elif source and source.is_relative_to(stdlib):
@@ -352,8 +500,24 @@ def collect(bundle: Path, workdir: Path, output: Path) -> dict[str, Any]:
                         dynamic_requirements.setdefault(component, set()).update(needed)
                     else:
                         static_extension_components.add(component)
+                        package, original_notices = _system_notices(source)
+                        stanza = _bundled_source_stanza(component, original_notices)
+                        if stanza and package:
+                            stanza["system_package"] = package
+                            stanza["notice"] = copy_notice(Path(stanza["source"]), "cpython-source")
+                            source_stanzas[component] = stanza
             elif path.name.startswith(("libpython", "python3")) and source:
                 record["license_component"] = "cpython"
+                # 内置扩展也可能动态依赖系统库。以实际core的NEEDED闭合，而非一律猜静态。
+                core_needed = _needed_libraries(source)
+                for component in builtin_components:
+                    needed = {
+                        name
+                        for name in core_needed
+                        if name.startswith(_DYNAMIC_PREFIXES[component])
+                    }
+                    if needed:
+                        dynamic_requirements.setdefault(component, set()).update(needed)
             elif (origin or {}).get("kind") == "EXECUTABLE":
                 record["license_component"] = "yescc + PyInstaller bootloader"
             else:
@@ -376,16 +540,22 @@ def collect(bundle: Path, workdir: Path, output: Path) -> dict[str, Any]:
     for component in sorted(native_components):
         needed = dynamic_requirements.get(component, set())
         covered = (
-            component not in builtin_components
-            and component not in static_extension_components
-            and bool(needed)
-            and needed <= resolved_native_names
+            component in provenance_components
+            or component in source_stanzas
+            or (
+                component not in static_extension_components
+                and bool(needed)
+                and needed <= resolved_native_names
+            )
         )
         dependency_review.append(
             {
                 "component": component,
-                "covered_by_dynamic_inventory": covered,
+                "covered": covered,
+                "covered_by_dynamic_inventory": covered and component not in source_stanzas,
                 "needed_libraries": sorted(needed),
+                "source_stanza": source_stanzas.get(component),
+                "verified_full_archive_notices": provenance_components.get(component),
             }
         )
         if not covered:
@@ -415,6 +585,8 @@ def collect(bundle: Path, workdir: Path, output: Path) -> dict[str, Any]:
         "components": components,
         "license_files": texts,
         "bundle_files": files,
+        "pure_python_modules": pure_modules,
+        "python_provenance": prepared_provenance,
         "build_tocs": toc_records,
         "unresolved": unresolved,
         "references": _REFERENCES,

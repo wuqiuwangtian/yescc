@@ -11,6 +11,7 @@ from bench import binary_licenses
 
 def _isolate_inventory(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setattr(binary_licenses, "_installed_runtime", list)
+    monkeypatch.setattr(binary_licenses, "_installed_owners", dict)
     monkeypatch.setattr(binary_licenses, "_system_notices", lambda _source: (None, []))
     monkeypatch.setattr(
         binary_licenses.metadata,
@@ -58,15 +59,18 @@ def test_unknown_native_file_stays_unresolved(
     assert report["bundle_files"][0]["sha256"]
 
 
+@pytest.mark.parametrize("builtin", [False, True])
 def test_dynamic_dependency_requires_actual_bundled_library_and_notice(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, builtin: bool
 ) -> None:
     _isolate_inventory(monkeypatch)
-    monkeypatch.setattr(binary_licenses, "_builtin_components", set)
+    monkeypatch.setattr(
+        binary_licenses, "_builtin_components", lambda: {"OpenSSL"} if builtin else set()
+    )
     stdlib = tmp_path / "stdlib"
     stdlib.mkdir()
     (stdlib / "LICENSE.txt").write_text("fixture CPython notice\n")
-    extension = stdlib / "_ssl.so"
+    extension = tmp_path / "libpython3.11.so" if builtin else stdlib / "_ssl.so"
     extension.write_bytes(b"fixture dynamically linked TLS extension")
     crypto = tmp_path / "libcrypto.so.3"
     crypto.write_bytes(b"fixture external TLS library")
@@ -92,3 +96,112 @@ def test_dynamic_dependency_requires_actual_bundled_library_and_notice(
     (bundle / crypto.name).unlink()
     report = binary_licenses.collect(bundle, work, tmp_path / "without-library.json")
     assert any(row["component"] == "OpenSSL" for row in report["unresolved"])
+
+
+def test_python_provenance_requires_exact_core_bytes(tmp_path: Path) -> None:
+    from bench.python_provenance import _verify_runtime
+
+    prefix = tmp_path / "installed"
+    payload = tmp_path / "archive"
+    paths = ["bin/python3.11", "lib/libpython3.11.so.1.0"]
+    for name in paths:
+        for root in (prefix, payload / "install"):
+            path = root / name
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_bytes(b"matching original Python fixture")
+    data = {
+        "python_exe": "install/" + paths[0],
+        "build_info": {"core": {"shared_lib": "install/" + paths[1]}, "extensions": {}},
+    }
+    assert _verify_runtime(prefix, payload, data, None)["verified"] is True
+    (prefix / paths[1]).write_bytes(b"different build of the same Python version")
+    report = _verify_runtime(prefix, payload, data, None)
+    assert report["verified"] is False
+    assert any(not row["matched"] for row in report["binaries"])
+
+
+def test_python_provenance_rejects_metadata_path_escape(tmp_path: Path) -> None:
+    from bench.python_provenance import _archive_path
+
+    with pytest.raises(ValueError, match="unsafe path"):
+        _archive_path(tmp_path, "../outside/LICENSE.txt")
+
+
+def test_unknown_pure_python_owner_blocks_coverage(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    _isolate_inventory(monkeypatch)
+    monkeypatch.setattr(binary_licenses, "_builtin_components", set)
+    bundle = tmp_path / "bundle"
+    bundle.mkdir()
+    work = tmp_path / "work"
+    work.mkdir()
+    source = tmp_path / "third_party_module.py"
+    source.write_text("def vendor_function(): return 'unclassified'\n")
+    (work / "PYZ-00.toc").write_text(repr((["unknown_vendor", str(source), "PYMODULE"],)))
+    report = binary_licenses.collect(bundle, work, tmp_path / "audit.json")
+    assert report["coverage_complete"] is False
+    assert any(row["component"] == "unknown_vendor" for row in report["unresolved"])
+    assert report["pure_python_modules"][0]["origin"]["source_sha256"]
+
+
+def test_unverified_prepared_provenance_does_not_trigger_network_or_claim_coverage(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    import json
+    import urllib.request
+
+    _isolate_inventory(monkeypatch)
+    monkeypatch.setattr(binary_licenses, "_builtin_components", lambda: {"OpenSSL"})
+
+    def unexpected_network(*args: object, **kwargs: object) -> None:
+        raise AssertionError("ordinary collector must not prepare/download provenance")
+
+    monkeypatch.setattr(urllib.request, "urlopen", unexpected_network)
+    bundle = tmp_path / "bundle"
+    bundle.mkdir()
+    work = tmp_path / "work"
+    work.mkdir()
+    prepared = tmp_path / "prepared.json"
+    prepared.write_text(json.dumps({"verified": False, "error": "stripped bytes differ"}))
+    report = binary_licenses.collect(bundle, work, tmp_path / "audit.json", provenance=prepared)
+    assert report["coverage_complete"] is False
+    assert any(row["component"] == "OpenSSL" for row in report["unresolved"])
+    assert report["python_provenance"]["verified"] is False
+
+
+def test_bundled_extra_distribution_keeps_legacy_license(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    _isolate_inventory(monkeypatch)
+    monkeypatch.setattr(binary_licenses, "_builtin_components", set)
+    source = tmp_path / "legacy_module.py"
+    source.write_text("EXTRA_OWNER = 'included by freezing, not runtime requirements'\n")
+    original = tmp_path / "legacy-1.dist-info/LICENSE"
+    original.parent.mkdir()
+    original.write_text("Original legacy distribution notice\n")
+    dist = SimpleNamespace(
+        metadata={"Name": "legacy"},
+        version="1",
+        files=[original.relative_to(tmp_path)],
+        locate_file=lambda item: tmp_path / item,
+    )
+
+    # email.Message 与dict的get_all接口不同，给此fixture仅补本测试所需的metadata行为。
+    class Metadata(dict):
+        def get_all(self, key: str) -> None:
+            return None
+
+    dist.metadata = Metadata(dist.metadata)
+    monkeypatch.setattr(binary_licenses, "_installed_owners", lambda: {source: dist})
+    bundle = tmp_path / "bundle"
+    bundle.mkdir()
+    work = tmp_path / "work"
+    work.mkdir()
+    (work / "PYZ-00.toc").write_text(repr((["legacy_module", str(source), "PYMODULE"],)))
+    report = binary_licenses.collect(bundle, work, tmp_path / "audit.json")
+    component = next(row for row in report["components"] if row["name"] == "legacy")
+    assert component["notices"]
+    assert (bundle / component["notices"][0]).read_bytes() == original.read_bytes()
+    assert report["pure_python_modules"][0]["license_component"] == "legacy"
+    assert not any(row["component"] == "legacy" for row in report["unresolved"])

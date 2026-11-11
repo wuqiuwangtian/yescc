@@ -5,7 +5,7 @@
 
 ## 决策
 
-- 使用锁定版本的 PyInstaller 构建 Linux/Windows x86_64 的 onedir 候选。Linux 用 tar.gz 保留符号链接，Windows 用 zip；整个目录是安装单元，不能只复制可执行文件。release extra 只用于构建，不加入 wheel 的运行时依赖。
+- 使用锁定版本的 PyInstaller 构建 Linux/Windows x86_64 的 onedir 候选。Linux 用 tar.gz 保留符号链接，Windows 用 zip；整个目录是安装单元，不能只复制可执行文件。release extra 只用于构建，不加入 wheel 的运行时依赖。冻结使用同一基础解释器的独立venv，只安装已锁定的wheel运行依赖与PyInstaller；验证用pytest/Twine等不得污染冻结导入图。Windows构建进程的DLL搜索PATH只包含该解释器、builder和系统目录，避免从Java等SDK目录复制无关CRT；不改变CLI用户程序的PATH。
 - CLI 自带 Python 运行时和既有运行依赖；C/Python/JavaScript 用户代码仍交外部 GCC/Python 3/Node。冻结版从 PATH 验证可运行的外部 Python 3，报告其实际版本与缓存产物；源码/wheel 继续使用当前解释器。不能把冻结后的 sys.executable 当 Python，也不能把内置版本/缓存标签写成外部工具链事实。
 - 按 PyInstaller 文档在冻结版调用外部工具链/产物时恢复动态库搜索环境；普通源码/wheel 不改用户环境。Windows 暂时恢复 DLL 搜索目录后还原主进程；Linux 恢复 LD_LIBRARY_PATH_ORIG，没有则移除引导器注入值。
 - 发布 Linux 候选在 Ubuntu 24.04 的系统 Python 上构建，记录实际 glibc 基线；不能声称兼容所有 Linux。本机 Arch/PBS 打包仅作为开发验证。Windows 以原生 CI 实测为依据，不扩称所有旧 Windows 或 ARM 可用。

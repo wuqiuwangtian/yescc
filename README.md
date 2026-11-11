@@ -53,6 +53,8 @@ yescc --version
 ./yescc run examples/idea.txt --offline       # 明示 creative_fallback，回显输入
 ```
 
+默认输出保持用户程序原样；若要确认修复状态，可执行 `./yescc examples/broken.c --explain --offline` 读取刚才的报告。
+
 Windows 将 `./yescc` 换为 `.\yescc.exe`。若程序提示缺工具链，先安装对应工具链；二进制不捆绑 GCC/Node 或用户项目依赖。候选的 `MANIFEST.json`、`SHA256SUMS` 和实际许可证审计用于核对资产；许可未知项未清零前不进行正式分发。
 
 ## 快速开始

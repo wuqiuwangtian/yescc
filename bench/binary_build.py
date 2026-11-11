@@ -16,19 +16,6 @@ from importlib.metadata import version
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-RUNTIME_DISTRIBUTIONS = (
-    "yescc",
-    "anyio",
-    "certifi",
-    "h11",
-    "httpcore",
-    "httpx",
-    "idna",
-    "platformdirs",
-    "tree-sitter",
-    "tree-sitter-c",
-    "typing-extensions",
-)
 
 
 def digest(path: Path) -> str:
@@ -46,8 +33,50 @@ def build(output: Path) -> dict:
     candidate_version = version("yescc")
     work = output / "work"
     work.mkdir(exist_ok=True)
+    # Optional CLI/test dependencies installed for validation must not leak into
+    # PyInstaller's import graph. Freeze an installed wheel in a dedicated venv.
+    wheel_dir = work / "wheel"
+    subprocess.run(["uv", "build", "--wheel", "--out-dir", str(wheel_dir)], cwd=ROOT, check=True)
+    wheel = wheel_dir / f"yescc-{candidate_version}-py3-none-any.whl"
+    constraints = work / "constraints.txt"
+    constraints.write_bytes(
+        subprocess.check_output(
+            [
+                "uv",
+                "export",
+                "--locked",
+                "--all-extras",
+                "--no-dev",
+                "--no-emit-project",
+                "--no-hashes",
+            ],
+            cwd=ROOT,
+        )
+    )
+    builder = work / "builder"
+    subprocess.run(
+        ["uv", "venv", "--clear", "--python", sys.executable, str(builder)],
+        cwd=ROOT,
+        check=True,
+    )
+    builder_python = builder / ("Scripts/python.exe" if os.name == "nt" else "bin/python")
+    subprocess.run(
+        [
+            "uv",
+            "pip",
+            "install",
+            "--python",
+            str(builder_python),
+            "--constraint",
+            str(constraints),
+            str(wheel),
+            f"pyinstaller=={version('pyinstaller')}",
+        ],
+        cwd=ROOT,
+        check=True,
+    )
     command = [
-        sys.executable,
+        str(builder_python),
         "-m",
         "PyInstaller",
         "--noconfirm",
@@ -62,8 +91,8 @@ def build(output: Path) -> dict:
         str(work),
         "--specpath",
         str(work),
-        "--paths",
-        str(ROOT / "src"),
+        "--recursive-copy-metadata",
+        "yescc",
         "--collect-all",
         "tree_sitter",
         "--collect-all",
@@ -81,10 +110,25 @@ def build(output: Path) -> dict:
     ]
     if os.name != "nt":
         command.extend(["--hidden-import", "resource"])
-    for name in RUNTIME_DISTRIBUTIONS:
-        command.extend(["--copy-metadata", name])
     command.append(str(ROOT / "freezer" / "entrypoint.py"))
-    subprocess.run(command, cwd=ROOT, check=True, timeout=600)
+    freeze_env = dict(os.environ)
+    if os.name == "nt":
+        # Hosted runners have JDK/SDK copies of CRT DLLs on PATH. They are not
+        # Python dependencies and must not become accidental bundled origins.
+        windows = Path(os.environ["SYSTEMROOT"])
+        freeze_env["PATH"] = os.pathsep.join(
+            map(
+                str,
+                (
+                    builder_python.parent,
+                    Path(sys.base_prefix),
+                    Path(sys.base_prefix) / "DLLs",
+                    windows / "System32",
+                    windows,
+                ),
+            )
+        )
+    subprocess.run(command, cwd=ROOT, env=freeze_env, check=True, timeout=600)
     bundle = output / "unpacked" / "yescc"
     binary = bundle / ("yescc.exe" if os.name == "nt" else "yescc")
     subprocess.run([str(binary), "--version"], cwd=output, check=True, timeout=30)
@@ -102,14 +146,35 @@ def build(output: Path) -> dict:
         "This candidate has not been approved for distribution; see licenses inventory.\n",
         encoding="utf-8",
     )
-    from bench.binary_licenses import collect
+    from bench.python_provenance import ensure_python_provenance
 
-    license_report = collect(bundle, work, output / "binary-licenses.json")
+    provenance = ensure_python_provenance(ROOT / "dist" / "python-provenance")
+    if provenance is not None:
+        shutil.copy2(provenance, output / "python-provenance.json")
+    license_output = output / "binary-licenses.json"
+    audit_command = [
+        str(builder_python),
+        "-c",
+        "from pathlib import Path;from bench.binary_licenses import collect;import sys;"
+        "collect(Path(sys.argv[1]),Path(sys.argv[2]),Path(sys.argv[3]),"
+        "provenance=Path(sys.argv[4]) if sys.argv[4] else None)",
+        str(bundle),
+        str(work),
+        str(license_output),
+        str(provenance) if provenance else "",
+    ]
+    subprocess.run(audit_command, cwd=ROOT, check=True, timeout=120)
+    license_report = json.loads(license_output.read_text("utf-8"))
+    # The inventory cannot hash itself; the outer bundle manifest covers its bytes.
+    shutil.copy2(license_output, bundle / "licenses" / "INVENTORY.json")
     manifest = {
         "version": candidate_version,
         "target": target,
         "python": platform.python_version(),
         "pyinstaller": version("pyinstaller"),
+        "installed_wheel_sha256": digest(wheel),
+        "dedicated_builder": True,
+        "builder_dll_search": "python_and_system_only" if os.name == "nt" else "system_loader",
         "libc": platform.libc_ver() if os.name != "nt" else None,
         "code_commit": subprocess.check_output(
             ["git", "rev-parse", "HEAD"], cwd=ROOT, text=True
