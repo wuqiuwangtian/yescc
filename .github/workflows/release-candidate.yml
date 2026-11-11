@@ -13,6 +13,28 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  index-rehearsal:
+    name: Public-range install rehearsal (${{ matrix.os }}, py${{ matrix.python }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python: ["3.11", "3.14"]
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.3.3
+        with:
+          python-version: ${{ matrix.python }}
+          enable-cache: true
+      - run: uv sync --extra dev --locked
+      - run: uv build --wheel
+      - run: uv run python -m bench.index_smoke --expected-version 0.1.0 --wheel dist/yescc-0.1.0-py3-none-any.whl --output dist/index-rehearsal.json
+      - uses: actions/upload-artifact@v7.0.2
+        with:
+          name: index-rehearsal-${{ runner.os }}-${{ matrix.python }}
+          path: dist/index-rehearsal.json
+
   python-package:
     name: Candidate wheel and sdist
     runs-on: ubuntu-24.04

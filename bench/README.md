@@ -97,3 +97,6 @@ uv run python -m bench.binary_archive_smoke --archive dist/native/yescc-0.1.0-li
 Windows归档后缀为zip、目标名windows-x86_64。构建只在当前平台原生执行；CLI包、实际外部工具链与许可覆盖分别验收，详见[ADR-0020](../docs/adr/0020-native-release-candidates.md)。`binary-licenses.json`的unresolved不为空时不可关闭正式许可门槛；工作流保持候选artifact，不创建tag/Release或上传索引。
 
 README动图由实际三例输出生成，可选安装Pillow后运行 `python -m bench.render_demo --binary <冻结入口> --font <本机允许使用的中文字体> --output docs/assets/yescc-demo.gif --record dist/m6-demo.json`。记录来源、源文件保护和原始stdout/stderr；不要用编造的终端输出替代真实演示。
+
+
+发布后索引验证：`uv run python -m bench.index_smoke --expected-version 0.1.0 --output dist/published-install.json` 从公共PyPI安装根包和依赖；手动工作流 `Published install verification` 在Linux/Windows × Python3.11/3.14执行。发布前可加 `--wheel <候选whl>` 演练同一套检查，根包来自本地、依赖按公开版本范围解析，报告明确为local_wheel_rehearsal，不算实际PyPI发布验收。两种模式均只离线运行产品，不使用真实模型。
