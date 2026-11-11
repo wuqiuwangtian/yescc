@@ -20,6 +20,7 @@ ROOT = Path(__file__).resolve().parents[1]
 # 这些扩展可能把附带库静态链接进去，单有 CPython LICENSE 不能覆盖它们。
 _EXTENSION_COMPONENTS = {
     "_ssl": "OpenSSL",
+    "_zstd": "zstd",
     "_hashlib": "OpenSSL",
     "_bz2": "bzip2",
     "_lzma": "xz/liblzma",
@@ -32,6 +33,7 @@ _EXTENSION_COMPONENTS = {
 }
 _DYNAMIC_PREFIXES = {
     "OpenSSL": ("libssl", "libcrypto"),
+    "zstd": ("libzstd",),
     "bzip2": ("libbz2",),
     "xz/liblzma": ("liblzma",),
     "libffi": ("libffi",),
@@ -217,7 +219,12 @@ def _bundled_source_stanza(component: str, notices: list[Path]) -> dict[str, str
 
 
 def collect(
-    bundle: Path, workdir: Path, output: Path, *, provenance: Path | None = None
+    bundle: Path,
+    workdir: Path,
+    output: Path,
+    *,
+    provenance: Path | None = None,
+    windows_provenance: Path | None = None,
 ) -> dict[str, Any]:
     """写 bundle/licenses 原文和 output JSON；不把未识别库或静态依赖判成已覆盖。"""
     bundle, workdir, output = bundle.resolve(), workdir.resolve(), output.resolve()
@@ -229,13 +236,18 @@ def collect(
     texts: list[dict[str, str]] = []
     owners: dict[Path, str] = {}
     components: list[dict[str, Any]] = []
+    notice_copies: dict[tuple[Path, str], str] = {}
 
     def copy_notice(source: Path, component: str) -> str:
+        key = (source.resolve(), component)
+        if key in notice_copies:
+            return notice_copies[key]
         destination = notice_root / component / (_sha(source)[:12] + "-" + source.name)
         destination.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(source, destination)
         relative = destination.relative_to(bundle).as_posix()
         texts.append({"component": component, "path": relative, "sha256": _sha(destination)})
+        notice_copies[key] = relative
         return relative
 
     try:
@@ -400,6 +412,64 @@ def collect(
                         for name in sorted(paths)
                     ]
 
+    prepared_windows = None
+    windows_sources = {}
+    windows_notices: dict[str, list[str]] = {}
+    windows_component_aliases = {
+        "openssl": "OpenSSL",
+        "libffi": "libffi",
+        "mpdecimal": "libmpdec",
+        "xz": "xz/liblzma",
+        "expat": "Expat",
+        "bzip2": "bzip2",
+        "zstd": "zstd",
+        "sqlite": "SQLite",
+        "zlib-ng": "zlib",
+        "hacl-star": "HACL*",
+        "mimalloc": "mimalloc",
+        "Unicode": "Unicode",
+        "cpython-incorporated": "CPython incorporated software",
+    }
+    if windows_provenance is not None:
+        from bench.windows_provenance import read_windows_provenance
+
+        prepared_windows = read_windows_provenance(windows_provenance)
+        if prepared_windows.get("source_binding_verified"):
+            copy_notice(windows_provenance, "windows-provenance")
+            prepared_windows["bundled_source_copies"] = {
+                row["file"]: copy_notice(Path(row["file"]), "windows-provenance")
+                for row in [
+                    prepared_windows["installed_license"],
+                    *prepared_windows["source_files"],
+                ]
+            }
+            windows_sources = {
+                Path(row["source"]).resolve(): row for row in prepared_windows["native_sources"]
+            }
+            for name, node in prepared_windows["components"].items():
+                windows_notices[name] = [
+                    copy_notice(Path(row["file"]), "windows-provenance") for row in node["notices"]
+                ]
+                components.append(
+                    {
+                        "name": "Windows CPython: " + name,
+                        "version": node["version"],
+                        "notices": windows_notices[name],
+                        "basis": node["basis"],
+                        "restrictions_apply": node.get("restrictions_apply", False),
+                        "source_location": node.get("source_location"),
+                    }
+                )
+        else:
+            unresolved.append(
+                {
+                    "component": "windows-provenance",
+                    "reason": prepared_windows.get("revalidation_error")
+                    or "; ".join(prepared_windows.get("errors", []))
+                    or "Windows source/installed-license binding unverified",
+                }
+            )
+
     mappings: dict[str, dict[str, Any]] = {}
     toc_records = []
     for toc in sorted(workdir.rglob("*.toc")):
@@ -455,6 +525,7 @@ def collect(
     dynamic_requirements: dict[str, set[str]] = {}
     static_extension_components: set[str] = set()
     source_stanzas: dict[str, dict[str, str]] = {}
+    windows_dependency_notices: dict[str, list[str]] = {}
     for path in sorted(bundle.rglob("*")):
         if not path.is_file() and not path.is_symlink():
             continue
@@ -483,7 +554,39 @@ def collect(
         if is_native:
             source = Path(origin["source"]).resolve() if origin else None
             owner = owner_for(source) if source else None
-            if owner:
+            windows_node = windows_sources.get(source)
+            if windows_node and windows_node.get("covered"):
+                names = sorted(
+                    {
+                        windows_node.get("owning_component", "cpython"),
+                        "Microsoft-CRT",
+                        *windows_node["dependencies"],
+                    }
+                )
+                record["license_component"] = "Windows: " + " + ".join(names)
+                record["windows_provenance"] = {
+                    "role": windows_node["role"],
+                    "components": names,
+                    "notices": sorted({path for name in names for path in windows_notices[name]}),
+                    "binary_reproducibility_verified": False,
+                }
+                for name in windows_node["dependencies"]:
+                    component = windows_component_aliases.get(name)
+                    if component:
+                        native_components.add(component)
+                        windows_dependency_notices[component] = windows_notices[name]
+            elif windows_node:
+                unresolved.append(
+                    {
+                        "component": relative,
+                        "reason": "Windows native dependency notices missing/unverified: "
+                        + ", ".join(windows_node.get("missing_components", [])),
+                    }
+                )
+                record["license_component"] = (
+                    "CPython own code only; dependency coverage unresolved"
+                )
+            elif owner:
                 record["license_component"] = owner
             elif source and source.is_relative_to(stdlib):
                 record["license_component"] = "cpython"
@@ -540,7 +643,8 @@ def collect(
     for component in sorted(native_components):
         needed = dynamic_requirements.get(component, set())
         covered = (
-            component in provenance_components
+            component in windows_dependency_notices
+            or component in provenance_components
             or component in source_stanzas
             or (
                 component not in static_extension_components
@@ -556,6 +660,7 @@ def collect(
                 "needed_libraries": sorted(needed),
                 "source_stanza": source_stanzas.get(component),
                 "verified_full_archive_notices": provenance_components.get(component),
+                "windows_source_notices": windows_dependency_notices.get(component),
             }
         )
         if not covered:
@@ -587,6 +692,7 @@ def collect(
         "bundle_files": files,
         "pure_python_modules": pure_modules,
         "python_provenance": prepared_provenance,
+        "windows_provenance": prepared_windows,
         "build_tocs": toc_records,
         "unresolved": unresolved,
         "references": _REFERENCES,

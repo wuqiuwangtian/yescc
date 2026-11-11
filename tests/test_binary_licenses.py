@@ -205,3 +205,98 @@ def test_bundled_extra_distribution_keeps_legacy_license(
     assert (bundle / component["notices"][0]).read_bytes() == original.read_bytes()
     assert report["pure_python_modules"][0]["license_component"] == "legacy"
     assert not any(row["component"] == "legacy" for row in report["unresolved"])
+
+
+def test_windows_prepare_skip_does_not_create_cache_or_download(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    from bench import windows_provenance
+
+    monkeypatch.setattr(windows_provenance, "_descriptor", lambda: None)
+
+    def unexpected(*args: object) -> None:
+        raise AssertionError("non-Windows build must not download Windows copyright sources")
+
+    monkeypatch.setattr(windows_provenance, "_get", unexpected)
+    cache = tmp_path / "unused-cache"
+    assert windows_provenance.ensure_windows_provenance(cache, tmp_path) is None
+    assert not cache.exists()
+
+
+def test_windows_release_revision_mismatch_never_claims_bound_sources(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    import json
+
+    from bench import windows_provenance
+
+    monkeypatch.setattr(windows_provenance, "_get", lambda _url: b'{"sha":"abcdef0123456789"}')
+    descriptor = {"version": "3.14.10", "prefix": "C:\\Python", "git_short": "1234567"}
+    path = windows_provenance.prepare_windows_sources(tmp_path, descriptor, b"actual LICENSE", [])
+    report = json.loads(path.read_text())
+    assert report["source_binding_verified"] is False
+    assert report["legal_conclusion"] is False
+    assert any("revision" in reason for reason in report["errors"])
+
+
+@pytest.mark.parametrize("covered", [True, False])
+def test_windows_cpython_native_keeps_third_party_dependency_evidence(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, covered: bool
+) -> None:
+    from bench import windows_provenance
+
+    _isolate_inventory(monkeypatch)
+    monkeypatch.setattr(binary_licenses, "_builtin_components", set)
+    original = tmp_path / "_ssl.pyd"
+    original.write_bytes(b"native fixture with a TLS library dependency")
+    bundle = tmp_path / "bundle"
+    bundle.mkdir()
+    (bundle / original.name).write_bytes(original.read_bytes())
+    work = tmp_path / "work"
+    work.mkdir()
+    (work / "COLLECT-00.toc").write_text(repr(([original.name, str(original), "EXTENSION"],)))
+    prepared_file = tmp_path / "prepared-windows.json"
+    prepared_file.write_text("{}")
+    components = {}
+    for name in ("cpython", "Microsoft-CRT", "openssl"):
+        notice = tmp_path / (name + "-LICENSE")
+        notice.write_text("Original notice for " + name + "\n")
+        components[name] = {
+            "name": name,
+            "version": "fixture",
+            "basis": "explicit fixture evidence",
+            "notices": [{"file": str(notice)}],
+        }
+    prepared = {
+        "source_binding_verified": True,
+        "installed_license": {"file": components["cpython"]["notices"][0]["file"]},
+        "source_files": [],
+        "components": components,
+        "native_sources": [
+            {
+                "source": str(original),
+                "role": "CPython standard extension",
+                "dependencies": ["openssl"],
+                "covered": covered,
+                "missing_components": [] if covered else ["openssl"],
+            }
+        ],
+    }
+    monkeypatch.setattr(windows_provenance, "read_windows_provenance", lambda _path: prepared)
+    report = binary_licenses.collect(
+        bundle, work, tmp_path / "audit.json", windows_provenance=prepared_file
+    )
+    native = report["bundle_files"][0]
+    if covered:
+        assert "openssl" in native["windows_provenance"]["components"]
+        dependency = next(
+            r
+            for r in report["native_dependency_scope"]["dynamic_dependency_review"]
+            if r["component"] == "OpenSSL"
+        )
+        assert dependency["covered"] is True
+        assert dependency["windows_source_notices"]
+    else:
+        assert report["coverage_complete"] is False
+        assert any(r["component"] == "_ssl.pyd" for r in report["unresolved"])
+        assert "own code only" in native["license_component"]

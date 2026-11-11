@@ -43,7 +43,7 @@ yescc --version
 
 候选包保存在 GitHub Actions 的 `Release candidate assets` 工作流 artifact 中，尚未正式发布。Linux x86_64 使用 tar.gz，Windows x86_64 使用 zip；下载后解压并保留整个目录（包含 `_internal`、`licenses`），直接运行 `./yescc --version` 或 PowerShell 的 `.\yescc.exe --version`。CLI 自带运行时，无需安装 YesCC 的 Python 包。
 
-用户程序仍需要对应工具链在 PATH：C 用 GCC，JavaScript 用 Node.js，Python 用可运行的 Python 3。二进制按 PATH 选择外部 Python；wheel 安装继续使用其所在环境的解释器。Linux 正式候选在 Ubuntu 24.04 构建，记录 glibc 基线，不保证旧 Linux、musl/Alpine、ARM 或 macOS 可用；Windows 以原生 CI 验证范围为准。
+用户程序仍需要对应工具链在 PATH：C 用 GCC，JavaScript 用 Node.js，Python 用可运行的 Python 3。二进制按 PATH 选择外部 Python；wheel 安装继续使用其所在环境的解释器。Linux 正式候选在 Ubuntu 24.04 构建，记录 glibc 基线，不保证旧 Linux、musl/Alpine、ARM 或 macOS 可用；Windows 候选内置 Python 3.14，其[最低平台为 Windows 10+](https://docs.python.org/3.14/using/windows.html#supported-windows-versions)；本项目仍只以原生 CI 验证范围为准。
 
 解压后在该目录执行：
 

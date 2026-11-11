@@ -147,21 +147,27 @@ def build(output: Path) -> dict:
         encoding="utf-8",
     )
     from bench.python_provenance import ensure_python_provenance
+    from bench.windows_provenance import ensure_windows_provenance
 
     provenance = ensure_python_provenance(ROOT / "dist" / "python-provenance")
     if provenance is not None:
         shutil.copy2(provenance, output / "python-provenance.json")
+    windows_provenance = ensure_windows_provenance(ROOT / "dist" / "windows-provenance", work)
+    if windows_provenance is not None:
+        shutil.copy2(windows_provenance, output / "windows-provenance.json")
     license_output = output / "binary-licenses.json"
     audit_command = [
         str(builder_python),
         "-c",
         "from pathlib import Path;from bench.binary_licenses import collect;import sys;"
         "collect(Path(sys.argv[1]),Path(sys.argv[2]),Path(sys.argv[3]),"
-        "provenance=Path(sys.argv[4]) if sys.argv[4] else None)",
+        "provenance=Path(sys.argv[4]) if sys.argv[4] else None,"
+        "windows_provenance=Path(sys.argv[5]) if sys.argv[5] else None)",
         str(bundle),
         str(work),
         str(license_output),
         str(provenance) if provenance else "",
+        str(windows_provenance) if windows_provenance else "",
     ]
     subprocess.run(audit_command, cwd=ROOT, check=True, timeout=120)
     license_report = json.loads(license_output.read_text("utf-8"))
