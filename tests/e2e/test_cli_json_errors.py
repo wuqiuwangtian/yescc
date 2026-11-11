@@ -96,3 +96,55 @@ def test_program_json_argument_is_passed_through(tmp_path: Path) -> None:
     (tmp_path / "args.py").write_text("import sys;print(sys.argv[1])\n")
     result = run(["run", "args.py", "--", "--json"], tmp_path)
     assert result.returncode == 0 and result.stdout == "--json\n" and not result.stderr
+
+
+@pytest.mark.parametrize(
+    "flags",
+    [
+        ["--lang", "nonesuch"],
+        ["--lang=nonesuch"],
+        ["--lang", "nonesuch", "--play"],
+        ["--lang", "nonesuch", "--strict"],
+        ["--lang", "nonesuch", "--no-fallback"],
+    ],
+)
+def test_unsupported_explicit_language_preserves_report(
+    flags: list[str], tmp_path: Path
+) -> None:
+    source = tmp_path / "ok.c"
+    source.write_text("int main(void){return 0;}\n")
+    before_source = source.read_bytes()
+    first = run(["ok.c", "--json", "--offline"], tmp_path)
+    assert first.returncode == 0
+    assert json.loads(first.stdout)["result"]["status"] == "native_ok"
+    report = tmp_path / ".yescc/ok/report.json"
+    before_report = report.read_bytes()
+    failed = run(["ok.c", *flags, "--json", "--offline"], tmp_path)
+    assert failed.returncode == 101 and failed.stderr == ""
+    payload = json.loads(failed.stdout)
+    assert payload["report_kind"] == "command_error"
+    assert payload["error"]["exit_code"] == 101
+    assert payload["error"]["phase"] == "execute"
+    assert report.read_bytes() == before_report
+    assert source.read_bytes() == before_source
+    assert not (report.parent / "fallback.c").exists()
+
+
+@pytest.mark.parametrize("prefix", [[], ["run"]])
+def test_json_language_value_is_not_an_output_flag(prefix: list[str], tmp_path: Path) -> None:
+    (tmp_path / "ok.c").write_text("int main(void){return 0;}\n")
+    failed = run([*prefix, "ok.c", "--lang", "--json", "--offline"], tmp_path)
+    assert failed.returncode == 101 and not failed.stdout
+    assert failed.stderr.startswith("yescc:")
+    assert not (tmp_path / ".yescc").exists()
+
+
+def test_explicit_language_alias_and_implicit_fallback_remain_available(tmp_path: Path) -> None:
+    (tmp_path / "ok.c").write_text("int main(void){return 0;}\n")
+    native = run(["ok.c", "--lang=GCC", "--json", "--offline"], tmp_path)
+    assert native.returncode == 0
+    assert json.loads(native.stdout)["result"]["status"] == "native_ok"
+    (tmp_path / "note.xyz").write_text("hello\n")
+    creative = run(["note.xyz", "--json", "--offline"], tmp_path)
+    assert creative.returncode == 0
+    assert json.loads(creative.stdout)["result"]["status"] == "creative_fallback"

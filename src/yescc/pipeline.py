@@ -694,6 +694,9 @@ def execute(argv: list[str], invocation: Invocation) -> int:
     cwd = Path.cwd()
     source = _validate_source(invocation.source)
     size, encoding, text = _read_source(source)
+    # 显式语言错误不能进入未知输入的创意兜底（包括 --play），也不应创建模型会话。
+    if invocation.lang is not None:
+        detect_language(source, invocation.lang)
     session = ModelSession(
         offline=invocation.offline,
         no_cache=invocation.no_cache,

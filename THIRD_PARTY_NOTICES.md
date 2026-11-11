@@ -1,7 +1,7 @@
 # Third-party notices
 
 YesCC itself is licensed under MIT; see `LICENSE`. This inventory covers the
-runtime dependencies pinned in `uv.lock` for the 0.1.0rc3 wheel evaluation.
+runtime dependencies pinned in `uv.lock` for the 0.1.0rc4 wheel evaluation.
 Dependencies are installed separately and are **not vendored in the YesCC wheel**.
 Each dependency retains its own license; the YesCC MIT license does not replace it.
 

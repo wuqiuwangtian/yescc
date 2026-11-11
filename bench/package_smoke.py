@@ -311,18 +311,34 @@ def verify(wheel: Path, directory: Path) -> dict[str, object]:
                 ("--no-fallback", "--json", "--offline"),
                 101,
             ),
+            (
+                "json_invalid_language",
+                ".c",
+                "int main(void){return 0;}\n",
+                ("--lang", "nonesuch", "--json"),
+                101,
+            ),
+            (
+                "json_invalid_language_play",
+                ".c",
+                "int main(void){return 0;}\n",
+                ("--lang=nonesuch", "--play", "--json"),
+                101,
+            ),
         ):
             cwd = directory / name
             cwd.mkdir()
             file = cwd / (name + suffix)
             if source is not None:
                 file.write_text(source, encoding="utf-8")
+            calls_before = len(server.requests)
             response = run([str(python), "-I", "-m", "yescc", file.name, *args], cwd, env)
             payload = json.loads(response.stdout)
             assert response.returncode == expected and not response.stderr
             assert payload["report_kind"] == "command_error"
             assert payload["error"]["exit_code"] == expected
             assert not (cwd / ".yescc").exists()
+            assert len(server.requests) == calls_before
             rows.append(
                 {
                     "id": name,
