@@ -20,6 +20,8 @@
 
 - C 组合规则和降级说明见 [ADR-0018](docs/adr/0018-bounded-rule-refinement-and-degradation.md)：规则阶段最多 24 次候选构建、每条路径最多 4 次细化；不删除语句、猜变量或自动切换 C++。
 
+- 原生发布候选见 [ADR-0020](docs/adr/0020-native-release-candidates.md)：冻结CLI与外部工具链分开，普通wheel语义保持；实际bundle及静态依赖有未知许可证时不得勾选正式发布验收。
+
 ## 协作与交付
 
 - 若会话已授权多 agent 并行，分派前明确文件归属、依赖、基线与验收；共享工作区中避免两个 agent 同时写同一文件。主导者负责整合后检查，子任务“完成”不等于整个项目验收通过。
