@@ -6,7 +6,7 @@ import json
 
 from yescc.model.base import Message, ModelResponseError
 
-PROMPT_VERSION = "m6-creative-2"
+PROMPT_VERSION = "m6-creative-3"
 
 _SYSTEM = (
     "You are YesCC, a compiler repair and code generation assistant. "
@@ -63,21 +63,8 @@ def generate_messages(text: str, *, creative: bool, feedback: str = "") -> list[
             "Avoid using generic byte counts, hashes, string reversal, translation "
             "lessons, or repeating the input as the main result. Computation or structure "
             "should help realize the conceit; a poem or artwork may use literals. "
-            "Honor explicit quantities, ordering, endpoints and blank lines in the input. "
-            "Keep the displayed scene and its narration consistent: derive counts, "
-            "direction labels and the ending from the same state that you render, "
-            "rather than writing an independent success claim. Before finalizing, "
-            "trace the first and last steps, zero/boundary cases, and every stated "
-            "total against what the program actually prints. For a calculation, "
-            "print the computed result; do not present an unchecked analogy as a "
-            "mathematical fact. A small coherent result is better than an elaborate "
-            "scene that contradicts itself. "
             "Keep Chinese UTF-8 and emoji intact: never reverse or index their bytes "
             "as characters, and never print arbitrary non-ASCII byte values with %c. "
-            "A UTF-8 symbol belongs in a double-quoted string, never an ordinary "
-            "single-quoted C character constant. To repeat or count chosen symbols, "
-            "use whole string units, not strlen as a count of visible characters. "
-            "Use real line breaks in the output, not literal backslash-n text. "
             "Use UTF-8 byte strings with printf/puts; do not mix wide-character stdout "
             "functions with narrow ones. No real delays or terminal control escapes. "
             "Prefer about 15–45 lines and compact, correctly escaped JSON."
