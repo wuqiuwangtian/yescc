@@ -54,7 +54,7 @@ def test_generated_math_links_and_runs_without_rewriting_source(tmp_path: Path) 
     result = subprocess.run(
         [str(generated.artifact)], capture_output=True, check=False, timeout=5
     )
-    assert result.returncode == 0 and result.stdout == b"1.390\n"
+    assert result.returncode == 0 and result.stdout == f"1.390{os.linesep}".encode()
     assert original.read_bytes() == before
 
 

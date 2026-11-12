@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -17,6 +18,7 @@ pytestmark = pytest.mark.e2e
 
 GOOD = '#include <stdio.h>\nint main(void) { puts("好的作品"); return 0; }\n'
 TEXT = "一只会梦见彩虹的时钟"
+GOOD_OUTPUT = ("好的作品" + os.linesep).encode()
 
 
 def invoke(tmp_path: Path, *args: str) -> subprocess.CompletedProcess[bytes]:
@@ -49,7 +51,7 @@ def test_bad_creative_run_is_hidden_and_retried(
     fake_model.responses.extend([{"source": bad}, {"source": GOOD}])
     result = invoke(tmp_path, "run")
     assert result.returncode == 0, result.stderr
-    assert result.stdout == "好的作品\n".encode()
+    assert result.stdout == GOOD_OUTPUT
     saved = report(tmp_path)
     assert saved["model"]["calls"] == saved["budget"]["attempts"] == 2
     attempts = [a for a in saved["attempts"] if a["kind"] == "model"]
@@ -66,7 +68,7 @@ def test_creative_timeout_can_use_remaining_attempt(
     monkeypatch.setenv("YESCC_RUN_TIMEOUT_S", "0.3")
     fake_model.responses.extend([{"source": "int main(void) { for(;;){} }"}, {"source": GOOD}])
     result = invoke(tmp_path, "run")
-    assert result.returncode == 0 and result.stdout == "好的作品\n".encode()
+    assert result.returncode == 0 and result.stdout == GOOD_OUTPUT
     assert "timeout" in report(tmp_path)["attempts"][0]["validation"]["reasons"]
 
 
@@ -78,11 +80,11 @@ def test_creative_bad_cache_is_discarded_and_limit_is_not_increased(
         {"source": GOOD},
     ])
     first = invoke(tmp_path, "run", "--max-rounds", "1")
-    assert first.returncode == 0 and first.stdout == (TEXT + "\n").encode()
+    assert first.returncode == 0 and first.stdout == (TEXT + os.linesep).encode()
     assert report(tmp_path)["result"]["fallback"]["kind"] == "print_input"
     assert len(fake_model.requests) == 1
     second = invoke(tmp_path, "run", "--max-rounds", "1")
-    assert second.stdout == "好的作品\n".encode() and len(fake_model.requests) == 2
+    assert second.stdout == GOOD_OUTPUT and len(fake_model.requests) == 2
     assert report(tmp_path)["model"]["cache_hits"] == 0
 
 
@@ -112,7 +114,7 @@ def test_mixed_streams_rejected_without_claiming_runtime_validation(
     )
     fake_model.responses.extend([{"source": bad}, {"source": GOOD}])
     result = invoke(tmp_path, "run")
-    assert result.stdout == "好的作品\n".encode()
+    assert result.stdout == GOOD_OUTPUT
     first = report(tmp_path)["attempts"][0]
     assert first["exit_code"] == 0
     assert first["source_checks"]["reasons"] == ["mixed_stdout_orientation"]
@@ -125,7 +127,7 @@ def test_invalid_json_retries_instead_of_counting_fallback_as_model(
 ) -> None:
     fake_model.responses.extend(["not JSON", {"source": GOOD}])
     result = invoke(tmp_path, "run")
-    assert result.stdout == "好的作品\n".encode()
+    assert result.stdout == GOOD_OUTPUT
     saved = report(tmp_path)
     assert saved["model"]["calls"] == 2 and saved["budget"]["attempts"] == 2
     assert len(saved["attempts"]) == 1
@@ -169,7 +171,7 @@ def test_native_success_ignores_invalid_model_environment(
         [sys.executable, "-m", "yescc", "run", str(source)], cwd=tmp_path,
         capture_output=True, timeout=60, check=False,
     )
-    assert completed.returncode == 0 and completed.stdout == "好的作品\n".encode()
+    assert completed.returncode == 0 and completed.stdout == GOOD_OUTPUT
     assert not fake_model.requests
 
 
