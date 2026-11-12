@@ -95,8 +95,9 @@ Windows 原生安装、隐私数据流、清理方式和 FAQ 见[使用与隐私
 默认读取环境变量；密钥只放在环境变量或本地 env 文件里，不要写进配置或仓库：
 
 ```bash
+export YESCC_MODEL_L3_PROVIDER=deepseek
 export YESCC_MODEL_L3_BASE_URL=https://api.deepseek.com/v1
-export YESCC_MODEL_L3_NAME=deepseek-chat
+export YESCC_MODEL_L3_NAME=deepseek-flash
 export YESCC_MODEL_L3_API_KEY=...
 export YESCC_MODEL_L3_INPUT_PRICE_PER_MTOK=...   # 当前输入单价，USD/百万 token
 export YESCC_MODEL_L3_OUTPUT_PRICE_PER_MTOK=...  # 当前输出单价，USD/百万 token
@@ -105,6 +106,19 @@ export YESCC_MODEL_L2_NAME=llama3.2
 ```
 
 常用开关：`--offline`（不发模型请求）、`--budget 0.05`（USD）、`--max-rounds 2`、`--no-cache`、`--trace`、`--emit-source`。没有可用密钥时自动降级为规则 + 确定性兜底。
+
+推理与输出额度可调整，仍共享同一任务预算：
+
+```bash
+# 已按上面配置DeepSeek、密钥和当前价格；直接创作，不先花额度修复
+uv run yescc run examples/idea.txt --play --thinking disabled --budget 0.005
+# 愿意用更多输出额度思考时显式开启；实际额度仍会按剩余费用下调
+uv run yescc run examples/idea.txt --play --reasoning-effort low --max-output-tokens 4096 --budget 0.005
+```
+
+DeepSeek普通模型默认显式禁用thinking，选择推理等级会开启；OpenAI使用其reasoning_effort，不接受DeepSeek式thinking开关。具体模型支持的等级不同，兼容端点不会自动获得这些能力。环境可用`YESCC_MODEL_L3_THINKING/REASONING_EFFORT/MAX_OUTPUT_TOKENS`（L2同理）；CLI覆盖环境，显式auto重置该项为项目默认。输出默认上限仍1024，最大可设16384，不增加费用或候选次数。完整规则见[模型控制与创意检查](docs/adr/0021-creative-quality-and-model-controls.md)。
+
+模型创意的`run`先检查退出、非空UTF-8和64KiB合计输出额度，坏候选在原上限内重试；`build`只编译和检查有限源码风格，**不执行程序**。报告分别记录`source_checks`和`generated.validation`；检查通过仍不保证有趣、贴题或完整。原生程序不受这些创意输出限制。
 
 云端模型必须配置两项单价，未知价格时不发请求；请求前保守估算并预留费用，剩余预算限制输出 token。缺 usage 或请求失败会保留预留，`model.cost_known=false` 时费用总额未知，`cost_usd` 只表示已知部分小计。回环本地端点可不填价格，但不能声称受到金额限制。`--max-rounds` 同时限制候选尝试（含缓存）与实际请求；L2 修复失败后有 L3 就升级，显式 `--model` / `--provider` 跳过自动 L2。详见 [ADR-0015](docs/adr/0015-alpha-reliability-contracts.md)。
 

@@ -16,6 +16,7 @@ from contextlib import suppress
 from dataclasses import dataclass, replace
 from functools import lru_cache
 from pathlib import Path
+from typing import Protocol
 
 from yescc.util import external_command_context, external_environment, is_frozen
 
@@ -36,6 +37,10 @@ _ALLOWED_ENV = {
 }
 
 
+class _OutputStream(Protocol):
+    def fileno(self) -> int: ...
+
+
 @dataclass(frozen=True)
 class SandboxOutcome:
     """一次沙箱执行的结果。"""
@@ -48,6 +53,7 @@ class SandboxOutcome:
     environment_filtered: bool = False
     process_tree_cleanup: str = "none"
     resource_limits: str = "none"
+    output_limited: bool = False
 
 
 def default_timeout() -> float:
@@ -126,12 +132,28 @@ def _run_once(
     env: dict[str, str] | None,
     timeout_s: float,
     preexec: Callable[[], None] | None,
+    stdin: int | None = None,
+    stdout: _OutputStream | None = None,
+    stderr: _OutputStream | None = None,
+    max_output_bytes: int | None = None,
 ) -> SandboxOutcome:
+    def output_exceeded() -> bool:
+        if max_output_bytes is None:
+            return False
+        return sum(
+            os.fstat(stream.fileno()).st_size
+            for stream in (stdout, stderr)
+            if stream is not None
+        ) > max_output_bytes
+
     with external_command_context():
         process = subprocess.Popen(
             command,
             cwd=str(cwd),
             env=external_environment(env) if is_frozen() else env,
+            stdin=stdin,
+            stdout=stdout.fileno() if stdout is not None else None,
+            stderr=stderr.fileno() if stderr is not None else None,
             preexec_fn=preexec,
             start_new_session=os.name == "posix",
             creationflags=(
@@ -139,12 +161,22 @@ def _run_once(
             ),
         )
     timed_out = False
+    output_limited = False
+    stopped_for_output = False
+    returncode = 0
     deadline = time.monotonic() + timeout_s
     try:
         while True:
+            if output_exceeded():
+                output_limited = True
+                stopped_for_output = True
+                break
             try:
                 # Windows 的长 WaitForSingleObject 会延后执行 Python 信号处理器。
-                returncode = process.wait(timeout=min(0.1, max(0, deadline - time.monotonic())))
+                interval = 0.02 if max_output_bytes is not None else 0.1
+                returncode = process.wait(
+                    timeout=min(interval, max(0, deadline - time.monotonic()))
+                )
                 break
             except subprocess.TimeoutExpired:
                 if time.monotonic() >= deadline:
@@ -156,6 +188,12 @@ def _run_once(
         returncode = 130
     finally:
         _stop_process_tree(process)
+    if stopped_for_output:
+        # Preserve the actual termination status instead of inventing a program exit code.
+        assert process.returncode is not None
+        returncode = process.returncode
+    # A fast writer can finish before the next observation. Its output still fails the quota.
+    output_limited = output_limited or output_exceeded()
     return SandboxOutcome(
         exit_code=returncode,
         timed_out=timed_out,
@@ -165,6 +203,7 @@ def _run_once(
         environment_filtered=env is not None,
         process_tree_cleanup="posix_group" if os.name == "posix" else "windows_taskkill",
         resource_limits="posix_best_effort" if preexec is not None else "none",
+        output_limited=output_limited,
     )
 
 
@@ -190,17 +229,31 @@ def _stop_process_tree(process: subprocess.Popen[bytes]) -> None:
     process.wait()
 
 
-def run_ai_command(
+def _run_ai_command(
     command: list[str],
     *,
     unsafe: bool,
     cwd: Path,
     timeout_s: float | None = None,
+    stdin: int | None = None,
+    stdout: _OutputStream | None = None,
+    stderr: _OutputStream | None = None,
+    max_output_bytes: int | None = None,
 ) -> SandboxOutcome:
-    """运行 AI 产物。默认在临时目录中执行，`unsafe=True` 时在真实 cwd 执行。"""
+    """共享执行路径；只有显式传入捕获文件和额度时才观察输出大小。"""
     timeout = timeout_s if timeout_s is not None else default_timeout()
     if unsafe:
-        outcome = _run_once(command, cwd=cwd, env=None, timeout_s=timeout, preexec=None)
+        outcome = _run_once(
+            command,
+            cwd=cwd,
+            env=None,
+            timeout_s=timeout,
+            preexec=None,
+            stdin=stdin,
+            stdout=stdout,
+            stderr=stderr,
+            max_output_bytes=max_output_bytes,
+        )
         return replace(outcome, sandboxed=False)
 
     network = _network_isolation_supported()
@@ -213,10 +266,25 @@ def run_ai_command(
             env=_clean_env(),
             timeout_s=timeout,
             preexec=_resource_limits(timeout),
+            stdin=stdin,
+            stdout=stdout,
+            stderr=stderr,
+            max_output_bytes=max_output_bytes,
         )
         return replace(outcome, network_isolated=network)
     finally:
         shutil.rmtree(temporary, ignore_errors=True)
+
+
+def run_ai_command(
+    command: list[str],
+    *,
+    unsafe: bool,
+    cwd: Path,
+    timeout_s: float | None = None,
+) -> SandboxOutcome:
+    """运行 AI 产物。保持继承输入输出；`unsafe=True` 时在真实 cwd 执行。"""
+    return _run_ai_command(command, unsafe=unsafe, cwd=cwd, timeout_s=timeout_s)
 
 
 __all__ = ["SandboxOutcome", "default_timeout", "run_ai_command"]

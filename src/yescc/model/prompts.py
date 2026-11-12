@@ -6,7 +6,7 @@ import json
 
 from yescc.model.base import Message, ModelResponseError
 
-PROMPT_VERSION = "m4-1"
+PROMPT_VERSION = "m6-creative-1"
 
 _SYSTEM = (
     "You are YesCC, a compiler repair and code generation assistant. "
@@ -57,6 +57,17 @@ def generate_messages(text: str, *, creative: bool, feedback: str = "") -> list[
             "the program. Do not read stdin, ask questions, or require command-line "
             "arguments. With empty stdin and no arguments, it must print nonempty "
             "output and exit successfully in under one second."
+            " Respect the input's language, mood, and specific imagery. Choose one "
+            "clear conceit: a tiny simulation, ASCII scene, playful calculation, "
+            "patterned verse, or short evolving story. Make it distinctive to this input. "
+            "Avoid using generic byte counts, hashes, string reversal, translation "
+            "lessons, or repeating the input as the main result. Computation or structure "
+            "should help realize the conceit; a poem or artwork may use literals. "
+            "Keep Chinese UTF-8 and emoji intact: never reverse or index their bytes "
+            "as characters, and never print arbitrary non-ASCII byte values with %c. "
+            "Use UTF-8 byte strings with printf/puts; do not mix wide-character stdout "
+            "functions with narrow ones. No real delays or terminal control escapes. "
+            "Prefer about 15–45 lines and compact, correctly escaped JSON."
         )
     else:
         instruction = (
@@ -75,13 +86,14 @@ Rules:
 - Use only the C standard library; include the headers you use.
 - Do not use network, file system, system(), exec, or shell commands.
 - {stdin_rule} Print results to stdout.
-- Keep it under 120 lines.
+- Keep it under 120 lines. The generated C is linked with the standard math library (-lm)
+  when producing an executable; no other external libraries are available.
 
 Input:
 {text}
 """
     if feedback:
-        user += f"\nThe previous program failed to compile: {feedback}\n"
+        user += f"\nThe previous candidate was rejected: {feedback}\n"
     return [Message(role="system", content=_SYSTEM), Message(role="user", content=user)]
 
 

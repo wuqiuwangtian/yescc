@@ -19,6 +19,10 @@ class Completion:
     cost_usd: float
     duration_ms: int
     usage_known: bool = True
+    served_model: str | None = None
+    finish_reason: str | None = None
+    reasoning_tokens: int | None = None
+    response_error: str | None = None
 
 
 class ModelError(Exception):
@@ -27,6 +31,10 @@ class ModelError(Exception):
 
 class ModelUnavailable(ModelError):
     """没有可用配置或处于离线模式。"""
+
+
+class ModelConfigurationError(ModelError):
+    """显式模型控制无效；不得通过重试静默忽略。"""
 
 
 class BudgetExceeded(ModelError):
