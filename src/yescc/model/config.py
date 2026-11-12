@@ -5,8 +5,13 @@ from __future__ import annotations
 import ipaddress
 import math
 import os
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from urllib.parse import urlsplit
+
+from yescc.model.base import ModelConfigurationError
+
+MAX_OUTPUT_TOKENS = 16384
+REASONING_EFFORTS = {"none", "minimal", "low", "medium", "high", "xhigh", "max"}
 
 DEFAULT_BASE_URLS: dict[str, str] = {
     "deepseek": "https://api.deepseek.com/v1",
@@ -32,6 +37,9 @@ class ModelSettings:
     input_price_per_mtok: float | None
     output_price_per_mtok: float | None
     timeout_s: float
+    reasoning_effort: str | None = None
+    thinking: str | None = None
+    max_output_tokens: int = 1024
 
     @property
     def is_local(self) -> bool:
@@ -70,6 +78,53 @@ def _price_env(tier_name: str, common_name: str) -> float | None:
     except ValueError:
         return None
     return value if value is not None and math.isfinite(value) and value >= 0 else None
+
+
+def _output_limit_env(tier_name: str) -> int:
+    raw = _env(tier_name, "YESCC_MODEL_MAX_OUTPUT_TOKENS")
+    if raw is None:
+        return 1024
+    try:
+        return int(raw)
+    except ValueError:
+        # Validate only on a model path; native success must ignore model configuration.
+        return 0
+
+
+def resolve_controls(settings: ModelSettings) -> ModelSettings:
+    """Validate and normalize explicit controls before budget reservation or HTTP."""
+    effort = settings.reasoning_effort
+    thinking = settings.thinking
+    effort = None if effort in (None, "auto") else effort
+    thinking = None if thinking in (None, "auto") else thinking
+    if effort is not None and effort not in REASONING_EFFORTS:
+        raise ModelConfigurationError("reasoning_effort 配置无效，请使用受支持的推理等级。")
+    if thinking not in (None, "enabled", "disabled"):
+        raise ModelConfigurationError("thinking 配置无效，请使用 auto、enabled 或 disabled。")
+    if type(settings.max_output_tokens) is not int or not (
+        1 <= settings.max_output_tokens <= MAX_OUTPUT_TOKENS
+    ):
+        raise ModelConfigurationError(f"max_output_tokens 必须是 1–{MAX_OUTPUT_TOKENS} 的整数。")
+    if settings.provider == "deepseek":
+        if effort == "none":
+            if thinking == "enabled":
+                raise ModelConfigurationError(
+                    "DeepSeek 的 reasoning_effort=none 与 thinking=enabled 冲突。"
+                )
+            thinking, effort = "disabled", None
+        elif effort is not None:
+            if thinking == "disabled":
+                raise ModelConfigurationError("DeepSeek 的推理等级与 thinking=disabled 冲突。")
+            thinking = "enabled"
+            effort = {"minimal": "low", "medium": "high", "xhigh": "high"}.get(effort, effort)
+        if thinking is None:
+            thinking = "enabled" if settings.model == "deepseek-reasoner" else "disabled"
+    elif settings.provider == "openai":
+        if thinking is not None:
+            raise ModelConfigurationError("OpenAI 不支持 thinking 开关，请使用 reasoning_effort。")
+    elif thinking is not None or effort is not None:
+        raise ModelConfigurationError("此兼容供应商尚未声明推理控制支持，不能忽略显式设置。")
+    return replace(settings, reasoning_effort=effort, thinking=thinking)
 
 
 def load_settings(
@@ -125,5 +180,8 @@ def load_settings(
             "YESCC_MODEL_OUTPUT_PRICE_PER_MTOK",
         ),
         timeout_s=_float_env(prefix + "TIMEOUT_S", 60.0),
+        reasoning_effort=_env(prefix + "REASONING_EFFORT", "YESCC_MODEL_REASONING_EFFORT"),
+        thinking=_env(prefix + "THINKING", "YESCC_MODEL_THINKING"),
+        max_output_tokens=_output_limit_env(prefix + "MAX_OUTPUT_TOKENS"),
     )
     return settings if api_key or settings.is_local else None
