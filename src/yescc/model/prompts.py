@@ -6,7 +6,7 @@ import json
 
 from yescc.model.base import Message, ModelResponseError
 
-PROMPT_VERSION = "m6-creative-1"
+PROMPT_VERSION = "m6-creative-3"
 
 _SYSTEM = (
     "You are YesCC, a compiler repair and code generation assistant. "

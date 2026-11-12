@@ -120,6 +120,8 @@ DeepSeek普通模型默认显式禁用thinking，选择推理等级会开启；O
 
 模型创意的`run`先检查退出、非空UTF-8和64KiB合计输出额度，坏候选在原上限内重试；`build`只编译和检查有限源码风格，**不执行程序**。报告分别记录`source_checks`和`generated.validation`；检查通过仍不保证有趣、贴题或完整。原生程序不受这些创意输出限制。
 
+有限源码检查也会拒绝`'☀'`等普通非ASCII字符常量，要求用完整UTF-8字符串。另有[离线一致性评测器](bench/README.md#创意一致性回归)，核对冻结题目的显式输出约束；它不在生产运行中裁决作品语义。
+
 云端模型必须配置两项单价，未知价格时不发请求；请求前保守估算并预留费用，剩余预算限制输出 token。缺 usage 或请求失败会保留预留，`model.cost_known=false` 时费用总额未知，`cost_usd` 只表示已知部分小计。回环本地端点可不填价格，但不能声称受到金额限制。`--max-rounds` 同时限制候选尝试（含缓存）与实际请求；L2 修复失败后有 L3 就升级，显式 `--model` / `--provider` 跳过自动 L2。详见 [ADR-0015](docs/adr/0015-alpha-reliability-contracts.md)。
 
 C 规则阶段最多构建 24 个候选、每条路径最多细化 4 次；可组合机械标点/拼写错误并使用 GCC 的分号建议。遇到 C++ 写法或语义错误仍可能无法修复。确定性兜底会在 stderr 和报告中说明模型路径与失败原因；`print_input` 只回显输入。规则与报告边界见 [ADR-0018](docs/adr/0018-bounded-rule-refinement-and-degradation.md)。
