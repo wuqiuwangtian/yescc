@@ -175,7 +175,7 @@ def test_cli_module_success_and_configuration_errors(tmp_path: Path) -> None:
         check=False,
     )
     assert result.returncode == 0, result.stderr
-    assert json.loads(output.read_text())["summary"]["passed"] == 0
+    assert json.loads(output.read_text(encoding="utf-8"))["summary"]["passed"] == 0
     cases_path.write_text(json.dumps([_case(), _case()]), encoding="utf-8")
     assert main(args) == 2
     cases_path.write_bytes(b"not JSON")

@@ -55,6 +55,8 @@ CI 在 Linux/Windows × Python 3.11/3.14 运行离线集并保存 artifact `m4-<
 
 `creative_consistency_cases.json`为与M4完全分开的冻结12题（8条显式约束、4条开放评审），SHA-256 `a16f8b397ad39f367ddc6ad312ae73a7f6d9c954c680626af8a9b9ab8cfbe2a7`。由独立AI在未读源码或旧结果的情况下设计，模型只收到input，不收到checks/合格或违规样例。修改题目或检查需说明新指纹，不回写旧成绩。
 
+`.gitattributes`只为该冻结文件固定LF，避免Windows检出时自动CRLF转换改变原字节指纹；评测器读取已捕获程序输出时仍接受LF/CRLF，不改写输出。
+
 ```bash
 # 不调用模型或执行候选；读取事先捕获的CC01.stdout等文件
 uv run python -m bench.creative_consistency \
