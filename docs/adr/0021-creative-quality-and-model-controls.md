@@ -23,8 +23,9 @@
 
 ### 创意检查的范围
 
-- 新创意提示要求一个贴题构思、语言/情绪匹配和完整短作品，避免泛化字节统计/翻译/复述，保护UTF-8；不要求所有诗歌都必须有算法。提示版本`m6-creative-1`，旧缓存失效，不改历史成绩。
+- 新创意提示要求一个贴题构思、语言/情绪匹配和完整短作品，避免泛化字节统计/翻译/复述，保护UTF-8；不要求所有诗歌都必须有算法。提示版本`m6-creative-2`补充数量、方向、首尾/零边界与实际呈现一致，数字说明尽量由同一程序状态产生；Unicode符号用完整字符串单元，不以strlen冒充可见字符数。提示约束不等于语义验证。版本变化使旧缓存失效，不改历史成绩。
 - 编译通过后对创意源码做有限风格检查：直接`wprintf/vwprintf/putwchar`与`printf/vprintf/puts/putchar`混用则拒绝候选。先按C续行规则处理LF/CRLF，再忽略注释和字符串；真实源码字节不改。此保守规则即使两调用在互斥分支也拒绝，不覆盖所有stdio调用、宏和间接调用，不称完整C语义分析。
+- 同一有限源码检查拒绝普通单引号字符常量中的直接非ASCII字符或非ASCII的`\u`/`\U`转义（`non_ascii_character_literal`），避免`'☀'`等被GCC仅警告接受、再截断为坏字节。字符串/注释、ASCII和十六进制/八进制字节转义、完整紧邻L/u/U/u8前缀的字符常量不受这条规则拒绝；不保证覆盖宏或间接字节处理。这是创意风格约束，即使普通非ASCII字符常量在某实现中合法也可能被拒绝；原生/修复/普通生成不适用。每种拒绝原因提供对应重试反馈，仍共享原候选/请求/费用上限。
 - **build不执行程序**。只记录source_checks及`generated.validation.performed=false`，不把编译说成运行验证或作品正确。
 - 仅model_creative的显式run，使用原有隔离/冻结环境路径执行一次，stdin为空、捕获stdout/stderr。检查退出0、未超时/超量、stdout非Unicode空白、stdout可解码UTF-8。普通生成/修复、确定性兜底和原生输出保持既有运行语义。
 - stdout+stderr合计64KiB为创意run额度：轮询及退出后检测超量、清理进程组，最多保留额度内前缀；磁盘瞬间写入可超过额度，不称严格字节或文件系统隔离。截断stdout不能据前缀判完整UTF-8，记未知；该上限不应用于原生程序。
@@ -37,6 +38,7 @@
 - schema v1只增字段：模型的requested/served、finish_reason、reasoning_tokens、configured/request_settings和响应摘要；不记录推理正文。逐候选source_checks/validation/validation_limits与最终generated.validation分别来自实际阶段。
 - 最终limits只代表最终实际运行；先前失败候选限制在attempt中，不能从编译limits推断已运行/断网。output_limited仅在确实观察到超额时为true。
 - 固定M4数据/oracle/原passed口径不变；新增fallback_kind/model_success，以真实来源、成功模型构建和行为检查区分模型作品、固定梗、原文回显，修正历史fun_03式首候选污染。model_success仍不是创意评分。
+- `bench.creative_consistency`仅对已捕获stdout做冻结输入的显式输出约束检查，不执行程序、不接入生产run、不做通用语义裁决。12条独立新题材与M4数据分开：8条有行数/顺序/符号数量等检查，4条开放题须另评审；空checks标not_assessed，不计语义通过。原始字节解码UTF-8，不做Unicode归一化或终端宽度推测；缺文件/非法UTF-8失败，非法配置拒绝，保存数据与输出SHA。题目/检查/样例在调用前冻结，不能根据模型输出放宽oracle。
 
 ## 依据与验证
 

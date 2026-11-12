@@ -122,6 +122,45 @@ def test_mixed_streams_rejected_without_claiming_runtime_validation(
     assert not creative_source_issues('/* wprintf( */ puts("wprintf(");')
 
 
+def test_build_retries_unicode_character_without_running_candidate(
+    tmp_path: Path, fake_model: FakeModelServer,
+) -> None:
+    # GCC can accept this with a warning. A successful build is not an encoding check.
+    bad = '#include <stdio.h>\nint main(void) { char sun = \'☀\'; putchar(sun); }'
+    fake_model.responses.extend([{"source": bad}, {"source": GOOD}])
+    result = invoke(tmp_path, "--json")
+    saved = json.loads(result.stdout)
+    assert result.returncode == 0 and len(fake_model.requests) == 2
+    first, second = saved["attempts"]
+    assert first["exit_code"] == 0
+    assert first["source_checks"]["reasons"] == ["non_ascii_character_literal"]
+    feedback = fake_model.requests[1]["messages"][-1]["content"]
+    assert "double-quoted UTF-8 string" in feedback
+    assert "mixes wide and narrow" not in feedback
+    assert "validation" not in first and "validation" not in second
+    assert saved["result"]["generated"]["validation"]["performed"] is False
+    assert saved["result"]["fallback"]["kind"] == "model_creative"
+
+
+def test_native_character_literal_is_not_subject_to_creative_style_rules(
+    tmp_path: Path, fake_model: FakeModelServer,
+) -> None:
+    source = tmp_path / "native.c"
+    source.write_text('#include <stdio.h>\nint main(void) { char sun = \'☀\'; putchar(sun); }',
+                      encoding="utf-8")
+    artifact = tmp_path / "native-reference.exe"
+    built = subprocess.run(["gcc", str(source), "-o", str(artifact)], capture_output=True,
+                           timeout=30, check=False)
+    assert built.returncode == 0, built.stderr
+    native = subprocess.run([str(artifact)], capture_output=True, timeout=10, check=False)
+    completed = subprocess.run(
+        [sys.executable, "-m", "yescc", "run", str(source)], cwd=tmp_path,
+        capture_output=True, timeout=60, check=False,
+    )
+    assert completed.returncode == native.returncode
+    assert completed.stdout == native.stdout and not fake_model.requests
+
+
 def test_invalid_json_retries_instead_of_counting_fallback_as_model(
     tmp_path: Path, fake_model: FakeModelServer,
 ) -> None:
