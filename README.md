@@ -23,7 +23,7 @@ YesCC 是一个「永不扫兴」的 AI 编译器：正确代码原样编译；�
 
 当前源码版本为 `0.1.0`，正在准备正式发布资产；尚未上传正式索引或创建新 Release。固定基准、安装验收与费用见[评测入口](docs/评测/README.md)，待完成项统一见路线图 §10。
 
-模型创意兜底的真实作品、失败原因与评分口径见[创意质量专项](docs/评测/2026-11-12.md)。模型作品、固定梗和原文回显分别统计；可运行不等于作品质量。
+模型创意兜底的真实作品、失败原因与评分口径见[创意质量专项](docs/评测/2026-11-12.md#7-改进后完整复测与推理设置)。模型作品、固定梗和原文回显分别统计；可运行不等于作品质量。
 
 首版范围：C 为 AI 修复/生成目标；Python / C / JavaScript 保留原生直通；MIT 许可，PyPI + 独立二进制发布。长期目标「所有语言」与「编辑器插件」不变。进度见[路线图](docs/项目路线图与发布计划.md)。
 
@@ -116,7 +116,7 @@ uv run yescc run examples/idea.txt --play --thinking disabled --budget 0.005
 uv run yescc run examples/idea.txt --play --reasoning-effort low --max-output-tokens 4096 --budget 0.005
 ```
 
-DeepSeek普通模型默认显式禁用thinking，选择推理等级会开启；OpenAI使用其reasoning_effort，不接受DeepSeek式thinking开关。具体模型支持的等级不同，兼容端点不会自动获得这些能力。环境可用`YESCC_MODEL_L3_THINKING/REASONING_EFFORT/MAX_OUTPUT_TOKENS`（L2同理）；CLI覆盖环境，显式auto重置该项为项目默认。输出默认上限仍1024，最大可设16384，不增加费用或候选次数。完整规则见[模型控制与创意检查](docs/adr/0021-creative-quality-and-model-controls.md)。
+DeepSeek普通模型默认显式禁用thinking，选择推理等级会开启；OpenAI使用其reasoning_effort，不接受DeepSeek式thinking开关。具体模型支持的等级不同，兼容端点不会自动获得这些能力。环境可用`YESCC_MODEL_L3_THINKING/REASONING_EFFORT/MAX_OUTPUT_TOKENS`（L2同理）；CLI覆盖环境，thinking/effort的显式auto重置该项为项目默认。输出默认上限仍1024，最大可设16384，不增加费用或候选次数。完整规则见[模型控制与创意检查](docs/adr/0021-creative-quality-and-model-controls.md)。
 
 模型创意的`run`先检查退出、非空UTF-8和64KiB合计输出额度，坏候选在原上限内重试；`build`只编译和检查有限源码风格，**不执行程序**。报告分别记录`source_checks`和`generated.validation`；检查通过仍不保证有趣、贴题或完整。原生程序不受这些创意输出限制。
 
