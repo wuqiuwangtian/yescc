@@ -1,0 +1,16 @@
+[
+  {
+    "id": "receipt_river",
+    "inspiration": "让收据背面长出一条纸河：雨落满后，账目改记水声。",
+    "source": "#include <stdio.h>\nint main(void) {\n    char river[] = \"___\";\n    const int width = (int)sizeof river - 1;\n    int wet = 0;\n    puts(\"收据背面，开河。\");\n    for (int i = 0; i < width; ++i) {\n        river[i] = '~';\n        puts(river);\n    }\n    for (int i = 0; i < width; ++i) {\n        wet += river[i] == '~';\n    }\n    printf(\"河里住进了 %d 滴雨。\\n\", wet);\n    if (wet == width) {\n        puts(\"账目已满，改记水声。\");\n    }\n    return 0;\n}\n",
+    "stdout": "收据背面，开河。\n~__\n~~_\n~~~\n河里住进了 3 滴雨。\n账目已满，改记水声。\n",
+    "note": "波纹数量和收束条件都读取河道数组；填满的状态带出叙事结尾。"
+  },
+  {
+    "id": "comb_will",
+    "inspiration": "给一把老梳子写遗嘱，它要把齿间的空隙留给风。",
+    "source": "#include <stdio.h>\nint main(void) {\n    puts(\"梳子的遗嘱\");\n    puts(\"齿，留给头发。\");\n    puts(\"齿与齿之间，留给风。\");\n    puts(\"我只带走那个解不开的结。\");\n    return 0;\n}\n",
+    "stdout": "梳子的遗嘱\n齿，留给头发。\n齿与齿之间，留给风。\n我只带走那个解不开的结。\n",
+    "note": "直接打印短诗也是完整作品；梳子的形状变成遗赠安排，结尾回到它的用途。"
+  }
+]
