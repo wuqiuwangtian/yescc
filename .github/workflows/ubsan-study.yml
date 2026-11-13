@@ -1,0 +1,71 @@
+name: Offline UBSan study
+
+on:
+  push:
+    branches: ["feat/creative-ubsan-study"]
+    paths:
+      - "bench/ubsan*.py"
+      - "bench/ubsan_cases.json"
+      - ".github/workflows/ubsan-study.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  study:
+    name: ${{ matrix.os }} / ${{ matrix.compiler }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        compiler: [gcc, clang]
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.3.3
+        with:
+          python-version: "3.11"
+          enable-cache: true
+      - run: uv sync --extra dev --locked
+      - name: Activate installed MSVC environment for the Windows Clang target
+        if: runner.os == 'Windows' && matrix.compiler == 'clang'
+        shell: pwsh
+        run: |
+          $vswhere = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe"
+          $installation = & $vswhere -latest -products '*' -property installationPath
+          if (-not $installation) { throw 'No installed Visual Studio toolchain' }
+          $setup = Join-Path $installation 'Common7\Tools\VsDevCmd.bat'
+          $batch = Join-Path $env:RUNNER_TEMP 'yescc-vs-env.cmd'
+          @"
+          @echo off
+          call "$setup" -arch=x64 >nul
+          if errorlevel 1 exit /b 1
+          set
+          "@ | Set-Content -Path $batch -Encoding ascii
+          $variables = & $env:ComSpec /d /c call $batch
+          if ($LASTEXITCODE -ne 0) { throw 'VsDevCmd failed' }
+          $allowed = @('PATH', 'INCLUDE', 'LIB', 'LIBPATH', 'VCINSTALLDIR',
+            'VCTOOLSINSTALLDIR', 'WINDOWSSDKDIR', 'WINDOWSSDKVERSION',
+            'UCRTVERSION', 'UNIVERSALCRTSDKDIR', 'VSINSTALLDIR')
+          foreach ($line in $variables) {
+            if ($line -match '^([^=]+)=(.*)$') {
+              if ($allowed -contains $Matches[1]) {
+                "$($Matches[1])=$($Matches[2])" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+              }
+            }
+          }
+      - name: Prepare unchanged stored model sources and controlled fixtures
+        run: uv run python -m bench.ubsan_corpus --output-dir dist/ubsan
+      - name: Diagnostic runtime mode (unavailable is recorded, never passed)
+        run: uv run python -m bench.ubsan_study --cases dist/ubsan/cases.json --compiler ${{ matrix.compiler }} --mode runtime --output dist/ubsan/runtime.json
+      - name: Trap mode without the runtime library
+        run: uv run python -m bench.ubsan_study --cases dist/ubsan/cases.json --compiler ${{ matrix.compiler }} --mode trap --output dist/ubsan/trap.json
+      - name: Retain actual capability, output and timing evidence
+        if: always()
+        uses: actions/upload-artifact@v7.0.2
+        with:
+          name: ubsan-${{ runner.os }}-${{ matrix.compiler }}
+          path: dist/ubsan/*.json
+          if-no-files-found: error
