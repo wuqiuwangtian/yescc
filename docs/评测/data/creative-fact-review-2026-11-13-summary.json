@@ -1,0 +1,5380 @@
+{
+  "protocol": {
+    "schema": "yescc-fact-review-protocol-v1",
+    "baseline_commit": "e504d6f45e5533002a09139f3b2698c529175243",
+    "product_source_changed": false,
+    "materials_sha256": "fdfeafa95b490c7853895916f7c6194570a8434417082e0a10874f1967881274",
+    "diagnostic_sha256": "f54e37d5fca2a91a83f9cbe6141fea66bfd9379b54eb0a2383e634e2972b8825",
+    "clarified_sha256": "eff20107cc0def683b0cf4b6b8eb809e37ad18f3d02a09bca160793fb27f3fcc",
+    "fresh_sha256": "c1156083421229bb7a81c07a894735ff7b11870f7f1041f4322f4f071702719f",
+    "review_module_sha256": "8c1e62bb55f41fb2b85363fd3553d773b09fb24603b31db0b3797aa6a035b65b",
+    "fact_module_sha256": "af04992cc9e717aa52aa0792e2e3ffbb81aaebc12748b10e863ff01e2e91ef58",
+    "evaluator_sha256": "52bd364b833eaeb3c73d2a6fa4543d25874039e107a65d0ed4ae1fd777f15ffc",
+    "runner_sha256": "06197560a63582ca300ccac21b30ee044c82d61f72a7a9f10fa7bdcfaf82bd5f",
+    "arms": {
+      "basic": "old review prompt,thinking disabled",
+      "facts": "itemized fact prompt,thinking disabled",
+      "facts_low": "same itemized prompt,thinking enabled/effort low"
+    },
+    "settings": {
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "requested_max_output_tokens": 4096,
+      "task_budget_usd": 0.005,
+      "max_requests_per_task": 1,
+      "planned_tasks": 96,
+      "planned_reservation_usd": 0.48,
+      "maximum_suite_reservation_usd": 0.5,
+      "input_usd_per_million": 0.3,
+      "output_usd_per_million": 1.2,
+      "pricing_verified_utc_date": "2026-11-13",
+      "pricing_url": "https://api-docs.deepseek.com/quick_start/pricing/",
+      "temperature_disabled": 0.0,
+      "temperature_thinking": "omitted as unsupported",
+      "max_tokens_further_clipped_by_input_reservation": true
+    },
+    "boundaries": [
+      "16 diagnostic samples deliberately include6 known historical misses,6pass controls,4 disputed;not population quality",
+      "All old files/references/scores remain;disputed4 marked contested only in this diagnostic,original_reference retained",
+      "8 clarified artifacts new inputs/new source,not rerating original source against changed input",
+      "8 fresh probes independently designed;synthetic AI labels,not human gold",
+      "Models see only input/source/stdout,no ID/group/oracle/labels",
+      "Samefact prompt in facts and facts_low;effort mode alsochangesprovider temperature support",
+      "FixedUSD cap,not fixedtoken/compute;length/format/transport remain invalid,no paid retries",
+      "No production integration regardless of screening;no new creative model generations"
+    ],
+    "predeclared_screening": {
+      "for_larger_trial_only": true,
+      "all_groups_known_reference_coverage_at_least": 0.9,
+      "diagnostic_caught_bad_at_least": 5,
+      "diagnostic_rejected_good": 0,
+      "clarified_caught_bad_at_least": 3,
+      "clarified_rejected_good": 0,
+      "fresh_caught_bad_at_least": 3,
+      "fresh_rejected_good": 0,
+      "failure_policy": "keep current default;no post-output prompt/oracle tuning"
+    },
+    "tasks": [
+      {
+        "task_id": "basic__clarified_clarified_cc07_a",
+        "arm": "basic",
+        "key": "clarified_clarified_cc07_a"
+      },
+      {
+        "task_id": "facts__clarified_clarified_cc11_a",
+        "arm": "facts",
+        "key": "clarified_clarified_cc11_a"
+      },
+      {
+        "task_id": "facts__fresh_f13-n6",
+        "arm": "facts",
+        "key": "fresh_f13-n6"
+      },
+      {
+        "task_id": "facts_low__b40993691c49f3",
+        "arm": "facts_low",
+        "key": "b40993691c49f3"
+      },
+      {
+        "task_id": "basic__fresh_f13-k7",
+        "arm": "basic",
+        "key": "fresh_f13-k7"
+      },
+      {
+        "task_id": "basic__7890d77ae3a7a3",
+        "arm": "basic",
+        "key": "7890d77ae3a7a3"
+      },
+      {
+        "task_id": "basic__fresh_f13-m2",
+        "arm": "basic",
+        "key": "fresh_f13-m2"
+      },
+      {
+        "task_id": "facts__7b21b5240abc8d",
+        "arm": "facts",
+        "key": "7b21b5240abc8d"
+      },
+      {
+        "task_id": "basic__6705ce790743f4",
+        "arm": "basic",
+        "key": "6705ce790743f4"
+      },
+      {
+        "task_id": "facts__b40993691c49f3",
+        "arm": "facts",
+        "key": "b40993691c49f3"
+      },
+      {
+        "task_id": "facts__fresh_f13-h9",
+        "arm": "facts",
+        "key": "fresh_f13-h9"
+      },
+      {
+        "task_id": "basic__clarified_clarified_cc11_b",
+        "arm": "basic",
+        "key": "clarified_clarified_cc11_b"
+      },
+      {
+        "task_id": "facts_low__clarified_clarified_cc07_a",
+        "arm": "facts_low",
+        "key": "clarified_clarified_cc07_a"
+      },
+      {
+        "task_id": "basic__7b21b5240abc8d",
+        "arm": "basic",
+        "key": "7b21b5240abc8d"
+      },
+      {
+        "task_id": "basic__aac9bce9dd026d",
+        "arm": "basic",
+        "key": "aac9bce9dd026d"
+      },
+      {
+        "task_id": "facts_low__fresh_f13-q5",
+        "arm": "facts_low",
+        "key": "fresh_f13-q5"
+      },
+      {
+        "task_id": "basic__4845757582d2bf",
+        "arm": "basic",
+        "key": "4845757582d2bf"
+      },
+      {
+        "task_id": "basic__clarified_clarified_h02_a",
+        "arm": "basic",
+        "key": "clarified_clarified_h02_a"
+      },
+      {
+        "task_id": "facts_low__fresh_f13-m2",
+        "arm": "facts_low",
+        "key": "fresh_f13-m2"
+      },
+      {
+        "task_id": "facts_low__fresh_f13-b8",
+        "arm": "facts_low",
+        "key": "fresh_f13-b8"
+      },
+      {
+        "task_id": "facts__fresh_f13-m2",
+        "arm": "facts",
+        "key": "fresh_f13-m2"
+      },
+      {
+        "task_id": "basic__03d7a9ff96cc73",
+        "arm": "basic",
+        "key": "03d7a9ff96cc73"
+      },
+      {
+        "task_id": "facts_low__clarified_clarified_cc11_b",
+        "arm": "facts_low",
+        "key": "clarified_clarified_cc11_b"
+      },
+      {
+        "task_id": "facts__d2edd5fcccaec4",
+        "arm": "facts",
+        "key": "d2edd5fcccaec4"
+      },
+      {
+        "task_id": "facts_low__clarified_clarified_f12_b",
+        "arm": "facts_low",
+        "key": "clarified_clarified_f12_b"
+      },
+      {
+        "task_id": "basic__clarified_clarified_f12_b",
+        "arm": "basic",
+        "key": "clarified_clarified_f12_b"
+      },
+      {
+        "task_id": "basic__911459b67725db",
+        "arm": "basic",
+        "key": "911459b67725db"
+      },
+      {
+        "task_id": "basic__fresh_f13-q5",
+        "arm": "basic",
+        "key": "fresh_f13-q5"
+      },
+      {
+        "task_id": "facts_low__clarified_clarified_h02_a",
+        "arm": "facts_low",
+        "key": "clarified_clarified_h02_a"
+      },
+      {
+        "task_id": "basic__fresh_f13-r4",
+        "arm": "basic",
+        "key": "fresh_f13-r4"
+      },
+      {
+        "task_id": "basic__d2edd5fcccaec4",
+        "arm": "basic",
+        "key": "d2edd5fcccaec4"
+      },
+      {
+        "task_id": "facts_low__clarified_clarified_f12_a",
+        "arm": "facts_low",
+        "key": "clarified_clarified_f12_a"
+      },
+      {
+        "task_id": "basic__fresh_f13-h9",
+        "arm": "basic",
+        "key": "fresh_f13-h9"
+      },
+      {
+        "task_id": "facts__0061f4858e404c",
+        "arm": "facts",
+        "key": "0061f4858e404c"
+      },
+      {
+        "task_id": "facts_low__7b21b5240abc8d",
+        "arm": "facts_low",
+        "key": "7b21b5240abc8d"
+      },
+      {
+        "task_id": "facts_low__fresh_f13-v3",
+        "arm": "facts_low",
+        "key": "fresh_f13-v3"
+      },
+      {
+        "task_id": "facts_low__fresh_f13-r4",
+        "arm": "facts_low",
+        "key": "fresh_f13-r4"
+      },
+      {
+        "task_id": "facts__fresh_f13-b8",
+        "arm": "facts",
+        "key": "fresh_f13-b8"
+      },
+      {
+        "task_id": "basic__d0872426e8ab26",
+        "arm": "basic",
+        "key": "d0872426e8ab26"
+      },
+      {
+        "task_id": "basic__3eae879faafe1e",
+        "arm": "basic",
+        "key": "3eae879faafe1e"
+      },
+      {
+        "task_id": "facts__68661b4a597dc5",
+        "arm": "facts",
+        "key": "68661b4a597dc5"
+      },
+      {
+        "task_id": "facts_low__7f6e1049a42d29",
+        "arm": "facts_low",
+        "key": "7f6e1049a42d29"
+      },
+      {
+        "task_id": "facts__7890d77ae3a7a3",
+        "arm": "facts",
+        "key": "7890d77ae3a7a3"
+      },
+      {
+        "task_id": "facts__03d7a9ff96cc73",
+        "arm": "facts",
+        "key": "03d7a9ff96cc73"
+      },
+      {
+        "task_id": "facts_low__fresh_f13-h9",
+        "arm": "facts_low",
+        "key": "fresh_f13-h9"
+      },
+      {
+        "task_id": "facts__e752033dd522a2",
+        "arm": "facts",
+        "key": "e752033dd522a2"
+      },
+      {
+        "task_id": "facts__3eae879faafe1e",
+        "arm": "facts",
+        "key": "3eae879faafe1e"
+      },
+      {
+        "task_id": "facts__911459b67725db",
+        "arm": "facts",
+        "key": "911459b67725db"
+      },
+      {
+        "task_id": "facts_low__03d7a9ff96cc73",
+        "arm": "facts_low",
+        "key": "03d7a9ff96cc73"
+      },
+      {
+        "task_id": "facts_low__clarified_clarified_cc11_a",
+        "arm": "facts_low",
+        "key": "clarified_clarified_cc11_a"
+      },
+      {
+        "task_id": "facts_low__d0872426e8ab26",
+        "arm": "facts_low",
+        "key": "d0872426e8ab26"
+      },
+      {
+        "task_id": "basic__31a6033302bf9d",
+        "arm": "basic",
+        "key": "31a6033302bf9d"
+      },
+      {
+        "task_id": "facts_low__0061f4858e404c",
+        "arm": "facts_low",
+        "key": "0061f4858e404c"
+      },
+      {
+        "task_id": "facts__d0872426e8ab26",
+        "arm": "facts",
+        "key": "d0872426e8ab26"
+      },
+      {
+        "task_id": "facts__clarified_clarified_h02_b",
+        "arm": "facts",
+        "key": "clarified_clarified_h02_b"
+      },
+      {
+        "task_id": "basic__clarified_clarified_cc11_a",
+        "arm": "basic",
+        "key": "clarified_clarified_cc11_a"
+      },
+      {
+        "task_id": "facts_low__aac9bce9dd026d",
+        "arm": "facts_low",
+        "key": "aac9bce9dd026d"
+      },
+      {
+        "task_id": "facts__clarified_clarified_f12_a",
+        "arm": "facts",
+        "key": "clarified_clarified_f12_a"
+      },
+      {
+        "task_id": "basic__clarified_clarified_cc07_b",
+        "arm": "basic",
+        "key": "clarified_clarified_cc07_b"
+      },
+      {
+        "task_id": "basic__fresh_f13-n6",
+        "arm": "basic",
+        "key": "fresh_f13-n6"
+      },
+      {
+        "task_id": "facts__6705ce790743f4",
+        "arm": "facts",
+        "key": "6705ce790743f4"
+      },
+      {
+        "task_id": "basic__fresh_f13-v3",
+        "arm": "basic",
+        "key": "fresh_f13-v3"
+      },
+      {
+        "task_id": "facts__aac9bce9dd026d",
+        "arm": "facts",
+        "key": "aac9bce9dd026d"
+      },
+      {
+        "task_id": "facts_low__e752033dd522a2",
+        "arm": "facts_low",
+        "key": "e752033dd522a2"
+      },
+      {
+        "task_id": "basic__fresh_f13-b8",
+        "arm": "basic",
+        "key": "fresh_f13-b8"
+      },
+      {
+        "task_id": "facts__31a6033302bf9d",
+        "arm": "facts",
+        "key": "31a6033302bf9d"
+      },
+      {
+        "task_id": "facts_low__d2edd5fcccaec4",
+        "arm": "facts_low",
+        "key": "d2edd5fcccaec4"
+      },
+      {
+        "task_id": "facts_low__31a6033302bf9d",
+        "arm": "facts_low",
+        "key": "31a6033302bf9d"
+      },
+      {
+        "task_id": "basic__clarified_clarified_h02_b",
+        "arm": "basic",
+        "key": "clarified_clarified_h02_b"
+      },
+      {
+        "task_id": "basic__7f6e1049a42d29",
+        "arm": "basic",
+        "key": "7f6e1049a42d29"
+      },
+      {
+        "task_id": "facts__clarified_clarified_h02_a",
+        "arm": "facts",
+        "key": "clarified_clarified_h02_a"
+      },
+      {
+        "task_id": "basic__e752033dd522a2",
+        "arm": "basic",
+        "key": "e752033dd522a2"
+      },
+      {
+        "task_id": "facts__fresh_f13-k7",
+        "arm": "facts",
+        "key": "fresh_f13-k7"
+      },
+      {
+        "task_id": "facts_low__3eae879faafe1e",
+        "arm": "facts_low",
+        "key": "3eae879faafe1e"
+      },
+      {
+        "task_id": "basic__68661b4a597dc5",
+        "arm": "basic",
+        "key": "68661b4a597dc5"
+      },
+      {
+        "task_id": "facts__clarified_clarified_f12_b",
+        "arm": "facts",
+        "key": "clarified_clarified_f12_b"
+      },
+      {
+        "task_id": "facts_low__clarified_clarified_h02_b",
+        "arm": "facts_low",
+        "key": "clarified_clarified_h02_b"
+      },
+      {
+        "task_id": "facts_low__fresh_f13-k7",
+        "arm": "facts_low",
+        "key": "fresh_f13-k7"
+      },
+      {
+        "task_id": "facts__fresh_f13-q5",
+        "arm": "facts",
+        "key": "fresh_f13-q5"
+      },
+      {
+        "task_id": "facts__4845757582d2bf",
+        "arm": "facts",
+        "key": "4845757582d2bf"
+      },
+      {
+        "task_id": "facts_low__fresh_f13-n6",
+        "arm": "facts_low",
+        "key": "fresh_f13-n6"
+      },
+      {
+        "task_id": "basic__clarified_clarified_f12_a",
+        "arm": "basic",
+        "key": "clarified_clarified_f12_a"
+      },
+      {
+        "task_id": "facts_low__clarified_clarified_cc07_b",
+        "arm": "facts_low",
+        "key": "clarified_clarified_cc07_b"
+      },
+      {
+        "task_id": "facts_low__6705ce790743f4",
+        "arm": "facts_low",
+        "key": "6705ce790743f4"
+      },
+      {
+        "task_id": "facts__clarified_clarified_cc11_b",
+        "arm": "facts",
+        "key": "clarified_clarified_cc11_b"
+      },
+      {
+        "task_id": "facts_low__68661b4a597dc5",
+        "arm": "facts_low",
+        "key": "68661b4a597dc5"
+      },
+      {
+        "task_id": "facts_low__7890d77ae3a7a3",
+        "arm": "facts_low",
+        "key": "7890d77ae3a7a3"
+      },
+      {
+        "task_id": "facts__7f6e1049a42d29",
+        "arm": "facts",
+        "key": "7f6e1049a42d29"
+      },
+      {
+        "task_id": "facts__fresh_f13-v3",
+        "arm": "facts",
+        "key": "fresh_f13-v3"
+      },
+      {
+        "task_id": "facts__clarified_clarified_cc07_b",
+        "arm": "facts",
+        "key": "clarified_clarified_cc07_b"
+      },
+      {
+        "task_id": "basic__0061f4858e404c",
+        "arm": "basic",
+        "key": "0061f4858e404c"
+      },
+      {
+        "task_id": "basic__b40993691c49f3",
+        "arm": "basic",
+        "key": "b40993691c49f3"
+      },
+      {
+        "task_id": "facts__clarified_clarified_cc07_a",
+        "arm": "facts",
+        "key": "clarified_clarified_cc07_a"
+      },
+      {
+        "task_id": "facts_low__911459b67725db",
+        "arm": "facts_low",
+        "key": "911459b67725db"
+      },
+      {
+        "task_id": "facts_low__4845757582d2bf",
+        "arm": "facts_low",
+        "key": "4845757582d2bf"
+      },
+      {
+        "task_id": "facts__fresh_f13-r4",
+        "arm": "facts",
+        "key": "fresh_f13-r4"
+      }
+    ]
+  },
+  "comparison": {
+    "schema_version": 1,
+    "scope": "offline_three_arm_fact_review",
+    "items_sha256": "fdfeafa95b490c7853895916f7c6194570a8434417082e0a10874f1967881274",
+    "model_calls": 0,
+    "program_executions": 0,
+    "summary": {
+      "basic": {
+        "reference_pass": 14,
+        "reference_fail": 14,
+        "reference_contested": 4,
+        "accepted_good": 14,
+        "rejected_good": 0,
+        "caught_bad": 6,
+        "accepted_bad": 6,
+        "abstain": 0,
+        "invalid": 2,
+        "decisive_known": 26,
+        "total": 32,
+        "known_reference_coverage": 0.9285714285714286,
+        "bad_detection_rate": 0.42857142857142855,
+        "good_rejection_rate": 0.0,
+        "decisive_accuracy": 0.7692307692307693
+      },
+      "facts": {
+        "reference_pass": 14,
+        "reference_fail": 14,
+        "reference_contested": 4,
+        "accepted_good": 13,
+        "rejected_good": 0,
+        "caught_bad": 6,
+        "accepted_bad": 7,
+        "abstain": 0,
+        "invalid": 2,
+        "decisive_known": 26,
+        "total": 32,
+        "known_reference_coverage": 0.9285714285714286,
+        "bad_detection_rate": 0.42857142857142855,
+        "good_rejection_rate": 0.0,
+        "decisive_accuracy": 0.7307692307692307
+      },
+      "facts_low": {
+        "reference_pass": 14,
+        "reference_fail": 14,
+        "reference_contested": 4,
+        "accepted_good": 8,
+        "rejected_good": 0,
+        "caught_bad": 5,
+        "accepted_bad": 1,
+        "abstain": 0,
+        "invalid": 16,
+        "decisive_known": 14,
+        "total": 32,
+        "known_reference_coverage": 0.5,
+        "bad_detection_rate": 0.35714285714285715,
+        "good_rejection_rate": 0.0,
+        "decisive_accuracy": 0.9285714285714286
+      }
+    },
+    "groups": {
+      "clarified": {
+        "basic": {
+          "reference_pass": 4,
+          "reference_fail": 4,
+          "reference_contested": 0,
+          "accepted_good": 4,
+          "rejected_good": 0,
+          "caught_bad": 4,
+          "accepted_bad": 0,
+          "abstain": 0,
+          "invalid": 0,
+          "decisive_known": 8,
+          "total": 8,
+          "known_reference_coverage": 1.0,
+          "bad_detection_rate": 1.0,
+          "good_rejection_rate": 0.0,
+          "decisive_accuracy": 1.0
+        },
+        "facts": {
+          "reference_pass": 4,
+          "reference_fail": 4,
+          "reference_contested": 0,
+          "accepted_good": 4,
+          "rejected_good": 0,
+          "caught_bad": 4,
+          "accepted_bad": 0,
+          "abstain": 0,
+          "invalid": 0,
+          "decisive_known": 8,
+          "total": 8,
+          "known_reference_coverage": 1.0,
+          "bad_detection_rate": 1.0,
+          "good_rejection_rate": 0.0,
+          "decisive_accuracy": 1.0
+        },
+        "facts_low": {
+          "reference_pass": 4,
+          "reference_fail": 4,
+          "reference_contested": 0,
+          "accepted_good": 4,
+          "rejected_good": 0,
+          "caught_bad": 4,
+          "accepted_bad": 0,
+          "abstain": 0,
+          "invalid": 0,
+          "decisive_known": 8,
+          "total": 8,
+          "known_reference_coverage": 1.0,
+          "bad_detection_rate": 1.0,
+          "good_rejection_rate": 0.0,
+          "decisive_accuracy": 1.0
+        }
+      },
+      "diagnostic": {
+        "basic": {
+          "reference_pass": 6,
+          "reference_fail": 6,
+          "reference_contested": 4,
+          "accepted_good": 6,
+          "rejected_good": 0,
+          "caught_bad": 0,
+          "accepted_bad": 6,
+          "abstain": 0,
+          "invalid": 0,
+          "decisive_known": 12,
+          "total": 16,
+          "known_reference_coverage": 1.0,
+          "bad_detection_rate": 0.0,
+          "good_rejection_rate": 0.0,
+          "decisive_accuracy": 0.5
+        },
+        "facts": {
+          "reference_pass": 6,
+          "reference_fail": 6,
+          "reference_contested": 4,
+          "accepted_good": 6,
+          "rejected_good": 0,
+          "caught_bad": 0,
+          "accepted_bad": 5,
+          "abstain": 0,
+          "invalid": 1,
+          "decisive_known": 11,
+          "total": 16,
+          "known_reference_coverage": 0.9166666666666666,
+          "bad_detection_rate": 0.0,
+          "good_rejection_rate": 0.0,
+          "decisive_accuracy": 0.5454545454545454
+        },
+        "facts_low": {
+          "reference_pass": 6,
+          "reference_fail": 6,
+          "reference_contested": 4,
+          "accepted_good": 2,
+          "rejected_good": 0,
+          "caught_bad": 0,
+          "accepted_bad": 1,
+          "abstain": 0,
+          "invalid": 11,
+          "decisive_known": 3,
+          "total": 16,
+          "known_reference_coverage": 0.25,
+          "bad_detection_rate": 0.0,
+          "good_rejection_rate": 0.0,
+          "decisive_accuracy": 0.6666666666666666
+        }
+      },
+      "fresh": {
+        "basic": {
+          "reference_pass": 4,
+          "reference_fail": 4,
+          "reference_contested": 0,
+          "accepted_good": 4,
+          "rejected_good": 0,
+          "caught_bad": 2,
+          "accepted_bad": 0,
+          "abstain": 0,
+          "invalid": 2,
+          "decisive_known": 6,
+          "total": 8,
+          "known_reference_coverage": 0.75,
+          "bad_detection_rate": 0.5,
+          "good_rejection_rate": 0.0,
+          "decisive_accuracy": 1.0
+        },
+        "facts": {
+          "reference_pass": 4,
+          "reference_fail": 4,
+          "reference_contested": 0,
+          "accepted_good": 3,
+          "rejected_good": 0,
+          "caught_bad": 2,
+          "accepted_bad": 2,
+          "abstain": 0,
+          "invalid": 1,
+          "decisive_known": 7,
+          "total": 8,
+          "known_reference_coverage": 0.875,
+          "bad_detection_rate": 0.5,
+          "good_rejection_rate": 0.0,
+          "decisive_accuracy": 0.7142857142857143
+        },
+        "facts_low": {
+          "reference_pass": 4,
+          "reference_fail": 4,
+          "reference_contested": 0,
+          "accepted_good": 2,
+          "rejected_good": 0,
+          "caught_bad": 1,
+          "accepted_bad": 0,
+          "abstain": 0,
+          "invalid": 5,
+          "decisive_known": 3,
+          "total": 8,
+          "known_reference_coverage": 0.375,
+          "bad_detection_rate": 0.25,
+          "good_rejection_rate": 0.0,
+          "decisive_accuracy": 1.0
+        }
+      }
+    },
+    "results": [
+      {
+        "id": "03d7a9ff96cc73",
+        "group": "diagnostic",
+        "reference": "fail",
+        "basic": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        },
+        "facts": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [
+            {
+              "topic": "count",
+              "status": "consistent",
+              "reason": "输出中恰好出现三个“✦”，与要求的三只萤火虫一致。",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "全文必须恰好出现三个“✦”",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "第一点光 ✦ 落在壳尖，第二点 ✦ 绕成小圈，第三点 ✦ 停在回家的岔路口。",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "count",
+              "status": "consistent",
+              "reason": "程序统计并打印的计数为3，与三个“✦”相符。",
+              "evidence": [
+                {
+                  "origin": "source",
+                  "quote": "printf(\"（萤火虫计数：%d）\\n\", fireflies);",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "（萤火虫计数：3）",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "explicit",
+              "status": "consistent",
+              "reason": "故事正文为四行，符合一到四行的要求。",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "写一到四行微型故事",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "夜雾漫过草叶，蜗牛壳上凝着露珠。\n第一点光 ✦ 落在壳尖，第二点 ✦ 绕成小圈，第三点 ✦ 停在回家的岔路口。\n三只萤火虫排成微弱的箭头，蜗牛慢慢爬过湿土。\n天亮前，它终于看见了那扇熟悉的苔藓门。",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "presentation",
+              "status": "consistent",
+              "reason": "结尾提到蜗牛看见苔藓门，与“回家路”的设定一致，未引入第四只萤火虫。",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "别再引入第四只萤火虫",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "三只萤火虫排成微弱的箭头，蜗牛慢慢爬过湿土。",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "226e9c77d2aaed68e2e7f93d4ca1f799770e675543a33dde063ed363015149b7"
+        },
+        "facts_low": {
+          "status": "invalid",
+          "passed": null,
+          "error": "[Errno 2] No such file or directory: '/home/wqwt/ai-tests/yescc-fact-review-2026-11-13/model-responses/facts_low/03d7a9ff96cc73.txt'"
+        }
+      },
+      {
+        "id": "3eae879faafe1e",
+        "group": "diagnostic",
+        "reference": "fail",
+        "basic": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        },
+        "facts": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [
+            {
+              "topic": "explicit",
+              "status": "consistent",
+              "reason": "正文出现“向西”，且全文未出现“向东”。",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "正文至少出现一次“向西”，全文不能出现“向东”",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "小船离开东岸，向西滑行。",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "presentation",
+              "status": "consistent",
+              "reason": "最后一行恰好是要求的句子。",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "最后一行必须只有“船最终停在西岸。”",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "船最终停在西岸。",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "count",
+              "status": "consistent",
+              "reason": "正文除标题和末行外共六行，符合三到五行要求。",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "写三到五行微型航行故事",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "橘红的晚霞铺满水面。\n小船离开东岸，向西滑行。\n霞光把船身染成暖色。\n桨声轻响，船继续向西。\n水波托着碎金般的倒影。\n船影贴着水面，缓缓向西。",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "state",
+              "status": "consistent",
+              "reason": "起始离开东岸，最终停在西岸，方向与终点一致。",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "小船离开东岸，向西滑行。",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "从东岸出发，只向西行进，最终停在西岸",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "9e5273801ef0cea6e30d8717ad5a32b413b1e1d9dd0469bdd04e5cca9f17cd75"
+        },
+        "facts_low": {
+          "status": "invalid",
+          "passed": null,
+          "error": "[Errno 2] No such file or directory: '/home/wqwt/ai-tests/yescc-fact-review-2026-11-13/model-responses/facts_low/3eae879faafe1e.txt'"
+        }
+      },
+      {
+        "id": "68661b4a597dc5",
+        "group": "diagnostic",
+        "reference": "fail",
+        "basic": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        },
+        "facts": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [
+            {
+              "topic": "count",
+              "status": "consistent",
+              "reason": "Source counts 1 full-width space, 6 spaces, 1 tab, 2 newlines; stdout reports the same values.",
+              "evidence": [
+                {
+                  "origin": "source",
+                  "quote": "int counts[4] = {0, 0, 0, 0};",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "  　 : 1\n    : 6\n  \t : 1\n  \n : 2",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "arithmetic",
+              "status": "consistent",
+              "reason": "Total visible gaps 1+6+1=8 matches stdout; line breaks 2 matches newline count.",
+              "evidence": [
+                {
+                  "origin": "source",
+                  "quote": "printf(\"Total visible gaps: %d\\n\", counts[0] + counts[1] + counts[2]);",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "Total visible gaps: 8\nLine breaks: 2",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "presentation",
+              "status": "consistent",
+              "reason": "Stdout contains the three opening lines, blank line, four count lines, blank line, two totals, and closing line in source order.",
+              "evidence": [
+                {
+                  "origin": "source",
+                  "quote": "puts(\"A page arrives with nothing written on it.\");",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "A page arrives with nothing written on it.\nThe reader waits. The page waits back.\n\n  　 : 1",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "34c18e722f357a1796b288032116c618c422ebb40fc4c8efcb219021ad12b869"
+        },
+        "facts_low": {
+          "status": "invalid",
+          "passed": null,
+          "error": "[Errno 2] No such file or directory: '/home/wqwt/ai-tests/yescc-fact-review-2026-11-13/model-responses/facts_low/68661b4a597dc5.txt'"
+        }
+      },
+      {
+        "id": "7b21b5240abc8d",
+        "group": "diagnostic",
+        "reference": "fail",
+        "basic": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        },
+        "facts": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [
+            {
+              "topic": "explicit",
+              "status": "consistent",
+              "reason": "Input's three lines appear in stdout in the same order, with the wish line before the final star.",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "第一行：夜班电梯停在云里。",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "夜班电梯停在云里。",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "请让结尾比开头轻一点。",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "count",
+              "status": "consistent",
+              "reason": "Loop runs floors +3 to -1 inclusive, giving five floor lines as observed.",
+              "evidence": [
+                {
+                  "origin": "source",
+                  "quote": "for (int floor = 3; floor >= -1; --floor)",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "电梯 @ +3 层 | 星光重量 0.25 | ✦",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "电梯 @ -1 层 | 星光重量 0.50 | ✦✦✦",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "arithmetic",
+              "status": "consistent",
+              "reason": "Star counts match weight*5+0.5 truncation: 0.25→1, 0.33→2, 0.50→3, 1.00→5.",
+              "evidence": [
+                {
+                  "origin": "source",
+                  "quote": "int stars = (int)(weight * 5.0 + 0.5);",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "电梯 @ +0 层 | 星光重量 1.00 | ✦✦✦✦✦",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "电梯 @ +2 层 | 星光重量 0.33 | ✦✦",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "presentation",
+              "status": "consistent",
+              "reason": "Ending is lighter than opening: final line is a single star versus the opening line's text.",
+              "evidence": [
+                {
+                  "origin": "source",
+                  "quote": "printf(\"✦\\n\");",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "✦\n",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "16f2583ea2fa0e8c2492f9d8f053e0fdd0c3c4316add3ad28f4900340a5a572a"
+        },
+        "facts_low": {
+          "status": "invalid",
+          "passed": null,
+          "error": "[Errno 2] No such file or directory: '/home/wqwt/ai-tests/yescc-fact-review-2026-11-13/model-responses/facts_low/7b21b5240abc8d.txt'"
+        }
+      },
+      {
+        "id": "911459b67725db",
+        "group": "diagnostic",
+        "reference": "fail",
+        "basic": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        },
+        "facts": {
+          "status": "invalid",
+          "passed": null,
+          "error": "each finding needs stdout and input or source evidence",
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": null,
+          "response_sha256": "52446f8a9d272572c0a58231b71a2ea9c76b722d6a2b82dd16d33879d0ee82c9"
+        },
+        "facts_low": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [
+            {
+              "topic": "explicit",
+              "status": "consistent",
+              "reason": "输入要求展示法令，stdout 中出现了敕令标题和具体法令内容。",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "让程序展示法令、生效后的意外和盐粒的最后决定",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "一粒盐登基，颁布：所有海水，必须记住自己曾经是一粒盐。",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "count",
+              "status": "consistent",
+              "reason": "源码循环条件为 i < 3，stdout 依次显示第1次至第3次潮汐，共三次。",
+              "evidence": [
+                {
+                  "origin": "source",
+                  "quote": "for (int i = 0; i < 3; i++)",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "第1次潮汐：每一滴海水都开始结晶，回忆那粒盐。",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "第3次潮汐：每一滴海水都开始结晶，回忆那粒盐。",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "state",
+              "status": "consistent",
+              "reason": "源码结尾写海水变蓝、盐粒沉回浪里，stdout 的最后一行与之一致。",
+              "evidence": [
+                {
+                  "origin": "source",
+                  "quote": "海水重新变蓝，盐粒沉回浪里，像从未加冕。",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "海水重新变蓝，盐粒沉回浪里，像从未加冕。",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "c83ea94e2a1e617978a9ccb976b48f145c54501ce15853dda72163c335bf9cb2"
+        }
+      },
+      {
+        "id": "b40993691c49f3",
+        "group": "diagnostic",
+        "reference": "fail",
+        "basic": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        },
+        "facts": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [
+            {
+              "topic": "count",
+              "status": "consistent",
+              "reason": "Source loops n=3 lines and 5 seconds; stdout shows exactly 3 numbered lines and 5 second entries.",
+              "evidence": [
+                {
+                  "origin": "source",
+                  "quote": "const int n = 3;",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "第3行：第三行留给那声没响出来的口哨。",
+                  "verified": true
+                },
+                {
+                  "origin": "source",
+                  "quote": "for (int t = 0; t < 5; t++) {",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "第 5 秒：壶内压力 30，口哨音量 10",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "arithmetic",
+              "status": "consistent",
+              "reason": "Cumulative whistle 2,6,12,20,30 matches sum of (t+1)*2; integer division by 3 gives 0,2,4,6,10.",
+              "evidence": [
+                {
+                  "origin": "source",
+                  "quote": "whistle += (t + 1) * 2;",
+                  "verified": true
+                },
+                {
+                  "origin": "source",
+                  "quote": "printf(\"第 %d 秒：壶内压力 %d，口哨音量 %d\\n\", t + 1, whistle, whistle / 3);",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "第 2 秒：壶内压力 6，口哨音量 2",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "第 5 秒：壶内压力 30，口哨音量 10",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "state",
+              "status": "consistent",
+              "reason": "whistle ends at 30 > 0, so the conditional final line is printed as observed.",
+              "evidence": [
+                {
+                  "origin": "source",
+                  "quote": "if (whistle > 0) {",
+                  "verified": true
+                },
+                {
+                  "origin": "source",
+                  "quote": "puts(\"终于，那声口哨没有响出来，却把勇气从壶底顶了上来。\");",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "终于，那声口哨没有响出来，却把勇气从壶底顶了上来。",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "presentation",
+              "status": "consistent",
+              "reason": "Header, numbered lines, separator, and final line appear in the same order as the source's puts/printf sequence.",
+              "evidence": [
+                {
+                  "origin": "source",
+                  "quote": "puts(\"水壶里的留言\");",
+                  "verified": true
+                },
+                {
+                  "origin": "source",
+                  "quote": "puts(\"\\n—— 壶嘴轻轻颤动 ——\");",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "水壶里的留言",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "—— 壶嘴轻轻颤动 ——",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "3dea75fdb941017044470c74790b24551f8541ae56f98230028774187812c654"
+        },
+        "facts_low": {
+          "status": "invalid",
+          "passed": null,
+          "error": "[Errno 2] No such file or directory: '/home/wqwt/ai-tests/yescc-fact-review-2026-11-13/model-responses/facts_low/b40993691c49f3.txt'"
+        }
+      },
+      {
+        "id": "31a6033302bf9d",
+        "group": "diagnostic",
+        "reference": "contested",
+        "basic": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        },
+        "facts": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [
+            {
+              "topic": "explicit",
+              "status": "consistent",
+              "reason": "Output includes a text-art figure plus two short lines, matching the request for a pattern with one or two short sentences.",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "再配一两句短文字",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "影子比人先回家。\n人还在路上，影子已经进了门。",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "presentation",
+              "status": "consistent",
+              "reason": "The figure shows the shadow block column and the person offset to the right, making the misalignment visible.",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "图案本身要让人看出人与影子的错位关系",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "  ▓▓▓  🧍",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "state",
+              "status": "consistent",
+              "reason": "The ending text claims the shadow arrived home first while the person is still on the way, consistent with the depicted separation.",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "人还在路上，影子已经进了门。",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "表现“影子比人先回家”",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "explicit",
+              "status": "consistent",
+              "reason": "The output uses only characters and Unicode symbols, with no color or animation dependency.",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "不要依赖颜色或真实动画",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "        ☀",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "fde464f1d87849319789273b686d16a1254b916932e6c167b75b5f9d92474d4e"
+        },
+        "facts_low": {
+          "status": "invalid",
+          "passed": null,
+          "error": "[Errno 2] No such file or directory: '/home/wqwt/ai-tests/yescc-fact-review-2026-11-13/model-responses/facts_low/31a6033302bf9d.txt'"
+        }
+      },
+      {
+        "id": "4845757582d2bf",
+        "group": "diagnostic",
+        "reference": "contested",
+        "basic": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        },
+        "facts": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [
+            {
+              "topic": "explicit",
+              "status": "consistent",
+              "reason": "故事含“月兔”，共四行叙述，末行单独为结算式。",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "故事里必须出现“月兔”，最后另起一行只写结算式“7-2-3=2”",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "月兔提着竹篮，篮中盛着七枚月饼。",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "7-2-3=2",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "count",
+              "status": "consistent",
+              "reason": "叙述依次为7枚、送出2枚、送出3枚，无其他增减。",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "月兔原有7枚月饼，先送出2枚，再送出3枚，期间没有其他增减",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "它先送出2枚给桂树下的邻居，篮里还剩5枚。",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "随后又送出3枚给赶路的星星，月兔把篮盖轻轻合上。",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "arithmetic",
+              "status": "consistent",
+              "reason": "7减2再减3等于2，与末行结算式及叙述剩余数一致。",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "7-2-3=2",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "月光照进空处，月兔数了数，还剩2枚月饼。",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "7-2-3=2",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "state",
+              "status": "consistent",
+              "reason": "初始7枚，先送2后剩5枚，再送3后剩2枚，最终状态与结算一致。",
+              "evidence": [
+                {
+                  "origin": "source",
+                  "quote": "int after_first = start - first;",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "篮里还剩5枚。",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "还剩2枚月饼。",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "6e4464e0130f8e367fb5396b950c36fc117a22d4633039673e24b553f02bd1da"
+        },
+        "facts_low": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [
+            {
+              "topic": "explicit",
+              "status": "consistent",
+              "reason": "stdout 叙述中明确出现“月兔”，满足故事必须出现该词的要求。",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "月兔提着竹篮，篮中盛着七枚月饼。",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "故事里必须出现“月兔”",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "count",
+              "status": "consistent",
+              "reason": "stdout 先写原有七枚，随后送出2枚，再送出3枚，未出现其他增减。",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "月兔提着竹篮，篮中盛着七枚月饼。",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "它先送出2枚给桂树下的邻居，篮里还剩5枚。",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "随后又送出3枚给赶路的星星，月兔把篮盖轻轻合上。",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "月兔原有7枚月饼，先送出2枚，再送出3枚，期间没有其他增减",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "arithmetic",
+              "status": "consistent",
+              "reason": "7-2=5，5-3=2；stdout 的剩余数5、2与结算式一致。",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "它先送出2枚给桂树下的邻居，篮里还剩5枚。",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "月光照进空处，月兔数了数，还剩2枚月饼。",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "7-2-3=2",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "月兔原有7枚月饼，先送出2枚，再送出3枚",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "presentation",
+              "status": "consistent",
+              "reason": "stdout 最后另起一行，该行只有结算式“7-2-3=2”。",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "还剩2枚月饼。\n7-2-3=2",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "最后另起一行只写结算式“7-2-3=2”",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "67c44851c321c638647a875d3e82110b313616496be12f2593277cf86b903f91"
+        }
+      },
+      {
+        "id": "6705ce790743f4",
+        "group": "diagnostic",
+        "reference": "contested",
+        "basic": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        },
+        "facts": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [
+            {
+              "topic": "count",
+              "status": "consistent",
+              "reason": "Source increments week for i==0,5,6 (3 days) and prints 3; stdout shows 3.",
+              "evidence": [
+                {
+                  "origin": "source",
+                  "quote": "if (i == 0 || i == 5 || i == 6) week++;",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "订书机一共订了 3 个关键日子。",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "state",
+              "status": "consistent",
+              "reason": "Source prints the opening line then iterates days 1-7; stdout matches that sequence.",
+              "evidence": [
+                {
+                  "origin": "source",
+                  "quote": "printf(\"订书机想把星期一和周末订在一起。\\n\\n\");",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "第1天：星期一  ← 订书机从这里开始",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "presentation",
+              "status": "consistent",
+              "reason": "Source marks i==5 as weekend and i==6 as the stapling line; stdout shows those markers on days 6 and 7.",
+              "evidence": [
+                {
+                  "origin": "source",
+                  "quote": "printf(\"  ← 周末到了\");",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "第6天：星期六  ← 周末到了",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "explicit",
+              "status": "consistent",
+              "reason": "Input sentence appears verbatim as the first stdout line.",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "订书机想把星期一和周末订在一起。",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "订书机想把星期一和周末订在一起。",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "d274b9320236ee229fe69d3a431d067f8dbfc237e433d60ca8e5f6a724034250"
+        },
+        "facts_low": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [
+            {
+              "topic": "explicit",
+              "status": "consistent",
+              "reason": "The stdout opening line matches the input line exactly.",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "订书机想把星期一和周末订在一起。",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "订书机想把星期一和周末订在一起。",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "count",
+              "status": "consistent",
+              "reason": "The source defines seven days and the stdout reaches day 7, supporting the expected seven-day sequence.",
+              "evidence": [
+                {
+                  "origin": "source",
+                  "quote": "const char *days[7]",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "第7天：星期日",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "arithmetic",
+              "status": "consistent",
+              "reason": "The three listed indices are the only increments, yielding a final count of 3 as printed.",
+              "evidence": [
+                {
+                  "origin": "source",
+                  "quote": "if (i == 0 || i == 5 || i == 6) week++;",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "订书机一共订了 3 个关键日子。",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "d4df068d996a4eaaabacb8c0d3ba40bb542e933fa34113244743d559dce67f13"
+        }
+      },
+      {
+        "id": "e752033dd522a2",
+        "group": "diagnostic",
+        "reference": "contested",
+        "basic": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        },
+        "facts": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [
+            {
+              "topic": "count",
+              "status": "consistent",
+              "reason": "stdout shows steps 00 through 10, eleven step lines, matching the loop bound and the final claim of 10 steps.",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "第00步 电梯在云里",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "第10步 电梯在负一层（星在此层）",
+                  "verified": true
+                },
+                {
+                  "origin": "source",
+                  "quote": "for (step = 0; step <= 10; step++)",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "state",
+              "status": "consistent",
+              "reason": "Elevator starts at 云里 and descends one floor per step to 负一层, matching pos=10 and pos-- until target.",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "第00步 电梯在云里",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "第10步 电梯在负一层（星在此层）",
+                  "verified": true
+                },
+                {
+                  "origin": "source",
+                  "quote": "int pos = 10;",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "arithmetic",
+              "status": "consistent",
+              "reason": "Final line reports 1 star, 11 floors, 10 steps; source prints 1, n=11, and step-1=10.",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "结尾比开头轻一点：1 颗星，11 层，10 步。",
+                  "verified": true
+                },
+                {
+                  "origin": "source",
+                  "quote": "printf(\"结尾比开头轻一点：%d 颗星，%d 层，%d 步。\\n\", 1, n, step - 1);",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "presentation",
+              "status": "consistent",
+              "reason": "Input asks the ending be lighter than the opening; stdout's ending is a short summary line, an observable formatting claim.",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "结尾比开头轻一点：1 颗星，11 层，10 步。",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "第三行：请让结尾比开头轻一点。",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "0b57e12f6fa975f2ff214c69a235b0ce8098a685a862319435d3e61e3828baa8"
+        },
+        "facts_low": {
+          "status": "invalid",
+          "passed": null,
+          "error": "[Errno 2] No such file or directory: '/home/wqwt/ai-tests/yescc-fact-review-2026-11-13/model-responses/facts_low/e752033dd522a2.txt'"
+        }
+      },
+      {
+        "id": "0061f4858e404c",
+        "group": "diagnostic",
+        "reference": "pass",
+        "basic": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        },
+        "facts": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [
+            {
+              "topic": "explicit",
+              "status": "consistent",
+              "reason": "输出恰好四行，依次以要求的四个前缀开头。",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "只输出四行，依次以“[3] ”、“[2] ”、“[1] ”、“[0] ”开头",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "[3] 月港的潮汐被调成静音，缆绳在银光里缓缓收紧\n[2] 导航员把最后一枚星图折进掌心，像收起一枚小小的月亮\n[1] 发射井的舱门呼吸般合拢，倒计时灯一盏盏沉入海底\n[0] 星门开启",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "presentation",
+              "status": "consistent",
+              "reason": "最后一行完整为“[0] 星门开启”，与要求一致。",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "最后一行必须完整写成“[0] 星门开启”",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "[0] 星门开启",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "count",
+              "status": "consistent",
+              "reason": "stdout 共四行，符合“只输出四行”的数量约束。",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "只输出四行",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "[3] 月港的潮汐被调成静音，缆绳在银光里缓缓收紧\n[2] 导航员把最后一枚星图折进掌心，像收起一枚小小的月亮\n[1] 发射井的舱门呼吸般合拢，倒计时灯一盏盏沉入海底\n[0] 星门开启",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "state",
+              "status": "consistent",
+              "reason": "前三行均为准备动作，末行以星门开启结束，符合倒计时到零即结束。",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "前三行各写一个有画面感的准备动作",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "[1] 发射井的舱门呼吸般合拢，倒计时灯一盏盏沉入海底\n[0] 星门开启",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "c47a32296a5d1662b66e88f0ce722c9334cfd4e5bf1771fe0b9c570886c2ff94"
+        },
+        "facts_low": {
+          "status": "invalid",
+          "passed": null,
+          "error": "[Errno 2] No such file or directory: '/home/wqwt/ai-tests/yescc-fact-review-2026-11-13/model-responses/facts_low/0061f4858e404c.txt'"
+        }
+      },
+      {
+        "id": "7890d77ae3a7a3",
+        "group": "diagnostic",
+        "reference": "pass",
+        "basic": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        },
+        "facts": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [
+            {
+              "topic": "explicit",
+              "status": "consistent",
+              "reason": "第一行只有标题，且与要求一致。",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "第一行只有“借来的月光”",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "借来的月光",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "presentation",
+              "status": "consistent",
+              "reason": "第二行完全空白，符合要求。",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "第二行完全空白",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "借来的月光\n\n画面：",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "explicit",
+              "status": "consistent",
+              "reason": "第三、四行分别以“画面：”和“心声：”开头。",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "第三行以“画面：”开头",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "画面：一扇旧木窗半开，银白的月光斜落在空椅上，像谁悄悄借来的一小片夜。",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "count",
+              "status": "consistent",
+              "reason": "输出共五行，第五行只有“展览结束”，无额外空行。",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "输出严格五行",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "展览结束\n",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "ac2dc5fe2afdf5ac50b60a34af8e0391a9ccc064b062d6fdb3523e52b5caace5"
+        },
+        "facts_low": {
+          "status": "invalid",
+          "passed": null,
+          "error": "[Errno 2] No such file or directory: '/home/wqwt/ai-tests/yescc-fact-review-2026-11-13/model-responses/facts_low/7890d77ae3a7a3.txt'"
+        }
+      },
+      {
+        "id": "d2edd5fcccaec4",
+        "group": "diagnostic",
+        "reference": "pass",
+        "basic": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        },
+        "facts": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [
+            {
+              "topic": "explicit",
+              "status": "consistent",
+              "reason": "Three lines, each with the required prefix and a sentence after the vertical bar.",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "只写三行",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "清晨：☃☃｜两个雪人并肩站着，数天边慢慢亮起的云。",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "count",
+              "status": "consistent",
+              "reason": "Snowman symbols appear only in the two required line prefixes: two at dawn, one at noon, none at night.",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "全文不要在这些行首之外再使用雪人符号",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "正午：☃｜一个雪人融成水洼，另一个替他挡着太阳。",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "state",
+              "status": "consistent",
+              "reason": "Sequence shows two snowmen at dawn, one melted by noon, and the last melted by night.",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "正午融化掉一个",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "夜晚：无｜最后一滴水映过落日，安静地渗进土里。",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "presentation",
+              "status": "consistent",
+              "reason": "Output matches the source strings and ends with the night line as required.",
+              "evidence": [
+                {
+                  "origin": "source",
+                  "quote": "const char *night = \"夜晚：无｜最后一滴水映过落日，安静地渗进土里。\";",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "夜晚：无｜最后一滴水映过落日，安静地渗进土里。",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "aa0859c7135d6549f1efbfe5f3986a371ad877d10387cbe55bf082978816e00b"
+        },
+        "facts_low": {
+          "status": "invalid",
+          "passed": null,
+          "error": "[Errno 2] No such file or directory: '/home/wqwt/ai-tests/yescc-fact-review-2026-11-13/model-responses/facts_low/d2edd5fcccaec4.txt'"
+        }
+      },
+      {
+        "id": "7f6e1049a42d29",
+        "group": "diagnostic",
+        "reference": "pass",
+        "basic": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        },
+        "facts": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [
+            {
+              "topic": "explicit",
+              "status": "consistent",
+              "reason": "Output uses 🐋 exactly once and ✉️ exactly once, matching the requirement.",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "全文恰好使用一次“🐋”和一次“✉️”",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "🐋鲸鱼把潮声折成薄薄一片，",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "✉️装进信封，寄往没有海的沙漠。",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "presentation",
+              "status": "consistent",
+              "reason": "The final line is exactly the required sentence with no extra text.",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "最后一行必须只有“潮声已寄出。”",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "潮声已寄出。",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "count",
+              "status": "consistent",
+              "reason": "Output has four lines, within the required two-to-four-line range.",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "写两到四行微型故事",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "🐋鲸鱼把潮声折成薄薄一片，\n✉️装进信封，寄往没有海的沙漠。\n风替它盖上一枚沙粒邮戳。\n潮声已寄出。",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "state",
+              "status": "consistent",
+              "reason": "The story content matches the source's whale, envelope, desert, and tide-sound elements.",
+              "evidence": [
+                {
+                  "origin": "source",
+                  "quote": "装进信封，寄往没有海的沙漠。",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "✉️装进信封，寄往没有海的沙漠。",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "cf936e25fd04ce0f068a1dddae49da22ee4a777d586f398ba41e7786e6f26736"
+        },
+        "facts_low": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [
+            {
+              "topic": "explicit",
+              "status": "consistent",
+              "reason": "stdout 共四行，符合输入要求的二到四行。",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "🐋鲸鱼把潮声折成薄薄一片，\n✉️装进信封，寄往没有海的沙漠。\n风替它盖上一枚沙粒邮戳。\n潮声已寄出。",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "写两到四行微型故事",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "count",
+              "status": "consistent",
+              "reason": "完整 stdout 中“🐋”和“✉️”各出现一次。",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "🐋鲸鱼把潮声折成薄薄一片，\n✉️装进信封，寄往没有海的沙漠。\n风替它盖上一枚沙粒邮戳。\n潮声已寄出。",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "全文恰好使用一次“🐋”和一次“✉️”",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "presentation",
+              "status": "consistent",
+              "reason": "最后一行仅有指定句子，前后无其他文字。",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "潮声已寄出。",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "最后一行必须只有“潮声已寄出。”",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "state",
+              "status": "consistent",
+              "reason": "stdout 的四行文本和两个符号前缀与 source 中按序输出的内容一致。",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "🐋鲸鱼把潮声折成薄薄一片，\n✉️装进信封，寄往没有海的沙漠。\n风替它盖上一枚沙粒邮戳。\n潮声已寄出。",
+                  "verified": true
+                },
+                {
+                  "origin": "source",
+                  "quote": "\"鲸鱼把潮声折成薄薄一片，\",\n        \"装进信封，寄往没有海的沙漠。\",\n        \"风替它盖上一枚沙粒邮戳。\",\n        \"潮声已寄出。\"",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "1cd46cd7da429b5e84d0034f4474139f2c1010cfc985b4bbe16c970ecc1c3206"
+        }
+      },
+      {
+        "id": "d0872426e8ab26",
+        "group": "diagnostic",
+        "reference": "pass",
+        "basic": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        },
+        "facts": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [
+            {
+              "topic": "explicit",
+              "status": "consistent",
+              "reason": "Output has exactly three lines as required.",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "只输出三行",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "🚂 小火车载着猫，穿过汉字森林。\n字符数：1\nUTF-8字节数：3\n",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "presentation",
+              "status": "consistent",
+              "reason": "Second and third lines match the mandated exact strings.",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "第二行必须只有“字符数：1”，第三行必须只有“UTF-8字节数：3”",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "字符数：1\nUTF-8字节数：3",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "count",
+              "status": "consistent",
+              "reason": "Source computes strlen of 猫 as bytes and prints 3, matching output.",
+              "evidence": [
+                {
+                  "origin": "source",
+                  "quote": "int bytes = (int)strlen(cat);",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "UTF-8字节数：3",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "arithmetic",
+              "status": "consistent",
+              "reason": "Single character 猫 in UTF-8 is 3 bytes, consistent with stated counts.",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "统计对象仅是单个汉字“猫”",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "字符数：1\nUTF-8字节数：3",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "1409a035130d7690dd10e9fcc455dc38e9f70b28634994b9071f8ea212418cc6"
+        },
+        "facts_low": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [
+            {
+              "topic": "explicit",
+              "status": "consistent",
+              "reason": "stdout contains one story line followed by the two required count lines, with no extra lines.",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "🚂 小火车载着猫，穿过汉字森林。\n字符数：1\nUTF-8字节数：3\n",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "只输出三行",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "explicit",
+              "status": "consistent",
+              "reason": "The second output line is exactly the required count line.",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "字符数：1",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "第二行必须只有“字符数：1”",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "explicit",
+              "status": "consistent",
+              "reason": "The third output line is exactly the required UTF-8 byte-count line.",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "UTF-8字节数：3",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "第三行必须只有“UTF-8字节数：3”",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "count",
+              "status": "consistent",
+              "reason": "stdout reports one character and three UTF-8 bytes for the single specified character 猫.",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "字符数：1\nUTF-8字节数：3",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "统计对象仅是单个汉字“猫”",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "84c8dd1dc9637826085fc6c0ce6d3442f5e1597412ceea579dedcd35014eb575"
+        }
+      },
+      {
+        "id": "aac9bce9dd026d",
+        "group": "diagnostic",
+        "reference": "pass",
+        "basic": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        },
+        "facts": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [
+            {
+              "topic": "explicit",
+              "status": "consistent",
+              "reason": "故事含“月兔”，且最后一行只写结算式。",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "月兔提着竹篮，篮里原有7枚月饼。",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "故事里必须出现“月兔”，最后另起一行只写结算式“7-2-3=2”",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "count",
+              "status": "consistent",
+              "reason": "叙述依次为原有7枚、送出2枚、送出3枚、剩2枚，与结算一致。",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "它先送出2枚给守桥的星子，又送出3枚给晚归的云。",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "月兔原有7枚月饼，先送出2枚，再送出3枚",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "arithmetic",
+              "status": "consistent",
+              "reason": "7减2再减3等于2，结算式正确。",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "7-2-3=2",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "7-2-3=2",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "presentation",
+              "status": "consistent",
+              "reason": "输出为四行，末行单独为结算式。",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "篮底还剩2枚，月光正好铺满。\n7-2-3=2",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "写一个两到四行的月兔送月饼小故事",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "ff307b1b27015b092343d4d9faf58ef38d6d83acb39e705c0956482fc527a250"
+        },
+        "facts_low": {
+          "status": "invalid",
+          "passed": null,
+          "error": "[Errno 2] No such file or directory: '/home/wqwt/ai-tests/yescc-fact-review-2026-11-13/model-responses/facts_low/aac9bce9dd026d.txt'"
+        }
+      },
+      {
+        "id": "clarified_clarified_cc07_a",
+        "group": "clarified",
+        "reference": "pass",
+        "basic": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        },
+        "facts": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [
+            {
+              "topic": "explicit",
+              "status": "consistent",
+              "reason": "输出共四行，无标题或空白行，末行仅为指定结算式。",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "整个 stdout 共两到四行，结算式也计入这个总行数；不输出标题或空白行。最后一行只写“7-2-3=2”",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "7-2-3=2",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "count",
+              "status": "consistent",
+              "reason": "故事先送2枚剩5枚，再送3枚留2枚，与7枚起始及无其他增减一致。",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "它先给守夜人2枚，篮里剩5枚。",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "从7枚月饼先送出2枚、再送出3枚，期间没有其他增减",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "arithmetic",
+              "status": "consistent",
+              "reason": "7减2得5，再减3得2，与叙述和末行结算式相符。",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "又送船夫3枚，留下2枚陪自己等潮声。",
+                  "verified": true
+                },
+                {
+                  "origin": "source",
+                  "quote": "puts(\"7-2-3=2\");",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "presentation",
+              "status": "consistent",
+              "reason": "故事中出现“月兔”，且末行结算式与要求完全一致。",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "月兔提着7枚月饼，沿着桂枝去敲星星的窗。",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "前面的故事必须出现“月兔”",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "275e3729aa0766a22743fd1b0a45c9f4d0d62e37a62afd2a99dd29735b99e8b1"
+        },
+        "facts_low": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [
+            {
+              "topic": "count",
+              "status": "consistent",
+              "reason": "stdout为四个非空行，结算式计入后仍符合两到四行，且未出现空白行。",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "月兔提着7枚月饼，沿着桂枝去敲星星的窗。\n它先给守夜人2枚，篮里剩5枚。\n又送船夫3枚，留下2枚陪自己等潮声。\n7-2-3=2",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "整个 stdout 共两到四行，结算式也计入这个总行数；不输出标题或空白行。",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "explicit",
+              "status": "consistent",
+              "reason": "最后一行只包含指定的结算式，没有额外文字。",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "7-2-3=2",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "最后一行只写“7-2-3=2”",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "state",
+              "status": "consistent",
+              "reason": "故事出现“月兔”，数量按7枚、送出2枚剩5枚、再送出3枚剩2枚展开，未见其他增减。",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "它先给守夜人2枚，篮里剩5枚。\n又送船夫3枚，留下2枚陪自己等潮声。",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "从7枚月饼先送出2枚、再送出3枚，期间没有其他增减，叙述数量保持一致。",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "arithmetic",
+              "status": "consistent",
+              "reason": "结算式7-2-3的计算结果为2，与末尾写法一致。",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "7-2-3=2",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "7-2-3=2",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "12745bc4956aec1a0addacadf3455db40940e12f47f24fa608b91f6a2c4a7d2a"
+        }
+      },
+      {
+        "id": "clarified_clarified_cc07_b",
+        "group": "clarified",
+        "reference": "fail",
+        "basic": {
+          "status": "fail",
+          "passed": false,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [
+            {
+              "reason": "输出共5行，超过要求的2到4行上限。",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "整个 stdout 共两到四行",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "月兔带着7枚月饼，踩过一条银白的小径。\n它先送园丁2枚，篮里剩5枚。\n再给摆渡人3枚，篮里剩2枚。\n它把最后2枚抱在怀里，看见灯火在水面团圆。\n7-2-3=2",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "utf8_valid": true,
+          "response_sha256": "97550e77d71ab097a0b5d8500b4a40765852094495c47c1759bf9130ddffa6f8"
+        },
+        "facts": {
+          "status": "fail",
+          "passed": false,
+          "error": null,
+          "checks": [
+            {
+              "topic": "explicit",
+              "status": "contradiction",
+              "reason": "输入要求整个 stdout 共两到四行，实际输出为五行。",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "整个 stdout 共两到四行",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "月兔带着7枚月饼，踩过一条银白的小径。\n它先送园丁2枚，篮里剩5枚。\n再给摆渡人3枚，篮里剩2枚。\n它把最后2枚抱在怀里，看见灯火在水面团圆。\n7-2-3=2",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "presentation",
+              "status": "consistent",
+              "reason": "最后一行只写“7-2-3=2”，与要求一致。",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "最后一行只写“7-2-3=2”",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "7-2-3=2",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "count",
+              "status": "consistent",
+              "reason": "故事先送2枚再送3枚，剩余数量依次为5和2，与7-2-3=2一致。",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "它先送园丁2枚，篮里剩5枚。",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "再给摆渡人3枚，篮里剩2枚。",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "从7枚月饼先送出2枚、再送出3枚",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "explicit",
+              "status": "consistent",
+              "reason": "故事中出现“月兔”，且无标题或空白行。",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "前面的故事必须出现“月兔”",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "月兔带着7枚月饼，踩过一条银白的小径。",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "uncheckable": [],
+          "findings": [
+            {
+              "reason": "输入要求整个 stdout 共两到四行，实际输出为五行。",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "整个 stdout 共两到四行",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "月兔带着7枚月饼，踩过一条银白的小径。\n它先送园丁2枚，篮里剩5枚。\n再给摆渡人3枚，篮里剩2枚。\n它把最后2枚抱在怀里，看见灯火在水面团圆。\n7-2-3=2",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "utf8_valid": true,
+          "response_sha256": "4ad1b20bdfc0112abb2a529302d62686637f08bf9a0ca90437798900b51aa5a6"
+        },
+        "facts_low": {
+          "status": "fail",
+          "passed": false,
+          "error": null,
+          "checks": [
+            {
+              "topic": "count",
+              "status": "contradiction",
+              "reason": "输入要求 stdout 共两到四行，实际输出为五行。",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "整个 stdout 共两到四行",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "月兔带着7枚月饼，踩过一条银白的小径。\n它先送园丁2枚，篮里剩5枚。\n再给摆渡人3枚，篮里剩2枚。\n它把最后2枚抱在怀里，看见灯火在水面团圆。\n7-2-3=2\n",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "explicit",
+              "status": "consistent",
+              "reason": "最后一行只包含指定算式，符合“最后一行只写”的要求。",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "最后一行只写“7-2-3=2”",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "7-2-3=2\n",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "arithmetic",
+              "status": "consistent",
+              "reason": "7 枚先送 2 枚剩 5 枚，再送 3 枚剩 2 枚，数量变化一致。",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "从7枚月饼先送出2枚、再送出3枚，期间没有其他增减",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "它先送园丁2枚，篮里剩5枚。\n再给摆渡人3枚，篮里剩2枚。",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "uncheckable": [],
+          "findings": [
+            {
+              "reason": "输入要求 stdout 共两到四行，实际输出为五行。",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "整个 stdout 共两到四行",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "月兔带着7枚月饼，踩过一条银白的小径。\n它先送园丁2枚，篮里剩5枚。\n再给摆渡人3枚，篮里剩2枚。\n它把最后2枚抱在怀里，看见灯火在水面团圆。\n7-2-3=2\n",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "utf8_valid": true,
+          "response_sha256": "6bd0db703adad5d3f34a7bfa318dc0a2e6b90e3c24b0b1cdf71c029e9ec99d49"
+        }
+      },
+      {
+        "id": "clarified_clarified_h02_a",
+        "group": "clarified",
+        "reference": "pass",
+        "basic": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        },
+        "facts": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [
+            {
+              "topic": "explicit",
+              "status": "consistent",
+              "reason": "First line matches the required literal exactly.",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "第一行必须原样为“[星期一]<==>[周末]”",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "[星期一]<==>[周末]",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "count",
+              "status": "consistent",
+              "reason": "Output has exactly three lines with no blank lines.",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "输出恰好三行，不要标题或空白行",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "[星期一]<==>[周末]\n订书机弯下腰，把星期六和星期日折进周末的口袋。\n星期一牵住那只口袋，闹钟第一次听见了海浪。",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "state",
+              "status": "consistent",
+              "reason": "Weekend is defined as Saturday and Sunday, and the second line preserves that.",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "右端连接周末这个整体（星期六和星期日）",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "订书机弯下腰，把星期六和星期日折进周末的口袋。",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "presentation",
+              "status": "consistent",
+              "reason": "Only one connector appears, linking Monday to the weekend whole.",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "其中唯一的“<==>”代表同一枚订书钉",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "[星期一]<==>[周末]",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "ebce7c5aeb9a8b0d262ba1e1d08542ca8cd62fdb370339edd67ce782b6f8f586"
+        },
+        "facts_low": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [
+            {
+              "topic": "explicit",
+              "status": "consistent",
+              "reason": "Observed first line exactly matches the required literal line.",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "[星期一]<==>[周末]",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "第一行必须原样为“[星期一]<==>[周末]”",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "count",
+              "status": "consistent",
+              "reason": "Observed output has three newline-terminated lines and no blank lines.",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "[星期一]<==>[周末]\n订书机弯下腰，把星期六和星期日折进周末的口袋。\n星期一牵住那只口袋，闹钟第一次听见了海浪。\n",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "输出恰好三行，不要标题或空白行",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "state",
+              "status": "consistent",
+              "reason": "Observed second line keeps the weekend defined as Saturday and Sunday together.",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "订书机弯下腰，把星期六和星期日折进周末的口袋。",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "周末这个整体（星期六和星期日）",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "4f3825bb2ea74d5c70875f01e33dcfd9e407aa61ffa07a550ea550e977a27c0b"
+        }
+      },
+      {
+        "id": "clarified_clarified_h02_b",
+        "group": "clarified",
+        "reference": "fail",
+        "basic": {
+          "status": "fail",
+          "passed": false,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [
+            {
+              "reason": "First line must be exactly “[星期一]<==>[周末]”, but stdout connects 星期一 to 星期二, a different workday endpoint.",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "第一行必须原样为“[星期一]<==>[周末]”",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "[星期一]<==>[星期二]",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "utf8_valid": true,
+          "response_sha256": "c2fa2a7c01546958efbacbade050231fc6a04a288ff2eae29445e196543cdf5a"
+        },
+        "facts": {
+          "status": "fail",
+          "passed": false,
+          "error": null,
+          "checks": [
+            {
+              "topic": "explicit",
+              "status": "contradiction",
+              "reason": "Input requires first line exactly “[星期一]<==>[周末]”, but stdout's first line connects 星期二 instead.",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "第一行必须原样为“[星期一]<==>[周末]”",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "[星期一]<==>[星期二]",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "explicit",
+              "status": "contradiction",
+              "reason": "Input forbids another workday as the connection endpoint; stdout uses 星期二 as the right endpoint.",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "不能把另一工作日当作连接端点",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "[星期一]<==>[星期二]",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "count",
+              "status": "consistent",
+              "reason": "Stdout contains exactly three nonempty lines with no title or blank line.",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "输出恰好三行，不要标题或空白行",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "[星期一]<==>[星期二]\n订书机把两张挨着的日历压在一起，周末仍在窗外。\n星期六和星期日隔着五页纸，听见一声孤单的咔嗒。",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "state",
+              "status": "consistent",
+              "reason": "Lines two and three describe stapler scenes and keep 周末 defined as 星期六和星期日.",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "第二、三行自由写订书机完成连接的两个短小情节，不改变周末的定义。",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "星期六和星期日隔着五页纸，听见一声孤单的咔嗒。",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "uncheckable": [],
+          "findings": [
+            {
+              "reason": "Input requires first line exactly “[星期一]<==>[周末]”, but stdout's first line connects 星期二 instead.",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "第一行必须原样为“[星期一]<==>[周末]”",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "[星期一]<==>[星期二]",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "reason": "Input forbids another workday as the connection endpoint; stdout uses 星期二 as the right endpoint.",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "不能把另一工作日当作连接端点",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "[星期一]<==>[星期二]",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "utf8_valid": true,
+          "response_sha256": "b2b75e1fd0260fe32a2788741fb6ec35aa5f7253050f7ea606bca497913dd580"
+        },
+        "facts_low": {
+          "status": "fail",
+          "passed": false,
+          "error": null,
+          "checks": [
+            {
+              "topic": "explicit",
+              "status": "contradiction",
+              "reason": "The required first line connects Monday to the whole weekend; stdout connects Monday to Tuesday.",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "第一行必须原样为“[星期一]<==>[周末]”",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "[星期一]<==>[星期二]",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "count",
+              "status": "consistent",
+              "reason": "stdout contains exactly three nonblank lines and no title or blank line.",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "输出恰好三行，不要标题或空白行",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "[星期一]<==>[星期二]\n订书机把两张挨着的日历压在一起，周末仍在窗外。\n星期六和星期日隔着五页纸，听见一声孤单的咔嗒。",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "state",
+              "status": "consistent",
+              "reason": "The source's first printed line matches the observed stdout first line.",
+              "evidence": [
+                {
+                  "origin": "source",
+                  "quote": "puts(\"[星期一]<==>[星期二]\");",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "[星期一]<==>[星期二]",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "uncheckable": [],
+          "findings": [
+            {
+              "reason": "The required first line connects Monday to the whole weekend; stdout connects Monday to Tuesday.",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "第一行必须原样为“[星期一]<==>[周末]”",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "[星期一]<==>[星期二]",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "utf8_valid": true,
+          "response_sha256": "272177726dd2d179261e773b80e5212c62add2b27fcbde5579c0cf0bda3f9acc"
+        }
+      },
+      {
+        "id": "clarified_clarified_cc11_a",
+        "group": "clarified",
+        "reference": "pass",
+        "basic": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        },
+        "facts": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [
+            {
+              "topic": "explicit",
+              "status": "consistent",
+              "reason": "输出恰好三行，无标题或空白行，第一行仅含规定图元且顺序正确。",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "[PERSON]------[HOME:SHADOW]",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "恰好输出三行，不要标题或空白行",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "presentation",
+              "status": "consistent",
+              "reason": "第一行按从左到右为 PERSON、连字符、HOME:SHADOW，无空格或其他图元。",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "[PERSON]------[HOME:SHADOW]",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "只能按从左到右的顺序放置“[PERSON]”、一个或多个 ASCII 连字符“-”、以及“[HOME:SHADOW]”，不加空格或其他图元",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "state",
+              "status": "consistent",
+              "reason": "文字说明人仍在屋外、影子已在家，与图中标签位置一致。",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "他还在路上收拾晚风，影子已在家里把夜色铺平。",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "PERSON 表示仍在屋外的人；HOME:SHADOW 表示影子已经在家里",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "count",
+              "status": "consistent",
+              "reason": "stdout 共三行，符合恰好三行的要求。",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "门缝留着一点光，等最后一双脚回来。",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "恰好输出三行",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "46a9a25f735ebe956472524197d2632efe4490c4162b453b1d6a207f5c28ab6c"
+        },
+        "facts_low": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [
+            {
+              "topic": "explicit",
+              "status": "consistent",
+              "reason": "stdout 首行仅由 [PERSON]、六个连字符和 [HOME:SHADOW] 依次组成，无空格或其他图元。",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "[PERSON]------[HOME:SHADOW]",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "第一行是 ASCII 图，只能按从左到右的顺序放置“[PERSON]”、一个或多个 ASCII 连字符“-”、以及“[HOME:SHADOW]”，不加空格或其他图元。",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "count",
+              "status": "consistent",
+              "reason": "stdout 显示三行内容，且无标题或空白行。",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "[PERSON]------[HOME:SHADOW]\n他还在路上收拾晚风，影子已在家里把夜色铺平。\n门缝留着一点光，等最后一双脚回来。",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "恰好输出三行，不要标题或空白行。",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "state",
+              "status": "consistent",
+              "reason": "第二行说人还在路上、影子已在家，符合 PERSON 在屋外、HOME:SHADOW 在家的约定。",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "他还在路上收拾晚风，影子已在家里把夜色铺平。",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "PERSON 表示仍在屋外的人；HOME:SHADOW 表示影子已经在家里",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "8e7a245b6d9cfef413a89c6660994c5fa996bc8f64e297247a56068001af1af7"
+        }
+      },
+      {
+        "id": "clarified_clarified_cc11_b",
+        "group": "clarified",
+        "reference": "fail",
+        "basic": {
+          "status": "fail",
+          "passed": false,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [
+            {
+              "reason": "第一行缺少要求的“[HOME:SHADOW]”图元，反而把“[SHADOW]”和“[HOME]”分成两个独立标签，且影子被放在屋外，与“影子比人先回家”矛盾。",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "第一行是 ASCII 图，只能按从左到右的顺序放置“[PERSON]”、一个或多个 ASCII 连字符“-”、以及“[HOME:SHADOW]”",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "[PERSON]---[SHADOW]---[HOME]",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "reason": "第二行说影子仍未跨过家门，与“影子比人先回家”的要求矛盾。",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "用文字图表现“影子比人先回家”。",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "影子先走了几步，却和人一样仍未跨过家门。",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "utf8_valid": true,
+          "response_sha256": "a608255e44b9b3223447e405f63054a8dafc530e1db6fa8632202417fca3eec0"
+        },
+        "facts": {
+          "status": "fail",
+          "passed": false,
+          "error": null,
+          "checks": [
+            {
+              "topic": "explicit",
+              "status": "contradiction",
+              "reason": "Input requires first line to be [PERSON], hyphens, then [HOME:SHADOW]; stdout uses [SHADOW]---[HOME] instead.",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "第一行是 ASCII 图，只能按从左到右的顺序放置“[PERSON]”、一个或多个 ASCII 连字符“-”、以及“[HOME:SHADOW]”",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "[PERSON]---[SHADOW]---[HOME]",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "state",
+              "status": "contradiction",
+              "reason": "Input states shadow is already home; stdout text says both have not crossed the door and both are on the road.",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "HOME:SHADOW 表示影子已经在家里",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "影子先走了几步，却和人一样仍未跨过家门。",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "count",
+              "status": "consistent",
+              "reason": "Output has exactly three nonempty lines with no title or blank line.",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "恰好输出三行，不要标题或空白行",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "[PERSON]---[SHADOW]---[HOME]\n影子先走了几步，却和人一样仍未跨过家门。\n屋里的灯把两位旅客都照在了路上。",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "uncheckable": [],
+          "findings": [
+            {
+              "reason": "Input requires first line to be [PERSON], hyphens, then [HOME:SHADOW]; stdout uses [SHADOW]---[HOME] instead.",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "第一行是 ASCII 图，只能按从左到右的顺序放置“[PERSON]”、一个或多个 ASCII 连字符“-”、以及“[HOME:SHADOW]”",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "[PERSON]---[SHADOW]---[HOME]",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "reason": "Input states shadow is already home; stdout text says both have not crossed the door and both are on the road.",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "HOME:SHADOW 表示影子已经在家里",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "影子先走了几步，却和人一样仍未跨过家门。",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "utf8_valid": true,
+          "response_sha256": "a34ac35283dc8a62bf4c5514da210d42a0f0eed6b6381d56acd2242e18c0bb6f"
+        },
+        "facts_low": {
+          "status": "fail",
+          "passed": false,
+          "error": null,
+          "checks": [
+            {
+              "topic": "explicit",
+              "status": "contradiction",
+              "reason": "First stdout line uses separate “[SHADOW]” and “[HOME]” labels instead of the required “[HOME:SHADOW]”, adding an extra diagram element.",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "[PERSON]---[SHADOW]---[HOME]",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "第一行是 ASCII 图，只能按从左到右的顺序放置“[PERSON]”、一个或多个 ASCII 连字符“-”、以及“[HOME:SHADOW]”，不加空格或其他图元。",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "count",
+              "status": "consistent",
+              "reason": "Stdout consists of exactly three nonempty lines, with no title or blank line.",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "[PERSON]---[SHADOW]---[HOME]\n影子先走了几步，却和人一样仍未跨过家门。\n屋里的灯把两位旅客都照在了路上。",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "恰好输出三行，不要标题或空白行。",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "state",
+              "status": "contradiction",
+              "reason": "Stdout says both remain outside the door, while input requires HOME:SHADOW to mean the shadow is already at home.",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "影子先走了几步，却和人一样仍未跨过家门。",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "HOME:SHADOW 表示影子已经在家里，连字符表示两者之间的路，因此不能把 SHADOW 单独放在家外。",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "uncheckable": [],
+          "findings": [
+            {
+              "reason": "First stdout line uses separate “[SHADOW]” and “[HOME]” labels instead of the required “[HOME:SHADOW]”, adding an extra diagram element.",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "[PERSON]---[SHADOW]---[HOME]",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "第一行是 ASCII 图，只能按从左到右的顺序放置“[PERSON]”、一个或多个 ASCII 连字符“-”、以及“[HOME:SHADOW]”，不加空格或其他图元。",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "reason": "Stdout says both remain outside the door, while input requires HOME:SHADOW to mean the shadow is already at home.",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "影子先走了几步，却和人一样仍未跨过家门。",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "HOME:SHADOW 表示影子已经在家里，连字符表示两者之间的路，因此不能把 SHADOW 单独放在家外。",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "utf8_valid": true,
+          "response_sha256": "db87eb4af7ea6df43d521e4d6da70024ef8e68a88ee2c8a1bc02463bad7db0e4"
+        }
+      },
+      {
+        "id": "clarified_clarified_f12_a",
+        "group": "clarified",
+        "reference": "pass",
+        "basic": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        },
+        "facts": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [
+            {
+              "topic": "count",
+              "status": "consistent",
+              "reason": "输出恰好三行状态，数字依次为2、1、0。",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "DAY8 sun=2\nDAY8 sun=1\nDAY8 sun=0",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "先输出恰好三行状态，格式为“DAY8 sun=数字”，数字依次为2、1、0",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "presentation",
+              "status": "consistent",
+              "reason": "三行状态后接一行旁白，无标题或空白行。",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "DAY8 sun=0\n星期八把最后一枚金扣交给海面，夜色终于合上外套。",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "接着输出一到两行自由的短旁白，收束在落日已完成之后，不另加状态行、标题或空白行。",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "state",
+              "status": "consistent",
+              "reason": "sun=0表示太阳已完全落下，旁白收束于落日完成之后。",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "DAY8 sun=0\n星期八把最后一枚金扣交给海面，夜色终于合上外套。",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "0在此约定为太阳已完全落下",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "state",
+              "status": "consistent",
+              "reason": "三个状态均标注DAY8，符合都发生在星期八的约定。",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "DAY8 sun=2\nDAY8 sun=1\nDAY8 sun=0",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "三个状态都发生在星期八",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "18fa30f88421dcf719c7f17b5c6b16612360e95f0d3d7c714b40d577a3e25610"
+        },
+        "facts_low": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [
+            {
+              "topic": "explicit",
+              "status": "consistent",
+              "reason": "The three status lines use the required format and the required 2, 1, 0 sequence.",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "DAY8 sun=2\nDAY8 sun=1\nDAY8 sun=0",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "先输出恰好三行状态，格式为“DAY8 sun=数字”，数字依次为2、1、0",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "count",
+              "status": "consistent",
+              "reason": "There are exactly three status lines followed by one narration line, with no blank line or title.",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "DAY8 sun=2\nDAY8 sun=1\nDAY8 sun=0\n星期八把最后一枚金扣交给海面，夜色终于合上外套。\n",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "接着输出一到两行自由的短旁白，收束在落日已完成之后，不另加状态行、标题或空白行。",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "state",
+              "status": "consistent",
+              "reason": "The status descends to sun=0, and the narration follows that final state and presents the sunset as completed.",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "DAY8 sun=0\n星期八把最后一枚金扣交给海面，夜色终于合上外套。",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "0在此约定为太阳已完全落下，三个状态都发生在星期八",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "857b53e2ec7fcb11af62d52e44716feef38a518a177ee416e1dfe7bbfae29579"
+        }
+      },
+      {
+        "id": "clarified_clarified_f12_b",
+        "group": "clarified",
+        "reference": "fail",
+        "basic": {
+          "status": "fail",
+          "passed": false,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [
+            {
+              "reason": "The three required state lines must be 2, 1, 0, but the observed output's third state line repeats 1 instead of 0.",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "数字依次为2、1、0",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "DAY8 sun=1\nDAY8 sun=1",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "utf8_valid": true,
+          "response_sha256": "3f64183bbfa501b05da964613e7cacdefb9d6ca4e79b061d3d90b5ff154c5d81"
+        },
+        "facts": {
+          "status": "fail",
+          "passed": false,
+          "error": null,
+          "checks": [
+            {
+              "topic": "count",
+              "status": "contradiction",
+              "reason": "Input requires exactly three state lines with numbers 2,1,0; stdout's third state line is sun=1, not sun=0.",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "数字依次为2、1、0",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "DAY8 sun=1",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "state",
+              "status": "contradiction",
+              "reason": "Ending claims the sun has fully set, but the last state line shows sun=1, not the agreed 0 meaning fully below horizon.",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "0在此约定为太阳已完全落下",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "太阳已经完全落下，星期八在黑暗里合上日记。",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "presentation",
+              "status": "consistent",
+              "reason": "Output has three DAY8 state lines followed by one narration line, with no title or blank lines.",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "先输出恰好三行状态，格式为“DAY8 sun=数字”",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "DAY8 sun=2\nDAY8 sun=1\nDAY8 sun=1\n太阳已经完全落下，星期八在黑暗里合上日记。",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "uncheckable": [],
+          "findings": [
+            {
+              "reason": "Input requires exactly three state lines with numbers 2,1,0; stdout's third state line is sun=1, not sun=0.",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "数字依次为2、1、0",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "DAY8 sun=1",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "reason": "Ending claims the sun has fully set, but the last state line shows sun=1, not the agreed 0 meaning fully below horizon.",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "0在此约定为太阳已完全落下",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "太阳已经完全落下，星期八在黑暗里合上日记。",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "utf8_valid": true,
+          "response_sha256": "30a7c3bd0ee655f8eb8194f439d7236bff9cfd977bf3582027b5b46f16fed813"
+        },
+        "facts_low": {
+          "status": "fail",
+          "passed": false,
+          "error": null,
+          "checks": [
+            {
+              "topic": "explicit",
+              "status": "contradiction",
+              "reason": "输入要求状态数字依次为2、1、0；实际第三行仍是DAY8 sun=1。",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "DAY8 sun=2\nDAY8 sun=1\nDAY8 sun=1",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "数字依次为2、1、0",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "state",
+              "status": "contradiction",
+              "reason": "最后状态为DAY8 sun=1，随后旁白称太阳完全落下；输入约定0才表示完全落下，二者冲突。",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "DAY8 sun=1\n太阳已经完全落下，星期八在黑暗里合上日记。",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "0在此约定为太阳已完全落下",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "count",
+              "status": "consistent",
+              "reason": "共有三行DAY8状态和一行旁白，符合三行状态及一到两行旁白。",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "DAY8 sun=2\nDAY8 sun=1\nDAY8 sun=1\n太阳已经完全落下，星期八在黑暗里合上日记。",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "先输出恰好三行状态",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "接着输出一到两行自由的短旁白",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "uncheckable": [],
+          "findings": [
+            {
+              "reason": "输入要求状态数字依次为2、1、0；实际第三行仍是DAY8 sun=1。",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "DAY8 sun=2\nDAY8 sun=1\nDAY8 sun=1",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "数字依次为2、1、0",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "reason": "最后状态为DAY8 sun=1，随后旁白称太阳完全落下；输入约定0才表示完全落下，二者冲突。",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "DAY8 sun=1\n太阳已经完全落下，星期八在黑暗里合上日记。",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "0在此约定为太阳已完全落下",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "utf8_valid": true,
+          "response_sha256": "ef3c975ecc71b5cbf8d9d05d34f89bbe76a19f17863c1c89b1f81dcd5f47adfb"
+        }
+      },
+      {
+        "id": "fresh_f13-k7",
+        "group": "fresh",
+        "reference": "fail",
+        "basic": {
+          "status": "fail",
+          "passed": false,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [
+            {
+              "reason": "第二趟卸货后，岛上未亮数量应为4颗（第一趟剩1颗未亮加第二趟3颗），但输出显示未亮4颗、亮3颗、共7颗，与“亮3+未亮4=7”一致；然而结尾把岛上所有未亮星籽点亮后，亮数应为7颗、未亮0颗，输出却显示亮6颗、未亮1颗。",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "第二趟再装 3 颗运到岛上并全部卸下，然后把岛上所有尚未点亮的星籽一起点亮。",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "最后清点：钟楼剩 2 颗；岛上亮 6 颗、未亮 1 颗；船上 0 颗。",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "utf8_valid": true,
+          "response_sha256": "5f524fb7b1604de4cf9173e9a5d5622b7ce69885fd8502225eeaa16024af3f17"
+        },
+        "facts": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [
+            {
+              "topic": "count",
+              "status": "consistent",
+              "reason": "First trip: 4 loaded, 3 lit, 1 unlit; tower 9-4=5 matches stdout.",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "第一趟装 4 颗运到岛上并全部卸下，只点亮其中 3 颗",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "第一趟靠岸：钟楼剩 5 颗；岛上亮 3 颗、未亮 1 颗；船已空。",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "count",
+              "status": "consistent",
+              "reason": "Second trip: 3 more delivered, tower 5-3=2, island 4+3=7, boat empty.",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "第二趟再装 3 颗运到岛上并全部卸下",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "第二趟卸货后：钟楼剩 2 颗；岛上亮 3 颗、未亮 4 颗，共 7 颗；船上 0 颗。",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "arithmetic",
+              "status": "consistent",
+              "reason": "Lighting all 4 unlit gives 3+4=7 lit and 0 unlit; stdout shows 6 lit, 1 unlit, which conflicts.",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "然后把岛上所有尚未点亮的星籽一起点亮",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "最后清点：钟楼剩 2 颗；岛上亮 6 颗、未亮 1 颗；船上 0 颗。",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "state",
+              "status": "consistent",
+              "reason": "Conservation holds: 2 tower + 7 island = 9 total; lighting does not consume seeds.",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "星籽不增加、不丢失，点亮不会消耗星籽",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "最后清点：钟楼剩 2 颗；岛上亮 6 颗、未亮 1 颗；船上 0 颗。",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "63663f3410b7b4a7178b7faeaabfab07acd1048d3023921f6257cae53b49dcb1"
+        },
+        "facts_low": {
+          "status": "fail",
+          "passed": false,
+          "error": null,
+          "checks": [
+            {
+              "topic": "explicit",
+              "status": "consistent",
+              "reason": "初始数量与船容量符合输入设定：钟楼9颗、岛上0颗、船空且最多4颗。",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "最初钟楼有 9 颗尚未点亮的星籽，岛上没有，纸船为空且最多装 4 颗。",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "起航前：钟楼未运走 9 颗；岛上 0 颗；船上 0 颗。",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "count",
+              "status": "consistent",
+              "reason": "第一趟运4颗卸下并点亮3颗后，钟楼剩5颗、岛上亮3颗未亮1颗、船为空，数量吻合。",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "第一趟装 4 颗运到岛上并全部卸下，只点亮其中 3 颗；空船回钟楼。",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "第一趟靠岸：钟楼剩 5 颗；岛上亮 3 颗、未亮 1 颗；船已空。",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "arithmetic",
+              "status": "contradiction",
+              "reason": "第二趟卸货后岛上有3颗亮、4颗未亮；按要求点亮所有未亮的4颗后，应为亮7颗、未亮0颗，而不是亮6颗、未亮1颗。",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "然后把岛上所有尚未点亮的星籽一起点亮。",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "最后清点：钟楼剩 2 颗；岛上亮 6 颗、未亮 1 颗；船上 0 颗。",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "uncheckable": [],
+          "findings": [
+            {
+              "reason": "第二趟卸货后岛上有3颗亮、4颗未亮；按要求点亮所有未亮的4颗后，应为亮7颗、未亮0颗，而不是亮6颗、未亮1颗。",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "然后把岛上所有尚未点亮的星籽一起点亮。",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "最后清点：钟楼剩 2 颗；岛上亮 6 颗、未亮 1 颗；船上 0 颗。",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "utf8_valid": true,
+          "response_sha256": "63d5cb716b447810fbb49058079f04ae4633f52631e399216a62a2637e7b230d"
+        }
+      },
+      {
+        "id": "fresh_f13-m2",
+        "group": "fresh",
+        "reference": "pass",
+        "basic": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        },
+        "facts": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [
+            {
+              "topic": "count",
+              "status": "consistent",
+              "reason": "First trip: 4 loaded, 3 lit, 1 unlit on island; tower 9-4=5, matching stdout.",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "第一趟装 4 颗运到岛上并全部卸下，只点亮其中 3 颗",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "第一趟靠岸：钟楼剩 5 颗；岛上亮 3 颗、未亮 1 颗；船已空。",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "arithmetic",
+              "status": "consistent",
+              "reason": "Second trip adds 3: island 4+3=7, tower 5-3=2, unlit 7-3=4, all matching stdout.",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "第二趟再装 3 颗运到岛上并全部卸下",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "第二趟卸货后：钟楼剩 2 颗；岛上亮 3 颗、未亮 4 颗，共 7 颗；船上 0 颗。",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "state",
+              "status": "consistent",
+              "reason": "Ending lights all remaining unlit seeds: 7 lit, 0 unlit, tower 2, boat empty, total conserved at 9.",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "然后把岛上所有尚未点亮的星籽一起点亮。星籽不增加、不丢失",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "最后清点：钟楼剩 2 颗；岛上亮 7 颗、未亮 0 颗；船上 0 颗。",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "presentation",
+              "status": "consistent",
+              "reason": "Output reports tower remainder, island lit/unlit counts, and boat emptiness after both unloadings and at the end.",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "请在两次卸货后和结尾交代钟楼余量、岛上的亮与未亮数量、船是否为空。",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "第二趟卸货后：钟楼剩 2 颗；岛上亮 3 颗、未亮 4 颗，共 7 颗；船上 0 颗。",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "91a911631e5dfee27e0ecd3da4217c7b8f64c3831582ebddca9e5d6d874f063d"
+        },
+        "facts_low": {
+          "status": "invalid",
+          "passed": null,
+          "error": "[Errno 2] No such file or directory: '/home/wqwt/ai-tests/yescc-fact-review-2026-11-13/model-responses/facts_low/fresh_f13-m2.txt'"
+        }
+      },
+      {
+        "id": "fresh_f13-q5",
+        "group": "fresh",
+        "reference": "pass",
+        "basic": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        },
+        "facts": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [
+            {
+              "topic": "count",
+              "status": "consistent",
+              "reason": "铃后 8-3=5 白、0+3=3 蓝，与输出一致。",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "铃声先唤醒 3 朵，它们变蓝",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "铃后：白色睡花 5 朵，蓝色醒花 3 朵。",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "count",
+              "status": "consistent",
+              "reason": "雨后 1 朵蓝转白：5+1=6 白、3-1=2 蓝，与输出一致。",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "随后细雨让其中 1 朵蓝花重新变白睡去",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "雨后：白色睡花 6 朵，蓝色醒花 2 朵。",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "arithmetic",
+              "status": "consistent",
+              "reason": "当时白花 6 朵，一半为 3；6-3=3 白、2+3=5 蓝，与输出一致。",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "最后鸟哨唤醒此刻所有白色睡花的一半",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "鸟哨吹过，3 朵睡花醒来并变蓝。",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "傍晚：白色睡花 3 朵，蓝色醒花 5 朵。",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "presentation",
+              "status": "consistent",
+              "reason": "结尾说明两种状态仍存在，且总数 3+5=8 未增减。",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "花不增减",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "白花继续守梦，蓝花替它们听晚风；两种状态都还在。",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "585b37b52bf335911f6143fa3fa2dc81c4dba4056a6dc076a0e6eaaef0b3ec7a"
+        },
+        "facts_low": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [
+            {
+              "topic": "state",
+              "status": "consistent",
+              "reason": "开场输出 8 朵白、0 朵蓝，与输入的初始状态一致。",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "开场：白色睡花 8 朵，蓝色醒花 0 朵。",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "最初有 8 朵白色睡花，没有蓝色醒花",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "arithmetic",
+              "status": "consistent",
+              "reason": "铃后 5/3、雨后 6/2，符合先唤醒 3 朵、再让 1 朵蓝花变白。",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "铃后：白色睡花 5 朵，蓝色醒花 3 朵。",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "雨后：白色睡花 6 朵，蓝色醒花 2 朵。",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "铃声先唤醒 3 朵，它们变蓝；随后细雨让其中 1 朵蓝花重新变白睡去",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "arithmetic",
+              "status": "consistent",
+              "reason": "雨后白 6 朵的一半为 3 朵；6-3=3，2+3=5，最终计数吻合。",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "鸟哨吹过，3 朵睡花醒来并变蓝。",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "傍晚：白色睡花 3 朵，蓝色醒花 5 朵。",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "最后鸟哨唤醒此刻所有白色睡花的一半",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "presentation",
+              "status": "consistent",
+              "reason": "结尾明确说明白、蓝两种状态仍然存在。",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "白花继续守梦，蓝花替它们听晚风；两种状态都还在。",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "并交代结尾哪些状态仍存在",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "32eda12603076221590bae1fe1c0b05d15df1d7800271b0b7d2c9cc697b9bfd6"
+        }
+      },
+      {
+        "id": "fresh_f13-b8",
+        "group": "fresh",
+        "reference": "fail",
+        "basic": {
+          "status": "fail",
+          "passed": false,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [
+            {
+              "reason": "鸟哨应唤醒雨后当时6朵白花的一半，即3朵；输出却唤醒2朵，导致傍晚白/蓝数量错误。",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "最后鸟哨唤醒此刻所有白色睡花的一半",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "鸟哨吹过，2 朵睡花醒来并变蓝。",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "雨后：白色睡花 6 朵，蓝色醒花 2 朵。",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "utf8_valid": true,
+          "response_sha256": "2a9c1f5991b400bc2db5f69b056e17bbd6aa519599198e83b1214d247b78bcbe"
+        },
+        "facts": {
+          "status": "fail",
+          "passed": false,
+          "error": null,
+          "checks": [
+            {
+              "topic": "arithmetic",
+              "status": "contradiction",
+              "reason": "After the rain there are 6 white flowers; half of the current white count is 3, but the program wakes only 2 (it uses the post-bell count 5/2).",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "最后鸟哨唤醒此刻所有白色睡花的一半",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "雨后：白色睡花 6 朵，蓝色醒花 2 朵。",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "鸟哨吹过，2 朵睡花醒来并变蓝。",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "count",
+              "status": "contradiction",
+              "reason": "Waking 3 of 6 white flowers should leave 3 white and 5 blue, but the ending shows 4 white and 4 blue.",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "一半按当时的数量准确计算",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "傍晚：白色睡花 4 朵，蓝色醒花 4 朵。",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "state",
+              "status": "consistent",
+              "reason": "The ending states both flower states still exist, matching the nonzero white and blue counts.",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "白花继续守梦，蓝花替它们听晚风；两种状态都还在。",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "并交代结尾哪些状态仍存在",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "count",
+              "status": "consistent",
+              "reason": "Bell and rain stages match: 8 white/0 blue, then 5/3, then 6/2, with no flowers added or removed.",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "铃后：白色睡花 5 朵，蓝色醒花 3 朵。",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "雨后：白色睡花 6 朵，蓝色醒花 2 朵。",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "花不增减",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "uncheckable": [],
+          "findings": [
+            {
+              "reason": "After the rain there are 6 white flowers; half of the current white count is 3, but the program wakes only 2 (it uses the post-bell count 5/2).",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "最后鸟哨唤醒此刻所有白色睡花的一半",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "雨后：白色睡花 6 朵，蓝色醒花 2 朵。",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "鸟哨吹过，2 朵睡花醒来并变蓝。",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "reason": "Waking 3 of 6 white flowers should leave 3 white and 5 blue, but the ending shows 4 white and 4 blue.",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "一半按当时的数量准确计算",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "傍晚：白色睡花 4 朵，蓝色醒花 4 朵。",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "utf8_valid": true,
+          "response_sha256": "b747037e9ce6ae040011c5cef22f32f36c91d8e5f83c43e3ca28366cedefe9c1"
+        },
+        "facts_low": {
+          "status": "invalid",
+          "passed": null,
+          "error": "[Errno 2] No such file or directory: '/home/wqwt/ai-tests/yescc-fact-review-2026-11-13/model-responses/facts_low/fresh_f13-b8.txt'"
+        }
+      },
+      {
+        "id": "fresh_f13-v3",
+        "group": "fresh",
+        "reference": "fail",
+        "basic": {
+          "status": "invalid",
+          "passed": null,
+          "error": "each finding needs stdout and input or source evidence",
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": null,
+          "response_sha256": "484a7286a97b7557cdbda510aebdf12d49a51e0aaed4db136da93d53216da759"
+        },
+        "facts": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [
+            {
+              "topic": "count",
+              "status": "consistent",
+              "reason": "Output contains exactly one A, one B, one *, and one lowercase o.",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "| A=======B |",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "图里恰有一个 A 塔、一个 B 塔、一个星号 * 表示月亮、一个小写 o 表示门",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "state",
+              "status": "consistent",
+              "reason": "A and B are on the same row with A left of B, joined by continuous = characters.",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "| A=======B |",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "A 在 B 左边而且同一行，中间用连续的 = 连成桥",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "state",
+              "status": "consistent",
+              "reason": "* is in the same column as B and on a higher row.",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "|         * |",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "* 要在 B 的正上方，即字符网格中同一列、行更高",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "state",
+              "status": "consistent",
+              "reason": "o is in the same column as A and on a lower row.",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "|  o        |",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "o 要在 A 的正下方，即同一列、行更低",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "564a77933e40605dffe06b530a1b74fc1cceb477ea7b2c5715264ce1e4930476"
+        },
+        "facts_low": {
+          "status": "invalid",
+          "passed": null,
+          "error": "[Errno 2] No such file or directory: '/home/wqwt/ai-tests/yescc-fact-review-2026-11-13/model-responses/facts_low/fresh_f13-v3.txt'"
+        }
+      },
+      {
+        "id": "fresh_f13-n6",
+        "group": "fresh",
+        "reference": "pass",
+        "basic": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        },
+        "facts": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [
+            {
+              "topic": "count",
+              "status": "consistent",
+              "reason": "Output contains exactly one A, one B, one *, and one lowercase o.",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "| A=======B |",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "图里恰有一个 A 塔、一个 B 塔、一个星号 * 表示月亮、一个小写 o 表示门",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "state",
+              "status": "consistent",
+              "reason": "A and B are on the same row with A left of B, joined by continuous = characters.",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "| A=======B |",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "A 在 B 左边而且同一行，中间用连续的 = 连成桥",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "state",
+              "status": "consistent",
+              "reason": "* is in the same column as B and on a higher row.",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "|         * |",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "* 要在 B 的正上方，即字符网格中同一列、行更高",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "state",
+              "status": "consistent",
+              "reason": "o is in the same column as A and on a lower row.",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "| o         |",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "o 要在 A 的正下方，即同一列、行更低",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "dfae16d37a60734fd8147ad4407b1e85bd3ce4eee6e0662f704041a301244a5f"
+        },
+        "facts_low": {
+          "status": "invalid",
+          "passed": null,
+          "error": "[Errno 2] No such file or directory: '/home/wqwt/ai-tests/yescc-fact-review-2026-11-13/model-responses/facts_low/fresh_f13-n6.txt'"
+        }
+      },
+      {
+        "id": "fresh_f13-r4",
+        "group": "fresh",
+        "reference": "pass",
+        "basic": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        },
+        "facts": {
+          "status": "invalid",
+          "passed": null,
+          "error": "each finding needs stdout and input or source evidence",
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": null,
+          "response_sha256": "c887af7798555006d1cf2fbf418cffcd8e6630e90053ef6c2874870d5423efb0"
+        },
+        "facts_low": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [
+            {
+              "topic": "explicit",
+              "status": "consistent",
+              "reason": "末尾清点行同时列出桌面、窗台、封瓶和抽屉，符合指定清点位置。",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "实物清点：桌面 0 件；窗台 1 只折叠纸鹤；封瓶内 1 张展开纸条；抽屉内 1 张展开纸条。",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "请在结尾分别清点桌面、窗台、封瓶和抽屉里的实际纸物件及形态",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "count",
+              "status": "consistent",
+              "reason": "初始 3 只纸鹤，2 只展开成 2 张纸条，剩 1 只折叠；清点合计 0+1+1+1=3，物件数和形态一致。",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "桌上三只纸鹤，两只松开折痕，成为两张纸条。",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "实际物件从桌上的 3 只折叠纸鹤开始：先把其中 2 只展开，得到 2 张纸条",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "实物清点：桌面 0 件；窗台 1 只折叠纸鹤；封瓶内 1 张展开纸条；抽屉内 1 张展开纸条。",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "state",
+              "status": "consistent",
+              "reason": "剩余纸鹤仍折着并飞到窗台，清点也记为窗台 1 只折叠纸鹤，状态一致。",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "剩下的一只仍折着，飞到窗台，收拢纸翼。",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "剩下的那只折叠纸鹤飞到窗台，并在结尾仍保持折叠。",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "窗台 1 只折叠纸鹤",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "ab1c5f6c64af78c7271290516f3550c1af767270d4a5166d1c2210a06f3544c5"
+        }
+      },
+      {
+        "id": "fresh_f13-h9",
+        "group": "fresh",
+        "reference": "fail",
+        "basic": {
+          "status": "invalid",
+          "passed": null,
+          "error": "each finding needs stdout and input or source evidence",
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": null,
+          "response_sha256": "c92c71f8ad91e37b3189f46876321555c6cf4e729c867bda3ccd5496b783301f"
+        },
+        "facts": {
+          "status": "fail",
+          "passed": false,
+          "error": null,
+          "checks": [
+            {
+              "topic": "state",
+              "status": "contradiction",
+              "reason": "Input requires the crane on the windowsill to remain folded, but the ending counts it as an unfolded paper strip.",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "剩下的那只折叠纸鹤飞到窗台，并在结尾仍保持折叠",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "实物清点：桌面 0 件；窗台 1 张展开纸条；封瓶内 1 张展开纸条；抽屉内 1 张展开纸条。",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "count",
+              "status": "consistent",
+              "reason": "Starting with 3 cranes, unfolding 2 yields 2 strips; one sealed in bottle, one in drawer, leaving 0 on table.",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "实际物件从桌上的 3 只折叠纸鹤开始：先把其中 2 只展开，得到 2 张纸条",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "实物清点：桌面 0 件；窗台 1 张展开纸条；封瓶内 1 张展开纸条；抽屉内 1 张展开纸条。",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "topic": "presentation",
+              "status": "consistent",
+              "reason": "Ending separately inventories table, windowsill, sealed bottle, and drawer as required.",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "请在结尾分别清点桌面、窗台、封瓶和抽屉里的实际纸物件及形态",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "实物清点：桌面 0 件；窗台 1 张展开纸条；封瓶内 1 张展开纸条；抽屉内 1 张展开纸条。",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "uncheckable": [],
+          "findings": [
+            {
+              "reason": "Input requires the crane on the windowsill to remain folded, but the ending counts it as an unfolded paper strip.",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "剩下的那只折叠纸鹤飞到窗台，并在结尾仍保持折叠",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "实物清点：桌面 0 件；窗台 1 张展开纸条；封瓶内 1 张展开纸条；抽屉内 1 张展开纸条。",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "utf8_valid": true,
+          "response_sha256": "d22ef3040eb420f1149326b8ba54f2f3e2a1beddc40d76a57e979edde1a60022"
+        },
+        "facts_low": {
+          "status": "invalid",
+          "passed": null,
+          "error": "[Errno 2] No such file or directory: '/home/wqwt/ai-tests/yescc-fact-review-2026-11-13/model-responses/facts_low/fresh_f13-h9.txt'"
+        }
+      }
+    ]
+  },
+  "fees": {
+    "basic": {
+      "tasks": 32,
+      "requests": 32,
+      "unknown_cost_tasks": 0,
+      "known_upper_subtotal_usd": 0.009156599999999999,
+      "committed_usd": 0.009156599999999999,
+      "input_tokens_with_usage": 25498,
+      "output_tokens_with_usage": 1256,
+      "reasoning_tokens_reported": 0,
+      "reasoning_tokens_unknown_responses": 32,
+      "length_responses": 0,
+      "p50_task_ms": 875.5,
+      "actual_token_cap_min": 2600,
+      "actual_token_cap_max": 3264
+    },
+    "facts": {
+      "tasks": 32,
+      "requests": 32,
+      "unknown_cost_tasks": 0,
+      "known_upper_subtotal_usd": 0.022841399999999994,
+      "committed_usd": 0.0228414,
+      "input_tokens_with_usage": 30330,
+      "output_tokens_with_usage": 11452,
+      "reasoning_tokens_reported": 0,
+      "reasoning_tokens_unknown_responses": 32,
+      "length_responses": 0,
+      "p50_task_ms": 1889.5,
+      "actual_token_cap_min": 2388,
+      "actual_token_cap_max": 3052
+    },
+    "facts_low": {
+      "tasks": 32,
+      "requests": 32,
+      "unknown_cost_tasks": 0,
+      "known_upper_subtotal_usd": 0.10080299999999999,
+      "committed_usd": 0.10080299999999999,
+      "input_tokens_with_usage": 31130,
+      "output_tokens_with_usage": 76220,
+      "reasoning_tokens_reported": 69433,
+      "reasoning_tokens_unknown_responses": 0,
+      "length_responses": 16,
+      "p50_task_ms": 13459.5,
+      "actual_token_cap_min": 2388,
+      "actual_token_cap_max": 3052
+    },
+    "grand": {
+      "tasks": 96,
+      "requests": 96,
+      "unknown_cost_tasks": 0,
+      "known_upper_subtotal_usd": 0.132801,
+      "committed_usd": 0.13280100000000003,
+      "max_task_known_usd": 0.0039008999999999997,
+      "reserved_usd": 0.48,
+      "not_invoice": true,
+      "excludes_host_agent_cost": true
+    }
+  },
+  "screening": {
+    "basic": {
+      "coverage_all_groups": false,
+      "diagnostic_caught_at_least5": false,
+      "diagnostic_zero_good_rejections": true,
+      "clarified_caught_at_least3": true,
+      "clarified_zero_good_rejections": true,
+      "fresh_caught_at_least3": false,
+      "fresh_zero_good_rejections": true,
+      "candidate_for_larger_trial": false
+    },
+    "facts": {
+      "coverage_all_groups": false,
+      "diagnostic_caught_at_least5": false,
+      "diagnostic_zero_good_rejections": true,
+      "clarified_caught_at_least3": true,
+      "clarified_zero_good_rejections": true,
+      "fresh_caught_at_least3": false,
+      "fresh_zero_good_rejections": true,
+      "candidate_for_larger_trial": false
+    },
+    "facts_low": {
+      "coverage_all_groups": false,
+      "diagnostic_caught_at_least5": false,
+      "diagnostic_zero_good_rejections": true,
+      "clarified_caught_at_least3": true,
+      "clarified_zero_good_rejections": true,
+      "fresh_caught_at_least3": false,
+      "fresh_zero_good_rejections": true,
+      "candidate_for_larger_trial": false
+    }
+  },
+  "production_integration": false,
+  "prompts_and_materials_verified": true,
+  "product_source_unchanged": true,
+  "tool_commit": "641a573fb5b92dfb03348dac1dcb6b682f2ce1bb",
+  "validation": {
+    "tool_commit": "641a573fb5b92dfb03348dac1dcb6b682f2ce1bb",
+    "ci_run": 43360201419,
+    "ci_passed": 14,
+    "local_tests": {
+      "passed": 1053,
+      "skipped": 1,
+      "duration_s": 100.76
+    },
+    "checks": [
+      "ruff",
+      "src mypy Linux/win32",
+      "bench mypy --explicit-package-bases"
+    ],
+    "product_source_unchanged": true
+  },
+  "audits": {
+    "materials": "audit/materials.json",
+    "metrics": "audit/metrics.md",
+    "diagnostic": "audit/diagnostic.json",
+    "note": "No audit changed frozen labels or screening;diagnostic has interpretation limits;initial rawfail assumption corrected to rawpass"
+  }
+}
