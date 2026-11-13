@@ -1,0 +1,3843 @@
+{
+  "protocol": {
+    "schema": "yescc-review-methods-protocol-v1",
+    "baseline_commit": "f368b44bddb62aca5a42d91f1edbb85586d24f19",
+    "product_source_changed": false,
+    "materials_sha256": "95acda2c68d303822f22851a315f20298b62d9f7f0685e16035cb112b7845a9b",
+    "reference_sha256": "a0c71ff9e887002646faf0d04e736727f165f3947c7ff70856ed19846bd76ca4",
+    "holdout_sha256": "f408ee56d9de1ff2352c90d290345bfd9cc1014d9921de8ff3282503be876694",
+    "review_module_sha256": "8c1e62bb55f41fb2b85363fd3553d773b09fb24603b31db0b3797aa6a035b65b",
+    "evaluator_sha256": "1bca22827dfb6254446ea4918a818f5fe16b0e015197a9d303cc7e4a7c841c5e",
+    "prompt_sha256": {
+      "contract": "1d501984a24de734a87aea730ed16e0af773951e98f86672f07aea1d44782a3a",
+      "review": "7bc6f091bc125c45dd8a8398d883220de12b726d6467d095ab318a955aba9a08"
+    },
+    "settings": {
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "thinking": "disabled",
+      "max_output_tokens": 1536,
+      "temperature": 0.0,
+      "max_requests_per_task": 1,
+      "input_price_usd_per_million": 0.3,
+      "output_price_usd_per_million": 1.2,
+      "task_limit_usd": 0.005,
+      "maximum_suite_reservation_usd": 0.5,
+      "planned_reservation_usd": 0.41,
+      "pricing_verified": "2026-11-13 https://api-docs.deepseek.com/quick_start/pricing/"
+    },
+    "tasks": [
+      {
+        "task_id": "review_probe_lantern_route_pass",
+        "method": "review",
+        "key": "probe_lantern_route_pass"
+      },
+      {
+        "task_id": "review_428e41858eaefb",
+        "method": "review",
+        "key": "428e41858eaefb"
+      },
+      {
+        "task_id": "review_c66c80140f85e2",
+        "method": "review",
+        "key": "c66c80140f85e2"
+      },
+      {
+        "task_id": "contract_CC08",
+        "method": "contract",
+        "key": "CC08"
+      },
+      {
+        "task_id": "contract_probe_paper_boat",
+        "method": "contract",
+        "key": "probe_paper_boat"
+      },
+      {
+        "task_id": "review_aac9bce9dd026d",
+        "method": "review",
+        "key": "aac9bce9dd026d"
+      },
+      {
+        "task_id": "review_probe_stairs_pass",
+        "method": "review",
+        "key": "probe_stairs_pass"
+      },
+      {
+        "task_id": "review_d8a8e36fd89c0e",
+        "method": "review",
+        "key": "d8a8e36fd89c0e"
+      },
+      {
+        "task_id": "contract_F12",
+        "method": "contract",
+        "key": "F12"
+      },
+      {
+        "task_id": "review_c5a8a60515955f",
+        "method": "review",
+        "key": "c5a8a60515955f"
+      },
+      {
+        "task_id": "review_0722e8f073b9f5",
+        "method": "review",
+        "key": "0722e8f073b9f5"
+      },
+      {
+        "task_id": "review_b40993691c49f3",
+        "method": "review",
+        "key": "b40993691c49f3"
+      },
+      {
+        "task_id": "review_probe_moon_pocket_pass",
+        "method": "review",
+        "key": "probe_moon_pocket_pass"
+      },
+      {
+        "task_id": "review_d21052ecc2ae5f",
+        "method": "review",
+        "key": "d21052ecc2ae5f"
+      },
+      {
+        "task_id": "review_7b21b5240abc8d",
+        "method": "review",
+        "key": "7b21b5240abc8d"
+      },
+      {
+        "task_id": "review_f19c6cbd341b6d",
+        "method": "review",
+        "key": "f19c6cbd341b6d"
+      },
+      {
+        "task_id": "review_3eae879faafe1e",
+        "method": "review",
+        "key": "3eae879faafe1e"
+      },
+      {
+        "task_id": "review_6705ce790743f4",
+        "method": "review",
+        "key": "6705ce790743f4"
+      },
+      {
+        "task_id": "contract_H08",
+        "method": "contract",
+        "key": "H08"
+      },
+      {
+        "task_id": "review_probe_paper_boat_pass",
+        "method": "review",
+        "key": "probe_paper_boat_pass"
+      },
+      {
+        "task_id": "review_722a3a51ea1536",
+        "method": "review",
+        "key": "722a3a51ea1536"
+      },
+      {
+        "task_id": "review_d3c2727078ef10",
+        "method": "review",
+        "key": "d3c2727078ef10"
+      },
+      {
+        "task_id": "contract_CC06",
+        "method": "contract",
+        "key": "CC06"
+      },
+      {
+        "task_id": "contract_probe_stairs",
+        "method": "contract",
+        "key": "probe_stairs"
+      },
+      {
+        "task_id": "contract_CC01",
+        "method": "contract",
+        "key": "CC01"
+      },
+      {
+        "task_id": "review_d15544204aa24d",
+        "method": "review",
+        "key": "d15544204aa24d"
+      },
+      {
+        "task_id": "contract_CC10",
+        "method": "contract",
+        "key": "CC10"
+      },
+      {
+        "task_id": "review_36a1c3698ca679",
+        "method": "review",
+        "key": "36a1c3698ca679"
+      },
+      {
+        "task_id": "review_e752033dd522a2",
+        "method": "review",
+        "key": "e752033dd522a2"
+      },
+      {
+        "task_id": "review_probe_lighthouse_key_pass",
+        "method": "review",
+        "key": "probe_lighthouse_key_pass"
+      },
+      {
+        "task_id": "contract_CC12",
+        "method": "contract",
+        "key": "CC12"
+      },
+      {
+        "task_id": "review_0061f4858e404c",
+        "method": "review",
+        "key": "0061f4858e404c"
+      },
+      {
+        "task_id": "review_03d7a9ff96cc73",
+        "method": "review",
+        "key": "03d7a9ff96cc73"
+      },
+      {
+        "task_id": "review_3d60ccb4b1efac",
+        "method": "review",
+        "key": "3d60ccb4b1efac"
+      },
+      {
+        "task_id": "review_a918b49a6916cc",
+        "method": "review",
+        "key": "a918b49a6916cc"
+      },
+      {
+        "task_id": "review_31a6033302bf9d",
+        "method": "review",
+        "key": "31a6033302bf9d"
+      },
+      {
+        "task_id": "contract_probe_lantern_route",
+        "method": "contract",
+        "key": "probe_lantern_route"
+      },
+      {
+        "task_id": "review_e3f5043163f815",
+        "method": "review",
+        "key": "e3f5043163f815"
+      },
+      {
+        "task_id": "contract_S13",
+        "method": "contract",
+        "key": "S13"
+      },
+      {
+        "task_id": "review_8a13987eb99ae9",
+        "method": "review",
+        "key": "8a13987eb99ae9"
+      },
+      {
+        "task_id": "review_0abe3ad36c52ea",
+        "method": "review",
+        "key": "0abe3ad36c52ea"
+      },
+      {
+        "task_id": "review_probe_paper_boat_fail",
+        "method": "review",
+        "key": "probe_paper_boat_fail"
+      },
+      {
+        "task_id": "contract_CC05",
+        "method": "contract",
+        "key": "CC05"
+      },
+      {
+        "task_id": "contract_CC11",
+        "method": "contract",
+        "key": "CC11"
+      },
+      {
+        "task_id": "review_probe_lighthouse_key_fail",
+        "method": "review",
+        "key": "probe_lighthouse_key_fail"
+      },
+      {
+        "task_id": "contract_S18",
+        "method": "contract",
+        "key": "S18"
+      },
+      {
+        "task_id": "review_probe_unicode_garden_pass",
+        "method": "review",
+        "key": "probe_unicode_garden_pass"
+      },
+      {
+        "task_id": "contract_probe_lighthouse_key",
+        "method": "contract",
+        "key": "probe_lighthouse_key"
+      },
+      {
+        "task_id": "contract_probe_unicode_garden",
+        "method": "contract",
+        "key": "probe_unicode_garden"
+      },
+      {
+        "task_id": "review_8418d5a2949004",
+        "method": "review",
+        "key": "8418d5a2949004"
+      },
+      {
+        "task_id": "review_2791e91884ac74",
+        "method": "review",
+        "key": "2791e91884ac74"
+      },
+      {
+        "task_id": "review_e0b37db83e899e",
+        "method": "review",
+        "key": "e0b37db83e899e"
+      },
+      {
+        "task_id": "review_911459b67725db",
+        "method": "review",
+        "key": "911459b67725db"
+      },
+      {
+        "task_id": "review_probe_lantern_route_fail",
+        "method": "review",
+        "key": "probe_lantern_route_fail"
+      },
+      {
+        "task_id": "review_02a2c9590b1350",
+        "method": "review",
+        "key": "02a2c9590b1350"
+      },
+      {
+        "task_id": "review_7890d77ae3a7a3",
+        "method": "review",
+        "key": "7890d77ae3a7a3"
+      },
+      {
+        "task_id": "review_2be8415de04e20",
+        "method": "review",
+        "key": "2be8415de04e20"
+      },
+      {
+        "task_id": "contract_S19",
+        "method": "contract",
+        "key": "S19"
+      },
+      {
+        "task_id": "review_d2edd5fcccaec4",
+        "method": "review",
+        "key": "d2edd5fcccaec4"
+      },
+      {
+        "task_id": "review_c4d7ba370da653",
+        "method": "review",
+        "key": "c4d7ba370da653"
+      },
+      {
+        "task_id": "review_83da74194be77f",
+        "method": "review",
+        "key": "83da74194be77f"
+      },
+      {
+        "task_id": "review_75aa732a636ccb",
+        "method": "review",
+        "key": "75aa732a636ccb"
+      },
+      {
+        "task_id": "review_68661b4a597dc5",
+        "method": "review",
+        "key": "68661b4a597dc5"
+      },
+      {
+        "task_id": "review_probe_unicode_garden_fail",
+        "method": "review",
+        "key": "probe_unicode_garden_fail"
+      },
+      {
+        "task_id": "review_d42d2d0109df82",
+        "method": "review",
+        "key": "d42d2d0109df82"
+      },
+      {
+        "task_id": "review_460af6bd1da290",
+        "method": "review",
+        "key": "460af6bd1da290"
+      },
+      {
+        "task_id": "contract_CC04",
+        "method": "contract",
+        "key": "CC04"
+      },
+      {
+        "task_id": "review_4845757582d2bf",
+        "method": "review",
+        "key": "4845757582d2bf"
+      },
+      {
+        "task_id": "contract_H02",
+        "method": "contract",
+        "key": "H02"
+      },
+      {
+        "task_id": "review_probe_stairs_fail",
+        "method": "review",
+        "key": "probe_stairs_fail"
+      },
+      {
+        "task_id": "review_8ac1ca3353c376",
+        "method": "review",
+        "key": "8ac1ca3353c376"
+      },
+      {
+        "task_id": "contract_CC07",
+        "method": "contract",
+        "key": "CC07"
+      },
+      {
+        "task_id": "contract_F02",
+        "method": "contract",
+        "key": "F02"
+      },
+      {
+        "task_id": "review_probe_moon_pocket_fail",
+        "method": "review",
+        "key": "probe_moon_pocket_fail"
+      },
+      {
+        "task_id": "review_da53a0acfd0b37",
+        "method": "review",
+        "key": "da53a0acfd0b37"
+      },
+      {
+        "task_id": "contract_CC09",
+        "method": "contract",
+        "key": "CC09"
+      },
+      {
+        "task_id": "review_d0872426e8ab26",
+        "method": "review",
+        "key": "d0872426e8ab26"
+      },
+      {
+        "task_id": "contract_CC02",
+        "method": "contract",
+        "key": "CC02"
+      },
+      {
+        "task_id": "review_7f6e1049a42d29",
+        "method": "review",
+        "key": "7f6e1049a42d29"
+      },
+      {
+        "task_id": "contract_S12",
+        "method": "contract",
+        "key": "S12"
+      },
+      {
+        "task_id": "contract_CC03",
+        "method": "contract",
+        "key": "CC03"
+      },
+      {
+        "task_id": "contract_probe_moon_pocket",
+        "method": "contract",
+        "key": "probe_moon_pocket"
+      }
+    ],
+    "boundaries": [
+      "Only existing56 artifacts reviewed;no newly generated creative programs",
+      "44 existing references are fixed mechanical checks plus prior double-AI consistency,1 contested excluded from accuracy",
+      "12 independent synthetic probes six good/six bad,compiled/run before model review;no human gold",
+      "Contracts see input only;reviewer sees input/source/stdout only;no oracle,label,rating,id,group sent",
+      "No retry or best-of selection;all transport/malformed/unsupported conclusions remain invalid or abstain",
+      "Citations only prove provenance,not semantic faithfulness or correctness",
+      "No automatic production integration in this phase regardless of score"
+    ],
+    "predeclared_screening": {
+      "contract": "On explicit-reference slices only:coverage>=.8,bad_detection>=.8,zero observed good rejection,both existing and fresh groups;manual faithfulness inspection still required",
+      "review": "On known references:coverage>=.9,bad_detection>=.8,good_rejection<=.05 in existing;fresh>=5/6bad caught and0/6good rejected;not a deployment acceptance gate",
+      "on_failure": "retain current product and report concrete failure reasons;do not change prompt/oracle after outputs"
+    }
+  },
+  "comparison": {
+    "schema_version": 1,
+    "scope": "offline_captured_review_responses",
+    "items_sha256": "95acda2c68d303822f22851a315f20298b62d9f7f0685e16035cb112b7845a9b",
+    "model_calls": 0,
+    "program_executions": 0,
+    "summary": {
+      "contract": {
+        "reference_pass": 31,
+        "reference_fail": 24,
+        "reference_contested": 1,
+        "accepted_good": 10,
+        "rejected_good": 4,
+        "caught_bad": 10,
+        "accepted_bad": 0,
+        "abstain": 26,
+        "invalid": 6,
+        "decisive_known": 24,
+        "total": 56,
+        "known_reference_coverage": 0.43636363636363634,
+        "bad_detection_rate": 0.4166666666666667,
+        "good_rejection_rate": 0.12903225806451613,
+        "decisive_accuracy": 0.8333333333333334
+      },
+      "review": {
+        "reference_pass": 31,
+        "reference_fail": 24,
+        "reference_contested": 1,
+        "accepted_good": 31,
+        "rejected_good": 0,
+        "caught_bad": 9,
+        "accepted_bad": 15,
+        "abstain": 0,
+        "invalid": 0,
+        "decisive_known": 55,
+        "total": 56,
+        "known_reference_coverage": 1.0,
+        "bad_detection_rate": 0.375,
+        "good_rejection_rate": 0.0,
+        "decisive_accuracy": 0.7272727272727273
+      }
+    },
+    "groups": {
+      "existing": {
+        "contract": {
+          "reference_pass": 25,
+          "reference_fail": 18,
+          "reference_contested": 1,
+          "accepted_good": 9,
+          "rejected_good": 1,
+          "caught_bad": 6,
+          "accepted_bad": 0,
+          "abstain": 22,
+          "invalid": 6,
+          "decisive_known": 16,
+          "total": 44,
+          "known_reference_coverage": 0.37209302325581395,
+          "bad_detection_rate": 0.3333333333333333,
+          "good_rejection_rate": 0.04,
+          "decisive_accuracy": 0.9375
+        },
+        "review": {
+          "reference_pass": 25,
+          "reference_fail": 18,
+          "reference_contested": 1,
+          "accepted_good": 25,
+          "rejected_good": 0,
+          "caught_bad": 3,
+          "accepted_bad": 15,
+          "abstain": 0,
+          "invalid": 0,
+          "decisive_known": 43,
+          "total": 44,
+          "known_reference_coverage": 1.0,
+          "bad_detection_rate": 0.16666666666666666,
+          "good_rejection_rate": 0.0,
+          "decisive_accuracy": 0.6511627906976745
+        }
+      },
+      "fresh_probe": {
+        "contract": {
+          "reference_pass": 6,
+          "reference_fail": 6,
+          "reference_contested": 0,
+          "accepted_good": 1,
+          "rejected_good": 3,
+          "caught_bad": 4,
+          "accepted_bad": 0,
+          "abstain": 4,
+          "invalid": 0,
+          "decisive_known": 8,
+          "total": 12,
+          "known_reference_coverage": 0.6666666666666666,
+          "bad_detection_rate": 0.6666666666666666,
+          "good_rejection_rate": 0.5,
+          "decisive_accuracy": 0.625
+        },
+        "review": {
+          "reference_pass": 6,
+          "reference_fail": 6,
+          "reference_contested": 0,
+          "accepted_good": 6,
+          "rejected_good": 0,
+          "caught_bad": 6,
+          "accepted_bad": 0,
+          "abstain": 0,
+          "invalid": 0,
+          "decisive_known": 12,
+          "total": 12,
+          "known_reference_coverage": 1.0,
+          "bad_detection_rate": 1.0,
+          "good_rejection_rate": 0.0,
+          "decisive_accuracy": 1.0
+        }
+      }
+    },
+    "slices": {
+      "existing:explicit": {
+        "contract": {
+          "reference_pass": 13,
+          "reference_fail": 5,
+          "reference_contested": 0,
+          "accepted_good": 7,
+          "rejected_good": 0,
+          "caught_bad": 5,
+          "accepted_bad": 0,
+          "abstain": 0,
+          "invalid": 6,
+          "decisive_known": 12,
+          "total": 18,
+          "known_reference_coverage": 0.6666666666666666,
+          "bad_detection_rate": 1.0,
+          "good_rejection_rate": 0.0,
+          "decisive_accuracy": 1.0
+        },
+        "review": {
+          "reference_pass": 13,
+          "reference_fail": 5,
+          "reference_contested": 0,
+          "accepted_good": 13,
+          "rejected_good": 0,
+          "caught_bad": 2,
+          "accepted_bad": 3,
+          "abstain": 0,
+          "invalid": 0,
+          "decisive_known": 18,
+          "total": 18,
+          "known_reference_coverage": 1.0,
+          "bad_detection_rate": 0.4,
+          "good_rejection_rate": 0.0,
+          "decisive_accuracy": 0.8333333333333334
+        }
+      },
+      "existing:open": {
+        "contract": {
+          "reference_pass": 12,
+          "reference_fail": 13,
+          "reference_contested": 1,
+          "accepted_good": 2,
+          "rejected_good": 1,
+          "caught_bad": 1,
+          "accepted_bad": 0,
+          "abstain": 22,
+          "invalid": 0,
+          "decisive_known": 4,
+          "total": 26,
+          "known_reference_coverage": 0.16,
+          "bad_detection_rate": 0.07692307692307693,
+          "good_rejection_rate": 0.08333333333333333,
+          "decisive_accuracy": 0.75
+        },
+        "review": {
+          "reference_pass": 12,
+          "reference_fail": 13,
+          "reference_contested": 1,
+          "accepted_good": 12,
+          "rejected_good": 0,
+          "caught_bad": 1,
+          "accepted_bad": 12,
+          "abstain": 0,
+          "invalid": 0,
+          "decisive_known": 25,
+          "total": 26,
+          "known_reference_coverage": 1.0,
+          "bad_detection_rate": 0.07692307692307693,
+          "good_rejection_rate": 0.0,
+          "decisive_accuracy": 0.52
+        }
+      },
+      "fresh_probe:explicit": {
+        "contract": {
+          "reference_pass": 3,
+          "reference_fail": 3,
+          "reference_contested": 0,
+          "accepted_good": 1,
+          "rejected_good": 2,
+          "caught_bad": 3,
+          "accepted_bad": 0,
+          "abstain": 0,
+          "invalid": 0,
+          "decisive_known": 6,
+          "total": 6,
+          "known_reference_coverage": 1.0,
+          "bad_detection_rate": 1.0,
+          "good_rejection_rate": 0.6666666666666666,
+          "decisive_accuracy": 0.6666666666666666
+        },
+        "review": {
+          "reference_pass": 3,
+          "reference_fail": 3,
+          "reference_contested": 0,
+          "accepted_good": 3,
+          "rejected_good": 0,
+          "caught_bad": 3,
+          "accepted_bad": 0,
+          "abstain": 0,
+          "invalid": 0,
+          "decisive_known": 6,
+          "total": 6,
+          "known_reference_coverage": 1.0,
+          "bad_detection_rate": 1.0,
+          "good_rejection_rate": 0.0,
+          "decisive_accuracy": 1.0
+        }
+      },
+      "fresh_probe:open": {
+        "contract": {
+          "reference_pass": 3,
+          "reference_fail": 3,
+          "reference_contested": 0,
+          "accepted_good": 0,
+          "rejected_good": 1,
+          "caught_bad": 1,
+          "accepted_bad": 0,
+          "abstain": 4,
+          "invalid": 0,
+          "decisive_known": 2,
+          "total": 6,
+          "known_reference_coverage": 0.3333333333333333,
+          "bad_detection_rate": 0.3333333333333333,
+          "good_rejection_rate": 0.3333333333333333,
+          "decisive_accuracy": 0.5
+        },
+        "review": {
+          "reference_pass": 3,
+          "reference_fail": 3,
+          "reference_contested": 0,
+          "accepted_good": 3,
+          "rejected_good": 0,
+          "caught_bad": 3,
+          "accepted_bad": 0,
+          "abstain": 0,
+          "invalid": 0,
+          "decisive_known": 6,
+          "total": 6,
+          "known_reference_coverage": 1.0,
+          "bad_detection_rate": 1.0,
+          "good_rejection_rate": 0.0,
+          "decisive_accuracy": 1.0
+        }
+      }
+    },
+    "results": [
+      {
+        "id": "0061f4858e404c",
+        "case_id": "CC01",
+        "group": "existing",
+        "reference": "pass",
+        "has_fixed_checks": true,
+        "contract": {
+          "status": "invalid",
+          "passed": null,
+          "error": "model line_sequence requires fullmatch=true",
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": null,
+          "response_sha256": "333ce1afe4f9c81a3f83dcbaa440354205b0b76a368c7d94f29b717852cd62a5"
+        },
+        "review": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        }
+      },
+      {
+        "id": "02a2c9590b1350",
+        "case_id": "CC01",
+        "group": "existing",
+        "reference": "pass",
+        "has_fixed_checks": true,
+        "contract": {
+          "status": "invalid",
+          "passed": null,
+          "error": "model line_sequence requires fullmatch=true",
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": null,
+          "response_sha256": "333ce1afe4f9c81a3f83dcbaa440354205b0b76a368c7d94f29b717852cd62a5"
+        },
+        "review": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        }
+      },
+      {
+        "id": "03d7a9ff96cc73",
+        "case_id": "CC03",
+        "group": "existing",
+        "reference": "fail",
+        "has_fixed_checks": true,
+        "contract": {
+          "status": "fail",
+          "passed": false,
+          "error": null,
+          "checks": [
+            {
+              "check": {
+                "type": "line_count",
+                "min": 1,
+                "max": 4,
+                "include_blank": true
+              },
+              "evidence": "写一到四行微型故事",
+              "verified": true,
+              "name": "line_count",
+              "passed": false,
+              "detail": "line count: 5"
+            },
+            {
+              "check": {
+                "type": "symbol_count",
+                "symbol": "✦",
+                "equals": 3
+              },
+              "evidence": "全文必须恰好出现三个“✦”",
+              "verified": true,
+              "name": "symbol_count",
+              "passed": true,
+              "detail": "nonoverlapping symbol count: 3"
+            },
+            {
+              "check": {
+                "type": "not_contains",
+                "text": "第四只萤火虫"
+              },
+              "evidence": "别再引入第四只萤火虫",
+              "verified": true,
+              "name": "not_contains",
+              "passed": true,
+              "detail": "text present: False"
+            }
+          ],
+          "uncheckable": [
+            "每个“✦”代表一只萤火虫",
+            "三只萤火虫为迷路的蜗牛点亮回家路（故事内容需体现该情节）",
+            "“✦”可以分散在句子中"
+          ],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "e514c78aa21467d2c1eac218d3512de0ad97671e2ef9848ff0ee4366c1b06fc7"
+        },
+        "review": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        }
+      },
+      {
+        "id": "0722e8f073b9f5",
+        "case_id": "S18",
+        "group": "existing",
+        "reference": "pass",
+        "has_fixed_checks": false,
+        "contract": {
+          "status": "abstain",
+          "passed": null,
+          "error": null,
+          "checks": [],
+          "uncheckable": [
+            "请给这个循环一个会结束的结局。"
+          ],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "bdc4dbaa9db3f9ae12502c24dba0051972a8bbf22e5e6ea333d2cde347988429"
+        },
+        "review": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        }
+      },
+      {
+        "id": "0abe3ad36c52ea",
+        "case_id": "F02",
+        "group": "existing",
+        "reference": "fail",
+        "has_fixed_checks": false,
+        "contract": {
+          "status": "abstain",
+          "passed": null,
+          "error": null,
+          "checks": [],
+          "uncheckable": [
+            "奇变偶不变"
+          ],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "69a5a4f3bd4d47a9fe9c7fb4ad0cc479cddb00a99533880df863d3cdd6ef87a2"
+        },
+        "review": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        }
+      },
+      {
+        "id": "2791e91884ac74",
+        "case_id": "H08",
+        "group": "existing",
+        "reference": "pass",
+        "has_fixed_checks": false,
+        "contract": {
+          "status": "fail",
+          "passed": false,
+          "error": null,
+          "checks": [
+            {
+              "check": {
+                "type": "line_count",
+                "equals": 4,
+                "include_blank": true
+              },
+              "evidence": "水壶里的留言\n第一行：水已经开了。\n第二行：勇气还没有。\n第三行留给那声没响出来的口哨。",
+              "verified": true,
+              "name": "line_count",
+              "passed": false,
+              "detail": "line count: 7"
+            },
+            {
+              "check": {
+                "type": "contains",
+                "text": "第一行：水已经开了。"
+              },
+              "evidence": "第一行：水已经开了。",
+              "verified": true,
+              "name": "contains",
+              "passed": false,
+              "detail": "text present: False"
+            },
+            {
+              "check": {
+                "type": "contains",
+                "text": "第二行：勇气还没有。"
+              },
+              "evidence": "第二行：勇气还没有。",
+              "verified": true,
+              "name": "contains",
+              "passed": false,
+              "detail": "text present: False"
+            },
+            {
+              "check": {
+                "type": "contains",
+                "text": "第三行留给那声没响出来的口哨。"
+              },
+              "evidence": "第三行留给那声没响出来的口哨。",
+              "verified": true,
+              "name": "contains",
+              "passed": false,
+              "detail": "text present: False"
+            },
+            {
+              "check": {
+                "type": "last_nonempty_line",
+                "text": "第三行留给那声没响出来的口哨。"
+              },
+              "evidence": "第三行留给那声没响出来的口哨。",
+              "verified": true,
+              "name": "last_nonempty_line",
+              "passed": false,
+              "detail": "last nonempty line: '水开了，勇气没开；口哨留在第三行，没有响。'"
+            }
+          ],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "6407c9c0a42f6bcc6d153776c34c0e7166bd6c1f20bb00149f951d79bcca275b"
+        },
+        "review": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        }
+      },
+      {
+        "id": "2be8415de04e20",
+        "case_id": "CC01",
+        "group": "existing",
+        "reference": "pass",
+        "has_fixed_checks": true,
+        "contract": {
+          "status": "invalid",
+          "passed": null,
+          "error": "model line_sequence requires fullmatch=true",
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": null,
+          "response_sha256": "333ce1afe4f9c81a3f83dcbaa440354205b0b76a368c7d94f29b717852cd62a5"
+        },
+        "review": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        }
+      },
+      {
+        "id": "31a6033302bf9d",
+        "case_id": "CC11",
+        "group": "existing",
+        "reference": "fail",
+        "has_fixed_checks": false,
+        "contract": {
+          "status": "abstain",
+          "passed": null,
+          "error": null,
+          "checks": [],
+          "uncheckable": [
+            "图案本身要让人看出人与影子的错位关系",
+            "适合终端等宽显示的文字图案",
+            "配一两句短文字",
+            "不要依赖颜色或真实动画"
+          ],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "1926ed49416fe2eca8ad6bb4c04f7da958b5d14914f33d982c57ec7dd022e9aa"
+        },
+        "review": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        }
+      },
+      {
+        "id": "36a1c3698ca679",
+        "case_id": "CC12",
+        "group": "existing",
+        "reference": "pass",
+        "has_fixed_checks": false,
+        "contract": {
+          "status": "abstain",
+          "passed": null,
+          "error": null,
+          "checks": [],
+          "uncheckable": [
+            "写成一首短诗",
+            "让欠花、还清和多送一朵三个变化自然发生",
+            "可以出现数字，也可以不用",
+            "让诗意和数量关系都讲得通",
+            "不要写成数学讲义"
+          ],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "046993aecf0e3f2300e81f1fa19592e786f3cb2647548b167a565b421086c750"
+        },
+        "review": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        }
+      },
+      {
+        "id": "3d60ccb4b1efac",
+        "case_id": "CC12",
+        "group": "existing",
+        "reference": "pass",
+        "has_fixed_checks": false,
+        "contract": {
+          "status": "abstain",
+          "passed": null,
+          "error": null,
+          "checks": [],
+          "uncheckable": [
+            "写成一首短诗",
+            "让欠花、还清和多送一朵三个变化自然发生",
+            "可以出现数字，也可以不用",
+            "让诗意和数量关系都讲得通",
+            "不要写成数学讲义"
+          ],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "046993aecf0e3f2300e81f1fa19592e786f3cb2647548b167a565b421086c750"
+        },
+        "review": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        }
+      },
+      {
+        "id": "3eae879faafe1e",
+        "case_id": "CC08",
+        "group": "existing",
+        "reference": "fail",
+        "has_fixed_checks": true,
+        "contract": {
+          "status": "fail",
+          "passed": false,
+          "error": null,
+          "checks": [
+            {
+              "check": {
+                "type": "line_count",
+                "min": 3,
+                "max": 5,
+                "include_blank": true
+              },
+              "evidence": "写三到五行微型航行故事",
+              "verified": true,
+              "name": "line_count",
+              "passed": false,
+              "detail": "line count: 8"
+            },
+            {
+              "check": {
+                "type": "contains",
+                "text": "向西"
+              },
+              "evidence": "正文至少出现一次“向西”",
+              "verified": true,
+              "name": "contains",
+              "passed": true,
+              "detail": "text present: True"
+            },
+            {
+              "check": {
+                "type": "not_contains",
+                "text": "向东"
+              },
+              "evidence": "全文不能出现“向东”",
+              "verified": true,
+              "name": "not_contains",
+              "passed": true,
+              "detail": "text present: False"
+            },
+            {
+              "check": {
+                "type": "last_nonempty_line",
+                "text": "船最终停在西岸。"
+              },
+              "evidence": "最后一行必须只有“船最终停在西岸。”",
+              "verified": true,
+              "name": "last_nonempty_line",
+              "passed": true,
+              "detail": "last nonempty line: '船最终停在西岸。'"
+            }
+          ],
+          "uncheckable": [
+            "故事须为微型航行故事，且小船从东岸出发、只向西行进、最终停在西岸的叙事一致性无法由这些检查类型表达",
+            "“最后一行必须只有‘船最终停在西岸。’”中“只有”所要求的该行不得含其他内容，除最后非空行精确匹配外无法完全表达"
+          ],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "d273e479d1c1e2e6921d545bacaa8f6ece103270eb6a465752f73c4087189991"
+        },
+        "review": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        }
+      },
+      {
+        "id": "428e41858eaefb",
+        "case_id": "F12",
+        "group": "existing",
+        "reference": "fail",
+        "has_fixed_checks": false,
+        "contract": {
+          "status": "abstain",
+          "passed": null,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "e37e706607180365485ff0e7290a5a1f709f46b56329d06799b1f8a98af04137"
+        },
+        "review": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        }
+      },
+      {
+        "id": "460af6bd1da290",
+        "case_id": "CC11",
+        "group": "existing",
+        "reference": "pass",
+        "has_fixed_checks": false,
+        "contract": {
+          "status": "abstain",
+          "passed": null,
+          "error": null,
+          "checks": [],
+          "uncheckable": [
+            "图案本身要让人看出人与影子的错位关系",
+            "适合终端等宽显示的文字图案",
+            "配一两句短文字",
+            "不要依赖颜色或真实动画"
+          ],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "1926ed49416fe2eca8ad6bb4c04f7da958b5d14914f33d982c57ec7dd022e9aa"
+        },
+        "review": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        }
+      },
+      {
+        "id": "4845757582d2bf",
+        "case_id": "CC07",
+        "group": "existing",
+        "reference": "fail",
+        "has_fixed_checks": true,
+        "contract": {
+          "status": "fail",
+          "passed": false,
+          "error": null,
+          "checks": [
+            {
+              "check": {
+                "type": "line_count",
+                "min": 2,
+                "max": 4,
+                "include_blank": true
+              },
+              "evidence": "两到四行",
+              "verified": true,
+              "name": "line_count",
+              "passed": false,
+              "detail": "line count: 5"
+            },
+            {
+              "check": {
+                "type": "contains",
+                "text": "月兔"
+              },
+              "evidence": "必须出现“月兔”",
+              "verified": true,
+              "name": "contains",
+              "passed": true,
+              "detail": "text present: True"
+            },
+            {
+              "check": {
+                "type": "last_nonempty_line",
+                "text": "7-2-3=2"
+              },
+              "evidence": "最后另起一行只写结算式“7-2-3=2”",
+              "verified": true,
+              "name": "last_nonempty_line",
+              "passed": true,
+              "detail": "last nonempty line: '7-2-3=2'"
+            }
+          ],
+          "uncheckable": [
+            "叙述中的数量必须与结算式一致（7枚原有、先送2枚、再送3枚、无其他增减）"
+          ],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "c7103b71aec3ff745ceb78a6784c4e3f839b3179b407dfc9844f22d256dea97c"
+        },
+        "review": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        }
+      },
+      {
+        "id": "6705ce790743f4",
+        "case_id": "H02",
+        "group": "existing",
+        "reference": "fail",
+        "has_fixed_checks": false,
+        "contract": {
+          "status": "abstain",
+          "passed": null,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "e37e706607180365485ff0e7290a5a1f709f46b56329d06799b1f8a98af04137"
+        },
+        "review": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        }
+      },
+      {
+        "id": "68661b4a597dc5",
+        "case_id": "S19",
+        "group": "existing",
+        "reference": "fail",
+        "has_fixed_checks": false,
+        "contract": {
+          "status": "abstain",
+          "passed": null,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "e37e706607180365485ff0e7290a5a1f709f46b56329d06799b1f8a98af04137"
+        },
+        "review": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        }
+      },
+      {
+        "id": "722a3a51ea1536",
+        "case_id": "F12",
+        "group": "existing",
+        "reference": "fail",
+        "has_fixed_checks": false,
+        "contract": {
+          "status": "abstain",
+          "passed": null,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "e37e706607180365485ff0e7290a5a1f709f46b56329d06799b1f8a98af04137"
+        },
+        "review": {
+          "status": "fail",
+          "passed": false,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [
+            {
+              "reason": "The loop runs step 0 through 8 inclusive, so week[8] is accessed, but the week array has only 8 elements (indices 0-7); stdout shows a ninth line with \"(null)\" instead of a valid weekday.",
+              "evidence": [
+                {
+                  "origin": "source",
+                  "quote": "for (int step = 0; step <= 8; step++) {",
+                  "verified": true
+                },
+                {
+                  "origin": "source",
+                  "quote": "const char *week[] = {\"星期一\",\"星期二\",\"星期三\",\"星期四\",\"星期五\",\"星期六\",\"星期日\",\"星期八\"};",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "                  ◑  (null)",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "utf8_valid": true,
+          "response_sha256": "560f3853692dad269c80eac3cce0b4617148db4a30b13c9b6163b1df6826b69d"
+        }
+      },
+      {
+        "id": "75aa732a636ccb",
+        "case_id": "S12",
+        "group": "existing",
+        "reference": "pass",
+        "has_fixed_checks": false,
+        "contract": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [
+            {
+              "check": {
+                "type": "contains",
+                "text": "欢迎来到 \\\"不许迷路\\\" 的迷宫"
+              },
+              "evidence": "欢迎来到 \\\"不许迷路\\\" 的迷宫",
+              "verified": true,
+              "name": "contains",
+              "passed": true,
+              "detail": "text present: True"
+            },
+            {
+              "check": {
+                "type": "contains",
+                "text": "()"
+              },
+              "evidence": "()",
+              "verified": true,
+              "name": "contains",
+              "passed": true,
+              "detail": "text present: True"
+            }
+          ],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "9da2c85659034a3ff20954baa4d1914da06fc7ac1a1905c9370f6c20e7614592"
+        },
+        "review": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        }
+      },
+      {
+        "id": "7890d77ae3a7a3",
+        "case_id": "CC02",
+        "group": "existing",
+        "reference": "pass",
+        "has_fixed_checks": true,
+        "contract": {
+          "status": "invalid",
+          "passed": null,
+          "error": "model line_sequence requires exactly one simple capture",
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": null,
+          "response_sha256": "877f0f8b675aa01f57c691c8442541623b1ff9570094416f52d1d1ded2654d4d"
+        },
+        "review": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        }
+      },
+      {
+        "id": "7b21b5240abc8d",
+        "case_id": "S13",
+        "group": "existing",
+        "reference": "fail",
+        "has_fixed_checks": false,
+        "contract": {
+          "status": "abstain",
+          "passed": null,
+          "error": null,
+          "checks": [],
+          "uncheckable": [
+            "第一行：夜班电梯停在云里。",
+            "第二行：一颗星按下了负一层。",
+            "第三行：请让结尾比开头轻一点。"
+          ],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "52bc630a742f87382944bf5244e2479bf0f61d82c12ebefaf4edfc5be56228a9"
+        },
+        "review": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        }
+      },
+      {
+        "id": "7f6e1049a42d29",
+        "case_id": "CC05",
+        "group": "existing",
+        "reference": "pass",
+        "has_fixed_checks": true,
+        "contract": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [
+            {
+              "check": {
+                "type": "line_count",
+                "min": 2,
+                "max": 4,
+                "include_blank": true
+              },
+              "evidence": "写两到四行微型故事",
+              "verified": true,
+              "name": "line_count",
+              "passed": true,
+              "detail": "line count: 4"
+            },
+            {
+              "check": {
+                "type": "symbol_count",
+                "symbol": "🐋",
+                "equals": 1
+              },
+              "evidence": "全文恰好使用一次“🐋”",
+              "verified": true,
+              "name": "symbol_count",
+              "passed": true,
+              "detail": "nonoverlapping symbol count: 1"
+            },
+            {
+              "check": {
+                "type": "symbol_count",
+                "symbol": "✉️",
+                "equals": 1
+              },
+              "evidence": "一次“✉️”",
+              "verified": true,
+              "name": "symbol_count",
+              "passed": true,
+              "detail": "nonoverlapping symbol count: 1"
+            },
+            {
+              "check": {
+                "type": "contains",
+                "text": "✉️"
+              },
+              "evidence": "信封请原样使用这里这整串符号",
+              "verified": true,
+              "name": "contains",
+              "passed": true,
+              "detail": "text present: True"
+            },
+            {
+              "check": {
+                "type": "last_nonempty_line",
+                "text": "潮声已寄出。"
+              },
+              "evidence": "最后一行必须只有“潮声已寄出。”",
+              "verified": true,
+              "name": "last_nonempty_line",
+              "passed": true,
+              "detail": "last nonempty line: '潮声已寄出。'"
+            }
+          ],
+          "uncheckable": [
+            "故事须为微型故事，且内容涉及鲸鱼把潮声装进信封寄给沙漠",
+            "除“🐋”和“✉️”外其他文字自由发挥"
+          ],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "1fd33cb025ce50bfb0ae816b217ea5e7eb408a5084a1a68e0ec0a4d130ba634f"
+        },
+        "review": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        }
+      },
+      {
+        "id": "83da74194be77f",
+        "case_id": "F12",
+        "group": "existing",
+        "reference": "fail",
+        "has_fixed_checks": false,
+        "contract": {
+          "status": "abstain",
+          "passed": null,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "e37e706607180365485ff0e7290a5a1f709f46b56329d06799b1f8a98af04137"
+        },
+        "review": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        }
+      },
+      {
+        "id": "8418d5a2949004",
+        "case_id": "CC02",
+        "group": "existing",
+        "reference": "pass",
+        "has_fixed_checks": true,
+        "contract": {
+          "status": "invalid",
+          "passed": null,
+          "error": "model line_sequence requires exactly one simple capture",
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": null,
+          "response_sha256": "877f0f8b675aa01f57c691c8442541623b1ff9570094416f52d1d1ded2654d4d"
+        },
+        "review": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        }
+      },
+      {
+        "id": "8a13987eb99ae9",
+        "case_id": "F02",
+        "group": "existing",
+        "reference": "fail",
+        "has_fixed_checks": false,
+        "contract": {
+          "status": "abstain",
+          "passed": null,
+          "error": null,
+          "checks": [],
+          "uncheckable": [
+            "奇变偶不变"
+          ],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "69a5a4f3bd4d47a9fe9c7fb4ad0cc479cddb00a99533880df863d3cdd6ef87a2"
+        },
+        "review": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        }
+      },
+      {
+        "id": "8ac1ca3353c376",
+        "case_id": "S18",
+        "group": "existing",
+        "reference": "pass",
+        "has_fixed_checks": false,
+        "contract": {
+          "status": "abstain",
+          "passed": null,
+          "error": null,
+          "checks": [],
+          "uncheckable": [
+            "请给这个循环一个会结束的结局。"
+          ],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "bdc4dbaa9db3f9ae12502c24dba0051972a8bbf22e5e6ea333d2cde347988429"
+        },
+        "review": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        }
+      },
+      {
+        "id": "911459b67725db",
+        "case_id": "CC10",
+        "group": "existing",
+        "reference": "fail",
+        "has_fixed_checks": false,
+        "contract": {
+          "status": "abstain",
+          "passed": null,
+          "error": null,
+          "checks": [],
+          "uncheckable": [
+            "只能颁布一条法令",
+            "海水会照字面执行",
+            "让程序展示法令、生效后的意外和盐粒的最后决定",
+            "写成短小模拟或故事都可以",
+            "让后果真正来自那条法令"
+          ],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "2a7019643757ed9f52f39dabe173f679ad97ac1e5e5a47d6e9fc343273402194"
+        },
+        "review": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        }
+      },
+      {
+        "id": "a918b49a6916cc",
+        "case_id": "CC10",
+        "group": "existing",
+        "reference": "contested",
+        "has_fixed_checks": false,
+        "contract": {
+          "status": "abstain",
+          "passed": null,
+          "error": null,
+          "checks": [],
+          "uncheckable": [
+            "只能颁布一条法令",
+            "海水会照字面执行",
+            "让程序展示法令、生效后的意外和盐粒的最后决定",
+            "写成短小模拟或故事都可以",
+            "让后果真正来自那条法令"
+          ],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "2a7019643757ed9f52f39dabe173f679ad97ac1e5e5a47d6e9fc343273402194"
+        },
+        "review": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        }
+      },
+      {
+        "id": "aac9bce9dd026d",
+        "case_id": "CC07",
+        "group": "existing",
+        "reference": "pass",
+        "has_fixed_checks": true,
+        "contract": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [
+            {
+              "check": {
+                "type": "line_count",
+                "min": 2,
+                "max": 4,
+                "include_blank": true
+              },
+              "evidence": "两到四行",
+              "verified": true,
+              "name": "line_count",
+              "passed": true,
+              "detail": "line count: 4"
+            },
+            {
+              "check": {
+                "type": "contains",
+                "text": "月兔"
+              },
+              "evidence": "必须出现“月兔”",
+              "verified": true,
+              "name": "contains",
+              "passed": true,
+              "detail": "text present: True"
+            },
+            {
+              "check": {
+                "type": "last_nonempty_line",
+                "text": "7-2-3=2"
+              },
+              "evidence": "最后另起一行只写结算式“7-2-3=2”",
+              "verified": true,
+              "name": "last_nonempty_line",
+              "passed": true,
+              "detail": "last nonempty line: '7-2-3=2'"
+            }
+          ],
+          "uncheckable": [
+            "叙述中的数量必须与结算式一致（7枚原有、先送2枚、再送3枚、无其他增减）"
+          ],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "c7103b71aec3ff745ceb78a6784c4e3f839b3179b407dfc9844f22d256dea97c"
+        },
+        "review": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        }
+      },
+      {
+        "id": "b40993691c49f3",
+        "case_id": "H08",
+        "group": "existing",
+        "reference": "fail",
+        "has_fixed_checks": false,
+        "contract": {
+          "status": "fail",
+          "passed": false,
+          "error": null,
+          "checks": [
+            {
+              "check": {
+                "type": "line_count",
+                "equals": 4,
+                "include_blank": true
+              },
+              "evidence": "水壶里的留言\n第一行：水已经开了。\n第二行：勇气还没有。\n第三行留给那声没响出来的口哨。",
+              "verified": true,
+              "name": "line_count",
+              "passed": false,
+              "detail": "line count: 12"
+            },
+            {
+              "check": {
+                "type": "contains",
+                "text": "第一行：水已经开了。"
+              },
+              "evidence": "第一行：水已经开了。",
+              "verified": true,
+              "name": "contains",
+              "passed": false,
+              "detail": "text present: False"
+            },
+            {
+              "check": {
+                "type": "contains",
+                "text": "第二行：勇气还没有。"
+              },
+              "evidence": "第二行：勇气还没有。",
+              "verified": true,
+              "name": "contains",
+              "passed": false,
+              "detail": "text present: False"
+            },
+            {
+              "check": {
+                "type": "contains",
+                "text": "第三行留给那声没响出来的口哨。"
+              },
+              "evidence": "第三行留给那声没响出来的口哨。",
+              "verified": true,
+              "name": "contains",
+              "passed": true,
+              "detail": "text present: True"
+            },
+            {
+              "check": {
+                "type": "last_nonempty_line",
+                "text": "第三行留给那声没响出来的口哨。"
+              },
+              "evidence": "第三行留给那声没响出来的口哨。",
+              "verified": true,
+              "name": "last_nonempty_line",
+              "passed": false,
+              "detail": "last nonempty line: '终于，那声口哨没有响出来，却把勇气从壶底顶了上来。'"
+            }
+          ],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "6407c9c0a42f6bcc6d153776c34c0e7166bd6c1f20bb00149f951d79bcca275b"
+        },
+        "review": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        }
+      },
+      {
+        "id": "c4d7ba370da653",
+        "case_id": "S19",
+        "group": "existing",
+        "reference": "pass",
+        "has_fixed_checks": false,
+        "contract": {
+          "status": "abstain",
+          "passed": null,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "e37e706607180365485ff0e7290a5a1f709f46b56329d06799b1f8a98af04137"
+        },
+        "review": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        }
+      },
+      {
+        "id": "c5a8a60515955f",
+        "case_id": "S12",
+        "group": "existing",
+        "reference": "pass",
+        "has_fixed_checks": false,
+        "contract": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [
+            {
+              "check": {
+                "type": "contains",
+                "text": "欢迎来到 \\\"不许迷路\\\" 的迷宫"
+              },
+              "evidence": "欢迎来到 \\\"不许迷路\\\" 的迷宫",
+              "verified": true,
+              "name": "contains",
+              "passed": true,
+              "detail": "text present: True"
+            },
+            {
+              "check": {
+                "type": "contains",
+                "text": "()"
+              },
+              "evidence": "()",
+              "verified": true,
+              "name": "contains",
+              "passed": true,
+              "detail": "text present: True"
+            }
+          ],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "9da2c85659034a3ff20954baa4d1914da06fc7ac1a1905c9370f6c20e7614592"
+        },
+        "review": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        }
+      },
+      {
+        "id": "c66c80140f85e2",
+        "case_id": "CC05",
+        "group": "existing",
+        "reference": "fail",
+        "has_fixed_checks": true,
+        "contract": {
+          "status": "fail",
+          "passed": false,
+          "error": null,
+          "checks": [
+            {
+              "check": {
+                "type": "line_count",
+                "min": 2,
+                "max": 4,
+                "include_blank": true
+              },
+              "evidence": "写两到四行微型故事",
+              "verified": true,
+              "name": "line_count",
+              "passed": false,
+              "detail": "line count: 5"
+            },
+            {
+              "check": {
+                "type": "symbol_count",
+                "symbol": "🐋",
+                "equals": 1
+              },
+              "evidence": "全文恰好使用一次“🐋”",
+              "verified": true,
+              "name": "symbol_count",
+              "passed": true,
+              "detail": "nonoverlapping symbol count: 1"
+            },
+            {
+              "check": {
+                "type": "symbol_count",
+                "symbol": "✉️",
+                "equals": 1
+              },
+              "evidence": "一次“✉️”",
+              "verified": true,
+              "name": "symbol_count",
+              "passed": true,
+              "detail": "nonoverlapping symbol count: 1"
+            },
+            {
+              "check": {
+                "type": "contains",
+                "text": "✉️"
+              },
+              "evidence": "信封请原样使用这里这整串符号",
+              "verified": true,
+              "name": "contains",
+              "passed": true,
+              "detail": "text present: True"
+            },
+            {
+              "check": {
+                "type": "last_nonempty_line",
+                "text": "潮声已寄出。"
+              },
+              "evidence": "最后一行必须只有“潮声已寄出。”",
+              "verified": true,
+              "name": "last_nonempty_line",
+              "passed": true,
+              "detail": "last nonempty line: '潮声已寄出。'"
+            }
+          ],
+          "uncheckable": [
+            "故事须为微型故事，且内容涉及鲸鱼把潮声装进信封寄给沙漠",
+            "除“🐋”和“✉️”外其他文字自由发挥"
+          ],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "1fd33cb025ce50bfb0ae816b217ea5e7eb408a5084a1a68e0ec0a4d130ba634f"
+        },
+        "review": {
+          "status": "fail",
+          "passed": false,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [
+            {
+              "reason": "输出共五行，超出“两到四行”的要求。",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "写两到四行微型故事",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "🐋 把潮声装进 ✉️，寄往没有海的远方。\n沙丘深处，一头鲸鱼把整片潮声折进信封。\n它贴上月亮作邮票，让风替它翻越群山。\n沙漠拆开信时，听见了远海的呼吸。\n潮声已寄出。\n",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "reason": "“🐋”在输出中出现两次，违反恰好使用一次的要求。",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "全文恰好使用一次“🐋”和一次“✉️”",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "🐋 把潮声装进 ✉️，寄往没有海的远方。\n沙丘深处，一头鲸鱼把整片潮声折进信封。",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "utf8_valid": true,
+          "response_sha256": "e523e7cf0d380754deb0c8026415a9c29abe3f4ca53987fa32ca9843e304ec27"
+        }
+      },
+      {
+        "id": "d0872426e8ab26",
+        "case_id": "CC06",
+        "group": "existing",
+        "reference": "pass",
+        "has_fixed_checks": true,
+        "contract": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [
+            {
+              "check": {
+                "type": "line_count",
+                "equals": 3,
+                "include_blank": true
+              },
+              "evidence": "只输出三行",
+              "verified": true,
+              "name": "line_count",
+              "passed": true,
+              "detail": "line count: 3"
+            },
+            {
+              "check": {
+                "type": "contains",
+                "text": "字符数：1"
+              },
+              "evidence": "第二行必须只有“字符数：1”",
+              "verified": true,
+              "name": "contains",
+              "passed": true,
+              "detail": "text present: True"
+            },
+            {
+              "check": {
+                "type": "contains",
+                "text": "UTF-8字节数：3"
+              },
+              "evidence": "第三行必须只有“UTF-8字节数：3”",
+              "verified": true,
+              "name": "contains",
+              "passed": true,
+              "detail": "text present: True"
+            },
+            {
+              "check": {
+                "type": "last_nonempty_line",
+                "text": "UTF-8字节数：3"
+              },
+              "evidence": "第三行必须只有“UTF-8字节数：3”",
+              "verified": true,
+              "name": "last_nonempty_line",
+              "passed": true,
+              "detail": "last nonempty line: 'UTF-8字节数：3'"
+            }
+          ],
+          "uncheckable": [
+            "第二行必须只有“字符数：1”（该行不得包含其他内容）",
+            "第三行必须只有“UTF-8字节数：3”（该行不得包含其他内容）",
+            "第一行自由写一句短童话",
+            "统计对象仅是单个汉字“猫”，不包括引号、换行或童话文字",
+            "童话不得把字符数和字节数混为一谈"
+          ],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "9eb1386e17d009447deb2812248c977a6b99af6b1807feb3b3b3259c2aa93fff"
+        },
+        "review": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        }
+      },
+      {
+        "id": "d15544204aa24d",
+        "case_id": "CC09",
+        "group": "existing",
+        "reference": "pass",
+        "has_fixed_checks": false,
+        "contract": {
+          "status": "abstain",
+          "passed": null,
+          "error": null,
+          "checks": [],
+          "uncheckable": [
+            "让程序展示一个短小而完整的故事",
+            "结尾要让开头的某个细节变得有新含义",
+            "不要解释寓意"
+          ],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "0855cb31e3026d5801ab739f9c1744b85448972a2501d54f4a7bb0b6dc961541"
+        },
+        "review": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        }
+      },
+      {
+        "id": "d21052ecc2ae5f",
+        "case_id": "CC06",
+        "group": "existing",
+        "reference": "pass",
+        "has_fixed_checks": true,
+        "contract": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [
+            {
+              "check": {
+                "type": "line_count",
+                "equals": 3,
+                "include_blank": true
+              },
+              "evidence": "只输出三行",
+              "verified": true,
+              "name": "line_count",
+              "passed": true,
+              "detail": "line count: 3"
+            },
+            {
+              "check": {
+                "type": "contains",
+                "text": "字符数：1"
+              },
+              "evidence": "第二行必须只有“字符数：1”",
+              "verified": true,
+              "name": "contains",
+              "passed": true,
+              "detail": "text present: True"
+            },
+            {
+              "check": {
+                "type": "contains",
+                "text": "UTF-8字节数：3"
+              },
+              "evidence": "第三行必须只有“UTF-8字节数：3”",
+              "verified": true,
+              "name": "contains",
+              "passed": true,
+              "detail": "text present: True"
+            },
+            {
+              "check": {
+                "type": "last_nonempty_line",
+                "text": "UTF-8字节数：3"
+              },
+              "evidence": "第三行必须只有“UTF-8字节数：3”",
+              "verified": true,
+              "name": "last_nonempty_line",
+              "passed": true,
+              "detail": "last nonempty line: 'UTF-8字节数：3'"
+            }
+          ],
+          "uncheckable": [
+            "第二行必须只有“字符数：1”（该行不得包含其他内容）",
+            "第三行必须只有“UTF-8字节数：3”（该行不得包含其他内容）",
+            "第一行自由写一句短童话",
+            "统计对象仅是单个汉字“猫”，不包括引号、换行或童话文字",
+            "童话不得把字符数和字节数混为一谈"
+          ],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "9eb1386e17d009447deb2812248c977a6b99af6b1807feb3b3b3259c2aa93fff"
+        },
+        "review": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        }
+      },
+      {
+        "id": "d2edd5fcccaec4",
+        "case_id": "CC04",
+        "group": "existing",
+        "reference": "pass",
+        "has_fixed_checks": true,
+        "contract": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [
+            {
+              "check": {
+                "type": "line_count",
+                "equals": 3,
+                "include_blank": true
+              },
+              "evidence": "只写三行",
+              "verified": true,
+              "name": "line_count",
+              "passed": true,
+              "detail": "line count: 3"
+            },
+            {
+              "check": {
+                "type": "contains",
+                "text": "清晨：☃☃｜"
+              },
+              "evidence": "行首写“清晨：☃☃｜”",
+              "verified": true,
+              "name": "contains",
+              "passed": true,
+              "detail": "text present: True"
+            },
+            {
+              "check": {
+                "type": "contains",
+                "text": "正午：☃｜"
+              },
+              "evidence": "行首写“正午：☃｜”",
+              "verified": true,
+              "name": "contains",
+              "passed": true,
+              "detail": "text present: True"
+            },
+            {
+              "check": {
+                "type": "contains",
+                "text": "夜晚：无｜"
+              },
+              "evidence": "行首写“夜晚：无｜”",
+              "verified": true,
+              "name": "contains",
+              "passed": true,
+              "detail": "text present: True"
+            },
+            {
+              "check": {
+                "type": "symbol_count",
+                "symbol": "☃",
+                "equals": 3
+              },
+              "evidence": "全文不要在这些行首之外再使用雪人符号",
+              "verified": true,
+              "name": "symbol_count",
+              "passed": true,
+              "detail": "nonoverlapping symbol count: 3"
+            }
+          ],
+          "uncheckable": [
+            "每个竖线后自由写一句当时的情景",
+            "行首约束（符号只能出现在指定行首）"
+          ],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "8025004e1f050f33ab9e2e36aee766db3762bc7797ad238471d146230d9f1783"
+        },
+        "review": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        }
+      },
+      {
+        "id": "d3c2727078ef10",
+        "case_id": "CC09",
+        "group": "existing",
+        "reference": "pass",
+        "has_fixed_checks": false,
+        "contract": {
+          "status": "abstain",
+          "passed": null,
+          "error": null,
+          "checks": [],
+          "uncheckable": [
+            "让程序展示一个短小而完整的故事",
+            "结尾要让开头的某个细节变得有新含义",
+            "不要解释寓意"
+          ],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "0855cb31e3026d5801ab739f9c1744b85448972a2501d54f4a7bb0b6dc961541"
+        },
+        "review": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        }
+      },
+      {
+        "id": "d42d2d0109df82",
+        "case_id": "F12",
+        "group": "existing",
+        "reference": "pass",
+        "has_fixed_checks": false,
+        "contract": {
+          "status": "abstain",
+          "passed": null,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "e37e706607180365485ff0e7290a5a1f709f46b56329d06799b1f8a98af04137"
+        },
+        "review": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        }
+      },
+      {
+        "id": "d8a8e36fd89c0e",
+        "case_id": "CC01",
+        "group": "existing",
+        "reference": "pass",
+        "has_fixed_checks": true,
+        "contract": {
+          "status": "invalid",
+          "passed": null,
+          "error": "model line_sequence requires fullmatch=true",
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": null,
+          "response_sha256": "333ce1afe4f9c81a3f83dcbaa440354205b0b76a368c7d94f29b717852cd62a5"
+        },
+        "review": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        }
+      },
+      {
+        "id": "da53a0acfd0b37",
+        "case_id": "CC04",
+        "group": "existing",
+        "reference": "pass",
+        "has_fixed_checks": true,
+        "contract": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [
+            {
+              "check": {
+                "type": "line_count",
+                "equals": 3,
+                "include_blank": true
+              },
+              "evidence": "只写三行",
+              "verified": true,
+              "name": "line_count",
+              "passed": true,
+              "detail": "line count: 3"
+            },
+            {
+              "check": {
+                "type": "contains",
+                "text": "清晨：☃☃｜"
+              },
+              "evidence": "行首写“清晨：☃☃｜”",
+              "verified": true,
+              "name": "contains",
+              "passed": true,
+              "detail": "text present: True"
+            },
+            {
+              "check": {
+                "type": "contains",
+                "text": "正午：☃｜"
+              },
+              "evidence": "行首写“正午：☃｜”",
+              "verified": true,
+              "name": "contains",
+              "passed": true,
+              "detail": "text present: True"
+            },
+            {
+              "check": {
+                "type": "contains",
+                "text": "夜晚：无｜"
+              },
+              "evidence": "行首写“夜晚：无｜”",
+              "verified": true,
+              "name": "contains",
+              "passed": true,
+              "detail": "text present: True"
+            },
+            {
+              "check": {
+                "type": "symbol_count",
+                "symbol": "☃",
+                "equals": 3
+              },
+              "evidence": "全文不要在这些行首之外再使用雪人符号",
+              "verified": true,
+              "name": "symbol_count",
+              "passed": true,
+              "detail": "nonoverlapping symbol count: 3"
+            }
+          ],
+          "uncheckable": [
+            "每个竖线后自由写一句当时的情景",
+            "行首约束（符号只能出现在指定行首）"
+          ],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "8025004e1f050f33ab9e2e36aee766db3762bc7797ad238471d146230d9f1783"
+        },
+        "review": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        }
+      },
+      {
+        "id": "e0b37db83e899e",
+        "case_id": "CC08",
+        "group": "existing",
+        "reference": "pass",
+        "has_fixed_checks": true,
+        "contract": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [
+            {
+              "check": {
+                "type": "line_count",
+                "min": 3,
+                "max": 5,
+                "include_blank": true
+              },
+              "evidence": "写三到五行微型航行故事",
+              "verified": true,
+              "name": "line_count",
+              "passed": true,
+              "detail": "line count: 5"
+            },
+            {
+              "check": {
+                "type": "contains",
+                "text": "向西"
+              },
+              "evidence": "正文至少出现一次“向西”",
+              "verified": true,
+              "name": "contains",
+              "passed": true,
+              "detail": "text present: True"
+            },
+            {
+              "check": {
+                "type": "not_contains",
+                "text": "向东"
+              },
+              "evidence": "全文不能出现“向东”",
+              "verified": true,
+              "name": "not_contains",
+              "passed": true,
+              "detail": "text present: False"
+            },
+            {
+              "check": {
+                "type": "last_nonempty_line",
+                "text": "船最终停在西岸。"
+              },
+              "evidence": "最后一行必须只有“船最终停在西岸。”",
+              "verified": true,
+              "name": "last_nonempty_line",
+              "passed": true,
+              "detail": "last nonempty line: '船最终停在西岸。'"
+            }
+          ],
+          "uncheckable": [
+            "故事须为微型航行故事，且小船从东岸出发、只向西行进、最终停在西岸的叙事一致性无法由这些检查类型表达",
+            "“最后一行必须只有‘船最终停在西岸。’”中“只有”所要求的该行不得含其他内容，除最后非空行精确匹配外无法完全表达"
+          ],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "d273e479d1c1e2e6921d545bacaa8f6ece103270eb6a465752f73c4087189991"
+        },
+        "review": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        }
+      },
+      {
+        "id": "e3f5043163f815",
+        "case_id": "H02",
+        "group": "existing",
+        "reference": "fail",
+        "has_fixed_checks": false,
+        "contract": {
+          "status": "abstain",
+          "passed": null,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "e37e706607180365485ff0e7290a5a1f709f46b56329d06799b1f8a98af04137"
+        },
+        "review": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        }
+      },
+      {
+        "id": "e752033dd522a2",
+        "case_id": "S13",
+        "group": "existing",
+        "reference": "fail",
+        "has_fixed_checks": false,
+        "contract": {
+          "status": "abstain",
+          "passed": null,
+          "error": null,
+          "checks": [],
+          "uncheckable": [
+            "第一行：夜班电梯停在云里。",
+            "第二行：一颗星按下了负一层。",
+            "第三行：请让结尾比开头轻一点。"
+          ],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "52bc630a742f87382944bf5244e2479bf0f61d82c12ebefaf4edfc5be56228a9"
+        },
+        "review": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        }
+      },
+      {
+        "id": "f19c6cbd341b6d",
+        "case_id": "CC03",
+        "group": "existing",
+        "reference": "fail",
+        "has_fixed_checks": true,
+        "contract": {
+          "status": "fail",
+          "passed": false,
+          "error": null,
+          "checks": [
+            {
+              "check": {
+                "type": "line_count",
+                "min": 1,
+                "max": 4,
+                "include_blank": true
+              },
+              "evidence": "写一到四行微型故事",
+              "verified": true,
+              "name": "line_count",
+              "passed": false,
+              "detail": "line count: 5"
+            },
+            {
+              "check": {
+                "type": "symbol_count",
+                "symbol": "✦",
+                "equals": 3
+              },
+              "evidence": "全文必须恰好出现三个“✦”",
+              "verified": true,
+              "name": "symbol_count",
+              "passed": false,
+              "detail": "nonoverlapping symbol count: 6"
+            },
+            {
+              "check": {
+                "type": "not_contains",
+                "text": "第四只萤火虫"
+              },
+              "evidence": "别再引入第四只萤火虫",
+              "verified": true,
+              "name": "not_contains",
+              "passed": true,
+              "detail": "text present: False"
+            }
+          ],
+          "uncheckable": [
+            "每个“✦”代表一只萤火虫",
+            "三只萤火虫为迷路的蜗牛点亮回家路（故事内容需体现该情节）",
+            "“✦”可以分散在句子中"
+          ],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "e514c78aa21467d2c1eac218d3512de0ad97671e2ef9848ff0ee4366c1b06fc7"
+        },
+        "review": {
+          "status": "fail",
+          "passed": false,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [
+            {
+              "reason": "The story must contain exactly three ✦ symbols, but the output contains six ✦ characters (three in line 1 and three in line 2), and the program itself reports 6.",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "全文必须恰好出现三个“✦”",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "迷路的蜗牛在苔藓上停下，三只萤火虫✦✦✦围成一圈。",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "第一只✦照亮露珠，第二只✦指向树根，第三只✦轻轻落在壳边。",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "萤火虫数量：6",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "utf8_valid": true,
+          "response_sha256": "8109fd404ec33e6b4d6b9083a7bc0bc9af602ecdac47873f0a8a78d5230b6f3f"
+        }
+      },
+      {
+        "id": "probe_stairs_pass",
+        "case_id": "probe_stairs",
+        "group": "fresh_probe",
+        "reference": "pass",
+        "has_fixed_checks": true,
+        "contract": {
+          "status": "fail",
+          "passed": false,
+          "error": null,
+          "checks": [
+            {
+              "check": {
+                "type": "line_count",
+                "equals": 6,
+                "include_blank": true
+              },
+              "evidence": "整幅作品共六行",
+              "verified": true,
+              "name": "line_count",
+              "passed": true,
+              "detail": "line count: 6"
+            },
+            {
+              "check": {
+                "type": "line_sequence",
+                "pattern": "^(\\d+)$",
+                "expected": [
+                  "1",
+                  "2",
+                  "3",
+                  "4"
+                ],
+                "fullmatch": true
+              },
+              "evidence": "自上而下分别只有1、2、3、4颗ASCII星号*",
+              "verified": true,
+              "name": "line_sequence",
+              "passed": false,
+              "detail": "captured sequence: []"
+            }
+          ],
+          "uncheckable": [
+            "先写一行自由的开场短句",
+            "最后再写一行自由的收尾短句",
+            "用C程序展示"
+          ],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "e7dd1fda816b4c51ddbd9013cb0f99b3ea5b86896d3d29f8d31b8fd3a5230b2e"
+        },
+        "review": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        }
+      },
+      {
+        "id": "probe_stairs_fail",
+        "case_id": "probe_stairs",
+        "group": "fresh_probe",
+        "reference": "fail",
+        "has_fixed_checks": true,
+        "contract": {
+          "status": "fail",
+          "passed": false,
+          "error": null,
+          "checks": [
+            {
+              "check": {
+                "type": "line_count",
+                "equals": 6,
+                "include_blank": true
+              },
+              "evidence": "整幅作品共六行",
+              "verified": true,
+              "name": "line_count",
+              "passed": true,
+              "detail": "line count: 6"
+            },
+            {
+              "check": {
+                "type": "line_sequence",
+                "pattern": "^(\\d+)$",
+                "expected": [
+                  "1",
+                  "2",
+                  "3",
+                  "4"
+                ],
+                "fullmatch": true
+              },
+              "evidence": "自上而下分别只有1、2、3、4颗ASCII星号*",
+              "verified": true,
+              "name": "line_sequence",
+              "passed": false,
+              "detail": "captured sequence: []"
+            }
+          ],
+          "uncheckable": [
+            "先写一行自由的开场短句",
+            "最后再写一行自由的收尾短句",
+            "用C程序展示"
+          ],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "e7dd1fda816b4c51ddbd9013cb0f99b3ea5b86896d3d29f8d31b8fd3a5230b2e"
+        },
+        "review": {
+          "status": "fail",
+          "passed": false,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [
+            {
+              "reason": "The four pattern lines should have 1, 2, 3, and 4 asterisks respectively, but the fourth line has only 3 asterisks.",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "自上而下分别只有1、2、3、4颗ASCII星号*",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "***\n***",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "utf8_valid": true,
+          "response_sha256": "f1ef0c7746ddc99adf9f756d5701fbc3ede070fcdbca058f7751f6556761b433"
+        }
+      },
+      {
+        "id": "probe_lantern_route_pass",
+        "case_id": "probe_lantern_route",
+        "group": "fresh_probe",
+        "reference": "pass",
+        "has_fixed_checks": true,
+        "contract": {
+          "status": "fail",
+          "passed": false,
+          "error": null,
+          "checks": [
+            {
+              "check": {
+                "type": "contains",
+                "text": "站点：数字，能量：数字"
+              },
+              "evidence": "按“站点：数字，能量：数字”各输出一行",
+              "verified": true,
+              "name": "contains",
+              "passed": false,
+              "detail": "text present: False"
+            },
+            {
+              "check": {
+                "type": "contains",
+                "text": "最后剩余4点能量"
+              },
+              "evidence": "末行用一句带画面的短句写出最后剩余4点能量",
+              "verified": true,
+              "name": "contains",
+              "passed": false,
+              "detail": "text present: False"
+            },
+            {
+              "check": {
+                "type": "not_contains",
+                "text": "4号站"
+              },
+              "evidence": "不要再增加其他站点",
+              "verified": true,
+              "name": "not_contains",
+              "passed": true,
+              "detail": "text present: False"
+            }
+          ],
+          "uncheckable": [
+            "初始能量为10",
+            "从3号站到2号站再到1号站",
+            "每到一站（含3号站）消耗2点",
+            "抵达后按“站点：数字，能量：数字”各输出一行",
+            "末行用一句带画面的短句写出最后剩余4点能量",
+            "不要再增加其他站点"
+          ],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "432889b11bcb1b96a0fd361096e9a1f2cbd166f273db03d6378194508b0221b2"
+        },
+        "review": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        }
+      },
+      {
+        "id": "probe_lantern_route_fail",
+        "case_id": "probe_lantern_route",
+        "group": "fresh_probe",
+        "reference": "fail",
+        "has_fixed_checks": true,
+        "contract": {
+          "status": "fail",
+          "passed": false,
+          "error": null,
+          "checks": [
+            {
+              "check": {
+                "type": "contains",
+                "text": "站点：数字，能量：数字"
+              },
+              "evidence": "按“站点：数字，能量：数字”各输出一行",
+              "verified": true,
+              "name": "contains",
+              "passed": false,
+              "detail": "text present: False"
+            },
+            {
+              "check": {
+                "type": "contains",
+                "text": "最后剩余4点能量"
+              },
+              "evidence": "末行用一句带画面的短句写出最后剩余4点能量",
+              "verified": true,
+              "name": "contains",
+              "passed": false,
+              "detail": "text present: False"
+            },
+            {
+              "check": {
+                "type": "not_contains",
+                "text": "4号站"
+              },
+              "evidence": "不要再增加其他站点",
+              "verified": true,
+              "name": "not_contains",
+              "passed": true,
+              "detail": "text present: False"
+            }
+          ],
+          "uncheckable": [
+            "初始能量为10",
+            "从3号站到2号站再到1号站",
+            "每到一站（含3号站）消耗2点",
+            "抵达后按“站点：数字，能量：数字”各输出一行",
+            "末行用一句带画面的短句写出最后剩余4点能量",
+            "不要再增加其他站点"
+          ],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "432889b11bcb1b96a0fd361096e9a1f2cbd166f273db03d6378194508b0221b2"
+        },
+        "review": {
+          "status": "fail",
+          "passed": false,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [
+            {
+              "reason": "The journey should start at station 3 and proceed to 2 then 1, but the output lists stations in the order 1, 2, 3.",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "从3号站到2号站再到1号站",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "站点：1，能量：8\n站点：2，能量：6\n站点：3，能量：6",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "reason": "Starting with 10 energy and consuming 2 at each of three stations leaves 4, but the output states 6 remaining.",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "初始能量10",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "每到一站（含3号站）消耗2点",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "还剩6点能量，灯芯在终站暖暖地呼吸。",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "reason": "The final line should state the last remaining 4 energy points, but the output says 6.",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "末行用一句带画面的短句写出最后剩余4点能量",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "还剩6点能量，灯芯在终站暖暖地呼吸。",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "utf8_valid": true,
+          "response_sha256": "5128473449bf0b0fb15585dd0cc945e7b4e3203924e9ebc354e259f516f0a016"
+        }
+      },
+      {
+        "id": "probe_lighthouse_key_pass",
+        "case_id": "probe_lighthouse_key",
+        "group": "fresh_probe",
+        "reference": "pass",
+        "has_fixed_checks": false,
+        "contract": {
+          "status": "abstain",
+          "passed": null,
+          "error": null,
+          "checks": [],
+          "uncheckable": [
+            "故事必须用C程序讲述",
+            "灯塔门只有用唯一的铜钥匙才能打开",
+            "门起初锁着",
+            "灯塔没有窗、暗道或其他入口",
+            "海鸥把钥匙带走后，直到故事结束都没有归还",
+            "没有复制钥匙或魔法",
+            "结尾必须交代主角是否进入灯塔",
+            "结果必须符合这些事实"
+          ],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "51b84d1032f609c1dbe5d3ec61416de663320b3edf9751166a2730f1d4d59370"
+        },
+        "review": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        }
+      },
+      {
+        "id": "probe_lighthouse_key_fail",
+        "case_id": "probe_lighthouse_key",
+        "group": "fresh_probe",
+        "reference": "fail",
+        "has_fixed_checks": false,
+        "contract": {
+          "status": "abstain",
+          "passed": null,
+          "error": null,
+          "checks": [],
+          "uncheckable": [
+            "故事必须用C程序讲述",
+            "灯塔门只有用唯一的铜钥匙才能打开",
+            "门起初锁着",
+            "灯塔没有窗、暗道或其他入口",
+            "海鸥把钥匙带走后，直到故事结束都没有归还",
+            "没有复制钥匙或魔法",
+            "结尾必须交代主角是否进入灯塔",
+            "结果必须符合这些事实"
+          ],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "51b84d1032f609c1dbe5d3ec61416de663320b3edf9751166a2730f1d4d59370"
+        },
+        "review": {
+          "status": "fail",
+          "passed": false,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [
+            {
+              "reason": "故事先说明门仍锁着、没有钥匙也没有其他入口，随后却让主角推开锁着的门进入灯塔，前后矛盾。",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "阿澜摸了摸仍锁着的门；厚墙没有窗，礁石下也没有暗道。",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "她没有钥匙，也没找到其他入口，更没用魔法。",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "她轻轻推开那扇锁着的门，进入了灯塔，在塔内安稳地睡到天亮。",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "灯塔门只有用唯一的铜钥匙才能打开，门起初锁着，没有窗、暗道或其他入口",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "utf8_valid": true,
+          "response_sha256": "96face059eec0964548c44a67eec0da60c1d5f812941f5bc82f4750bde6a1efb"
+        }
+      },
+      {
+        "id": "probe_unicode_garden_pass",
+        "case_id": "probe_unicode_garden",
+        "group": "fresh_probe",
+        "reference": "pass",
+        "has_fixed_checks": true,
+        "contract": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [
+            {
+              "check": {
+                "type": "line_count",
+                "equals": 3,
+                "include_blank": true
+              },
+              "evidence": "第一行无空格地依次画一朵向日葵🌻、一位女宇航员👩‍🚀、一只黑猫🐈‍⬛，这三位访客各出现一次；接下来恰好两行自由短诗",
+              "verified": true,
+              "name": "line_count",
+              "passed": true,
+              "detail": "line count: 3"
+            },
+            {
+              "check": {
+                "type": "symbol_count",
+                "symbol": "🌻",
+                "equals": 1
+              },
+              "evidence": "一朵向日葵🌻",
+              "verified": true,
+              "name": "symbol_count",
+              "passed": true,
+              "detail": "nonoverlapping symbol count: 1"
+            },
+            {
+              "check": {
+                "type": "symbol_count",
+                "symbol": "👩‍🚀",
+                "equals": 1
+              },
+              "evidence": "一位女宇航员👩‍🚀",
+              "verified": true,
+              "name": "symbol_count",
+              "passed": true,
+              "detail": "nonoverlapping symbol count: 1"
+            },
+            {
+              "check": {
+                "type": "symbol_count",
+                "symbol": "🐈‍⬛",
+                "equals": 1
+              },
+              "evidence": "一只黑猫🐈‍⬛",
+              "verified": true,
+              "name": "symbol_count",
+              "passed": true,
+              "detail": "nonoverlapping symbol count: 1"
+            },
+            {
+              "check": {
+                "type": "not_contains",
+                "text": " "
+              },
+              "evidence": "第一行无空格地依次画",
+              "verified": true,
+              "name": "not_contains",
+              "passed": true,
+              "detail": "text present: False"
+            }
+          ],
+          "uncheckable": [
+            "第一行中三个图符必须按向日葵🌻、女宇航员👩‍🚀、黑猫🐈‍⬛的顺序依次出现",
+            "接下来两行必须是自由短诗",
+            "诗里不再重复这些图符",
+            "不要解释编码"
+          ],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "fe5a4df50923454a25e80cd3cbcafa1c638e005a87df3c711b8abc9c0fcf5de9"
+        },
+        "review": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        }
+      },
+      {
+        "id": "probe_unicode_garden_fail",
+        "case_id": "probe_unicode_garden",
+        "group": "fresh_probe",
+        "reference": "fail",
+        "has_fixed_checks": true,
+        "contract": {
+          "status": "fail",
+          "passed": false,
+          "error": null,
+          "checks": [
+            {
+              "check": {
+                "type": "line_count",
+                "equals": 3,
+                "include_blank": true
+              },
+              "evidence": "第一行无空格地依次画一朵向日葵🌻、一位女宇航员👩‍🚀、一只黑猫🐈‍⬛，这三位访客各出现一次；接下来恰好两行自由短诗",
+              "verified": true,
+              "name": "line_count",
+              "passed": true,
+              "detail": "line count: 3"
+            },
+            {
+              "check": {
+                "type": "symbol_count",
+                "symbol": "🌻",
+                "equals": 1
+              },
+              "evidence": "一朵向日葵🌻",
+              "verified": true,
+              "name": "symbol_count",
+              "passed": false,
+              "detail": "nonoverlapping symbol count: 2"
+            },
+            {
+              "check": {
+                "type": "symbol_count",
+                "symbol": "👩‍🚀",
+                "equals": 1
+              },
+              "evidence": "一位女宇航员👩‍🚀",
+              "verified": true,
+              "name": "symbol_count",
+              "passed": true,
+              "detail": "nonoverlapping symbol count: 1"
+            },
+            {
+              "check": {
+                "type": "symbol_count",
+                "symbol": "🐈‍⬛",
+                "equals": 1
+              },
+              "evidence": "一只黑猫🐈‍⬛",
+              "verified": true,
+              "name": "symbol_count",
+              "passed": true,
+              "detail": "nonoverlapping symbol count: 1"
+            },
+            {
+              "check": {
+                "type": "not_contains",
+                "text": " "
+              },
+              "evidence": "第一行无空格地依次画",
+              "verified": true,
+              "name": "not_contains",
+              "passed": true,
+              "detail": "text present: False"
+            }
+          ],
+          "uncheckable": [
+            "第一行中三个图符必须按向日葵🌻、女宇航员👩‍🚀、黑猫🐈‍⬛的顺序依次出现",
+            "接下来两行必须是自由短诗",
+            "诗里不再重复这些图符",
+            "不要解释编码"
+          ],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "fe5a4df50923454a25e80cd3cbcafa1c638e005a87df3c711b8abc9c0fcf5de9"
+        },
+        "review": {
+          "status": "fail",
+          "passed": false,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [
+            {
+              "reason": "The first line repeats the sunflower emoji twice, but the input requires each of the three visitors to appear exactly once.",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "这三位访客各出现一次",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "🌻👩‍🚀🐈‍⬛🌻",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "utf8_valid": true,
+          "response_sha256": "188bdd3c90ce40d90645b09d207b6d063352cb07db4fd89356d5765f01ab686d"
+        }
+      },
+      {
+        "id": "probe_moon_pocket_pass",
+        "case_id": "probe_moon_pocket",
+        "group": "fresh_probe",
+        "reference": "pass",
+        "has_fixed_checks": false,
+        "contract": {
+          "status": "abstain",
+          "passed": null,
+          "error": null,
+          "checks": [],
+          "uncheckable": [
+            "请用C程序展示一首夜归短诗",
+            "写出“把月亮放进口袋”的意象",
+            "允许夸张、拟人和不符合现实物理的比喻",
+            "故事层面说话者始终在地面步行，没有乘交通工具、起飞或真的去太空",
+            "最后已经走到家门口",
+            "其他内容自由"
+          ],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "e1918d01ff486484eeb6b959a76fddc2c05579633f3823ee8fa9baac153e10aa"
+        },
+        "review": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        }
+      },
+      {
+        "id": "probe_moon_pocket_fail",
+        "case_id": "probe_moon_pocket",
+        "group": "fresh_probe",
+        "reference": "fail",
+        "has_fixed_checks": false,
+        "contract": {
+          "status": "abstain",
+          "passed": null,
+          "error": null,
+          "checks": [],
+          "uncheckable": [
+            "请用C程序展示一首夜归短诗",
+            "写出“把月亮放进口袋”的意象",
+            "允许夸张、拟人和不符合现实物理的比喻",
+            "故事层面说话者始终在地面步行，没有乘交通工具、起飞或真的去太空",
+            "最后已经走到家门口",
+            "其他内容自由"
+          ],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "e1918d01ff486484eeb6b959a76fddc2c05579633f3823ee8fa9baac153e10aa"
+        },
+        "review": {
+          "status": "fail",
+          "passed": false,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [
+            {
+              "reason": "Output contradicts the input requirement that the speaker stays on the ground walking, uses no vehicle, does not take off, and ends at the doorstep.",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "随后我登上火箭，发射升空。",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "故事层面说话者始终在地面步行，没有乘交通工具、起飞或真的去太空，最后已经走到家门口",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "reason": "Output explicitly states the speaker left the ground and stayed at a space station instead of reaching the doorstep.",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "这次飞行是故事里真的发生的事，我已离开地面。",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "最后已经走到家门口",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "reason": "Output ends with the speaker not reaching the doorstep, contradicting the required ending.",
+              "evidence": [
+                {
+                  "origin": "stdout",
+                  "quote": "我最终留在太空站，并没有走到家门口。",
+                  "verified": true
+                },
+                {
+                  "origin": "input",
+                  "quote": "最后已经走到家门口",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "utf8_valid": true,
+          "response_sha256": "c2a5dcb4e2a3b0eebc4a766dcc110f7790eadacb3b4c695ee77d5e7928bc1dea"
+        }
+      },
+      {
+        "id": "probe_paper_boat_pass",
+        "case_id": "probe_paper_boat",
+        "group": "fresh_probe",
+        "reference": "pass",
+        "has_fixed_checks": false,
+        "contract": {
+          "status": "fail",
+          "passed": false,
+          "error": null,
+          "checks": [
+            {
+              "check": {
+                "type": "contains",
+                "text": "纸船"
+              },
+              "evidence": "请用C程序讲一个纸船微童话",
+              "verified": true,
+              "name": "contains",
+              "passed": true,
+              "detail": "text present: True"
+            },
+            {
+              "check": {
+                "type": "contains",
+                "text": "只有船身保持干燥才漂得起来"
+              },
+              "evidence": "设定这只纸船只有船身保持干燥才漂得起来",
+              "verified": true,
+              "name": "contains",
+              "passed": false,
+              "detail": "text present: False"
+            },
+            {
+              "check": {
+                "type": "contains",
+                "text": "雨把它彻底浸湿"
+              },
+              "evidence": "雨把它彻底浸湿",
+              "verified": true,
+              "name": "contains",
+              "passed": false,
+              "detail": "text present: False"
+            },
+            {
+              "check": {
+                "type": "contains",
+                "text": "没有晾干、换船或魔法"
+              },
+              "evidence": "此后没有晾干、换船或魔法",
+              "verified": true,
+              "name": "contains",
+              "passed": false,
+              "detail": "text present: False"
+            },
+            {
+              "check": {
+                "type": "contains",
+                "text": "还能不能继续漂"
+              },
+              "evidence": "结尾明确交代它还能不能继续漂",
+              "verified": true,
+              "name": "contains",
+              "passed": false,
+              "detail": "text present: False"
+            }
+          ],
+          "uncheckable": [
+            "结尾必须明确交代纸船还能不能继续漂，且结果须符合“只有船身保持干燥才漂得起来、雨把它彻底浸湿、此后没有晾干/换船/魔法”的设定",
+            "允许纸船和雨对话",
+            "须用C程序讲述该微童话"
+          ],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "e7ef1637f60f3fdb7ad7083dc12f7ff1c150ed973506318df2d592b2595681b7"
+        },
+        "review": {
+          "status": "pass",
+          "passed": true,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "78c552a162c21b8efd0bc0f45dbdc0e65459553bcf752b9968510361dc8e1ab4"
+        }
+      },
+      {
+        "id": "probe_paper_boat_fail",
+        "case_id": "probe_paper_boat",
+        "group": "fresh_probe",
+        "reference": "fail",
+        "has_fixed_checks": false,
+        "contract": {
+          "status": "fail",
+          "passed": false,
+          "error": null,
+          "checks": [
+            {
+              "check": {
+                "type": "contains",
+                "text": "纸船"
+              },
+              "evidence": "请用C程序讲一个纸船微童话",
+              "verified": true,
+              "name": "contains",
+              "passed": true,
+              "detail": "text present: True"
+            },
+            {
+              "check": {
+                "type": "contains",
+                "text": "只有船身保持干燥才漂得起来"
+              },
+              "evidence": "设定这只纸船只有船身保持干燥才漂得起来",
+              "verified": true,
+              "name": "contains",
+              "passed": false,
+              "detail": "text present: False"
+            },
+            {
+              "check": {
+                "type": "contains",
+                "text": "雨把它彻底浸湿"
+              },
+              "evidence": "雨把它彻底浸湿",
+              "verified": true,
+              "name": "contains",
+              "passed": false,
+              "detail": "text present: False"
+            },
+            {
+              "check": {
+                "type": "contains",
+                "text": "没有晾干、换船或魔法"
+              },
+              "evidence": "此后没有晾干、换船或魔法",
+              "verified": true,
+              "name": "contains",
+              "passed": false,
+              "detail": "text present: False"
+            },
+            {
+              "check": {
+                "type": "contains",
+                "text": "还能不能继续漂"
+              },
+              "evidence": "结尾明确交代它还能不能继续漂",
+              "verified": true,
+              "name": "contains",
+              "passed": false,
+              "detail": "text present: False"
+            }
+          ],
+          "uncheckable": [
+            "结尾必须明确交代纸船还能不能继续漂，且结果须符合“只有船身保持干燥才漂得起来、雨把它彻底浸湿、此后没有晾干/换船/魔法”的设定",
+            "允许纸船和雨对话",
+            "须用C程序讲述该微童话"
+          ],
+          "findings": [],
+          "utf8_valid": true,
+          "response_sha256": "e7ef1637f60f3fdb7ad7083dc12f7ff1c150ed973506318df2d592b2595681b7"
+        },
+        "review": {
+          "status": "fail",
+          "passed": false,
+          "error": null,
+          "checks": [],
+          "uncheckable": [],
+          "findings": [
+            {
+              "reason": "Story states the boat's hull is still completely wet yet claims it satisfies the condition that only a dry hull can float, contradicting the setup.",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "设定这只纸船只有船身保持干燥才漂得起来",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "纸船的船身依旧全湿，却仍满足只有干燥才漂得起来的条件。",
+                  "verified": true
+                }
+              ]
+            },
+            {
+              "reason": "After being thoroughly soaked with no drying, replacement, or magic, the boat still floats to the river bend, contradicting the rule that only a dry hull floats.",
+              "evidence": [
+                {
+                  "origin": "input",
+                  "quote": "雨把它彻底浸湿，此后没有晾干、换船或魔法",
+                  "verified": true
+                },
+                {
+                  "origin": "stdout",
+                  "quote": "它继续稳稳漂到了河弯，没有沉下去。",
+                  "verified": true
+                }
+              ]
+            }
+          ],
+          "utf8_valid": true,
+          "response_sha256": "d0de6d39c95b48d4a31a35c90f5677b29ea0f9ef2adf58bfa11f1d2180985acf"
+        }
+      }
+    ]
+  },
+  "fees": {
+    "contract": {
+      "tasks": 26,
+      "request_attempts": 26,
+      "cost_known_tasks": 26,
+      "input_tokens": 17743,
+      "output_tokens": 2839,
+      "known_upper_estimate_usd": 0.0087297,
+      "p50_task_ms": 1193.0,
+      "min_actual_max_tokens": 1536,
+      "max_actual_max_tokens": 1536,
+      "mean_known_estimate_per_call_usd": 0.0003357576923076923
+    },
+    "review": {
+      "tasks": 56,
+      "request_attempts": 56,
+      "cost_known_tasks": 56,
+      "input_tokens": 43868,
+      "output_tokens": 2003,
+      "known_upper_estimate_usd": 0.015564,
+      "p50_task_ms": 1067.0,
+      "min_actual_max_tokens": 1536,
+      "max_actual_max_tokens": 1536,
+      "mean_known_estimate_per_call_usd": 0.00027792857142857144
+    },
+    "grand": {
+      "tasks": 82,
+      "requests": 82,
+      "known_upper_estimate_usd": 0.024293699999999998,
+      "unknown_cost_tasks": 0,
+      "reserved_usd": 0.41000000000000003,
+      "committed_usd": 0.0242937,
+      "maximum_task_known_usd": 0.0005433,
+      "served_models": [
+        "deepseek-flash"
+      ],
+      "not_invoice": true,
+      "excludes_host_agent_cost": true
+    }
+  },
+  "predeclared_screening_passed": {
+    "contract": false,
+    "review": false
+  },
+  "production_integration": false,
+  "product_source_unchanged": true,
+  "tool_commit": "6d317b63b2f63598e374dc8c7ada23019a308678",
+  "exploratory_rejection_union": {
+    "scope": "Post-hoc rejection union only;not predeclared acceptance or deployed gate",
+    "groups": {
+      "existing": {
+        "bad_rejected_by_either": 7,
+        "good_rejected_by_either": 1
+      },
+      "fresh_probe": {
+        "bad_rejected_by_either": 6,
+        "good_rejected_by_either": 3
+      }
+    }
+  },
+  "validation": {
+    "tool_commit": "6d317b63b2f63598e374dc8c7ada23019a308678",
+    "local_tests": {
+      "passed": 953,
+      "skipped": 1,
+      "duration_s": 110.64
+    },
+    "checks": [
+      "ruff",
+      "src mypy Linux/win32",
+      "mypy --explicit-package-bases bench/creative_review.py bench/creative_review_eval.py"
+    ],
+    "ci_run": 43357232513,
+    "ci_conclusion": "success",
+    "ci_jobs_passed": 14,
+    "product_source_unchanged": true
+  },
+  "audits": {
+    "parser": "audit/parser.md",
+    "failures": "audit/failures.json",
+    "scope": "post-hoc explanation,does not change frozen reference or aggregate"
+  },
+  "ci_reports_verified": true,
+  "ci_reports_count": 12
+}
