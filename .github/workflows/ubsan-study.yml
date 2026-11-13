@@ -37,7 +37,14 @@ jobs:
           $installation = & $vswhere -latest -products '*' -property installationPath
           if (-not $installation) { throw 'No installed Visual Studio toolchain' }
           $setup = Join-Path $installation 'Common7\Tools\VsDevCmd.bat'
-          $variables = & cmd /s /c "`"`"$setup`" -arch=x64 >nul && set`""
+          $batch = Join-Path $env:RUNNER_TEMP 'yescc-vs-env.cmd'
+          @"
+          @echo off
+          call "$setup" -arch=x64 >nul
+          if errorlevel 1 exit /b 1
+          set
+          "@ | Set-Content -Path $batch -Encoding ascii
+          $variables = & $env:ComSpec /d /c call $batch
           if ($LASTEXITCODE -ne 0) { throw 'VsDevCmd failed' }
           $allowed = @('PATH', 'INCLUDE', 'LIB', 'LIBPATH', 'VCINSTALLDIR',
             'VCTOOLSINSTALLDIR', 'WINDOWSSDKDIR', 'WINDOWSSDKVERSION',
