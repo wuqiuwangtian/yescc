@@ -1,2 +1,3 @@
 # Preserve this frozen evaluation dataset's exact bytes on every platform.
 /bench/creative_consistency_cases.json text eol=lf
+/bench/creative_generation_examples.json text eol=lf
