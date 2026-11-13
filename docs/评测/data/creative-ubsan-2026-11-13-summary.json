@@ -1,0 +1,3267 @@
+{
+  "schema": "yescc-ubsan-study-summary-v1",
+  "baseline_commit": "b0ef0b9acb7b98d17859b78263cccf73d7f05e97",
+  "tool_commit": "5157dc7789988bd5220f67a8ed9803e54a905cda",
+  "workflow_fix_commit": "1c8c3616d353958523c594eb7eb1fb28e5943d92",
+  "study_run_id": 43382667050,
+  "first_failed_study_run_id": 43382426572,
+  "cases": 72,
+  "model_calls": 0,
+  "paid_api_cost_usd": 0,
+  "production_integration": false,
+  "ci": {
+    "regular": {
+      "conclusion": "success",
+      "databaseId": 43382673562,
+      "headSha": "1c8c3616d353958523c594eb7eb1fb28e5943d92",
+      "jobs": [
+        {
+          "conclusion": "success",
+          "name": "package smoke (ubuntu-latest)",
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "e2e (windows-latest, py3.11)",
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "e2e (ubuntu-latest, py3.11)",
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "e2e (windows-latest, py3.14)",
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "test (ubuntu-latest, py3.13)",
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "e2e (ubuntu-latest, py3.14)",
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "package smoke (windows-latest)",
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "test (windows-latest, py3.14)",
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "test (ubuntu-latest, py3.11)",
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "test (ubuntu-latest, py3.12)",
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "test (ubuntu-latest, py3.14)",
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "test (windows-latest, py3.13)",
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "test (windows-latest, py3.11)",
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "test (windows-latest, py3.12)",
+          "status": "completed"
+        }
+      ],
+      "status": "completed"
+    },
+    "study": {
+      "conclusion": "success",
+      "databaseId": 43382667050,
+      "headSha": "1c8c3616d353958523c594eb7eb1fb28e5943d92",
+      "jobs": [
+        {
+          "conclusion": "success",
+          "name": "windows-latest / gcc",
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "windows-latest / clang",
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "ubuntu-latest / clang",
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "ubuntu-latest / gcc",
+          "status": "completed"
+        }
+      ],
+      "status": "completed"
+    }
+  },
+  "validation": {
+    "new_tests": 55,
+    "linux_full_passed": 1139,
+    "linux_windows_only_skip": 1,
+    "linux_full_duration_s": 137.05,
+    "ruff": "passed",
+    "mypy_src_linux_win32": "passed",
+    "mypy_bench": "passed"
+  },
+  "manifest": {
+    "schema": "yescc-ubsan-corpus-v1",
+    "model_calls": 0,
+    "archive_sha256": "934f5d9fc3f0d282acf31814f48e0a4b740a0b1a16e6571b730d4476b61472f1",
+    "examples_sha256": "e41ce12b033d4fd16a040446f09db4278edbe944a912a551a811e25234c05f88",
+    "fixtures_sha256": "ee97bd56484f5cb736100bffdc0beb6b3c31ec9422314a00a5e60f01d2ac8a18",
+    "cases_sha256": "e76820680bdce6bb1f4918c009f22d068e952ec564d59ca31401b18be3903097",
+    "counts": {
+      "model": 54,
+      "example": 2,
+      "fixture": 16
+    },
+    "origins": {
+      "model-S18__baseline__r1": {
+        "cohort": "model",
+        "task": {
+          "task_id": "S18__baseline__r1",
+          "case_id": "S18",
+          "variant": "baseline",
+          "repeat": 1
+        },
+        "source_sha256": "e50c48db1daecf8ed245d7a8a9892962f39dccc47663dfbfbf923a15425a2d6d"
+      },
+      "model-fresh-d12__examples__r1": {
+        "cohort": "model",
+        "task": {
+          "task_id": "fresh-d12__examples__r1",
+          "case_id": "fresh-d12",
+          "variant": "examples",
+          "repeat": 1
+        },
+        "source_sha256": "5a57ea82806e778c8e1b1adc122e29a4a91e6356010c673649edaaaf7a63aeb7"
+      },
+      "model-fresh-d01__baseline__r1": {
+        "cohort": "model",
+        "task": {
+          "task_id": "fresh-d01__baseline__r1",
+          "case_id": "fresh-d01",
+          "variant": "baseline",
+          "repeat": 1
+        },
+        "source_sha256": "596d7ee317016066b97103ac159cd724d3d52e3876583a0dd5abef44863ca8f6"
+      },
+      "model-fresh-d03__examples__r1": {
+        "cohort": "model",
+        "task": {
+          "task_id": "fresh-d03__examples__r1",
+          "case_id": "fresh-d03",
+          "variant": "examples",
+          "repeat": 1
+        },
+        "source_sha256": "5c0f006da3031ded5e9edcd888b3c7a0df0684e7307a3afa7f3266fa9f428af6"
+      },
+      "model-fresh-d10__examples__r1": {
+        "cohort": "model",
+        "task": {
+          "task_id": "fresh-d10__examples__r1",
+          "case_id": "fresh-d10",
+          "variant": "examples",
+          "repeat": 1
+        },
+        "source_sha256": "4486f1a3d31136d22877f31d948492257e0562b6db301a59fe495caa9f2b9bc4"
+      },
+      "model-fresh-d08__facts__r1": {
+        "cohort": "model",
+        "task": {
+          "task_id": "fresh-d08__facts__r1",
+          "case_id": "fresh-d08",
+          "variant": "facts",
+          "repeat": 1
+        },
+        "source_sha256": "abc169800523895fb59bfc4da521af4a0d77c14179c7b43726a979bc3973d305"
+      },
+      "model-fresh-d09__examples__r1": {
+        "cohort": "model",
+        "task": {
+          "task_id": "fresh-d09__examples__r1",
+          "case_id": "fresh-d09",
+          "variant": "examples",
+          "repeat": 1
+        },
+        "source_sha256": "ac57863a12242902bae1ff5b3fd36536205d4a54276f353d3d4868a888b805e8"
+      },
+      "model-S13__baseline__r1": {
+        "cohort": "model",
+        "task": {
+          "task_id": "S13__baseline__r1",
+          "case_id": "S13",
+          "variant": "baseline",
+          "repeat": 1
+        },
+        "source_sha256": "390bfeb9e83250c15696a6f77fe9456c6ac7b3586611d4167c9beab23d85775f"
+      },
+      "model-fresh-d08__baseline__r1": {
+        "cohort": "model",
+        "task": {
+          "task_id": "fresh-d08__baseline__r1",
+          "case_id": "fresh-d08",
+          "variant": "baseline",
+          "repeat": 1
+        },
+        "source_sha256": "5bb56fdff6d70bf47f091a264a7e72b567514e90d595e48f4bf1c945d785fc9f"
+      },
+      "model-fresh-d11__examples__r1": {
+        "cohort": "model",
+        "task": {
+          "task_id": "fresh-d11__examples__r1",
+          "case_id": "fresh-d11",
+          "variant": "examples",
+          "repeat": 1
+        },
+        "source_sha256": "ab6c93822997afe7993d9d27cf982f272f3c70649e8261068a33d84843745a72"
+      },
+      "model-fresh-d04__baseline__r1": {
+        "cohort": "model",
+        "task": {
+          "task_id": "fresh-d04__baseline__r1",
+          "case_id": "fresh-d04",
+          "variant": "baseline",
+          "repeat": 1
+        },
+        "source_sha256": "cf62b04dbbe7caba44f7551f377f0e832e4124731e10f9b9f6d258363e2f3023"
+      },
+      "model-fresh-d03__facts__r1": {
+        "cohort": "model",
+        "task": {
+          "task_id": "fresh-d03__facts__r1",
+          "case_id": "fresh-d03",
+          "variant": "facts",
+          "repeat": 1
+        },
+        "source_sha256": "c1fe9be5b77118e9ebef7bf38f5891f75f84189627852b6a6990793e60819a2b"
+      },
+      "model-S19__baseline__r2": {
+        "cohort": "model",
+        "task": {
+          "task_id": "S19__baseline__r2",
+          "case_id": "S19",
+          "variant": "baseline",
+          "repeat": 2
+        },
+        "source_sha256": "745430961763f60f2be8f7ad4c2eddf5a93f7514791536df10a8fe4d67b48aec"
+      },
+      "model-fresh-d05__facts__r1": {
+        "cohort": "model",
+        "task": {
+          "task_id": "fresh-d05__facts__r1",
+          "case_id": "fresh-d05",
+          "variant": "facts",
+          "repeat": 1
+        },
+        "source_sha256": "e8bf1b3af28160ed7b450b8c8903d110abeb4ac350374b756707ecd34695ff05"
+      },
+      "model-S13__examples__r1": {
+        "cohort": "model",
+        "task": {
+          "task_id": "S13__examples__r1",
+          "case_id": "S13",
+          "variant": "examples",
+          "repeat": 1
+        },
+        "source_sha256": "15df77c86496f15330318bab402009af9972e9d86a3e5faa325774edb9ed65a8"
+      },
+      "model-F12__facts__r1": {
+        "cohort": "model",
+        "task": {
+          "task_id": "F12__facts__r1",
+          "case_id": "F12",
+          "variant": "facts",
+          "repeat": 1
+        },
+        "source_sha256": "e316e3c528a8a131330c748e470c2078729d591cb2476fb00417de6d634b89a7"
+      },
+      "model-fresh-d11__facts__r1": {
+        "cohort": "model",
+        "task": {
+          "task_id": "fresh-d11__facts__r1",
+          "case_id": "fresh-d11",
+          "variant": "facts",
+          "repeat": 1
+        },
+        "source_sha256": "86647c5f4ccb683dbaa79e81537a49595baf7e668f23593392723fa5a5cfa956"
+      },
+      "model-fresh-d04__facts__r1": {
+        "cohort": "model",
+        "task": {
+          "task_id": "fresh-d04__facts__r1",
+          "case_id": "fresh-d04",
+          "variant": "facts",
+          "repeat": 1
+        },
+        "source_sha256": "f450eac9d3382e95c9c4201bd11553f2c152720c90787520c02b07251976f5e3"
+      },
+      "model-fresh-d09__baseline__r1": {
+        "cohort": "model",
+        "task": {
+          "task_id": "fresh-d09__baseline__r1",
+          "case_id": "fresh-d09",
+          "variant": "baseline",
+          "repeat": 1
+        },
+        "source_sha256": "b8676457c8c546894b6840b15b0023106f3baf472385fed6cee8db297dbf302a"
+      },
+      "model-fresh-d07__examples__r1": {
+        "cohort": "model",
+        "task": {
+          "task_id": "fresh-d07__examples__r1",
+          "case_id": "fresh-d07",
+          "variant": "examples",
+          "repeat": 1
+        },
+        "source_sha256": "2faf67fe0f80f9c83f32804c28a2a4aae3a86f397ac1fcd686653123a8123208"
+      },
+      "model-S18__examples__r1": {
+        "cohort": "model",
+        "task": {
+          "task_id": "S18__examples__r1",
+          "case_id": "S18",
+          "variant": "examples",
+          "repeat": 1
+        },
+        "source_sha256": "075fe7a83ba1bf39f95c106f4b5ab15cf87968da17d3566a55851954bc579398"
+      },
+      "model-S19__examples__r1": {
+        "cohort": "model",
+        "task": {
+          "task_id": "S19__examples__r1",
+          "case_id": "S19",
+          "variant": "examples",
+          "repeat": 1
+        },
+        "source_sha256": "b2999a5eddcdc1753612cb590d1c46f48189b7fa3198d48f6fce3a778c1e02ff"
+      },
+      "model-fresh-d09__facts__r1": {
+        "cohort": "model",
+        "task": {
+          "task_id": "fresh-d09__facts__r1",
+          "case_id": "fresh-d09",
+          "variant": "facts",
+          "repeat": 1
+        },
+        "source_sha256": "a40a06cabc9bcc0531a57048566ca20d35f0c8ebf08456927224ac6a04425adf"
+      },
+      "model-fresh-d11__baseline__r1": {
+        "cohort": "model",
+        "task": {
+          "task_id": "fresh-d11__baseline__r1",
+          "case_id": "fresh-d11",
+          "variant": "baseline",
+          "repeat": 1
+        },
+        "source_sha256": "e5a79983c7cd42a564f0779811fd3948337c9f3f4122a345ca4fad2fa6001f8f"
+      },
+      "model-fresh-d01__examples__r1": {
+        "cohort": "model",
+        "task": {
+          "task_id": "fresh-d01__examples__r1",
+          "case_id": "fresh-d01",
+          "variant": "examples",
+          "repeat": 1
+        },
+        "source_sha256": "73718e4754a9f45cde99faa1136fb06c19db44cd689cebeda602331f9ffcd4df"
+      },
+      "model-fresh-d05__examples__r1": {
+        "cohort": "model",
+        "task": {
+          "task_id": "fresh-d05__examples__r1",
+          "case_id": "fresh-d05",
+          "variant": "examples",
+          "repeat": 1
+        },
+        "source_sha256": "b734d4a13f753763053b0fb5b7d4c422a252373731232e130735584f599fd1c2"
+      },
+      "model-S19__baseline__r1": {
+        "cohort": "model",
+        "task": {
+          "task_id": "S19__baseline__r1",
+          "case_id": "S19",
+          "variant": "baseline",
+          "repeat": 1
+        },
+        "source_sha256": "3daf960c5db6ae9600fcca133ed13f8f53703640d6e01735d162d443bf4c9feb"
+      },
+      "model-fresh-d02__examples__r1": {
+        "cohort": "model",
+        "task": {
+          "task_id": "fresh-d02__examples__r1",
+          "case_id": "fresh-d02",
+          "variant": "examples",
+          "repeat": 1
+        },
+        "source_sha256": "43bde589243c547f50d3f7da51f05e2b8e6ecc43c33cce3bf1f1d4f12a2d1004"
+      },
+      "model-fresh-d01__facts__r1": {
+        "cohort": "model",
+        "task": {
+          "task_id": "fresh-d01__facts__r1",
+          "case_id": "fresh-d01",
+          "variant": "facts",
+          "repeat": 1
+        },
+        "source_sha256": "de92f0068e35a1e78d62bcef91ae31540e689274d1b016efde531d9af02e78c4"
+      },
+      "model-fresh-d06__baseline__r1": {
+        "cohort": "model",
+        "task": {
+          "task_id": "fresh-d06__baseline__r1",
+          "case_id": "fresh-d06",
+          "variant": "baseline",
+          "repeat": 1
+        },
+        "source_sha256": "f160931696a5a79f025666e21934c65bd108f21adc3344e2a8564cb6a03e3000"
+      },
+      "model-fresh-d01__facts__r2": {
+        "cohort": "model",
+        "task": {
+          "task_id": "fresh-d01__facts__r2",
+          "case_id": "fresh-d01",
+          "variant": "facts",
+          "repeat": 2
+        },
+        "source_sha256": "f0af04c260df3f31cd3589943acfbd3a4ef8a73a6e9091a453ddea63a071b25b"
+      },
+      "model-fresh-d07__baseline__r1": {
+        "cohort": "model",
+        "task": {
+          "task_id": "fresh-d07__baseline__r1",
+          "case_id": "fresh-d07",
+          "variant": "baseline",
+          "repeat": 1
+        },
+        "source_sha256": "f9a7026c094e1aa97c62ebedcdfe2a31b7f31d26c5c913380ed94ee53d8024ab"
+      },
+      "model-F12__baseline__r1": {
+        "cohort": "model",
+        "task": {
+          "task_id": "F12__baseline__r1",
+          "case_id": "F12",
+          "variant": "baseline",
+          "repeat": 1
+        },
+        "source_sha256": "119a3df94bd6aec6739b38aaee646a4280c6e7fbe3bb66a85b8b5aaa1af7baea"
+      },
+      "model-F12__examples__r1": {
+        "cohort": "model",
+        "task": {
+          "task_id": "F12__examples__r1",
+          "case_id": "F12",
+          "variant": "examples",
+          "repeat": 1
+        },
+        "source_sha256": "72244b63988997f109fbae50d413abc9d3716600ca7eb2d945e0f1b6409b3bdf"
+      },
+      "model-fresh-d12__baseline__r1": {
+        "cohort": "model",
+        "task": {
+          "task_id": "fresh-d12__baseline__r1",
+          "case_id": "fresh-d12",
+          "variant": "baseline",
+          "repeat": 1
+        },
+        "source_sha256": "a2fab9fe29e9c5a472580b016ed0fe5ae69f0a3488cf5fb15b0e44ceb282faa3"
+      },
+      "model-fresh-d10__facts__r1": {
+        "cohort": "model",
+        "task": {
+          "task_id": "fresh-d10__facts__r1",
+          "case_id": "fresh-d10",
+          "variant": "facts",
+          "repeat": 1
+        },
+        "source_sha256": "604b87349a8b706a8339a1414b7db258e6a10b72bb4f66013508201e9621391d"
+      },
+      "model-fresh-d12__facts__r1": {
+        "cohort": "model",
+        "task": {
+          "task_id": "fresh-d12__facts__r1",
+          "case_id": "fresh-d12",
+          "variant": "facts",
+          "repeat": 1
+        },
+        "source_sha256": "3f6e7c18318d03bb4142885a94085951ce8a0036eb329ce7c581bba746b69279"
+      },
+      "model-fresh-d07__facts__r1": {
+        "cohort": "model",
+        "task": {
+          "task_id": "fresh-d07__facts__r1",
+          "case_id": "fresh-d07",
+          "variant": "facts",
+          "repeat": 1
+        },
+        "source_sha256": "28619798cb6a662407a96af0e9bd9b9d3b6fafa66db5b7b5559002e8891200a1"
+      },
+      "model-fresh-d10__baseline__r1": {
+        "cohort": "model",
+        "task": {
+          "task_id": "fresh-d10__baseline__r1",
+          "case_id": "fresh-d10",
+          "variant": "baseline",
+          "repeat": 1
+        },
+        "source_sha256": "013bd85132f08e7728834c6ebc18f6d854cc21d2f4d0a366a5aaf5465a348713"
+      },
+      "model-S19__examples__r2": {
+        "cohort": "model",
+        "task": {
+          "task_id": "S19__examples__r2",
+          "case_id": "S19",
+          "variant": "examples",
+          "repeat": 2
+        },
+        "source_sha256": "fa6e707a43bd041dedf07d6f4112ca5723c24cea799d6b6c4cffdcd463c77deb"
+      },
+      "model-fresh-d06__facts__r1": {
+        "cohort": "model",
+        "task": {
+          "task_id": "fresh-d06__facts__r1",
+          "case_id": "fresh-d06",
+          "variant": "facts",
+          "repeat": 1
+        },
+        "source_sha256": "7f69f29f59e973cae9b41a3b9ff97b16db4fe0279a3f1b9e128e2ac90f6a61fc"
+      },
+      "model-fresh-d04__examples__r1": {
+        "cohort": "model",
+        "task": {
+          "task_id": "fresh-d04__examples__r1",
+          "case_id": "fresh-d04",
+          "variant": "examples",
+          "repeat": 1
+        },
+        "source_sha256": "2104eab8e0003b6c4e31266776caa3368bc43eeb52e681ba6f4fb743bca78895"
+      },
+      "model-fresh-d02__baseline__r1": {
+        "cohort": "model",
+        "task": {
+          "task_id": "fresh-d02__baseline__r1",
+          "case_id": "fresh-d02",
+          "variant": "baseline",
+          "repeat": 1
+        },
+        "source_sha256": "23698c7c25366f3e75d331e0fffb8a41b9613fc9ee02ea8c872f8e84e5a8d94c"
+      },
+      "model-fresh-d06__examples__r1": {
+        "cohort": "model",
+        "task": {
+          "task_id": "fresh-d06__examples__r1",
+          "case_id": "fresh-d06",
+          "variant": "examples",
+          "repeat": 1
+        },
+        "source_sha256": "0a9ea6249b4944923fa50071536d59af3a23ec39bcfcc1e677f6fab922e08e92"
+      },
+      "model-S13__facts__r1": {
+        "cohort": "model",
+        "task": {
+          "task_id": "S13__facts__r1",
+          "case_id": "S13",
+          "variant": "facts",
+          "repeat": 1
+        },
+        "source_sha256": "cf29ab449c5b1ebf078f65c72a720f076f2218caf3d6d4f8981f545a141e8027"
+      },
+      "model-S19__facts__r1": {
+        "cohort": "model",
+        "task": {
+          "task_id": "S19__facts__r1",
+          "case_id": "S19",
+          "variant": "facts",
+          "repeat": 1
+        },
+        "source_sha256": "5096b68c14e6bf807a2e2910245045769fe4f14c1e366be2b19e95f7c0c4ea70"
+      },
+      "model-fresh-d08__examples__r1": {
+        "cohort": "model",
+        "task": {
+          "task_id": "fresh-d08__examples__r1",
+          "case_id": "fresh-d08",
+          "variant": "examples",
+          "repeat": 1
+        },
+        "source_sha256": "cd4e396cd2e06116dc64e768ae005a3e58d87d355d193d24d968df35bb191a6a"
+      },
+      "model-S18__facts__r1": {
+        "cohort": "model",
+        "task": {
+          "task_id": "S18__facts__r1",
+          "case_id": "S18",
+          "variant": "facts",
+          "repeat": 1
+        },
+        "source_sha256": "859d2393c1e914c9b08392b4b8b479b3c633ef68c8bce64397c45fbfd238a32a"
+      },
+      "model-fresh-d02__facts__r1": {
+        "cohort": "model",
+        "task": {
+          "task_id": "fresh-d02__facts__r1",
+          "case_id": "fresh-d02",
+          "variant": "facts",
+          "repeat": 1
+        },
+        "source_sha256": "3043f8a376234fbcd3848e6601cb178cafeb17247d7494340c36fdab63ae2529"
+      },
+      "model-fresh-d01__examples__r2": {
+        "cohort": "model",
+        "task": {
+          "task_id": "fresh-d01__examples__r2",
+          "case_id": "fresh-d01",
+          "variant": "examples",
+          "repeat": 2
+        },
+        "source_sha256": "da495a539b3e94ac549045ce82191373c446fe5c15dc4ffdcb73115fe6a03733"
+      },
+      "model-fresh-d03__baseline__r1": {
+        "cohort": "model",
+        "task": {
+          "task_id": "fresh-d03__baseline__r1",
+          "case_id": "fresh-d03",
+          "variant": "baseline",
+          "repeat": 1
+        },
+        "source_sha256": "7d3e292d70daa84f3d710058d5d6f82e85ffb3e46435d0ad7ddd7b69a3652fc1"
+      },
+      "model-fresh-d01__baseline__r2": {
+        "cohort": "model",
+        "task": {
+          "task_id": "fresh-d01__baseline__r2",
+          "case_id": "fresh-d01",
+          "variant": "baseline",
+          "repeat": 2
+        },
+        "source_sha256": "7f668797b8ec0b611e6d517c509b7bbcb49599a29abf2510768591a38235c822"
+      },
+      "model-fresh-d05__baseline__r1": {
+        "cohort": "model",
+        "task": {
+          "task_id": "fresh-d05__baseline__r1",
+          "case_id": "fresh-d05",
+          "variant": "baseline",
+          "repeat": 1
+        },
+        "source_sha256": "f706407a0ce0aa29c681596fff389983211e444050e8995501295e0b53640adc"
+      },
+      "model-S19__facts__r2": {
+        "cohort": "model",
+        "task": {
+          "task_id": "S19__facts__r2",
+          "case_id": "S19",
+          "variant": "facts",
+          "repeat": 2
+        },
+        "source_sha256": "ca8631023f47a4653950d50f985acf9610165bb6d848749c4d064e2d959a4853"
+      },
+      "example-receipt_river": {
+        "cohort": "example",
+        "original_id": "receipt_river"
+      },
+      "example-comb_will": {
+        "cohort": "example",
+        "original_id": "comb_will"
+      },
+      "fixture-defined-unsigned-wrap": {
+        "cohort": "fixture",
+        "original_id": "defined-unsigned-wrap"
+      },
+      "fixture-defined-utf8-literature": {
+        "cohort": "fixture",
+        "original_id": "defined-utf8-literature"
+      },
+      "fixture-defined-libm": {
+        "cohort": "fixture",
+        "original_id": "defined-libm"
+      },
+      "fixture-defined-one-past": {
+        "cohort": "fixture",
+        "original_id": "defined-one-past"
+      },
+      "fixture-defined-signed-limit": {
+        "cohort": "fixture",
+        "original_id": "defined-signed-limit"
+      },
+      "fixture-defined-unsigned-shift": {
+        "cohort": "fixture",
+        "original_id": "defined-unsigned-shift"
+      },
+      "fixture-undefined-array-index": {
+        "cohort": "fixture",
+        "original_id": "undefined-array-index"
+      },
+      "fixture-undefined-signed-add": {
+        "cohort": "fixture",
+        "original_id": "undefined-signed-add"
+      },
+      "fixture-undefined-divide-zero": {
+        "cohort": "fixture",
+        "original_id": "undefined-divide-zero"
+      },
+      "fixture-undefined-shift-width": {
+        "cohort": "fixture",
+        "original_id": "undefined-shift-width"
+      },
+      "fixture-undefined-negative-left-shift": {
+        "cohort": "fixture",
+        "original_id": "undefined-negative-left-shift"
+      },
+      "fixture-undefined-null-load": {
+        "cohort": "fixture",
+        "original_id": "undefined-null-load"
+      },
+      "fixture-boundary-wrong-fact": {
+        "cohort": "fixture",
+        "original_id": "boundary-wrong-fact"
+      },
+      "fixture-boundary-unexecuted-ub": {
+        "cohort": "fixture",
+        "original_id": "boundary-unexecuted-ub"
+      },
+      "fixture-boundary-heap-overrun": {
+        "cohort": "fixture",
+        "original_id": "boundary-heap-overrun"
+      },
+      "fixture-boundary-use-after-free": {
+        "cohort": "fixture",
+        "original_id": "boundary-use-after-free"
+      }
+    }
+  },
+  "profiles": {
+    "local-gcc-runtime": {
+      "path": "local-gcc-runtime.json",
+      "platform": {
+        "system": "Linux",
+        "machine": "x86_64"
+      },
+      "compiler_requested": "gcc",
+      "compiler_resolved": "/usr/sbin/gcc",
+      "target": "x86_64-pc-linux-gnu",
+      "version": "gcc (GCC) 16.2.1 20260810",
+      "capability": "available",
+      "probe_positive": true,
+      "mode": "runtime",
+      "actual_flags": [
+        "-std=c11",
+        "-O0",
+        "-fsanitize=undefined",
+        "-fno-sanitize-recover=undefined",
+        "-lm"
+      ],
+      "groups": {
+        "model": {
+          "count": 54,
+          "baseline_executed": 54,
+          "baseline_exit0": 54,
+          "instrumented_executed": 54,
+          "instrumented_exit0": 53,
+          "diagnostic_nonzero": 1,
+          "instrumented_nonzero": 1,
+          "new_failures": 1,
+          "exact_expected_mismatch": 0,
+          "text_expected_mismatch": 0,
+          "normal_statuses": {
+            "completed": 54
+          },
+          "instrumented_statuses": {
+            "completed": 53,
+            "exited_nonzero": 1
+          }
+        },
+        "example": {
+          "count": 2,
+          "baseline_executed": 2,
+          "baseline_exit0": 2,
+          "instrumented_executed": 2,
+          "instrumented_exit0": 2,
+          "diagnostic_nonzero": 0,
+          "instrumented_nonzero": 0,
+          "new_failures": 0,
+          "exact_expected_mismatch": 0,
+          "text_expected_mismatch": 0,
+          "normal_statuses": {
+            "completed": 2
+          },
+          "instrumented_statuses": {
+            "completed": 2
+          }
+        },
+        "fixture_defined": {
+          "count": 6,
+          "baseline_executed": 6,
+          "baseline_exit0": 6,
+          "instrumented_executed": 6,
+          "instrumented_exit0": 6,
+          "diagnostic_nonzero": 0,
+          "instrumented_nonzero": 0,
+          "new_failures": 0,
+          "exact_expected_mismatch": 0,
+          "text_expected_mismatch": 0,
+          "normal_statuses": {
+            "completed": 6
+          },
+          "instrumented_statuses": {
+            "completed": 6
+          }
+        },
+        "fixture_undefined": {
+          "count": 6,
+          "baseline_executed": 6,
+          "baseline_exit0": 4,
+          "instrumented_executed": 6,
+          "instrumented_exit0": 0,
+          "diagnostic_nonzero": 6,
+          "instrumented_nonzero": 6,
+          "new_failures": 4,
+          "exact_expected_mismatch": 0,
+          "text_expected_mismatch": 0,
+          "normal_statuses": {
+            "completed": 4,
+            "exited_nonzero": 2
+          },
+          "instrumented_statuses": {
+            "exited_nonzero": 6
+          }
+        },
+        "fixture_boundary": {
+          "count": 4,
+          "baseline_executed": 4,
+          "baseline_exit0": 4,
+          "instrumented_executed": 4,
+          "instrumented_exit0": 4,
+          "diagnostic_nonzero": 0,
+          "instrumented_nonzero": 0,
+          "new_failures": 0,
+          "exact_expected_mismatch": 0,
+          "text_expected_mismatch": 0,
+          "normal_statuses": {
+            "completed": 4
+          },
+          "instrumented_statuses": {
+            "completed": 4
+          }
+        }
+      },
+      "model_timing_ms": {
+        "normal_compile_p50": 75.431,
+        "instrumented_compile_p50": 118.7,
+        "paired_compile_delta_p50": 50.171,
+        "paired_successful_run_delta_p50": 2.064,
+        "paired_compile_count": 54,
+        "paired_successful_run_count": 53
+      },
+      "observations": [
+        {
+          "id": "model-fresh-d11__facts__r1",
+          "cohort": "model",
+          "classification": {
+            "status": "suspected",
+            "ub_detected": null,
+            "diagnostics": [
+              "/tmp/yescc-ubsan-study-0s6deqwq/cases/case-0016/instrumented-mkdpqv4a/candidate.c:23:49: runtime error: index 4 out of bounds for type 'char *[4]'"
+            ],
+            "ubsan_diagnostic_observed": true,
+            "instrumentation_only_failure": true,
+            "baseline_has_diagnostic": false,
+            "reason": "candidate-controlled stderr is not trusted runtime provenance"
+          },
+          "baseline_exit": 0,
+          "instrumented_exit": 1,
+          "new_failure": true
+        },
+        {
+          "id": "fixture-undefined-array-index",
+          "cohort": "fixture_undefined",
+          "classification": {
+            "status": "suspected",
+            "ub_detected": null,
+            "diagnostics": [
+              "/tmp/yescc-ubsan-study-0s6deqwq/cases/case-0062/instrumented-clx52x8y/candidate.c:5:26: runtime error: index 3 out of bounds for type 'int [3]'"
+            ],
+            "ubsan_diagnostic_observed": true,
+            "instrumentation_only_failure": true,
+            "baseline_has_diagnostic": false,
+            "reason": "candidate-controlled stderr is not trusted runtime provenance"
+          },
+          "baseline_exit": 0,
+          "instrumented_exit": 1,
+          "new_failure": true
+        },
+        {
+          "id": "fixture-undefined-signed-add",
+          "cohort": "fixture_undefined",
+          "classification": {
+            "status": "suspected",
+            "ub_detected": null,
+            "diagnostics": [
+              "/tmp/yescc-ubsan-study-0s6deqwq/cases/case-0063/instrumented-nolyxe3g/candidate.c:5:5: runtime error: signed integer overflow: 2147483647 + 1 cannot be represented in type 'int'"
+            ],
+            "ubsan_diagnostic_observed": true,
+            "instrumentation_only_failure": true,
+            "baseline_has_diagnostic": false,
+            "reason": "candidate-controlled stderr is not trusted runtime provenance"
+          },
+          "baseline_exit": 0,
+          "instrumented_exit": 1,
+          "new_failure": true
+        },
+        {
+          "id": "fixture-undefined-divide-zero",
+          "cohort": "fixture_undefined",
+          "classification": {
+            "status": "suspected",
+            "ub_detected": null,
+            "diagnostics": [
+              "/tmp/yescc-ubsan-study-0s6deqwq/cases/case-0064/instrumented-cx_8r1ht/candidate.c:5:30: runtime error: division by zero"
+            ],
+            "ubsan_diagnostic_observed": true,
+            "instrumentation_only_failure": false,
+            "baseline_has_diagnostic": false,
+            "reason": "candidate-controlled stderr is not trusted runtime provenance"
+          },
+          "baseline_exit": -8,
+          "instrumented_exit": 1,
+          "new_failure": false
+        },
+        {
+          "id": "fixture-undefined-shift-width",
+          "cohort": "fixture_undefined",
+          "classification": {
+            "status": "suspected",
+            "ub_detected": null,
+            "diagnostics": [
+              "/tmp/yescc-ubsan-study-0s6deqwq/cases/case-0065/instrumented-9lvvf55k/candidate.c:6:26: runtime error: shift exponent 32 is too large for 32-bit type 'unsigned int'"
+            ],
+            "ubsan_diagnostic_observed": true,
+            "instrumentation_only_failure": true,
+            "baseline_has_diagnostic": false,
+            "reason": "candidate-controlled stderr is not trusted runtime provenance"
+          },
+          "baseline_exit": 0,
+          "instrumented_exit": 1,
+          "new_failure": true
+        },
+        {
+          "id": "fixture-undefined-negative-left-shift",
+          "cohort": "fixture_undefined",
+          "classification": {
+            "status": "suspected",
+            "ub_detected": null,
+            "diagnostics": [
+              "/tmp/yescc-ubsan-study-0s6deqwq/cases/case-0066/instrumented-cd7zsp73/candidate.c:5:26: runtime error: left shift of negative value -1"
+            ],
+            "ubsan_diagnostic_observed": true,
+            "instrumentation_only_failure": true,
+            "baseline_has_diagnostic": false,
+            "reason": "candidate-controlled stderr is not trusted runtime provenance"
+          },
+          "baseline_exit": 0,
+          "instrumented_exit": 1,
+          "new_failure": true
+        },
+        {
+          "id": "fixture-undefined-null-load",
+          "cohort": "fixture_undefined",
+          "classification": {
+            "status": "suspected",
+            "ub_detected": null,
+            "diagnostics": [
+              "/tmp/yescc-ubsan-study-0s6deqwq/cases/case-0067/instrumented-15uep17j/candidate.c:10:5: runtime error: load of null pointer of type 'int'"
+            ],
+            "ubsan_diagnostic_observed": true,
+            "instrumentation_only_failure": false,
+            "baseline_has_diagnostic": false,
+            "reason": "candidate-controlled stderr is not trusted runtime provenance"
+          },
+          "baseline_exit": -11,
+          "instrumented_exit": 1,
+          "new_failure": false
+        }
+      ],
+      "report_sha256": "9e7e6ea8a4fa0d8ed10081a050d9939ae2408f2ed2c1c00dbf1b94bd8f644e2c",
+      "assessments": {
+        "known_ub_reference": {
+          "observed": 6,
+          "evaluated": 6,
+          "reference_total": 6
+        },
+        "defined_control_rejections": {
+          "observed": 0,
+          "evaluated": 8,
+          "reference_total": 8
+        },
+        "note": "Observation against finite controlled references, not UB authentication or population accuracy"
+      },
+      "paired_model_output": {
+        "eligible": 53,
+        "same_raw_stdout": 53,
+        "different_ids": []
+      }
+    },
+    "local-gcc-trap": {
+      "path": "local-gcc-trap.json",
+      "platform": {
+        "system": "Linux",
+        "machine": "x86_64"
+      },
+      "compiler_requested": "gcc",
+      "compiler_resolved": "/usr/sbin/gcc",
+      "target": "x86_64-pc-linux-gnu",
+      "version": "gcc (GCC) 16.2.1 20260810",
+      "capability": "available",
+      "probe_positive": true,
+      "mode": "trap",
+      "actual_flags": [
+        "-std=c11",
+        "-O0",
+        "-fsanitize=undefined",
+        "-fsanitize-undefined-trap-on-error",
+        "-lm"
+      ],
+      "groups": {
+        "model": {
+          "count": 54,
+          "baseline_executed": 54,
+          "baseline_exit0": 54,
+          "instrumented_executed": 54,
+          "instrumented_exit0": 53,
+          "diagnostic_nonzero": 0,
+          "instrumented_nonzero": 1,
+          "new_failures": 1,
+          "exact_expected_mismatch": 0,
+          "text_expected_mismatch": 0,
+          "normal_statuses": {
+            "completed": 54
+          },
+          "instrumented_statuses": {
+            "completed": 53,
+            "exited_nonzero": 1
+          }
+        },
+        "example": {
+          "count": 2,
+          "baseline_executed": 2,
+          "baseline_exit0": 2,
+          "instrumented_executed": 2,
+          "instrumented_exit0": 2,
+          "diagnostic_nonzero": 0,
+          "instrumented_nonzero": 0,
+          "new_failures": 0,
+          "exact_expected_mismatch": 0,
+          "text_expected_mismatch": 0,
+          "normal_statuses": {
+            "completed": 2
+          },
+          "instrumented_statuses": {
+            "completed": 2
+          }
+        },
+        "fixture_defined": {
+          "count": 6,
+          "baseline_executed": 6,
+          "baseline_exit0": 6,
+          "instrumented_executed": 6,
+          "instrumented_exit0": 6,
+          "diagnostic_nonzero": 0,
+          "instrumented_nonzero": 0,
+          "new_failures": 0,
+          "exact_expected_mismatch": 0,
+          "text_expected_mismatch": 0,
+          "normal_statuses": {
+            "completed": 6
+          },
+          "instrumented_statuses": {
+            "completed": 6
+          }
+        },
+        "fixture_undefined": {
+          "count": 6,
+          "baseline_executed": 6,
+          "baseline_exit0": 4,
+          "instrumented_executed": 6,
+          "instrumented_exit0": 0,
+          "diagnostic_nonzero": 0,
+          "instrumented_nonzero": 6,
+          "new_failures": 4,
+          "exact_expected_mismatch": 0,
+          "text_expected_mismatch": 0,
+          "normal_statuses": {
+            "completed": 4,
+            "exited_nonzero": 2
+          },
+          "instrumented_statuses": {
+            "exited_nonzero": 6
+          }
+        },
+        "fixture_boundary": {
+          "count": 4,
+          "baseline_executed": 4,
+          "baseline_exit0": 4,
+          "instrumented_executed": 4,
+          "instrumented_exit0": 4,
+          "diagnostic_nonzero": 0,
+          "instrumented_nonzero": 0,
+          "new_failures": 0,
+          "exact_expected_mismatch": 0,
+          "text_expected_mismatch": 0,
+          "normal_statuses": {
+            "completed": 4
+          },
+          "instrumented_statuses": {
+            "completed": 4
+          }
+        }
+      },
+      "model_timing_ms": {
+        "normal_compile_p50": 64.663,
+        "instrumented_compile_p50": 64.627,
+        "paired_compile_delta_p50": 0.097,
+        "paired_successful_run_delta_p50": -0.141,
+        "paired_compile_count": 54,
+        "paired_successful_run_count": 53
+      },
+      "observations": [
+        {
+          "id": "model-fresh-d11__facts__r1",
+          "cohort": "model",
+          "classification": {
+            "status": "instrumentation_failure",
+            "ub_detected": null,
+            "diagnostics": [],
+            "ubsan_diagnostic_observed": false,
+            "instrumentation_only_failure": true,
+            "baseline_has_diagnostic": false,
+            "reason": "candidate-controlled stderr is not trusted runtime provenance"
+          },
+          "baseline_exit": 0,
+          "instrumented_exit": -4,
+          "new_failure": true
+        },
+        {
+          "id": "fixture-undefined-array-index",
+          "cohort": "fixture_undefined",
+          "classification": {
+            "status": "instrumentation_failure",
+            "ub_detected": null,
+            "diagnostics": [],
+            "ubsan_diagnostic_observed": false,
+            "instrumentation_only_failure": true,
+            "baseline_has_diagnostic": false,
+            "reason": "candidate-controlled stderr is not trusted runtime provenance"
+          },
+          "baseline_exit": 0,
+          "instrumented_exit": -4,
+          "new_failure": true
+        },
+        {
+          "id": "fixture-undefined-signed-add",
+          "cohort": "fixture_undefined",
+          "classification": {
+            "status": "instrumentation_failure",
+            "ub_detected": null,
+            "diagnostics": [],
+            "ubsan_diagnostic_observed": false,
+            "instrumentation_only_failure": true,
+            "baseline_has_diagnostic": false,
+            "reason": "candidate-controlled stderr is not trusted runtime provenance"
+          },
+          "baseline_exit": 0,
+          "instrumented_exit": -4,
+          "new_failure": true
+        },
+        {
+          "id": "fixture-undefined-divide-zero",
+          "cohort": "fixture_undefined",
+          "classification": {
+            "status": "nonzero_without_diagnostic",
+            "ub_detected": null,
+            "diagnostics": [],
+            "ubsan_diagnostic_observed": false,
+            "instrumentation_only_failure": false,
+            "baseline_has_diagnostic": false,
+            "reason": "candidate-controlled stderr is not trusted runtime provenance"
+          },
+          "baseline_exit": -8,
+          "instrumented_exit": -4,
+          "new_failure": false
+        },
+        {
+          "id": "fixture-undefined-shift-width",
+          "cohort": "fixture_undefined",
+          "classification": {
+            "status": "instrumentation_failure",
+            "ub_detected": null,
+            "diagnostics": [],
+            "ubsan_diagnostic_observed": false,
+            "instrumentation_only_failure": true,
+            "baseline_has_diagnostic": false,
+            "reason": "candidate-controlled stderr is not trusted runtime provenance"
+          },
+          "baseline_exit": 0,
+          "instrumented_exit": -4,
+          "new_failure": true
+        },
+        {
+          "id": "fixture-undefined-negative-left-shift",
+          "cohort": "fixture_undefined",
+          "classification": {
+            "status": "instrumentation_failure",
+            "ub_detected": null,
+            "diagnostics": [],
+            "ubsan_diagnostic_observed": false,
+            "instrumentation_only_failure": true,
+            "baseline_has_diagnostic": false,
+            "reason": "candidate-controlled stderr is not trusted runtime provenance"
+          },
+          "baseline_exit": 0,
+          "instrumented_exit": -4,
+          "new_failure": true
+        },
+        {
+          "id": "fixture-undefined-null-load",
+          "cohort": "fixture_undefined",
+          "classification": {
+            "status": "nonzero_without_diagnostic",
+            "ub_detected": null,
+            "diagnostics": [],
+            "ubsan_diagnostic_observed": false,
+            "instrumentation_only_failure": false,
+            "baseline_has_diagnostic": false,
+            "reason": "candidate-controlled stderr is not trusted runtime provenance"
+          },
+          "baseline_exit": -11,
+          "instrumented_exit": -4,
+          "new_failure": false
+        }
+      ],
+      "report_sha256": "7b8c483e1934b26f7999f0da532827935f649dbd61c397c8d0c3b7dcbac53d0b",
+      "assessments": {
+        "known_ub_reference": {
+          "observed": 6,
+          "evaluated": 6,
+          "reference_total": 6
+        },
+        "defined_control_rejections": {
+          "observed": 0,
+          "evaluated": 8,
+          "reference_total": 8
+        },
+        "note": "Observation against finite controlled references, not UB authentication or population accuracy"
+      },
+      "paired_model_output": {
+        "eligible": 53,
+        "same_raw_stdout": 53,
+        "different_ids": []
+      }
+    },
+    "ci-linux-gcc-runtime": {
+      "path": "final-ci/ubsan-Linux-gcc/runtime.json",
+      "platform": {
+        "system": "Linux",
+        "machine": "x86_64"
+      },
+      "compiler_requested": "gcc",
+      "compiler_resolved": "/usr/bin/gcc",
+      "target": "x86_64-linux-gnu",
+      "version": "gcc (Ubuntu 15.2.0-16ubuntu1) 15.2.0",
+      "capability": "available",
+      "probe_positive": true,
+      "mode": "runtime",
+      "actual_flags": [
+        "-std=c11",
+        "-O0",
+        "-fsanitize=undefined",
+        "-fno-sanitize-recover=undefined",
+        "-lm"
+      ],
+      "groups": {
+        "model": {
+          "count": 54,
+          "baseline_executed": 54,
+          "baseline_exit0": 54,
+          "instrumented_executed": 54,
+          "instrumented_exit0": 53,
+          "diagnostic_nonzero": 1,
+          "instrumented_nonzero": 1,
+          "new_failures": 1,
+          "exact_expected_mismatch": 0,
+          "text_expected_mismatch": 0,
+          "normal_statuses": {
+            "completed": 54
+          },
+          "instrumented_statuses": {
+            "completed": 53,
+            "exited_nonzero": 1
+          }
+        },
+        "example": {
+          "count": 2,
+          "baseline_executed": 2,
+          "baseline_exit0": 2,
+          "instrumented_executed": 2,
+          "instrumented_exit0": 2,
+          "diagnostic_nonzero": 0,
+          "instrumented_nonzero": 0,
+          "new_failures": 0,
+          "exact_expected_mismatch": 0,
+          "text_expected_mismatch": 0,
+          "normal_statuses": {
+            "completed": 2
+          },
+          "instrumented_statuses": {
+            "completed": 2
+          }
+        },
+        "fixture_defined": {
+          "count": 6,
+          "baseline_executed": 6,
+          "baseline_exit0": 6,
+          "instrumented_executed": 6,
+          "instrumented_exit0": 6,
+          "diagnostic_nonzero": 0,
+          "instrumented_nonzero": 0,
+          "new_failures": 0,
+          "exact_expected_mismatch": 0,
+          "text_expected_mismatch": 0,
+          "normal_statuses": {
+            "completed": 6
+          },
+          "instrumented_statuses": {
+            "completed": 6
+          }
+        },
+        "fixture_undefined": {
+          "count": 6,
+          "baseline_executed": 6,
+          "baseline_exit0": 4,
+          "instrumented_executed": 6,
+          "instrumented_exit0": 0,
+          "diagnostic_nonzero": 6,
+          "instrumented_nonzero": 6,
+          "new_failures": 4,
+          "exact_expected_mismatch": 0,
+          "text_expected_mismatch": 0,
+          "normal_statuses": {
+            "completed": 4,
+            "exited_nonzero": 2
+          },
+          "instrumented_statuses": {
+            "exited_nonzero": 6
+          }
+        },
+        "fixture_boundary": {
+          "count": 4,
+          "baseline_executed": 4,
+          "baseline_exit0": 4,
+          "instrumented_executed": 4,
+          "instrumented_exit0": 4,
+          "diagnostic_nonzero": 0,
+          "instrumented_nonzero": 0,
+          "new_failures": 0,
+          "exact_expected_mismatch": 0,
+          "text_expected_mismatch": 0,
+          "normal_statuses": {
+            "completed": 4
+          },
+          "instrumented_statuses": {
+            "completed": 4
+          }
+        }
+      },
+      "model_timing_ms": {
+        "normal_compile_p50": 64.095,
+        "instrumented_compile_p50": 64.075,
+        "paired_compile_delta_p50": -0.021,
+        "paired_successful_run_delta_p50": 1.997,
+        "paired_compile_count": 54,
+        "paired_successful_run_count": 53
+      },
+      "observations": [
+        {
+          "id": "model-fresh-d11__facts__r1",
+          "cohort": "model",
+          "classification": {
+            "status": "suspected",
+            "ub_detected": null,
+            "diagnostics": [
+              "/tmp/yescc-ubsan-study-_br6jspp/cases/case-0016/instrumented-z2z_6m5c/candidate.c:23:49: runtime error: index 4 out of bounds for type 'char *[4]'"
+            ],
+            "ubsan_diagnostic_observed": true,
+            "instrumentation_only_failure": true,
+            "baseline_has_diagnostic": false,
+            "reason": "candidate-controlled stderr is not trusted runtime provenance"
+          },
+          "baseline_exit": 0,
+          "instrumented_exit": 1,
+          "new_failure": true
+        },
+        {
+          "id": "fixture-undefined-array-index",
+          "cohort": "fixture_undefined",
+          "classification": {
+            "status": "suspected",
+            "ub_detected": null,
+            "diagnostics": [
+              "/tmp/yescc-ubsan-study-_br6jspp/cases/case-0062/instrumented-hxs8jlhl/candidate.c:5:26: runtime error: index 3 out of bounds for type 'int [3]'"
+            ],
+            "ubsan_diagnostic_observed": true,
+            "instrumentation_only_failure": true,
+            "baseline_has_diagnostic": false,
+            "reason": "candidate-controlled stderr is not trusted runtime provenance"
+          },
+          "baseline_exit": 0,
+          "instrumented_exit": 1,
+          "new_failure": true
+        },
+        {
+          "id": "fixture-undefined-signed-add",
+          "cohort": "fixture_undefined",
+          "classification": {
+            "status": "suspected",
+            "ub_detected": null,
+            "diagnostics": [
+              "/tmp/yescc-ubsan-study-_br6jspp/cases/case-0063/instrumented-j07qyba9/candidate.c:5:5: runtime error: signed integer overflow: 2147483647 + 1 cannot be represented in type 'int'"
+            ],
+            "ubsan_diagnostic_observed": true,
+            "instrumentation_only_failure": true,
+            "baseline_has_diagnostic": false,
+            "reason": "candidate-controlled stderr is not trusted runtime provenance"
+          },
+          "baseline_exit": 0,
+          "instrumented_exit": 1,
+          "new_failure": true
+        },
+        {
+          "id": "fixture-undefined-divide-zero",
+          "cohort": "fixture_undefined",
+          "classification": {
+            "status": "suspected",
+            "ub_detected": null,
+            "diagnostics": [
+              "/tmp/yescc-ubsan-study-_br6jspp/cases/case-0064/instrumented-imvszg_4/candidate.c:5:30: runtime error: division by zero"
+            ],
+            "ubsan_diagnostic_observed": true,
+            "instrumentation_only_failure": false,
+            "baseline_has_diagnostic": false,
+            "reason": "candidate-controlled stderr is not trusted runtime provenance"
+          },
+          "baseline_exit": -8,
+          "instrumented_exit": 1,
+          "new_failure": false
+        },
+        {
+          "id": "fixture-undefined-shift-width",
+          "cohort": "fixture_undefined",
+          "classification": {
+            "status": "suspected",
+            "ub_detected": null,
+            "diagnostics": [
+              "/tmp/yescc-ubsan-study-_br6jspp/cases/case-0065/instrumented-34iv22h4/candidate.c:6:26: runtime error: shift exponent 32 is too large for 32-bit type 'unsigned int'"
+            ],
+            "ubsan_diagnostic_observed": true,
+            "instrumentation_only_failure": true,
+            "baseline_has_diagnostic": false,
+            "reason": "candidate-controlled stderr is not trusted runtime provenance"
+          },
+          "baseline_exit": 0,
+          "instrumented_exit": 1,
+          "new_failure": true
+        },
+        {
+          "id": "fixture-undefined-negative-left-shift",
+          "cohort": "fixture_undefined",
+          "classification": {
+            "status": "suspected",
+            "ub_detected": null,
+            "diagnostics": [
+              "/tmp/yescc-ubsan-study-_br6jspp/cases/case-0066/instrumented-lsqs5ql1/candidate.c:5:26: runtime error: left shift of negative value -1"
+            ],
+            "ubsan_diagnostic_observed": true,
+            "instrumentation_only_failure": true,
+            "baseline_has_diagnostic": false,
+            "reason": "candidate-controlled stderr is not trusted runtime provenance"
+          },
+          "baseline_exit": 0,
+          "instrumented_exit": 1,
+          "new_failure": true
+        },
+        {
+          "id": "fixture-undefined-null-load",
+          "cohort": "fixture_undefined",
+          "classification": {
+            "status": "suspected",
+            "ub_detected": null,
+            "diagnostics": [
+              "/tmp/yescc-ubsan-study-_br6jspp/cases/case-0067/instrumented-3g4w1vu5/candidate.c:10:5: runtime error: load of null pointer of type 'int'"
+            ],
+            "ubsan_diagnostic_observed": true,
+            "instrumentation_only_failure": false,
+            "baseline_has_diagnostic": false,
+            "reason": "candidate-controlled stderr is not trusted runtime provenance"
+          },
+          "baseline_exit": -11,
+          "instrumented_exit": 1,
+          "new_failure": false
+        }
+      ],
+      "report_sha256": "797909f236f0c951601f611fa325b510d6a689bd1506eb420af44cb6e7f939d9",
+      "assessments": {
+        "known_ub_reference": {
+          "observed": 6,
+          "evaluated": 6,
+          "reference_total": 6
+        },
+        "defined_control_rejections": {
+          "observed": 0,
+          "evaluated": 8,
+          "reference_total": 8
+        },
+        "note": "Observation against finite controlled references, not UB authentication or population accuracy"
+      },
+      "paired_model_output": {
+        "eligible": 53,
+        "same_raw_stdout": 53,
+        "different_ids": []
+      }
+    },
+    "ci-linux-gcc-trap": {
+      "path": "final-ci/ubsan-Linux-gcc/trap.json",
+      "platform": {
+        "system": "Linux",
+        "machine": "x86_64"
+      },
+      "compiler_requested": "gcc",
+      "compiler_resolved": "/usr/bin/gcc",
+      "target": "x86_64-linux-gnu",
+      "version": "gcc (Ubuntu 15.2.0-16ubuntu1) 15.2.0",
+      "capability": "available",
+      "probe_positive": true,
+      "mode": "trap",
+      "actual_flags": [
+        "-std=c11",
+        "-O0",
+        "-fsanitize=undefined",
+        "-fsanitize-undefined-trap-on-error",
+        "-lm"
+      ],
+      "groups": {
+        "model": {
+          "count": 54,
+          "baseline_executed": 54,
+          "baseline_exit0": 54,
+          "instrumented_executed": 54,
+          "instrumented_exit0": 53,
+          "diagnostic_nonzero": 0,
+          "instrumented_nonzero": 1,
+          "new_failures": 1,
+          "exact_expected_mismatch": 0,
+          "text_expected_mismatch": 0,
+          "normal_statuses": {
+            "completed": 54
+          },
+          "instrumented_statuses": {
+            "completed": 53,
+            "exited_nonzero": 1
+          }
+        },
+        "example": {
+          "count": 2,
+          "baseline_executed": 2,
+          "baseline_exit0": 2,
+          "instrumented_executed": 2,
+          "instrumented_exit0": 2,
+          "diagnostic_nonzero": 0,
+          "instrumented_nonzero": 0,
+          "new_failures": 0,
+          "exact_expected_mismatch": 0,
+          "text_expected_mismatch": 0,
+          "normal_statuses": {
+            "completed": 2
+          },
+          "instrumented_statuses": {
+            "completed": 2
+          }
+        },
+        "fixture_defined": {
+          "count": 6,
+          "baseline_executed": 6,
+          "baseline_exit0": 6,
+          "instrumented_executed": 6,
+          "instrumented_exit0": 6,
+          "diagnostic_nonzero": 0,
+          "instrumented_nonzero": 0,
+          "new_failures": 0,
+          "exact_expected_mismatch": 0,
+          "text_expected_mismatch": 0,
+          "normal_statuses": {
+            "completed": 6
+          },
+          "instrumented_statuses": {
+            "completed": 6
+          }
+        },
+        "fixture_undefined": {
+          "count": 6,
+          "baseline_executed": 6,
+          "baseline_exit0": 4,
+          "instrumented_executed": 6,
+          "instrumented_exit0": 0,
+          "diagnostic_nonzero": 0,
+          "instrumented_nonzero": 6,
+          "new_failures": 4,
+          "exact_expected_mismatch": 0,
+          "text_expected_mismatch": 0,
+          "normal_statuses": {
+            "completed": 4,
+            "exited_nonzero": 2
+          },
+          "instrumented_statuses": {
+            "exited_nonzero": 6
+          }
+        },
+        "fixture_boundary": {
+          "count": 4,
+          "baseline_executed": 4,
+          "baseline_exit0": 4,
+          "instrumented_executed": 4,
+          "instrumented_exit0": 4,
+          "diagnostic_nonzero": 0,
+          "instrumented_nonzero": 0,
+          "new_failures": 0,
+          "exact_expected_mismatch": 0,
+          "text_expected_mismatch": 0,
+          "normal_statuses": {
+            "completed": 4
+          },
+          "instrumented_statuses": {
+            "completed": 4
+          }
+        }
+      },
+      "model_timing_ms": {
+        "normal_compile_p50": 64.107,
+        "instrumented_compile_p50": 64.089,
+        "paired_compile_delta_p50": -0.021,
+        "paired_successful_run_delta_p50": 0.027,
+        "paired_compile_count": 54,
+        "paired_successful_run_count": 53
+      },
+      "observations": [
+        {
+          "id": "model-fresh-d11__facts__r1",
+          "cohort": "model",
+          "classification": {
+            "status": "instrumentation_failure",
+            "ub_detected": null,
+            "diagnostics": [],
+            "ubsan_diagnostic_observed": false,
+            "instrumentation_only_failure": true,
+            "baseline_has_diagnostic": false,
+            "reason": "candidate-controlled stderr is not trusted runtime provenance"
+          },
+          "baseline_exit": 0,
+          "instrumented_exit": -4,
+          "new_failure": true
+        },
+        {
+          "id": "fixture-undefined-array-index",
+          "cohort": "fixture_undefined",
+          "classification": {
+            "status": "instrumentation_failure",
+            "ub_detected": null,
+            "diagnostics": [],
+            "ubsan_diagnostic_observed": false,
+            "instrumentation_only_failure": true,
+            "baseline_has_diagnostic": false,
+            "reason": "candidate-controlled stderr is not trusted runtime provenance"
+          },
+          "baseline_exit": 0,
+          "instrumented_exit": -4,
+          "new_failure": true
+        },
+        {
+          "id": "fixture-undefined-signed-add",
+          "cohort": "fixture_undefined",
+          "classification": {
+            "status": "instrumentation_failure",
+            "ub_detected": null,
+            "diagnostics": [],
+            "ubsan_diagnostic_observed": false,
+            "instrumentation_only_failure": true,
+            "baseline_has_diagnostic": false,
+            "reason": "candidate-controlled stderr is not trusted runtime provenance"
+          },
+          "baseline_exit": 0,
+          "instrumented_exit": -4,
+          "new_failure": true
+        },
+        {
+          "id": "fixture-undefined-divide-zero",
+          "cohort": "fixture_undefined",
+          "classification": {
+            "status": "nonzero_without_diagnostic",
+            "ub_detected": null,
+            "diagnostics": [],
+            "ubsan_diagnostic_observed": false,
+            "instrumentation_only_failure": false,
+            "baseline_has_diagnostic": false,
+            "reason": "candidate-controlled stderr is not trusted runtime provenance"
+          },
+          "baseline_exit": -8,
+          "instrumented_exit": -4,
+          "new_failure": false
+        },
+        {
+          "id": "fixture-undefined-shift-width",
+          "cohort": "fixture_undefined",
+          "classification": {
+            "status": "instrumentation_failure",
+            "ub_detected": null,
+            "diagnostics": [],
+            "ubsan_diagnostic_observed": false,
+            "instrumentation_only_failure": true,
+            "baseline_has_diagnostic": false,
+            "reason": "candidate-controlled stderr is not trusted runtime provenance"
+          },
+          "baseline_exit": 0,
+          "instrumented_exit": -4,
+          "new_failure": true
+        },
+        {
+          "id": "fixture-undefined-negative-left-shift",
+          "cohort": "fixture_undefined",
+          "classification": {
+            "status": "instrumentation_failure",
+            "ub_detected": null,
+            "diagnostics": [],
+            "ubsan_diagnostic_observed": false,
+            "instrumentation_only_failure": true,
+            "baseline_has_diagnostic": false,
+            "reason": "candidate-controlled stderr is not trusted runtime provenance"
+          },
+          "baseline_exit": 0,
+          "instrumented_exit": -4,
+          "new_failure": true
+        },
+        {
+          "id": "fixture-undefined-null-load",
+          "cohort": "fixture_undefined",
+          "classification": {
+            "status": "nonzero_without_diagnostic",
+            "ub_detected": null,
+            "diagnostics": [],
+            "ubsan_diagnostic_observed": false,
+            "instrumentation_only_failure": false,
+            "baseline_has_diagnostic": false,
+            "reason": "candidate-controlled stderr is not trusted runtime provenance"
+          },
+          "baseline_exit": -11,
+          "instrumented_exit": -4,
+          "new_failure": false
+        }
+      ],
+      "report_sha256": "89f4dbad45e2d440df4d8a9676576c4dfe794e82b17409709b5df10786a48a07",
+      "assessments": {
+        "known_ub_reference": {
+          "observed": 6,
+          "evaluated": 6,
+          "reference_total": 6
+        },
+        "defined_control_rejections": {
+          "observed": 0,
+          "evaluated": 8,
+          "reference_total": 8
+        },
+        "note": "Observation against finite controlled references, not UB authentication or population accuracy"
+      },
+      "paired_model_output": {
+        "eligible": 53,
+        "same_raw_stdout": 53,
+        "different_ids": []
+      }
+    },
+    "ci-linux-clang-runtime": {
+      "path": "final-ci/ubsan-Linux-clang/runtime.json",
+      "platform": {
+        "system": "Linux",
+        "machine": "x86_64"
+      },
+      "compiler_requested": "clang",
+      "compiler_resolved": "/usr/bin/clang",
+      "target": "x86_64-pc-linux-gnu",
+      "version": "Ubuntu clang version 21.1.8 (6ubuntu1)",
+      "capability": "available",
+      "probe_positive": true,
+      "mode": "runtime",
+      "actual_flags": [
+        "-std=c11",
+        "-O0",
+        "-fsanitize=undefined",
+        "-fno-sanitize-recover=undefined",
+        "-lm"
+      ],
+      "groups": {
+        "model": {
+          "count": 54,
+          "baseline_executed": 54,
+          "baseline_exit0": 54,
+          "instrumented_executed": 54,
+          "instrumented_exit0": 53,
+          "diagnostic_nonzero": 1,
+          "instrumented_nonzero": 1,
+          "new_failures": 1,
+          "exact_expected_mismatch": 0,
+          "text_expected_mismatch": 0,
+          "normal_statuses": {
+            "completed": 54
+          },
+          "instrumented_statuses": {
+            "completed": 53,
+            "exited_nonzero": 1
+          }
+        },
+        "example": {
+          "count": 2,
+          "baseline_executed": 2,
+          "baseline_exit0": 2,
+          "instrumented_executed": 2,
+          "instrumented_exit0": 2,
+          "diagnostic_nonzero": 0,
+          "instrumented_nonzero": 0,
+          "new_failures": 0,
+          "exact_expected_mismatch": 0,
+          "text_expected_mismatch": 0,
+          "normal_statuses": {
+            "completed": 2
+          },
+          "instrumented_statuses": {
+            "completed": 2
+          }
+        },
+        "fixture_defined": {
+          "count": 6,
+          "baseline_executed": 6,
+          "baseline_exit0": 6,
+          "instrumented_executed": 6,
+          "instrumented_exit0": 6,
+          "diagnostic_nonzero": 0,
+          "instrumented_nonzero": 0,
+          "new_failures": 0,
+          "exact_expected_mismatch": 0,
+          "text_expected_mismatch": 0,
+          "normal_statuses": {
+            "completed": 6
+          },
+          "instrumented_statuses": {
+            "completed": 6
+          }
+        },
+        "fixture_undefined": {
+          "count": 6,
+          "baseline_executed": 6,
+          "baseline_exit0": 4,
+          "instrumented_executed": 6,
+          "instrumented_exit0": 0,
+          "diagnostic_nonzero": 6,
+          "instrumented_nonzero": 6,
+          "new_failures": 4,
+          "exact_expected_mismatch": 0,
+          "text_expected_mismatch": 0,
+          "normal_statuses": {
+            "completed": 4,
+            "exited_nonzero": 2
+          },
+          "instrumented_statuses": {
+            "exited_nonzero": 6
+          }
+        },
+        "fixture_boundary": {
+          "count": 4,
+          "baseline_executed": 4,
+          "baseline_exit0": 4,
+          "instrumented_executed": 4,
+          "instrumented_exit0": 4,
+          "diagnostic_nonzero": 0,
+          "instrumented_nonzero": 0,
+          "new_failures": 0,
+          "exact_expected_mismatch": 0,
+          "text_expected_mismatch": 0,
+          "normal_statuses": {
+            "completed": 4
+          },
+          "instrumented_statuses": {
+            "completed": 4
+          }
+        }
+      },
+      "model_timing_ms": {
+        "normal_compile_p50": 63.979,
+        "instrumented_compile_p50": 114.091,
+        "paired_compile_delta_p50": 50.113,
+        "paired_successful_run_delta_p50": 0.088,
+        "paired_compile_count": 54,
+        "paired_successful_run_count": 53
+      },
+      "observations": [
+        {
+          "id": "model-fresh-d11__facts__r1",
+          "cohort": "model",
+          "classification": {
+            "status": "suspected",
+            "ub_detected": null,
+            "diagnostics": [
+              "/tmp/yescc-ubsan-study-4slvmd58/cases/case-0016/instrumented-4kd5rqnt/candidate.c:23:44: runtime error: index 4 out of bounds for type 'const char *[4]'"
+            ],
+            "ubsan_diagnostic_observed": true,
+            "instrumentation_only_failure": true,
+            "baseline_has_diagnostic": false,
+            "reason": "candidate-controlled stderr is not trusted runtime provenance"
+          },
+          "baseline_exit": 0,
+          "instrumented_exit": 1,
+          "new_failure": true
+        },
+        {
+          "id": "fixture-undefined-array-index",
+          "cohort": "fixture_undefined",
+          "classification": {
+            "status": "suspected",
+            "ub_detected": null,
+            "diagnostics": [
+              "/tmp/yescc-ubsan-study-4slvmd58/cases/case-0062/instrumented-pdlp5_oe/candidate.c:5:20: runtime error: index 3 out of bounds for type 'int[3]'"
+            ],
+            "ubsan_diagnostic_observed": true,
+            "instrumentation_only_failure": true,
+            "baseline_has_diagnostic": false,
+            "reason": "candidate-controlled stderr is not trusted runtime provenance"
+          },
+          "baseline_exit": 0,
+          "instrumented_exit": 1,
+          "new_failure": true
+        },
+        {
+          "id": "fixture-undefined-signed-add",
+          "cohort": "fixture_undefined",
+          "classification": {
+            "status": "suspected",
+            "ub_detected": null,
+            "diagnostics": [
+              "/tmp/yescc-ubsan-study-4slvmd58/cases/case-0063/instrumented-ujuckt66/candidate.c:5:24: runtime error: signed integer overflow: 2147483647 + 1 cannot be represented in type 'int'"
+            ],
+            "ubsan_diagnostic_observed": true,
+            "instrumentation_only_failure": true,
+            "baseline_has_diagnostic": false,
+            "reason": "candidate-controlled stderr is not trusted runtime provenance"
+          },
+          "baseline_exit": 0,
+          "instrumented_exit": 1,
+          "new_failure": true
+        },
+        {
+          "id": "fixture-undefined-divide-zero",
+          "cohort": "fixture_undefined",
+          "classification": {
+            "status": "suspected",
+            "ub_detected": null,
+            "diagnostics": [
+              "/tmp/yescc-ubsan-study-4slvmd58/cases/case-0064/instrumented-umdi2uu1/candidate.c:5:30: runtime error: division by zero"
+            ],
+            "ubsan_diagnostic_observed": true,
+            "instrumentation_only_failure": false,
+            "baseline_has_diagnostic": false,
+            "reason": "candidate-controlled stderr is not trusted runtime provenance"
+          },
+          "baseline_exit": -8,
+          "instrumented_exit": 1,
+          "new_failure": false
+        },
+        {
+          "id": "fixture-undefined-shift-width",
+          "cohort": "fixture_undefined",
+          "classification": {
+            "status": "suspected",
+            "ub_detected": null,
+            "diagnostics": [
+              "/tmp/yescc-ubsan-study-4slvmd58/cases/case-0065/instrumented-r00sray9/candidate.c:6:26: runtime error: shift exponent 32 is too large for 32-bit type 'unsigned int'"
+            ],
+            "ubsan_diagnostic_observed": true,
+            "instrumentation_only_failure": true,
+            "baseline_has_diagnostic": false,
+            "reason": "candidate-controlled stderr is not trusted runtime provenance"
+          },
+          "baseline_exit": 0,
+          "instrumented_exit": 1,
+          "new_failure": true
+        },
+        {
+          "id": "fixture-undefined-negative-left-shift",
+          "cohort": "fixture_undefined",
+          "classification": {
+            "status": "suspected",
+            "ub_detected": null,
+            "diagnostics": [
+              "/tmp/yescc-ubsan-study-4slvmd58/cases/case-0066/instrumented-g31rpg5w/candidate.c:5:26: runtime error: left shift of negative value -1"
+            ],
+            "ubsan_diagnostic_observed": true,
+            "instrumentation_only_failure": true,
+            "baseline_has_diagnostic": false,
+            "reason": "candidate-controlled stderr is not trusted runtime provenance"
+          },
+          "baseline_exit": 0,
+          "instrumented_exit": 1,
+          "new_failure": true
+        },
+        {
+          "id": "fixture-undefined-null-load",
+          "cohort": "fixture_undefined",
+          "classification": {
+            "status": "suspected",
+            "ub_detected": null,
+            "diagnostics": [
+              "/tmp/yescc-ubsan-study-4slvmd58/cases/case-0067/instrumented-qhafqk8g/candidate.c:10:20: runtime error: load of null pointer of type 'int'"
+            ],
+            "ubsan_diagnostic_observed": true,
+            "instrumentation_only_failure": false,
+            "baseline_has_diagnostic": false,
+            "reason": "candidate-controlled stderr is not trusted runtime provenance"
+          },
+          "baseline_exit": -11,
+          "instrumented_exit": 1,
+          "new_failure": false
+        }
+      ],
+      "report_sha256": "06dd259da2addd8415c0ca7ec098048946d1260d5d8e7d2a974543ac05b2d8ce",
+      "assessments": {
+        "known_ub_reference": {
+          "observed": 6,
+          "evaluated": 6,
+          "reference_total": 6
+        },
+        "defined_control_rejections": {
+          "observed": 0,
+          "evaluated": 8,
+          "reference_total": 8
+        },
+        "note": "Observation against finite controlled references, not UB authentication or population accuracy"
+      },
+      "paired_model_output": {
+        "eligible": 53,
+        "same_raw_stdout": 53,
+        "different_ids": []
+      }
+    },
+    "ci-linux-clang-trap": {
+      "path": "final-ci/ubsan-Linux-clang/trap.json",
+      "platform": {
+        "system": "Linux",
+        "machine": "x86_64"
+      },
+      "compiler_requested": "clang",
+      "compiler_resolved": "/usr/bin/clang",
+      "target": "x86_64-pc-linux-gnu",
+      "version": "Ubuntu clang version 21.1.8 (6ubuntu1)",
+      "capability": "available",
+      "probe_positive": true,
+      "mode": "trap",
+      "actual_flags": [
+        "-std=c11",
+        "-O0",
+        "-fsanitize=undefined",
+        "-fsanitize-undefined-trap-on-error",
+        "-lm"
+      ],
+      "groups": {
+        "model": {
+          "count": 54,
+          "baseline_executed": 54,
+          "baseline_exit0": 54,
+          "instrumented_executed": 54,
+          "instrumented_exit0": 53,
+          "diagnostic_nonzero": 0,
+          "instrumented_nonzero": 1,
+          "new_failures": 1,
+          "exact_expected_mismatch": 0,
+          "text_expected_mismatch": 0,
+          "normal_statuses": {
+            "completed": 54
+          },
+          "instrumented_statuses": {
+            "completed": 53,
+            "exited_nonzero": 1
+          }
+        },
+        "example": {
+          "count": 2,
+          "baseline_executed": 2,
+          "baseline_exit0": 2,
+          "instrumented_executed": 2,
+          "instrumented_exit0": 2,
+          "diagnostic_nonzero": 0,
+          "instrumented_nonzero": 0,
+          "new_failures": 0,
+          "exact_expected_mismatch": 0,
+          "text_expected_mismatch": 0,
+          "normal_statuses": {
+            "completed": 2
+          },
+          "instrumented_statuses": {
+            "completed": 2
+          }
+        },
+        "fixture_defined": {
+          "count": 6,
+          "baseline_executed": 6,
+          "baseline_exit0": 6,
+          "instrumented_executed": 6,
+          "instrumented_exit0": 6,
+          "diagnostic_nonzero": 0,
+          "instrumented_nonzero": 0,
+          "new_failures": 0,
+          "exact_expected_mismatch": 0,
+          "text_expected_mismatch": 0,
+          "normal_statuses": {
+            "completed": 6
+          },
+          "instrumented_statuses": {
+            "completed": 6
+          }
+        },
+        "fixture_undefined": {
+          "count": 6,
+          "baseline_executed": 6,
+          "baseline_exit0": 4,
+          "instrumented_executed": 6,
+          "instrumented_exit0": 0,
+          "diagnostic_nonzero": 0,
+          "instrumented_nonzero": 6,
+          "new_failures": 4,
+          "exact_expected_mismatch": 0,
+          "text_expected_mismatch": 0,
+          "normal_statuses": {
+            "completed": 4,
+            "exited_nonzero": 2
+          },
+          "instrumented_statuses": {
+            "exited_nonzero": 6
+          }
+        },
+        "fixture_boundary": {
+          "count": 4,
+          "baseline_executed": 4,
+          "baseline_exit0": 4,
+          "instrumented_executed": 4,
+          "instrumented_exit0": 4,
+          "diagnostic_nonzero": 0,
+          "instrumented_nonzero": 0,
+          "new_failures": 0,
+          "exact_expected_mismatch": 0,
+          "text_expected_mismatch": 0,
+          "normal_statuses": {
+            "completed": 4
+          },
+          "instrumented_statuses": {
+            "completed": 4
+          }
+        }
+      },
+      "model_timing_ms": {
+        "normal_compile_p50": 63.983,
+        "instrumented_compile_p50": 63.982,
+        "paired_compile_delta_p50": -0.003,
+        "paired_successful_run_delta_p50": -0.0,
+        "paired_compile_count": 54,
+        "paired_successful_run_count": 53
+      },
+      "observations": [
+        {
+          "id": "model-fresh-d11__facts__r1",
+          "cohort": "model",
+          "classification": {
+            "status": "instrumentation_failure",
+            "ub_detected": null,
+            "diagnostics": [],
+            "ubsan_diagnostic_observed": false,
+            "instrumentation_only_failure": true,
+            "baseline_has_diagnostic": false,
+            "reason": "candidate-controlled stderr is not trusted runtime provenance"
+          },
+          "baseline_exit": 0,
+          "instrumented_exit": -4,
+          "new_failure": true
+        },
+        {
+          "id": "fixture-undefined-array-index",
+          "cohort": "fixture_undefined",
+          "classification": {
+            "status": "instrumentation_failure",
+            "ub_detected": null,
+            "diagnostics": [],
+            "ubsan_diagnostic_observed": false,
+            "instrumentation_only_failure": true,
+            "baseline_has_diagnostic": false,
+            "reason": "candidate-controlled stderr is not trusted runtime provenance"
+          },
+          "baseline_exit": 0,
+          "instrumented_exit": -4,
+          "new_failure": true
+        },
+        {
+          "id": "fixture-undefined-signed-add",
+          "cohort": "fixture_undefined",
+          "classification": {
+            "status": "instrumentation_failure",
+            "ub_detected": null,
+            "diagnostics": [],
+            "ubsan_diagnostic_observed": false,
+            "instrumentation_only_failure": true,
+            "baseline_has_diagnostic": false,
+            "reason": "candidate-controlled stderr is not trusted runtime provenance"
+          },
+          "baseline_exit": 0,
+          "instrumented_exit": -4,
+          "new_failure": true
+        },
+        {
+          "id": "fixture-undefined-divide-zero",
+          "cohort": "fixture_undefined",
+          "classification": {
+            "status": "nonzero_without_diagnostic",
+            "ub_detected": null,
+            "diagnostics": [],
+            "ubsan_diagnostic_observed": false,
+            "instrumentation_only_failure": false,
+            "baseline_has_diagnostic": false,
+            "reason": "candidate-controlled stderr is not trusted runtime provenance"
+          },
+          "baseline_exit": -8,
+          "instrumented_exit": -4,
+          "new_failure": false
+        },
+        {
+          "id": "fixture-undefined-shift-width",
+          "cohort": "fixture_undefined",
+          "classification": {
+            "status": "instrumentation_failure",
+            "ub_detected": null,
+            "diagnostics": [],
+            "ubsan_diagnostic_observed": false,
+            "instrumentation_only_failure": true,
+            "baseline_has_diagnostic": false,
+            "reason": "candidate-controlled stderr is not trusted runtime provenance"
+          },
+          "baseline_exit": 0,
+          "instrumented_exit": -4,
+          "new_failure": true
+        },
+        {
+          "id": "fixture-undefined-negative-left-shift",
+          "cohort": "fixture_undefined",
+          "classification": {
+            "status": "instrumentation_failure",
+            "ub_detected": null,
+            "diagnostics": [],
+            "ubsan_diagnostic_observed": false,
+            "instrumentation_only_failure": true,
+            "baseline_has_diagnostic": false,
+            "reason": "candidate-controlled stderr is not trusted runtime provenance"
+          },
+          "baseline_exit": 0,
+          "instrumented_exit": -4,
+          "new_failure": true
+        },
+        {
+          "id": "fixture-undefined-null-load",
+          "cohort": "fixture_undefined",
+          "classification": {
+            "status": "nonzero_without_diagnostic",
+            "ub_detected": null,
+            "diagnostics": [],
+            "ubsan_diagnostic_observed": false,
+            "instrumentation_only_failure": false,
+            "baseline_has_diagnostic": false,
+            "reason": "candidate-controlled stderr is not trusted runtime provenance"
+          },
+          "baseline_exit": -11,
+          "instrumented_exit": -4,
+          "new_failure": false
+        }
+      ],
+      "report_sha256": "5d1b7ecd86bd95ff652ad6237af9946c8e6aa5e7ef065e16bc42bc830980caac",
+      "assessments": {
+        "known_ub_reference": {
+          "observed": 6,
+          "evaluated": 6,
+          "reference_total": 6
+        },
+        "defined_control_rejections": {
+          "observed": 0,
+          "evaluated": 8,
+          "reference_total": 8
+        },
+        "note": "Observation against finite controlled references, not UB authentication or population accuracy"
+      },
+      "paired_model_output": {
+        "eligible": 53,
+        "same_raw_stdout": 53,
+        "different_ids": []
+      }
+    },
+    "ci-windows-gcc-runtime": {
+      "path": "final-ci/ubsan-Windows-gcc/runtime.json",
+      "platform": {
+        "system": "Windows",
+        "machine": "AMD64"
+      },
+      "compiler_requested": "gcc",
+      "compiler_resolved": "C:\\mingw64\\bin\\gcc.EXE",
+      "target": "x86_64-w64-mingw32",
+      "version": "gcc.EXE (x86_64-posix-seh-rev1, Built by MinGW-Builds project) 15.2.0",
+      "capability": "unsupported",
+      "probe_positive": null,
+      "mode": "runtime",
+      "actual_flags": [
+        "-std=c11",
+        "-O0",
+        "-fsanitize=undefined",
+        "-fno-sanitize-recover=undefined",
+        "-lm"
+      ],
+      "groups": {
+        "model": {
+          "count": 54,
+          "baseline_executed": 54,
+          "baseline_exit0": 54,
+          "instrumented_executed": 0,
+          "instrumented_exit0": 0,
+          "diagnostic_nonzero": 0,
+          "instrumented_nonzero": 0,
+          "new_failures": 0,
+          "exact_expected_mismatch": 0,
+          "text_expected_mismatch": 0,
+          "normal_statuses": {
+            "completed": 54
+          },
+          "instrumented_statuses": {
+            "not_tested": 54
+          }
+        },
+        "example": {
+          "count": 2,
+          "baseline_executed": 2,
+          "baseline_exit0": 2,
+          "instrumented_executed": 0,
+          "instrumented_exit0": 0,
+          "diagnostic_nonzero": 0,
+          "instrumented_nonzero": 0,
+          "new_failures": 0,
+          "exact_expected_mismatch": 0,
+          "text_expected_mismatch": 0,
+          "normal_statuses": {
+            "completed": 2
+          },
+          "instrumented_statuses": {
+            "not_tested": 2
+          }
+        },
+        "fixture_defined": {
+          "count": 6,
+          "baseline_executed": 6,
+          "baseline_exit0": 6,
+          "instrumented_executed": 0,
+          "instrumented_exit0": 0,
+          "diagnostic_nonzero": 0,
+          "instrumented_nonzero": 0,
+          "new_failures": 0,
+          "exact_expected_mismatch": 0,
+          "text_expected_mismatch": 0,
+          "normal_statuses": {
+            "completed": 6
+          },
+          "instrumented_statuses": {
+            "not_tested": 6
+          }
+        },
+        "fixture_undefined": {
+          "count": 6,
+          "baseline_executed": 6,
+          "baseline_exit0": 4,
+          "instrumented_executed": 0,
+          "instrumented_exit0": 0,
+          "diagnostic_nonzero": 0,
+          "instrumented_nonzero": 0,
+          "new_failures": 0,
+          "exact_expected_mismatch": 0,
+          "text_expected_mismatch": 0,
+          "normal_statuses": {
+            "completed": 4,
+            "exited_nonzero": 2
+          },
+          "instrumented_statuses": {
+            "not_tested": 6
+          }
+        },
+        "fixture_boundary": {
+          "count": 4,
+          "baseline_executed": 4,
+          "baseline_exit0": 4,
+          "instrumented_executed": 0,
+          "instrumented_exit0": 0,
+          "diagnostic_nonzero": 0,
+          "instrumented_nonzero": 0,
+          "new_failures": 0,
+          "exact_expected_mismatch": 0,
+          "text_expected_mismatch": 0,
+          "normal_statuses": {
+            "completed": 4
+          },
+          "instrumented_statuses": {
+            "not_tested": 4
+          }
+        }
+      },
+      "model_timing_ms": {
+        "normal_compile_p50": null,
+        "instrumented_compile_p50": null,
+        "paired_compile_delta_p50": null,
+        "paired_successful_run_delta_p50": null,
+        "paired_compile_count": 0,
+        "paired_successful_run_count": 0
+      },
+      "observations": [],
+      "report_sha256": "ab4df3a9b101c899e641a55f2e7791429f1a78b5549c51486fdd2ccf01c953a5",
+      "assessments": {
+        "known_ub_reference": {
+          "observed": null,
+          "evaluated": 0,
+          "reference_total": 6
+        },
+        "defined_control_rejections": {
+          "observed": null,
+          "evaluated": 0,
+          "reference_total": 8
+        },
+        "note": "Observation against finite controlled references, not UB authentication or population accuracy"
+      },
+      "paired_model_output": {
+        "eligible": 0,
+        "same_raw_stdout": 0,
+        "different_ids": []
+      }
+    },
+    "ci-windows-gcc-trap": {
+      "path": "final-ci/ubsan-Windows-gcc/trap.json",
+      "platform": {
+        "system": "Windows",
+        "machine": "AMD64"
+      },
+      "compiler_requested": "gcc",
+      "compiler_resolved": "C:\\mingw64\\bin\\gcc.EXE",
+      "target": "x86_64-w64-mingw32",
+      "version": "gcc.EXE (x86_64-posix-seh-rev1, Built by MinGW-Builds project) 15.2.0",
+      "capability": "available",
+      "probe_positive": true,
+      "mode": "trap",
+      "actual_flags": [
+        "-std=c11",
+        "-O0",
+        "-fsanitize=undefined",
+        "-fsanitize-undefined-trap-on-error",
+        "-lm"
+      ],
+      "groups": {
+        "model": {
+          "count": 54,
+          "baseline_executed": 54,
+          "baseline_exit0": 54,
+          "instrumented_executed": 54,
+          "instrumented_exit0": 53,
+          "diagnostic_nonzero": 0,
+          "instrumented_nonzero": 1,
+          "new_failures": 1,
+          "exact_expected_mismatch": 0,
+          "text_expected_mismatch": 0,
+          "normal_statuses": {
+            "completed": 54
+          },
+          "instrumented_statuses": {
+            "completed": 53,
+            "exited_nonzero": 1
+          }
+        },
+        "example": {
+          "count": 2,
+          "baseline_executed": 2,
+          "baseline_exit0": 2,
+          "instrumented_executed": 2,
+          "instrumented_exit0": 2,
+          "diagnostic_nonzero": 0,
+          "instrumented_nonzero": 0,
+          "new_failures": 0,
+          "exact_expected_mismatch": 2,
+          "text_expected_mismatch": 0,
+          "normal_statuses": {
+            "completed": 2
+          },
+          "instrumented_statuses": {
+            "completed": 2
+          }
+        },
+        "fixture_defined": {
+          "count": 6,
+          "baseline_executed": 6,
+          "baseline_exit0": 6,
+          "instrumented_executed": 6,
+          "instrumented_exit0": 6,
+          "diagnostic_nonzero": 0,
+          "instrumented_nonzero": 0,
+          "new_failures": 0,
+          "exact_expected_mismatch": 6,
+          "text_expected_mismatch": 0,
+          "normal_statuses": {
+            "completed": 6
+          },
+          "instrumented_statuses": {
+            "completed": 6
+          }
+        },
+        "fixture_undefined": {
+          "count": 6,
+          "baseline_executed": 6,
+          "baseline_exit0": 4,
+          "instrumented_executed": 6,
+          "instrumented_exit0": 0,
+          "diagnostic_nonzero": 0,
+          "instrumented_nonzero": 6,
+          "new_failures": 4,
+          "exact_expected_mismatch": 0,
+          "text_expected_mismatch": 0,
+          "normal_statuses": {
+            "completed": 4,
+            "exited_nonzero": 2
+          },
+          "instrumented_statuses": {
+            "exited_nonzero": 6
+          }
+        },
+        "fixture_boundary": {
+          "count": 4,
+          "baseline_executed": 4,
+          "baseline_exit0": 4,
+          "instrumented_executed": 4,
+          "instrumented_exit0": 4,
+          "diagnostic_nonzero": 0,
+          "instrumented_nonzero": 0,
+          "new_failures": 0,
+          "exact_expected_mismatch": 0,
+          "text_expected_mismatch": 0,
+          "normal_statuses": {
+            "completed": 4
+          },
+          "instrumented_statuses": {
+            "completed": 4
+          }
+        }
+      },
+      "model_timing_ms": {
+        "normal_compile_p50": 78.0,
+        "instrumented_compile_p50": 78.0,
+        "paired_compile_delta_p50": 0.0,
+        "paired_successful_run_delta_p50": 0.0,
+        "paired_compile_count": 54,
+        "paired_successful_run_count": 53
+      },
+      "observations": [
+        {
+          "id": "model-fresh-d11__facts__r1",
+          "cohort": "model",
+          "classification": {
+            "status": "instrumentation_failure",
+            "ub_detected": null,
+            "diagnostics": [],
+            "ubsan_diagnostic_observed": false,
+            "instrumentation_only_failure": true,
+            "baseline_has_diagnostic": false,
+            "reason": "candidate-controlled stderr is not trusted runtime provenance"
+          },
+          "baseline_exit": 0,
+          "instrumented_exit": 3221225501,
+          "new_failure": true
+        },
+        {
+          "id": "fixture-undefined-array-index",
+          "cohort": "fixture_undefined",
+          "classification": {
+            "status": "instrumentation_failure",
+            "ub_detected": null,
+            "diagnostics": [],
+            "ubsan_diagnostic_observed": false,
+            "instrumentation_only_failure": true,
+            "baseline_has_diagnostic": false,
+            "reason": "candidate-controlled stderr is not trusted runtime provenance"
+          },
+          "baseline_exit": 0,
+          "instrumented_exit": 3221225501,
+          "new_failure": true
+        },
+        {
+          "id": "fixture-undefined-signed-add",
+          "cohort": "fixture_undefined",
+          "classification": {
+            "status": "instrumentation_failure",
+            "ub_detected": null,
+            "diagnostics": [],
+            "ubsan_diagnostic_observed": false,
+            "instrumentation_only_failure": true,
+            "baseline_has_diagnostic": false,
+            "reason": "candidate-controlled stderr is not trusted runtime provenance"
+          },
+          "baseline_exit": 0,
+          "instrumented_exit": 3221225501,
+          "new_failure": true
+        },
+        {
+          "id": "fixture-undefined-divide-zero",
+          "cohort": "fixture_undefined",
+          "classification": {
+            "status": "nonzero_without_diagnostic",
+            "ub_detected": null,
+            "diagnostics": [],
+            "ubsan_diagnostic_observed": false,
+            "instrumentation_only_failure": false,
+            "baseline_has_diagnostic": false,
+            "reason": "candidate-controlled stderr is not trusted runtime provenance"
+          },
+          "baseline_exit": 3221225620,
+          "instrumented_exit": 3221225501,
+          "new_failure": false
+        },
+        {
+          "id": "fixture-undefined-shift-width",
+          "cohort": "fixture_undefined",
+          "classification": {
+            "status": "instrumentation_failure",
+            "ub_detected": null,
+            "diagnostics": [],
+            "ubsan_diagnostic_observed": false,
+            "instrumentation_only_failure": true,
+            "baseline_has_diagnostic": false,
+            "reason": "candidate-controlled stderr is not trusted runtime provenance"
+          },
+          "baseline_exit": 0,
+          "instrumented_exit": 3221225501,
+          "new_failure": true
+        },
+        {
+          "id": "fixture-undefined-negative-left-shift",
+          "cohort": "fixture_undefined",
+          "classification": {
+            "status": "instrumentation_failure",
+            "ub_detected": null,
+            "diagnostics": [],
+            "ubsan_diagnostic_observed": false,
+            "instrumentation_only_failure": true,
+            "baseline_has_diagnostic": false,
+            "reason": "candidate-controlled stderr is not trusted runtime provenance"
+          },
+          "baseline_exit": 0,
+          "instrumented_exit": 3221225501,
+          "new_failure": true
+        },
+        {
+          "id": "fixture-undefined-null-load",
+          "cohort": "fixture_undefined",
+          "classification": {
+            "status": "nonzero_without_diagnostic",
+            "ub_detected": null,
+            "diagnostics": [],
+            "ubsan_diagnostic_observed": false,
+            "instrumentation_only_failure": false,
+            "baseline_has_diagnostic": false,
+            "reason": "candidate-controlled stderr is not trusted runtime provenance"
+          },
+          "baseline_exit": 3221225477,
+          "instrumented_exit": 3221225501,
+          "new_failure": false
+        }
+      ],
+      "report_sha256": "a992afaa371cab570045be00b870f754ac00e89034e0e25b33ae8418554a0bb0",
+      "assessments": {
+        "known_ub_reference": {
+          "observed": 6,
+          "evaluated": 6,
+          "reference_total": 6
+        },
+        "defined_control_rejections": {
+          "observed": 0,
+          "evaluated": 8,
+          "reference_total": 8
+        },
+        "note": "Observation against finite controlled references, not UB authentication or population accuracy"
+      },
+      "paired_model_output": {
+        "eligible": 53,
+        "same_raw_stdout": 53,
+        "different_ids": []
+      }
+    },
+    "ci-windows-clang-runtime": {
+      "path": "final-ci/ubsan-Windows-clang/runtime.json",
+      "platform": {
+        "system": "Windows",
+        "machine": "AMD64"
+      },
+      "compiler_requested": "clang",
+      "compiler_resolved": "C:\\Program Files\\LLVM\\bin\\clang.EXE",
+      "target": "x86_64-pc-windows-msvc",
+      "version": "clang version 20.1.8",
+      "capability": "available",
+      "probe_positive": true,
+      "mode": "runtime",
+      "actual_flags": [
+        "-std=c11",
+        "-O0",
+        "-fsanitize=undefined",
+        "-fno-sanitize-recover=undefined"
+      ],
+      "groups": {
+        "model": {
+          "count": 54,
+          "baseline_executed": 54,
+          "baseline_exit0": 54,
+          "instrumented_executed": 54,
+          "instrumented_exit0": 53,
+          "diagnostic_nonzero": 1,
+          "instrumented_nonzero": 1,
+          "new_failures": 1,
+          "exact_expected_mismatch": 0,
+          "text_expected_mismatch": 0,
+          "normal_statuses": {
+            "completed": 54
+          },
+          "instrumented_statuses": {
+            "completed": 53,
+            "exited_nonzero": 1
+          }
+        },
+        "example": {
+          "count": 2,
+          "baseline_executed": 2,
+          "baseline_exit0": 2,
+          "instrumented_executed": 2,
+          "instrumented_exit0": 2,
+          "diagnostic_nonzero": 0,
+          "instrumented_nonzero": 0,
+          "new_failures": 0,
+          "exact_expected_mismatch": 2,
+          "text_expected_mismatch": 0,
+          "normal_statuses": {
+            "completed": 2
+          },
+          "instrumented_statuses": {
+            "completed": 2
+          }
+        },
+        "fixture_defined": {
+          "count": 6,
+          "baseline_executed": 6,
+          "baseline_exit0": 6,
+          "instrumented_executed": 6,
+          "instrumented_exit0": 6,
+          "diagnostic_nonzero": 0,
+          "instrumented_nonzero": 0,
+          "new_failures": 0,
+          "exact_expected_mismatch": 6,
+          "text_expected_mismatch": 0,
+          "normal_statuses": {
+            "completed": 6
+          },
+          "instrumented_statuses": {
+            "completed": 6
+          }
+        },
+        "fixture_undefined": {
+          "count": 6,
+          "baseline_executed": 6,
+          "baseline_exit0": 4,
+          "instrumented_executed": 6,
+          "instrumented_exit0": 0,
+          "diagnostic_nonzero": 6,
+          "instrumented_nonzero": 6,
+          "new_failures": 4,
+          "exact_expected_mismatch": 0,
+          "text_expected_mismatch": 0,
+          "normal_statuses": {
+            "completed": 4,
+            "exited_nonzero": 2
+          },
+          "instrumented_statuses": {
+            "exited_nonzero": 6
+          }
+        },
+        "fixture_boundary": {
+          "count": 4,
+          "baseline_executed": 4,
+          "baseline_exit0": 4,
+          "instrumented_executed": 4,
+          "instrumented_exit0": 4,
+          "diagnostic_nonzero": 0,
+          "instrumented_nonzero": 0,
+          "new_failures": 0,
+          "exact_expected_mismatch": 0,
+          "text_expected_mismatch": 0,
+          "normal_statuses": {
+            "completed": 4
+          },
+          "instrumented_statuses": {
+            "completed": 4
+          }
+        }
+      },
+      "model_timing_ms": {
+        "normal_compile_p50": 125.0,
+        "instrumented_compile_p50": 141.0,
+        "paired_compile_delta_p50": 16.0,
+        "paired_successful_run_delta_p50": 0.0,
+        "paired_compile_count": 54,
+        "paired_successful_run_count": 53
+      },
+      "observations": [
+        {
+          "id": "model-fresh-d11__facts__r1",
+          "cohort": "model",
+          "classification": {
+            "status": "suspected",
+            "ub_detected": null,
+            "diagnostics": [
+              "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\yescc-ubsan-study-sfe2__ps\\cases\\case-0016\\instrumented-0cr9883l\\candidate.c:23:44: runtime error: index 4 out of bounds for type 'const char *[4]'"
+            ],
+            "ubsan_diagnostic_observed": true,
+            "instrumentation_only_failure": true,
+            "baseline_has_diagnostic": false,
+            "reason": "candidate-controlled stderr is not trusted runtime provenance"
+          },
+          "baseline_exit": 0,
+          "instrumented_exit": 1,
+          "new_failure": true
+        },
+        {
+          "id": "fixture-undefined-array-index",
+          "cohort": "fixture_undefined",
+          "classification": {
+            "status": "suspected",
+            "ub_detected": null,
+            "diagnostics": [
+              "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\yescc-ubsan-study-sfe2__ps\\cases\\case-0062\\instrumented-m8ei0qgn\\candidate.c:5:20: runtime error: index 3 out of bounds for type 'int[3]'"
+            ],
+            "ubsan_diagnostic_observed": true,
+            "instrumentation_only_failure": true,
+            "baseline_has_diagnostic": false,
+            "reason": "candidate-controlled stderr is not trusted runtime provenance"
+          },
+          "baseline_exit": 0,
+          "instrumented_exit": 1,
+          "new_failure": true
+        },
+        {
+          "id": "fixture-undefined-signed-add",
+          "cohort": "fixture_undefined",
+          "classification": {
+            "status": "suspected",
+            "ub_detected": null,
+            "diagnostics": [
+              "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\yescc-ubsan-study-sfe2__ps\\cases\\case-0063\\instrumented-b9cnf_m3\\candidate.c:5:24: runtime error: signed integer overflow: 2147483647 + 1 cannot be represented in type 'int'"
+            ],
+            "ubsan_diagnostic_observed": true,
+            "instrumentation_only_failure": true,
+            "baseline_has_diagnostic": false,
+            "reason": "candidate-controlled stderr is not trusted runtime provenance"
+          },
+          "baseline_exit": 0,
+          "instrumented_exit": 1,
+          "new_failure": true
+        },
+        {
+          "id": "fixture-undefined-divide-zero",
+          "cohort": "fixture_undefined",
+          "classification": {
+            "status": "suspected",
+            "ub_detected": null,
+            "diagnostics": [
+              "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\yescc-ubsan-study-sfe2__ps\\cases\\case-0064\\instrumented-p8va40lr\\candidate.c:5:30: runtime error: division by zero"
+            ],
+            "ubsan_diagnostic_observed": true,
+            "instrumentation_only_failure": false,
+            "baseline_has_diagnostic": false,
+            "reason": "candidate-controlled stderr is not trusted runtime provenance"
+          },
+          "baseline_exit": 3221225620,
+          "instrumented_exit": 1,
+          "new_failure": false
+        },
+        {
+          "id": "fixture-undefined-shift-width",
+          "cohort": "fixture_undefined",
+          "classification": {
+            "status": "suspected",
+            "ub_detected": null,
+            "diagnostics": [
+              "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\yescc-ubsan-study-sfe2__ps\\cases\\case-0065\\instrumented-m6gk2q69\\candidate.c:6:26: runtime error: shift exponent 32 is too large for 32-bit type 'unsigned int'"
+            ],
+            "ubsan_diagnostic_observed": true,
+            "instrumentation_only_failure": true,
+            "baseline_has_diagnostic": false,
+            "reason": "candidate-controlled stderr is not trusted runtime provenance"
+          },
+          "baseline_exit": 0,
+          "instrumented_exit": 1,
+          "new_failure": true
+        },
+        {
+          "id": "fixture-undefined-negative-left-shift",
+          "cohort": "fixture_undefined",
+          "classification": {
+            "status": "suspected",
+            "ub_detected": null,
+            "diagnostics": [
+              "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\yescc-ubsan-study-sfe2__ps\\cases\\case-0066\\instrumented-d44i6_nn\\candidate.c:5:26: runtime error: left shift of negative value -1"
+            ],
+            "ubsan_diagnostic_observed": true,
+            "instrumentation_only_failure": true,
+            "baseline_has_diagnostic": false,
+            "reason": "candidate-controlled stderr is not trusted runtime provenance"
+          },
+          "baseline_exit": 0,
+          "instrumented_exit": 1,
+          "new_failure": true
+        },
+        {
+          "id": "fixture-undefined-null-load",
+          "cohort": "fixture_undefined",
+          "classification": {
+            "status": "suspected",
+            "ub_detected": null,
+            "diagnostics": [
+              "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\yescc-ubsan-study-sfe2__ps\\cases\\case-0067\\instrumented-4dl9l8y5\\candidate.c:10:20: runtime error: load of null pointer of type 'int'"
+            ],
+            "ubsan_diagnostic_observed": true,
+            "instrumentation_only_failure": false,
+            "baseline_has_diagnostic": false,
+            "reason": "candidate-controlled stderr is not trusted runtime provenance"
+          },
+          "baseline_exit": 3221225477,
+          "instrumented_exit": 1,
+          "new_failure": false
+        }
+      ],
+      "report_sha256": "498fd0468626f2888bdda090f7cf0da0716c6d5f9b77c436a3a66e521e856f05",
+      "assessments": {
+        "known_ub_reference": {
+          "observed": 6,
+          "evaluated": 6,
+          "reference_total": 6
+        },
+        "defined_control_rejections": {
+          "observed": 0,
+          "evaluated": 8,
+          "reference_total": 8
+        },
+        "note": "Observation against finite controlled references, not UB authentication or population accuracy"
+      },
+      "paired_model_output": {
+        "eligible": 53,
+        "same_raw_stdout": 53,
+        "different_ids": []
+      }
+    },
+    "ci-windows-clang-trap": {
+      "path": "final-ci/ubsan-Windows-clang/trap.json",
+      "platform": {
+        "system": "Windows",
+        "machine": "AMD64"
+      },
+      "compiler_requested": "clang",
+      "compiler_resolved": "C:\\Program Files\\LLVM\\bin\\clang.EXE",
+      "target": "x86_64-pc-windows-msvc",
+      "version": "clang version 20.1.8",
+      "capability": "available",
+      "probe_positive": true,
+      "mode": "trap",
+      "actual_flags": [
+        "-std=c11",
+        "-O0",
+        "-fsanitize=undefined",
+        "-fsanitize-undefined-trap-on-error"
+      ],
+      "groups": {
+        "model": {
+          "count": 54,
+          "baseline_executed": 54,
+          "baseline_exit0": 54,
+          "instrumented_executed": 54,
+          "instrumented_exit0": 53,
+          "diagnostic_nonzero": 0,
+          "instrumented_nonzero": 1,
+          "new_failures": 1,
+          "exact_expected_mismatch": 0,
+          "text_expected_mismatch": 0,
+          "normal_statuses": {
+            "completed": 54
+          },
+          "instrumented_statuses": {
+            "completed": 53,
+            "exited_nonzero": 1
+          }
+        },
+        "example": {
+          "count": 2,
+          "baseline_executed": 2,
+          "baseline_exit0": 2,
+          "instrumented_executed": 2,
+          "instrumented_exit0": 2,
+          "diagnostic_nonzero": 0,
+          "instrumented_nonzero": 0,
+          "new_failures": 0,
+          "exact_expected_mismatch": 2,
+          "text_expected_mismatch": 0,
+          "normal_statuses": {
+            "completed": 2
+          },
+          "instrumented_statuses": {
+            "completed": 2
+          }
+        },
+        "fixture_defined": {
+          "count": 6,
+          "baseline_executed": 6,
+          "baseline_exit0": 6,
+          "instrumented_executed": 6,
+          "instrumented_exit0": 6,
+          "diagnostic_nonzero": 0,
+          "instrumented_nonzero": 0,
+          "new_failures": 0,
+          "exact_expected_mismatch": 6,
+          "text_expected_mismatch": 0,
+          "normal_statuses": {
+            "completed": 6
+          },
+          "instrumented_statuses": {
+            "completed": 6
+          }
+        },
+        "fixture_undefined": {
+          "count": 6,
+          "baseline_executed": 6,
+          "baseline_exit0": 4,
+          "instrumented_executed": 6,
+          "instrumented_exit0": 0,
+          "diagnostic_nonzero": 0,
+          "instrumented_nonzero": 6,
+          "new_failures": 4,
+          "exact_expected_mismatch": 0,
+          "text_expected_mismatch": 0,
+          "normal_statuses": {
+            "completed": 4,
+            "exited_nonzero": 2
+          },
+          "instrumented_statuses": {
+            "exited_nonzero": 6
+          }
+        },
+        "fixture_boundary": {
+          "count": 4,
+          "baseline_executed": 4,
+          "baseline_exit0": 4,
+          "instrumented_executed": 4,
+          "instrumented_exit0": 4,
+          "diagnostic_nonzero": 0,
+          "instrumented_nonzero": 0,
+          "new_failures": 0,
+          "exact_expected_mismatch": 0,
+          "text_expected_mismatch": 0,
+          "normal_statuses": {
+            "completed": 4
+          },
+          "instrumented_statuses": {
+            "completed": 4
+          }
+        }
+      },
+      "model_timing_ms": {
+        "normal_compile_p50": 110.0,
+        "instrumented_compile_p50": 109.0,
+        "paired_compile_delta_p50": 0.0,
+        "paired_successful_run_delta_p50": 0.0,
+        "paired_compile_count": 54,
+        "paired_successful_run_count": 53
+      },
+      "observations": [
+        {
+          "id": "model-fresh-d11__facts__r1",
+          "cohort": "model",
+          "classification": {
+            "status": "instrumentation_failure",
+            "ub_detected": null,
+            "diagnostics": [],
+            "ubsan_diagnostic_observed": false,
+            "instrumentation_only_failure": true,
+            "baseline_has_diagnostic": false,
+            "reason": "candidate-controlled stderr is not trusted runtime provenance"
+          },
+          "baseline_exit": 0,
+          "instrumented_exit": 3221225501,
+          "new_failure": true
+        },
+        {
+          "id": "fixture-undefined-array-index",
+          "cohort": "fixture_undefined",
+          "classification": {
+            "status": "instrumentation_failure",
+            "ub_detected": null,
+            "diagnostics": [],
+            "ubsan_diagnostic_observed": false,
+            "instrumentation_only_failure": true,
+            "baseline_has_diagnostic": false,
+            "reason": "candidate-controlled stderr is not trusted runtime provenance"
+          },
+          "baseline_exit": 0,
+          "instrumented_exit": 3221225501,
+          "new_failure": true
+        },
+        {
+          "id": "fixture-undefined-signed-add",
+          "cohort": "fixture_undefined",
+          "classification": {
+            "status": "instrumentation_failure",
+            "ub_detected": null,
+            "diagnostics": [],
+            "ubsan_diagnostic_observed": false,
+            "instrumentation_only_failure": true,
+            "baseline_has_diagnostic": false,
+            "reason": "candidate-controlled stderr is not trusted runtime provenance"
+          },
+          "baseline_exit": 0,
+          "instrumented_exit": 3221225501,
+          "new_failure": true
+        },
+        {
+          "id": "fixture-undefined-divide-zero",
+          "cohort": "fixture_undefined",
+          "classification": {
+            "status": "nonzero_without_diagnostic",
+            "ub_detected": null,
+            "diagnostics": [],
+            "ubsan_diagnostic_observed": false,
+            "instrumentation_only_failure": false,
+            "baseline_has_diagnostic": false,
+            "reason": "candidate-controlled stderr is not trusted runtime provenance"
+          },
+          "baseline_exit": 3221225620,
+          "instrumented_exit": 3221225501,
+          "new_failure": false
+        },
+        {
+          "id": "fixture-undefined-shift-width",
+          "cohort": "fixture_undefined",
+          "classification": {
+            "status": "instrumentation_failure",
+            "ub_detected": null,
+            "diagnostics": [],
+            "ubsan_diagnostic_observed": false,
+            "instrumentation_only_failure": true,
+            "baseline_has_diagnostic": false,
+            "reason": "candidate-controlled stderr is not trusted runtime provenance"
+          },
+          "baseline_exit": 0,
+          "instrumented_exit": 3221225501,
+          "new_failure": true
+        },
+        {
+          "id": "fixture-undefined-negative-left-shift",
+          "cohort": "fixture_undefined",
+          "classification": {
+            "status": "instrumentation_failure",
+            "ub_detected": null,
+            "diagnostics": [],
+            "ubsan_diagnostic_observed": false,
+            "instrumentation_only_failure": true,
+            "baseline_has_diagnostic": false,
+            "reason": "candidate-controlled stderr is not trusted runtime provenance"
+          },
+          "baseline_exit": 0,
+          "instrumented_exit": 3221225501,
+          "new_failure": true
+        },
+        {
+          "id": "fixture-undefined-null-load",
+          "cohort": "fixture_undefined",
+          "classification": {
+            "status": "nonzero_without_diagnostic",
+            "ub_detected": null,
+            "diagnostics": [],
+            "ubsan_diagnostic_observed": false,
+            "instrumentation_only_failure": false,
+            "baseline_has_diagnostic": false,
+            "reason": "candidate-controlled stderr is not trusted runtime provenance"
+          },
+          "baseline_exit": 3221225477,
+          "instrumented_exit": 3221225501,
+          "new_failure": false
+        }
+      ],
+      "report_sha256": "13728ba7a318fd1d1fa2a56bb8ebcdbe1f62ad057eac8d58072a530d5587292b",
+      "assessments": {
+        "known_ub_reference": {
+          "observed": 6,
+          "evaluated": 6,
+          "reference_total": 6
+        },
+        "defined_control_rejections": {
+          "observed": 0,
+          "evaluated": 8,
+          "reference_total": 8
+        },
+        "note": "Observation against finite controlled references, not UB authentication or population accuracy"
+      },
+      "paired_model_output": {
+        "eligible": 53,
+        "same_raw_stdout": 53,
+        "different_ids": []
+      }
+    }
+  },
+  "limitations": [
+    "No UB prevalence truth for 54 original generated programs; silent runtime is not proof of absence",
+    "Diagnostic text can be forged; true UB confirmation requires source-level evidence, not these flags alone",
+    "Single run per case/profile, fixed normal-before-instrumented order, shared hosts/caches; no performance generalization",
+    "8 defined controls (6 fixtures + 2 examples) are small, AI-designed, not general false-positive rate",
+    "Same fixed 72 cases across platforms; no new generation or subjective creativity acceptance",
+    "Main matrix is fixed C11/O0; fixture-author O1 observations remain separate",
+    "First workflow failed Windows Clang initialization before probing; all available first artifacts preserved separately"
+  ]
+}
