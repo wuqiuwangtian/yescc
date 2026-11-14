@@ -1,0 +1,1462 @@
+{
+  "schema": "yescc-optional-undefined-check-evidence-v1",
+  "baseline_commit": "07160fcdf9a31f2790ab31205f6b62dbc45e9d36",
+  "implementation_commit": "b352c927776ab106594750e5dd30270fe88ca8e4",
+  "ci_capture_commit": "7e0b0b04a4766d2008d32559ce770151388fdf77",
+  "windows_fix_commit": "8cbd90d3b93bae7c2e6dc2845d3e1261407c5ced",
+  "final_product_commit": "ef6a560cea4dd61776b7cb5f9e3b13353c077a85",
+  "ci_run": {
+    "conclusion": "success",
+    "databaseId": 43575078126,
+    "headSha": "ef6a560cea4dd61776b7cb5f9e3b13353c077a85",
+    "jobs": [
+      {
+        "conclusion": "success",
+        "name": "package smoke (ubuntu-latest)",
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "name": "e2e (ubuntu-latest, py3.14)",
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "name": "e2e (ubuntu-latest, py3.11)",
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "name": "package smoke (windows-latest)",
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "name": "test (windows-latest, py3.12)",
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "name": "e2e (windows-latest, py3.11)",
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "name": "test (ubuntu-latest, py3.11)",
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "name": "test (windows-latest, py3.11)",
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "name": "test (ubuntu-latest, py3.14)",
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "name": "test (windows-latest, py3.13)",
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "name": "e2e (windows-latest, py3.14)",
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "name": "test (windows-latest, py3.14)",
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "name": "test (ubuntu-latest, py3.13)",
+        "status": "completed"
+      },
+      {
+        "conclusion": "success",
+        "name": "test (ubuntu-latest, py3.12)",
+        "status": "completed"
+      }
+    ],
+    "status": "completed"
+  },
+  "validation": {
+    "baseline": "07160fcdf9a31f2790ab31205f6b62dbc45e9d36",
+    "linux_full": {
+      "passed": 1224,
+      "skipped": 1,
+      "duration_s": 121.09
+    },
+    "new_tests": 85,
+    "ruff": "passed",
+    "mypy_linux_win32": "passed",
+    "isolated_package_smoke": {
+      "passed": 18,
+      "total": 18,
+      "wheel_sha256": "a7f50de0595d8229a58bb17d2af22ba75413e21540a87e9a190eb3ad751ba8dc"
+    },
+    "paid_model_api_calls": 0,
+    "source_commit": "8cbd90d3b93bae7c2e6dc2845d3e1261407c5ced",
+    "linux_full_final": {
+      "passed": 1238,
+      "skipped": 1,
+      "duration_s": 124.56
+    },
+    "new_tests_final": 99,
+    "final_wheel_sha256": "bc1c13e9e1c72fd28eb7e2797c70338ef2c474cab70053e7662539afb8f1751b",
+    "final_package_smoke": {
+      "passed": 18,
+      "total": 18
+    },
+    "first_source_commit": "b352c927776ab106594750e5dd30270fe88ca8e4",
+    "first_ci_run_id": 43573185414,
+    "final_ci_run_id": 43573814848,
+    "delivery_source_commit": "ef6a560cea4dd61776b7cb5f9e3b13353c077a85",
+    "linux_full_delivery": {
+      "passed": 1240,
+      "skipped": 1,
+      "duration_s": 122.37
+    },
+    "new_tests_delivery": 101,
+    "delivery_wheel_sha256": "ebea4447621d54c959d871f40f901f9ff734c78c05d92432ba7ff1651a04e9fc",
+    "delivery_ci_run_id": 43575078126
+  },
+  "ci_check_reports": [
+    {
+      "artifact": "m4-Linux-py3.11",
+      "file": "undefined-sandbox.json",
+      "mode": "runtime",
+      "unsafe_run": false,
+      "model_calls": 2,
+      "attempts": 2,
+      "first_rejected": true,
+      "successful_output_sha256": "d43cf775e7609f1274a4cd97b7649be036b01a6e22d6a04038ecd51811652cf7",
+      "report_file_sha256": "e547bef9bb7408f0d3da087f601cfbcab2042b1318e624adccb615eac181c2e4"
+    },
+    {
+      "artifact": "m4-Linux-py3.11",
+      "file": "undefined-unsafe.json",
+      "mode": "runtime",
+      "unsafe_run": true,
+      "model_calls": 2,
+      "attempts": 2,
+      "first_rejected": true,
+      "successful_output_sha256": "d43cf775e7609f1274a4cd97b7649be036b01a6e22d6a04038ecd51811652cf7",
+      "report_file_sha256": "477437b1c6082a61cc44d4284ba7ce91f4ae39b27457ebdc1521b391feec1455"
+    },
+    {
+      "artifact": "m4-Linux-py3.14",
+      "file": "undefined-sandbox.json",
+      "mode": "runtime",
+      "unsafe_run": false,
+      "model_calls": 2,
+      "attempts": 2,
+      "first_rejected": true,
+      "successful_output_sha256": "d43cf775e7609f1274a4cd97b7649be036b01a6e22d6a04038ecd51811652cf7",
+      "report_file_sha256": "57e43b2702eb65d4d96192ba50ffdf84d59613be9ee6fbd4173921de732a6e41"
+    },
+    {
+      "artifact": "m4-Linux-py3.14",
+      "file": "undefined-unsafe.json",
+      "mode": "runtime",
+      "unsafe_run": true,
+      "model_calls": 2,
+      "attempts": 2,
+      "first_rejected": true,
+      "successful_output_sha256": "d43cf775e7609f1274a4cd97b7649be036b01a6e22d6a04038ecd51811652cf7",
+      "report_file_sha256": "9ea826ca0b4ba57e2ffaabf828b2e8ccdf0f75ecd76d88f55dea7a59f2a3ddf0"
+    },
+    {
+      "artifact": "m4-Windows-py3.11",
+      "file": "undefined-sandbox.json",
+      "mode": "trap",
+      "unsafe_run": false,
+      "model_calls": 2,
+      "attempts": 2,
+      "first_rejected": true,
+      "successful_output_sha256": "9eeed796bdadf8a9afcb048cd0278de85b5358f52eb968322fc731613fdaa79a",
+      "report_file_sha256": "dbf9a75367b9dc7f3de506609d0f1dd3b9f7a91bedf031d30bc68f226ed7b196"
+    },
+    {
+      "artifact": "m4-Windows-py3.11",
+      "file": "undefined-unsafe.json",
+      "mode": "trap",
+      "unsafe_run": true,
+      "model_calls": 2,
+      "attempts": 2,
+      "first_rejected": true,
+      "successful_output_sha256": "9eeed796bdadf8a9afcb048cd0278de85b5358f52eb968322fc731613fdaa79a",
+      "report_file_sha256": "3bbb4acf5c665ea04382dd4560a95dbb3700f9f0497bc9a7b93d316e50a1b9fa"
+    },
+    {
+      "artifact": "m4-Windows-py3.14",
+      "file": "undefined-sandbox.json",
+      "mode": "trap",
+      "unsafe_run": false,
+      "model_calls": 2,
+      "attempts": 2,
+      "first_rejected": true,
+      "successful_output_sha256": "9eeed796bdadf8a9afcb048cd0278de85b5358f52eb968322fc731613fdaa79a",
+      "report_file_sha256": "239ddb5c7ad4fd383593167a2e79c2687736079c05f2b3aba8ed83bd63c1801b"
+    },
+    {
+      "artifact": "m4-Windows-py3.14",
+      "file": "undefined-unsafe.json",
+      "mode": "trap",
+      "unsafe_run": true,
+      "model_calls": 2,
+      "attempts": 2,
+      "first_rejected": true,
+      "successful_output_sha256": "9eeed796bdadf8a9afcb048cd0278de85b5358f52eb968322fc731613fdaa79a",
+      "report_file_sha256": "a6479143c4a51aeb363e4847f7ab39ac255b9b5002e2d576f96d3f2bbc3e075e"
+    }
+  ],
+  "benchmarks": [
+    {
+      "artifact": "m4-Linux-py3.11",
+      "dataset_sha256": "d24f6ce70b73f746e932c6b932d6aeb4c2c88bff4ec1724bf7465b1c648a2ab2",
+      "evaluated": 130,
+      "not_assessed": 70,
+      "calls": 0,
+      "audit": 24,
+      "oracle_tasks": 40,
+      "oracle_checks": 508
+    },
+    {
+      "artifact": "m4-Linux-py3.14",
+      "dataset_sha256": "d24f6ce70b73f746e932c6b932d6aeb4c2c88bff4ec1724bf7465b1c648a2ab2",
+      "evaluated": 130,
+      "not_assessed": 70,
+      "calls": 0,
+      "audit": 24,
+      "oracle_tasks": 40,
+      "oracle_checks": 508
+    },
+    {
+      "artifact": "m4-Windows-py3.11",
+      "dataset_sha256": "d24f6ce70b73f746e932c6b932d6aeb4c2c88bff4ec1724bf7465b1c648a2ab2",
+      "evaluated": 130,
+      "not_assessed": 70,
+      "calls": 0,
+      "audit": 24,
+      "oracle_tasks": 40,
+      "oracle_checks": 508
+    },
+    {
+      "artifact": "m4-Windows-py3.14",
+      "dataset_sha256": "d24f6ce70b73f746e932c6b932d6aeb4c2c88bff4ec1724bf7465b1c648a2ab2",
+      "evaluated": 130,
+      "not_assessed": 70,
+      "calls": 0,
+      "audit": 24,
+      "oracle_tasks": 40,
+      "oracle_checks": 508
+    }
+  ],
+  "blackboxes": {
+    "first": {
+      "wheel_sha256": "a7f50de0595d8229a58bb17d2af22ba75413e21540a87e9a190eb3ad751ba8dc",
+      "cli_cases": 61,
+      "assertions_passed": 29,
+      "confirmed_product_issues": [],
+      "limitations": [
+        "Linux x86_64 / WSL2 + GCC 16.2.1；未测试 Windows 原生、macOS 或其他 GCC 版本。",
+        "使用 127.0.0.1 标准假 OpenAI API、公开假 key 与显式价格，不调用真实模型或外部付费服务。",
+        "trap 与不可用路径由工作区 PATH 内 GCC 包装器模拟 flag/链接失败；允许的编译仍交 /usr/sbin/gcc；不声称复现真实缺 libubsan 发行版。",
+        "共享文件系统协议限制不是强制隔离；计数探针有意在授权工作区写文件，用来证明执行次数。",
+        "通过仅代表实际执行路径满足有限检查；不认证无 UB、作品趣味、语义或原始意图正确。",
+        "未单独触达报告中非 creative 的完整源码生成成功路径；已验证规则修复、普通模型精确补丁、原生、离线不适用。",
+        "未做超时、输出上限、模型费用计量误差或所有编译器参数组合压力测试。"
+      ],
+      "same_tester_followup": false
+    },
+    "final": {
+      "wheel_sha256": "bc1c13e9e1c72fd28eb7e2797c70338ef2c474cab70053e7662539afb8f1751b",
+      "cli_cases": 21,
+      "assertions_passed": 22,
+      "confirmed_product_issues": [],
+      "limitations": [
+        "这是同一独立 AI 测试者复用自拟有效夹具，对最终安装 wheel 的有限跟进复核；不是另一位独立测试者或人工验收，也不是全新测试设计。",
+        "只验证 Linux/WSL2、GCC 16.2.1；未测 Windows 原生、macOS、其他编译器版本。",
+        "模拟缺库/不可用使用授权新工作目录内 PATH GCC 包装器，选择性拒绝 sanitizer flags，其余编译交系统 GCC；不冒充真实缺库发行版。",
+        "仅 127.0.0.1 假 OpenAI API、假 key 和显式测试价格；无真实模型、密钥或外部付费服务。",
+        "共享文件系统限制依靠协议，不构成强制隔离；计数夹具有意在授权新工作区写文件。",
+        "通过只代表已执行路径满足有限检查，不证明无 UB、意图正确或作品趣味。",
+        "旧 61 条记录、旧结果及旧安装保持只读；本次未重跑旧误用/schema 探索，也未新增压力范围。",
+        "安装包版本仍 0.1.0；此次复核不代表已发布。"
+      ],
+      "same_tester_followup": true
+    }
+  },
+  "independent_raw_audit": {
+    "all_required_machine_checks_passed": true,
+    "audit_errors": []
+  },
+  "production_default_enabled": false,
+  "feature_flag": "--check-undefined",
+  "installed_delivery_smoke": {
+    "scope": "root-targeted-installed-wheel-followup, not another independent blackbox",
+    "source_commit": "ef6a560cea4dd61776b7cb5f9e3b13353c077a85",
+    "wheel_sha256": "ebea4447621d54c959d871f40f901f9ff734c78c05d92432ba7ff1651a04e9fc",
+    "passed": 6,
+    "total": 6,
+    "source_files": {
+      "yescc/util.py": "811b8ad271c3d656df74be5a55ddd415710842d3a57e394b54587c7bb7ed4d0f",
+      "yescc/__main__.py": "b8e0fc6239cf07f8c225dd9e7698b686865304da0b6cc444dda822d1063cacbc",
+      "yescc/report.py": "5bb87fa4864c55f7b69e7fb8860c6d5cf897615af37601383c3a5c056275e166",
+      "yescc/errors.py": "1c561029a49df07fb884f48e150eb05473497a0d941376d1f3323803475dfe17",
+      "yescc/__init__.py": "010eaecb449d534f6fb58df58a369eb65d2e263cb44f7fb17e49a90ad7a4b8fe",
+      "yescc/patch.py": "2b2daa96319d016daf284205d8af429eddf903ea05efd1c7c6977cd332e1a775",
+      "yescc/cli.py": "b3db10dc173439180e71aa471f79a8bae56d27591c8337d561de1a47a58fbad0",
+      "yescc/pipeline.py": "c20831a2d7906a303c3254855bfa7718ecf1b46a6443782e0d3ca446f8aee41e",
+      "yescc/fix/feedback.py": "d4d5ad7893993b72feb6df8a4bc3703a6021427c0d0b55b9c25cf7f334095a57",
+      "yescc/fix/engine.py": "cab5e41557cca86a9b7783611e1070945c64fa34863d812c03341e11dfc11ff2",
+      "yescc/fix/parser.py": "c843e1bdc3e7683a4c65370b3eda2fa27f2439bb571ded171c55689de5843b3d",
+      "yescc/fix/__init__.py": "61795abae9b8f8f20132b8fb8a4c405e144d2098dc59609314ad1450960da7f6",
+      "yescc/fix/lexer.py": "013e45ff043660558e80ccfc3e4fca6cfe4556a7174a1613fa15222ff8fdd851",
+      "yescc/fix/c_rules.py": "c3f5e6427b0b0cb55f0b02dae653eadf2ce827ddf506131afb86b64177f32fec",
+      "yescc/model/cache.py": "b1bd6377a60181975f18db442397056d75674f545d1211033a78eba7a82190c6",
+      "yescc/model/session.py": "70bd8be3504742cba943261b57af4eff907c1584cf5230a6bcde126d029584d0",
+      "yescc/model/prompts.py": "96f17d9b204806927d88865bf7917198a5e842fac275765eb29fc9dd479c4b46",
+      "yescc/model/__init__.py": "7dd3993af6a8a724cfb3aded88b3c68ed1e6e2db07960ce5cecccf2128a1e738",
+      "yescc/model/openai_compat.py": "cd9d5719366860003457fa7b1f6e62310b56bb4da1bf5b46abbdea9d96b36ad9",
+      "yescc/model/config.py": "c9dc9342f6528544466fa1eb26c3bac71ecd0a6a91d0cb9ead6466edbc73b5b8",
+      "yescc/model/base.py": "0006f64d0996f103df7cb5de24b2138064259ec62efbc45848a8ec9668eb0650",
+      "yescc/model/budget.py": "b1500b36b6a0f40947ee5c61b09eb26f93c6e66ddba4411df3b4cdb4cf118df9",
+      "yescc/adapters/c.py": "9167ebcfe0e8ecf5dea9696b60ef23d7c2be2316cdda593858f91caeab1193ee",
+      "yescc/adapters/python.py": "4f73070a19b99a68c1c686f72d62330bdf36354f76b63af0aebcf3bc4aac1aad",
+      "yescc/adapters/registry.py": "944fb41c8473fe0031ac1d69e5054084dfb0e20364774481bf37e618a998cf1c",
+      "yescc/adapters/__init__.py": "caa055b45ec1bdd187db21a5f68a7b37f2c59a2d740a6c27e42cf1d1479551b4",
+      "yescc/adapters/javascript.py": "d847a0d353e5569ee9a38777469aea04e03416fabb89d2327fea1294f12765c4",
+      "yescc/adapters/base.py": "335c2afb1458db5c5d7e12304b5eb4a9c3ba87727174b8e4644a0e9733242df8",
+      "yescc/sandbox/undefined.py": "a48bd06bb6d744899b954b84404755b5ac7981589e950fa9a0c89078fd708a45",
+      "yescc/sandbox/creative.py": "967969175c0cb42661655056f9ba3cd5ba6b194ce8cf3655bf1772bc9962f37c",
+      "yescc/sandbox/__init__.py": "bb1d14f1a40bc5f98f8095c86215c7efe35dd0296fa4ab58e769b5e9e9d90214",
+      "yescc/sandbox/runner.py": "deef6e924bb8ea98b5b20ff67bf868ac0dbb0fe7bdc45dc9cdb3a41869b4c15f",
+      "yescc/fallback/guidance.py": "f4939c3910d68b55de2ba0371afcb38c4d272810edb13d091b54790cb32553cb",
+      "yescc/fallback/deterministic.py": "07f9065cf4de01e22663f6779c00cf81219cc0f3f89335a8b8df349658d0ee13",
+      "yescc/fallback/quality.py": "9bc07150d01d5aaabab8eec49fd66f2b4b23bb1e6eca99cf2c096de33b716950",
+      "yescc/fallback/__init__.py": "74f84974071dbb6b18410a922e731778274aa9bb7d45db82c34b6b88f5390fbc"
+    },
+    "rows": [
+      {
+        "name": "same-output",
+        "argv": [
+          "/home/wqwt/ai-tests/yescc-ubsan-option-2026-11-14/install-delivery/venv/bin/yescc",
+          "/home/wqwt/ai-tests/yescc-ubsan-option-2026-11-14/delivery-smoke-work/same-output/idea.txt",
+          "--play",
+          "--json",
+          "-o",
+          "/home/wqwt/ai-tests/yescc-ubsan-option-2026-11-14/delivery-smoke-work/same-output/idea.txt"
+        ],
+        "exit_code": 100,
+        "model_requests": 0,
+        "input_sha256": "6c79c6a389fe0e44c253ee5ed9a6f382357e4fa8483695677a01c73ee589e566",
+        "source_unchanged": true,
+        "stdout_base64": "ewogICJzY2hlbWFfdmVyc2lvbiI6ICIxIiwKICAicmVwb3J0X2tpbmQiOiAiY29tbWFuZF9lcnJvciIsCiAgInRvb2wiOiB7CiAgICAibmFtZSI6ICJ5ZXNjYyIsCiAgICAidmVyc2lvbiI6ICIwLjEuMCIKICB9LAogICJpbnZvY2F0aW9uIjogewogICAgImFyZ3YiOiBbCiAgICAgICIvaG9tZS93cXd0L2FpLXRlc3RzL3llc2NjLXVic2FuLW9wdGlvbi0yMDI2LTExLTE0L2RlbGl2ZXJ5LXNtb2tlLXdvcmsvc2FtZS1vdXRwdXQvaWRlYS50eHQiLAogICAgICAiLS1wbGF5IiwKICAgICAgIi0tanNvbiIsCiAgICAgICItbyIsCiAgICAgICIvaG9tZS93cXd0L2FpLXRlc3RzL3llc2NjLXVic2FuLW9wdGlvbi0yMDI2LTExLTE0L2RlbGl2ZXJ5LXNtb2tlLXdvcmsvc2FtZS1vdXRwdXQvaWRlYS50eHQiCiAgICBdCiAgfSwKICAiZXJyb3IiOiB7CiAgICAidHlwZSI6ICJVc2FnZUVycm9yIiwKICAgICJleGl0X2NvZGUiOiAxMDAsCiAgICAibWVzc2FnZSI6ICLovpPlh7rot6/lvoQgLW8g5oyH5ZCR6L6T5YWl5rqQ5paH5Lu277yM5ouS57ud6KaG55uW77yb5pyq6K+35rGC5qih5Z6L44CCIiwKICAgICJwaGFzZSI6ICJleGVjdXRlIgogIH0KfQo=",
+        "stderr_base64": "",
+        "report": null
+      },
+      {
+        "name": "hardlink-output",
+        "argv": [
+          "/home/wqwt/ai-tests/yescc-ubsan-option-2026-11-14/install-delivery/venv/bin/yescc",
+          "/home/wqwt/ai-tests/yescc-ubsan-option-2026-11-14/delivery-smoke-work/hardlink-output/idea.txt",
+          "--play",
+          "--json",
+          "-o",
+          "/home/wqwt/ai-tests/yescc-ubsan-option-2026-11-14/delivery-smoke-work/hardlink-output/alias"
+        ],
+        "exit_code": 100,
+        "model_requests": 0,
+        "input_sha256": "6c79c6a389fe0e44c253ee5ed9a6f382357e4fa8483695677a01c73ee589e566",
+        "source_unchanged": true,
+        "stdout_base64": "ewogICJzY2hlbWFfdmVyc2lvbiI6ICIxIiwKICAicmVwb3J0X2tpbmQiOiAiY29tbWFuZF9lcnJvciIsCiAgInRvb2wiOiB7CiAgICAibmFtZSI6ICJ5ZXNjYyIsCiAgICAidmVyc2lvbiI6ICIwLjEuMCIKICB9LAogICJpbnZvY2F0aW9uIjogewogICAgImFyZ3YiOiBbCiAgICAgICIvaG9tZS93cXd0L2FpLXRlc3RzL3llc2NjLXVic2FuLW9wdGlvbi0yMDI2LTExLTE0L2RlbGl2ZXJ5LXNtb2tlLXdvcmsvaGFyZGxpbmstb3V0cHV0L2lkZWEudHh0IiwKICAgICAgIi0tcGxheSIsCiAgICAgICItLWpzb24iLAogICAgICAiLW8iLAogICAgICAiL2hvbWUvd3F3dC9haS10ZXN0cy95ZXNjYy11YnNhbi1vcHRpb24tMjAyNi0xMS0xNC9kZWxpdmVyeS1zbW9rZS13b3JrL2hhcmRsaW5rLW91dHB1dC9hbGlhcyIKICAgIF0KICB9LAogICJlcnJvciI6IHsKICAgICJ0eXBlIjogIlVzYWdlRXJyb3IiLAogICAgImV4aXRfY29kZSI6IDEwMCwKICAgICJtZXNzYWdlIjogIui+k+WHuui3r+W+hCAtbyDmjIflkJHovpPlhaXmupDmlofku7bvvIzmi5Lnu53opobnm5bvvJvmnKror7fmsYLmqKHlnovjgIIiLAogICAgInBoYXNlIjogImV4ZWN1dGUiCiAgfQp9Cg==",
+        "stderr_base64": "",
+        "report": null
+      },
+      {
+        "name": "native",
+        "argv": [
+          "/home/wqwt/ai-tests/yescc-ubsan-option-2026-11-14/install-delivery/venv/bin/yescc",
+          "run",
+          "/home/wqwt/ai-tests/yescc-ubsan-option-2026-11-14/delivery-smoke-work/native/native.c",
+          "--check-undefined"
+        ],
+        "exit_code": 0,
+        "model_requests": 0,
+        "input_sha256": "6974592f5112864535de8f27a31d89b800aaa794aabdae4b2b21b157816657ce",
+        "source_unchanged": true,
+        "stdout_base64": "REVMSVZFUllfT0sK",
+        "stderr_base64": "",
+        "report": {
+          "schema_version": "1",
+          "tool": {
+            "name": "yescc",
+            "version": "0.1.0"
+          },
+          "invocation": {
+            "argv": [
+              "run",
+              "/home/wqwt/ai-tests/yescc-ubsan-option-2026-11-14/delivery-smoke-work/native/native.c",
+              "--check-undefined"
+            ],
+            "mode": "run",
+            "lang": "c",
+            "strict": false,
+            "play": false,
+            "offline": false
+          },
+          "input": {
+            "path": "native.c",
+            "sha256": "6974592f5112864535de8f27a31d89b800aaa794aabdae4b2b21b157816657ce",
+            "bytes": 65,
+            "encoding": "utf-8"
+          },
+          "toolchain": {
+            "adapter": "c",
+            "command": "/usr/sbin/gcc",
+            "version": "16.2.1"
+          },
+          "diagnostics": [],
+          "syntax_errors": [],
+          "attempts": [
+            {
+              "kind": "native",
+              "round": 1,
+              "command": [
+                "/usr/sbin/gcc",
+                "/home/wqwt/ai-tests/yescc-ubsan-option-2026-11-14/delivery-smoke-work/native/native.c"
+              ],
+              "exit_code": 0,
+              "duration_ms": 22,
+              "stdout": "",
+              "stderr": ""
+            }
+          ],
+          "model": null,
+          "result": {
+            "status": "native_ok",
+            "artifact": "a.out",
+            "program_exit": 0,
+            "repair": null,
+            "generated": null,
+            "fallback": null,
+            "timed_out": false,
+            "emitted_source": null
+          },
+          "timings": {
+            "total_ms": 24,
+            "toolchain_ms": 22,
+            "model_ms": 0
+          },
+          "privacy": {
+            "cloud_used": false,
+            "uploaded_bytes": 0
+          },
+          "budget": {
+            "limit_usd": 0.05,
+            "committed_usd": 0.0,
+            "attempts": 0,
+            "blocked_reason": null
+          },
+          "limits": {
+            "sandboxed": false,
+            "network_isolated": false,
+            "timeout_s": null,
+            "environment_filtered": false,
+            "process_tree_cleanup": "none",
+            "resource_limits": "none",
+            "filesystem_isolated": false,
+            "output_limited": false
+          },
+          "undefined_behavior_check": {
+            "requested": true,
+            "scope": "model_creative",
+            "performed": false,
+            "available": null,
+            "mode": null,
+            "flags": [],
+            "probes": [],
+            "reason": "not_model_creative",
+            "ub_detected": null
+          }
+        }
+      },
+      {
+        "name": "default",
+        "argv": [
+          "/home/wqwt/ai-tests/yescc-ubsan-option-2026-11-14/install-delivery/venv/bin/yescc",
+          "run",
+          "/home/wqwt/ai-tests/yescc-ubsan-option-2026-11-14/delivery-smoke-work/default/idea.txt",
+          "--play"
+        ],
+        "exit_code": 0,
+        "model_requests": 1,
+        "input_sha256": "6c79c6a389fe0e44c253ee5ed9a6f382357e4fa8483695677a01c73ee589e566",
+        "source_unchanged": true,
+        "stdout_base64": "REVMSVZFUllfT0sK",
+        "stderr_base64": "eWVzY2M6IOWOn+Wni+i+k+WFpeacquiDveaMieivreS5ieWujOaIkO+8jOW3sueUn+aIkOWIm+aEj+WFnOW6leeoi+W6j++8iGtpbmQ9bW9kZWxfY3JlYXRpdmXvvIzkuI3mmK/ljp/nqIvluo/nmoTkv67lpI3vvInjgIIK",
+        "report": {
+          "schema_version": "1",
+          "tool": {
+            "name": "yescc",
+            "version": "0.1.0"
+          },
+          "invocation": {
+            "argv": [
+              "run",
+              "/home/wqwt/ai-tests/yescc-ubsan-option-2026-11-14/delivery-smoke-work/default/idea.txt",
+              "--play"
+            ],
+            "mode": "run",
+            "lang": "unknown",
+            "strict": false,
+            "play": true,
+            "offline": false
+          },
+          "input": {
+            "path": "idea.txt",
+            "sha256": "6c79c6a389fe0e44c253ee5ed9a6f382357e4fa8483695677a01c73ee589e566",
+            "bytes": 24,
+            "encoding": "utf-8"
+          },
+          "toolchain": {
+            "adapter": "c",
+            "command": "/usr/sbin/gcc",
+            "version": "16.2.1"
+          },
+          "diagnostics": [],
+          "syntax_errors": [],
+          "attempts": [
+            {
+              "kind": "model",
+              "round": 1,
+              "command": [
+                "/usr/sbin/gcc",
+                "/tmp/yescc-build-u0169q70/generated.c",
+                "-iquote",
+                "/home/wqwt/ai-tests/yescc-ubsan-option-2026-11-14/delivery-smoke-work/default",
+                "-lm"
+              ],
+              "exit_code": 0,
+              "duration_ms": 31,
+              "stdout": "",
+              "stderr": "",
+              "source_checks": {
+                "performed": true,
+                "passed": true,
+                "reasons": []
+              },
+              "validation": {
+                "performed": true,
+                "passed": true,
+                "reasons": [],
+                "exit_code": 0,
+                "stdout_bytes": 12,
+                "stderr_bytes": 0,
+                "stdout_complete": true,
+                "stderr_complete": true,
+                "utf8_valid": true,
+                "stdout_nonempty": true,
+                "output_limited": false,
+                "timed_out": false,
+                "max_output_bytes": 65536
+              },
+              "validation_limits": {
+                "sandboxed": true,
+                "network_isolated": false,
+                "timeout_s": 10.0,
+                "environment_filtered": true,
+                "process_tree_cleanup": "posix_group",
+                "resource_limits": "posix_best_effort",
+                "output_limited": false
+              }
+            }
+          ],
+          "model": {
+            "provider": "openai-compatible",
+            "tier": "l3",
+            "name": "fake-delivery",
+            "calls": 1,
+            "prompt_tokens": 10,
+            "completion_tokens": 5,
+            "cost_usd": 1.5e-05,
+            "cache_hits": 0,
+            "duration_ms": 58,
+            "errors": [],
+            "cost_known": true,
+            "requested_model": "fake-delivery",
+            "served_model": null,
+            "finish_reason": null,
+            "reasoning_tokens": null,
+            "response_source": "http",
+            "request_settings": {
+              "max_tokens": 1024,
+              "temperature": 0.4
+            },
+            "configured_settings": {
+              "max_tokens": 1024,
+              "temperature": 0.4
+            },
+            "responses": [
+              {
+                "requested_model": "fake-delivery",
+                "served_model": null,
+                "finish_reason": null,
+                "reasoning_tokens": null,
+                "request_settings": {
+                  "max_tokens": 1024,
+                  "temperature": 0.4
+                }
+              }
+            ]
+          },
+          "result": {
+            "status": "creative_fallback",
+            "artifact": "a.out",
+            "program_exit": 0,
+            "repair": null,
+            "generated": {
+              "source": ".yescc/idea/fallback.c",
+              "creative": true,
+              "io_contract": "",
+              "assumptions": [],
+              "source_checks": {
+                "performed": true,
+                "passed": true,
+                "reasons": []
+              },
+              "validation": {
+                "performed": true,
+                "passed": true,
+                "reasons": [],
+                "exit_code": 0,
+                "stdout_bytes": 12,
+                "stderr_bytes": 0,
+                "stdout_complete": true,
+                "stderr_complete": true,
+                "utf8_valid": true,
+                "stdout_nonempty": true,
+                "output_limited": false,
+                "timed_out": false,
+                "max_output_bytes": 65536
+              }
+            },
+            "fallback": {
+              "kind": "model_creative",
+              "reason": "用户请求 --play",
+              "source": ".yescc/idea/fallback.c"
+            },
+            "timed_out": false,
+            "emitted_source": null
+          },
+          "timings": {
+            "total_ms": 98,
+            "toolchain_ms": 31,
+            "model_ms": 58
+          },
+          "privacy": {
+            "cloud_used": false,
+            "uploaded_bytes": 0
+          },
+          "budget": {
+            "limit_usd": 0.05,
+            "committed_usd": 1.5000000000000256e-05,
+            "attempts": 1,
+            "blocked_reason": null
+          },
+          "limits": {
+            "sandboxed": true,
+            "network_isolated": false,
+            "timeout_s": 10.0,
+            "environment_filtered": true,
+            "process_tree_cleanup": "posix_group",
+            "resource_limits": "posix_best_effort",
+            "filesystem_isolated": false,
+            "output_limited": false
+          }
+        }
+      },
+      {
+        "name": "checked",
+        "argv": [
+          "/home/wqwt/ai-tests/yescc-ubsan-option-2026-11-14/install-delivery/venv/bin/yescc",
+          "run",
+          "/home/wqwt/ai-tests/yescc-ubsan-option-2026-11-14/delivery-smoke-work/checked/idea.txt",
+          "--play",
+          "--check-undefined"
+        ],
+        "exit_code": 0,
+        "model_requests": 1,
+        "input_sha256": "6c79c6a389fe0e44c253ee5ed9a6f382357e4fa8483695677a01c73ee589e566",
+        "source_unchanged": true,
+        "stdout_base64": "REVMSVZFUllfT0sK",
+        "stderr_base64": "eWVzY2M6IOWOn+Wni+i+k+WFpeacquiDveaMieivreS5ieWujOaIkO+8jOW3sueUn+aIkOWIm+aEj+WFnOW6leeoi+W6j++8iGtpbmQ9bW9kZWxfY3JlYXRpdmXvvIzkuI3mmK/ljp/nqIvluo/nmoTkv67lpI3vvInjgIIK",
+        "report": {
+          "schema_version": "1",
+          "tool": {
+            "name": "yescc",
+            "version": "0.1.0"
+          },
+          "invocation": {
+            "argv": [
+              "run",
+              "/home/wqwt/ai-tests/yescc-ubsan-option-2026-11-14/delivery-smoke-work/checked/idea.txt",
+              "--play",
+              "--check-undefined"
+            ],
+            "mode": "run",
+            "lang": "unknown",
+            "strict": false,
+            "play": true,
+            "offline": false
+          },
+          "input": {
+            "path": "idea.txt",
+            "sha256": "6c79c6a389fe0e44c253ee5ed9a6f382357e4fa8483695677a01c73ee589e566",
+            "bytes": 24,
+            "encoding": "utf-8"
+          },
+          "toolchain": {
+            "adapter": "c",
+            "command": "/usr/sbin/gcc",
+            "version": "16.2.1"
+          },
+          "diagnostics": [],
+          "syntax_errors": [],
+          "attempts": [
+            {
+              "kind": "model",
+              "round": 1,
+              "command": [
+                "/usr/sbin/gcc",
+                "/tmp/yescc-build-c1ucn7j0/generated.c",
+                "-iquote",
+                "/home/wqwt/ai-tests/yescc-ubsan-option-2026-11-14/delivery-smoke-work/checked",
+                "-lm",
+                "-fsanitize=undefined",
+                "-fno-sanitize-recover=undefined"
+              ],
+              "exit_code": 0,
+              "duration_ms": 41,
+              "stdout": "",
+              "stderr": "",
+              "undefined_behavior_check": {
+                "requested": true,
+                "scope": "model_creative",
+                "available": true,
+                "mode": "runtime",
+                "flags": [
+                  "-fsanitize=undefined",
+                  "-fno-sanitize-recover=undefined"
+                ],
+                "performed": true,
+                "reason": "executed",
+                "compile_timeout_s": 20.0,
+                "diagnostic_observed": false,
+                "stderr": "",
+                "ub_detected": null
+              },
+              "source_checks": {
+                "performed": true,
+                "passed": true,
+                "reasons": []
+              },
+              "validation": {
+                "performed": true,
+                "passed": true,
+                "reasons": [],
+                "exit_code": 0,
+                "stdout_bytes": 12,
+                "stderr_bytes": 0,
+                "stdout_complete": true,
+                "stderr_complete": true,
+                "utf8_valid": true,
+                "stdout_nonempty": true,
+                "output_limited": false,
+                "timed_out": false,
+                "max_output_bytes": 65536
+              },
+              "validation_limits": {
+                "sandboxed": true,
+                "network_isolated": false,
+                "timeout_s": 10.0,
+                "environment_filtered": true,
+                "process_tree_cleanup": "posix_group",
+                "resource_limits": "posix_best_effort",
+                "output_limited": false
+              }
+            }
+          ],
+          "model": {
+            "provider": "openai-compatible",
+            "tier": "l3",
+            "name": "fake-delivery",
+            "calls": 1,
+            "prompt_tokens": 10,
+            "completion_tokens": 5,
+            "cost_usd": 1.5e-05,
+            "cache_hits": 0,
+            "duration_ms": 18,
+            "errors": [],
+            "cost_known": true,
+            "requested_model": "fake-delivery",
+            "served_model": null,
+            "finish_reason": null,
+            "reasoning_tokens": null,
+            "response_source": "http",
+            "request_settings": {
+              "max_tokens": 1024,
+              "temperature": 0.4
+            },
+            "configured_settings": {
+              "max_tokens": 1024,
+              "temperature": 0.4
+            },
+            "responses": [
+              {
+                "requested_model": "fake-delivery",
+                "served_model": null,
+                "finish_reason": null,
+                "reasoning_tokens": null,
+                "request_settings": {
+                  "max_tokens": 1024,
+                  "temperature": 0.4
+                }
+              }
+            ]
+          },
+          "result": {
+            "status": "creative_fallback",
+            "artifact": "a.out",
+            "program_exit": 0,
+            "repair": null,
+            "generated": {
+              "source": ".yescc/idea/fallback.c",
+              "creative": true,
+              "io_contract": "",
+              "assumptions": [],
+              "source_checks": {
+                "performed": true,
+                "passed": true,
+                "reasons": []
+              },
+              "validation": {
+                "performed": true,
+                "passed": true,
+                "reasons": [],
+                "exit_code": 0,
+                "stdout_bytes": 12,
+                "stderr_bytes": 0,
+                "stdout_complete": true,
+                "stderr_complete": true,
+                "utf8_valid": true,
+                "stdout_nonempty": true,
+                "output_limited": false,
+                "timed_out": false,
+                "max_output_bytes": 65536
+              },
+              "undefined_behavior_check": {
+                "requested": true,
+                "scope": "model_creative",
+                "available": true,
+                "mode": "runtime",
+                "flags": [
+                  "-fsanitize=undefined",
+                  "-fno-sanitize-recover=undefined"
+                ],
+                "performed": true,
+                "reason": "executed",
+                "compile_timeout_s": 20.0,
+                "diagnostic_observed": false,
+                "stderr": "",
+                "ub_detected": null
+              }
+            },
+            "fallback": {
+              "kind": "model_creative",
+              "reason": "用户请求 --play",
+              "source": ".yescc/idea/fallback.c"
+            },
+            "timed_out": false,
+            "emitted_source": null
+          },
+          "timings": {
+            "total_ms": 161,
+            "toolchain_ms": 41,
+            "model_ms": 18
+          },
+          "privacy": {
+            "cloud_used": false,
+            "uploaded_bytes": 0
+          },
+          "budget": {
+            "limit_usd": 0.05,
+            "committed_usd": 1.5000000000000256e-05,
+            "attempts": 1,
+            "blocked_reason": null
+          },
+          "limits": {
+            "sandboxed": true,
+            "network_isolated": false,
+            "timeout_s": 10.0,
+            "environment_filtered": true,
+            "process_tree_cleanup": "posix_group",
+            "resource_limits": "posix_best_effort",
+            "filesystem_isolated": false,
+            "output_limited": false
+          },
+          "undefined_behavior_check": {
+            "available": true,
+            "mode": "runtime",
+            "flags": [
+              "-fsanitize=undefined",
+              "-fno-sanitize-recover=undefined"
+            ],
+            "reason": "candidate_executed",
+            "compiler_version": "16.2.1",
+            "arguments": [],
+            "probes": [
+              {
+                "mode": "runtime",
+                "flags": [
+                  "-fsanitize=undefined",
+                  "-fno-sanitize-recover=undefined"
+                ],
+                "passed": true,
+                "normal": {
+                  "compile": {
+                    "command": [
+                      "/usr/sbin/gcc",
+                      "/tmp/yescc-undefined-tjkffo0_/runtime_normal.c",
+                      "-fsanitize=undefined",
+                      "-fno-sanitize-recover=undefined",
+                      "-o",
+                      "/tmp/yescc-undefined-tjkffo0_/runtime_normal.exe"
+                    ],
+                    "returncode": 0,
+                    "stdout": "",
+                    "stderr": "",
+                    "artifact": "/tmp/yescc-undefined-tjkffo0_/runtime_normal.exe",
+                    "duration_ms": 40,
+                    "environment_filtered": true,
+                    "timeout_s": 19.999801515004947,
+                    "max_output_bytes": 65536,
+                    "process_tree_cleanup": "posix_group"
+                  },
+                  "run": {
+                    "passed_execution": true,
+                    "command": [
+                      "/tmp/yescc-undefined-tjkffo0_/runtime_normal.exe"
+                    ],
+                    "stdout": "yescc-undefined-control-ok\n",
+                    "stderr": "",
+                    "sandbox": {
+                      "exit_code": 0,
+                      "timed_out": false,
+                      "sandboxed": true,
+                      "network_isolated": false,
+                      "timeout_s": 3.0,
+                      "environment_filtered": true,
+                      "process_tree_cleanup": "posix_group",
+                      "resource_limits": "posix_best_effort",
+                      "output_limited": false
+                    },
+                    "validation": {
+                      "performed": true,
+                      "passed": true,
+                      "reasons": [],
+                      "exit_code": 0,
+                      "stdout_bytes": 27,
+                      "stderr_bytes": 0,
+                      "stdout_complete": true,
+                      "stderr_complete": true,
+                      "utf8_valid": true,
+                      "stdout_nonempty": true,
+                      "output_limited": false,
+                      "timed_out": false,
+                      "max_output_bytes": 65536
+                    },
+                    "exit_code": 0,
+                    "elapsed_ms": 6,
+                    "timeout_s": 3.0
+                  }
+                },
+                "overflow": {
+                  "compile": {
+                    "command": [
+                      "/usr/sbin/gcc",
+                      "/tmp/yescc-undefined-tjkffo0_/runtime_overflow.c",
+                      "-fsanitize=undefined",
+                      "-fno-sanitize-recover=undefined",
+                      "-o",
+                      "/tmp/yescc-undefined-tjkffo0_/runtime_overflow.exe"
+                    ],
+                    "returncode": 0,
+                    "stdout": "",
+                    "stderr": "",
+                    "artifact": "/tmp/yescc-undefined-tjkffo0_/runtime_overflow.exe",
+                    "duration_ms": 41,
+                    "environment_filtered": true,
+                    "timeout_s": 19.951402599006542,
+                    "max_output_bytes": 65536,
+                    "process_tree_cleanup": "posix_group"
+                  },
+                  "run": {
+                    "passed_execution": true,
+                    "command": [
+                      "/tmp/yescc-undefined-tjkffo0_/runtime_overflow.exe"
+                    ],
+                    "stdout": "",
+                    "stderr": "/tmp/yescc-undefined-tjkffo0_/runtime_overflow.c:2:83: runtime error: signed integer overflow: 2147483647 + 1 cannot be represented in type 'int'\n",
+                    "sandbox": {
+                      "exit_code": 1,
+                      "timed_out": false,
+                      "sandboxed": true,
+                      "network_isolated": false,
+                      "timeout_s": 3.0,
+                      "environment_filtered": true,
+                      "process_tree_cleanup": "posix_group",
+                      "resource_limits": "posix_best_effort",
+                      "output_limited": false
+                    },
+                    "validation": {
+                      "performed": true,
+                      "passed": false,
+                      "reasons": [
+                        "exit_nonzero",
+                        "stdout_empty"
+                      ],
+                      "exit_code": 1,
+                      "stdout_bytes": 0,
+                      "stderr_bytes": 146,
+                      "stdout_complete": true,
+                      "stderr_complete": true,
+                      "utf8_valid": true,
+                      "stdout_nonempty": false,
+                      "output_limited": false,
+                      "timed_out": false,
+                      "max_output_bytes": 65536
+                    },
+                    "exit_code": 1,
+                    "elapsed_ms": 3,
+                    "timeout_s": 3.0
+                  }
+                },
+                "reason": "controls_passed"
+              }
+            ],
+            "timeout_s": 20.0,
+            "elapsed_ms": 93,
+            "requested": true,
+            "scope": "model_creative",
+            "performed": true,
+            "ub_detected": null,
+            "capability_reason": "controls_passed"
+          }
+        }
+      },
+      {
+        "name": "build-check",
+        "argv": [
+          "/home/wqwt/ai-tests/yescc-ubsan-option-2026-11-14/install-delivery/venv/bin/yescc",
+          "/home/wqwt/ai-tests/yescc-ubsan-option-2026-11-14/delivery-smoke-work/build-check/idea.txt",
+          "--check-undefined",
+          "--json"
+        ],
+        "exit_code": 100,
+        "model_requests": 0,
+        "input_sha256": "6c79c6a389fe0e44c253ee5ed9a6f382357e4fa8483695677a01c73ee589e566",
+        "source_unchanged": true,
+        "stdout_base64": "ewogICJzY2hlbWFfdmVyc2lvbiI6ICIxIiwKICAicmVwb3J0X2tpbmQiOiAiY29tbWFuZF9lcnJvciIsCiAgInRvb2wiOiB7CiAgICAibmFtZSI6ICJ5ZXNjYyIsCiAgICAidmVyc2lvbiI6ICIwLjEuMCIKICB9LAogICJpbnZvY2F0aW9uIjogewogICAgImFyZ3YiOiBbCiAgICAgICIvaG9tZS93cXd0L2FpLXRlc3RzL3llc2NjLXVic2FuLW9wdGlvbi0yMDI2LTExLTE0L2RlbGl2ZXJ5LXNtb2tlLXdvcmsvYnVpbGQtY2hlY2svaWRlYS50eHQiLAogICAgICAiLS1jaGVjay11bmRlZmluZWQiLAogICAgICAiLS1qc29uIgogICAgXQogIH0sCiAgImVycm9yIjogewogICAgInR5cGUiOiAiVXNhZ2VFcnJvciIsCiAgICAiZXhpdF9jb2RlIjogMTAwLAogICAgIm1lc3NhZ2UiOiAiLS1jaGVjay11bmRlZmluZWQg5Y+q55So5LqO5qih5Z6L5Yib5oSPIHJ1bu+8jGJ1aWxkIOS4jeaJp+ihjOajgOafpeOAgiIsCiAgICAicGhhc2UiOiAicGFyc2UiCiAgfQp9Cg==",
+        "stderr_base64": "",
+        "report": null
+      }
+    ],
+    "paid_api_calls": 0
+  },
+  "delivery_package_smoke": {
+    "version": "0.1.0",
+    "platform": "Linux",
+    "python": "3.11.15",
+    "wheel": "yescc-0.1.0-py3-none-any.whl",
+    "wheel_sha256": "ebea4447621d54c959d871f40f901f9ff734c78c05d92432ba7ff1651a04e9fc",
+    "lock_sha256": "2a4a5a6beaa0ba83b8e810adc2348c74b60e109b22b28c96b42579c907c7cc94",
+    "isolated_install": true,
+    "paid_model_calls": 0,
+    "total": 18,
+    "passed": 18,
+    "rows": [
+      {
+        "id": "native_c",
+        "status": "native_ok",
+        "exit_code": 0,
+        "source_unchanged": true,
+        "model_calls": 0,
+        "passed": true
+      },
+      {
+        "id": "native_py",
+        "status": "native_ok",
+        "exit_code": 0,
+        "source_unchanged": true,
+        "model_calls": 0,
+        "passed": true
+      },
+      {
+        "id": "native_js",
+        "status": "native_ok",
+        "exit_code": 0,
+        "source_unchanged": true,
+        "model_calls": 0,
+        "passed": true
+      },
+      {
+        "id": "rule_c",
+        "status": "repaired",
+        "exit_code": 0,
+        "source_unchanged": true,
+        "model_calls": 0,
+        "passed": true
+      },
+      {
+        "id": "model_c",
+        "status": "repaired",
+        "exit_code": 0,
+        "source_unchanged": true,
+        "model_calls": 1,
+        "passed": true
+      },
+      {
+        "id": "generated",
+        "status": "generated",
+        "exit_code": 0,
+        "source_unchanged": true,
+        "model_calls": 1,
+        "passed": true
+      },
+      {
+        "id": "creative",
+        "status": "creative_fallback",
+        "exit_code": 0,
+        "source_unchanged": true,
+        "model_calls": 0,
+        "passed": true
+      },
+      {
+        "id": "multi_error",
+        "status": "repaired",
+        "exit_code": 0,
+        "source_unchanged": true,
+        "model_calls": 0,
+        "passed": true
+      },
+      {
+        "id": "mixed_language",
+        "status": "creative_fallback",
+        "exit_code": 0,
+        "source_unchanged": true,
+        "model_calls": 0,
+        "passed": true
+      },
+      {
+        "id": "strict",
+        "status": "native_failed",
+        "exit_code": 102,
+        "source_unchanged": true,
+        "model_calls": 0,
+        "passed": true
+      },
+      {
+        "id": "program_exit",
+        "status": "native_ok",
+        "exit_code": 7,
+        "source_unchanged": true,
+        "model_calls": 0,
+        "passed": true
+      },
+      {
+        "id": "json_missing",
+        "status": "command_error",
+        "exit_code": 100,
+        "model_calls": 0,
+        "passed": true
+      },
+      {
+        "id": "json_budget",
+        "status": "command_error",
+        "exit_code": 100,
+        "model_calls": 0,
+        "passed": true
+      },
+      {
+        "id": "json_unknown",
+        "status": "command_error",
+        "exit_code": 101,
+        "model_calls": 0,
+        "passed": true
+      },
+      {
+        "id": "json_no_fallback",
+        "status": "command_error",
+        "exit_code": 101,
+        "model_calls": 0,
+        "passed": true
+      },
+      {
+        "id": "json_invalid_language",
+        "status": "command_error",
+        "exit_code": 101,
+        "model_calls": 0,
+        "passed": true
+      },
+      {
+        "id": "json_invalid_language_play",
+        "status": "command_error",
+        "exit_code": 101,
+        "model_calls": 0,
+        "passed": true
+      },
+      {
+        "id": "redacted",
+        "status": "failed",
+        "exit_code": 103,
+        "source_unchanged": true,
+        "model_calls": 1,
+        "passed": true
+      }
+    ],
+    "licenses": [
+      {
+        "name": "anyio",
+        "version": "4.16.0",
+        "expression": "MIT",
+        "legacy_license": null,
+        "project_urls": [
+          "Documentation, https://anyio.readthedocs.io/en/latest/",
+          "Changelog, https://anyio.readthedocs.io/en/stable/versionhistory.html",
+          "Source code, https://github.com/agronholm/anyio",
+          "Issue tracker, https://github.com/agronholm/anyio/issues"
+        ],
+        "files": [
+          {
+            "path": "anyio-4.16.0.dist-info/licenses/LICENSE",
+            "sha256": "5361ac9dc58f2ef5fd2e9b09c68297c17f04950909bbc8023bdb82eacf22c2b0",
+            "text": "The MIT License (MIT)\n\nCopyright (c) 2018 Alex Grönholm\n\nPermission is hereby granted, free of charge, to any person obtaining a copy of\nthis software and associated documentation files (the \"Software\"), to deal in\nthe Software without restriction, including without limitation the rights to\nuse, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of\nthe Software, and to permit persons to whom the Software is furnished to do so,\nsubject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS\nFOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR\nCOPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER\nIN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN\nCONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.\n"
+          }
+        ],
+        "reviewed_license": "MIT"
+      },
+      {
+        "name": "certifi",
+        "version": "2026.10.23",
+        "expression": null,
+        "legacy_license": "MPL-2.0",
+        "project_urls": [
+          "Source, https://github.com/certifi/python-certifi"
+        ],
+        "files": [
+          {
+            "path": "certifi-2026.10.23.dist-info/licenses/LICENSE",
+            "sha256": "e93716da6b9c0d5a4a1df60fe695b370f0695603d21f6f83f053e42cfc10caf7",
+            "text": "This package contains a modified version of ca-bundle.crt:\n\nca-bundle.crt -- Bundle of CA Root Certificates\n\nThis is a bundle of X.509 certificates of public Certificate Authorities\n(CA). These were automatically extracted from Mozilla's root certificates\nfile (certdata.txt).  This file can be found in the mozilla source tree:\nhttps://hg.mozilla.org/mozilla-central/file/tip/security/nss/lib/ckfw/builtins/certdata.txt\nIt contains the certificates in PEM format and therefore\ncan be directly used with curl / libcurl / php_curl, or with\nan Apache+mod_ssl webserver for SSL client authentication.\nJust configure this file as the SSLCACertificateFile.#\n\n***** BEGIN LICENSE BLOCK *****\nThis Source Code Form is subject to the terms of the Mozilla Public License,\nv. 2.0. If a copy of the MPL was not distributed with this file, You can obtain\none at http://mozilla.org/MPL/2.0/.\n\n***** END LICENSE BLOCK *****\n@(#) $RCSfile: certdata.txt,v $ $Revision: 1.80 $ $Date: 2011/11/03 15:11:58 $\n"
+          }
+        ],
+        "reviewed_license": "MPL-2.0"
+      },
+      {
+        "name": "h11",
+        "version": "0.16.0",
+        "expression": null,
+        "legacy_license": "MIT",
+        "project_urls": [],
+        "files": [
+          {
+            "path": "h11-0.16.0.dist-info/licenses/LICENSE.txt",
+            "sha256": "37db5bb85926db28a427a25867f10b1232003aea1be69ccb851138adb8e6f361",
+            "text": "The MIT License (MIT)\n\nCopyright (c) 2016 Nathaniel J. Smith <njs@pobox.com> and other contributors\n\nPermission is hereby granted, free of charge, to any person obtaining\na copy of this software and associated documentation files (the\n\"Software\"), to deal in the Software without restriction, including\nwithout limitation the rights to use, copy, modify, merge, publish,\ndistribute, sublicense, and/or sell copies of the Software, and to\npermit persons to whom the Software is furnished to do so, subject to\nthe following conditions:\n\nThe above copyright notice and this permission notice shall be\nincluded in all copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND,\nEXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF\nMERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND\nNONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE\nLIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION\nOF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION\nWITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.\n"
+          }
+        ],
+        "reviewed_license": "MIT"
+      },
+      {
+        "name": "httpcore",
+        "version": "1.0.9",
+        "expression": "BSD-3-Clause",
+        "legacy_license": null,
+        "project_urls": [
+          "Documentation, https://www.encode.io/httpcore",
+          "Homepage, https://www.encode.io/httpcore/",
+          "Source, https://github.com/encode/httpcore"
+        ],
+        "files": [
+          {
+            "path": "httpcore-1.0.9.dist-info/licenses/LICENSE.md",
+            "sha256": "fdcb59154c74cbaba16a11242f7740bea9f23d6feb5547917d8c5f94a80392a5",
+            "text": "Copyright © 2020, [Encode OSS Ltd](https://www.encode.io/).\nAll rights reserved.\n\nRedistribution and use in source and binary forms, with or without\nmodification, are permitted provided that the following conditions are met:\n\n* Redistributions of source code must retain the above copyright notice, this\n  list of conditions and the following disclaimer.\n\n* Redistributions in binary form must reproduce the above copyright notice,\n  this list of conditions and the following disclaimer in the documentation\n  and/or other materials provided with the distribution.\n\n* Neither the name of the copyright holder nor the names of its\n  contributors may be used to endorse or promote products derived from\n  this software without specific prior written permission.\n\nTHIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\nAND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\nIMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\nDISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\nFOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\nDAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\nSERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\nCAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\nOR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\nOF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n"
+          }
+        ],
+        "reviewed_license": "BSD-3-Clause"
+      },
+      {
+        "name": "httpx",
+        "version": "0.28.1",
+        "expression": null,
+        "legacy_license": "BSD-3-Clause",
+        "project_urls": [
+          "Changelog, https://github.com/encode/httpx/blob/master/CHANGELOG.md",
+          "Documentation, https://www.python-httpx.org",
+          "Homepage, https://github.com/encode/httpx",
+          "Source, https://github.com/encode/httpx"
+        ],
+        "files": [
+          {
+            "path": "httpx-0.28.1.dist-info/licenses/LICENSE.md",
+            "sha256": "4ec59d544f12b5f539a3a716fd321ac58ccd8030b465221f2c880200cdf28d8d",
+            "text": "Copyright © 2019, [Encode OSS Ltd](https://www.encode.io/).\nAll rights reserved.\n\nRedistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:\n\n* Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.\n\n* Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.\n\n* Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.\n\nTHIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n"
+          }
+        ],
+        "reviewed_license": "BSD-3-Clause"
+      },
+      {
+        "name": "idna",
+        "version": "3.20",
+        "expression": "BSD-3-Clause",
+        "legacy_license": null,
+        "project_urls": [
+          "Changelog, https://github.com/kjd/idna/blob/master/HISTORY.md",
+          "Issue tracker, https://github.com/kjd/idna/issues",
+          "Source, https://github.com/kjd/idna"
+        ],
+        "files": [
+          {
+            "path": "idna-3.20.dist-info/licenses/LICENSE.md",
+            "sha256": "1a9a4f0e3d479a27240ddd59a9137a66ab4a0f9dfdc8ca6188cc0bfd85187f04",
+            "text": "BSD 3-Clause License\n\nCopyright (c) 2013-2026, Kim Davies and contributors.\nAll rights reserved.\n\nRedistribution and use in source and binary forms, with or without\nmodification, are permitted provided that the following conditions are\nmet:\n\n1. Redistributions of source code must retain the above copyright\n   notice, this list of conditions and the following disclaimer.\n\n2. Redistributions in binary form must reproduce the above copyright\n   notice, this list of conditions and the following disclaimer in the\n   documentation and/or other materials provided with the distribution.\n\n3. Neither the name of the copyright holder nor the names of its\n   contributors may be used to endorse or promote products derived from\n   this software without specific prior written permission.\n\nTHIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS\n\"AS IS\" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT\nLIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR\nA PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT\nHOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,\nSPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED\nTO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR\nPROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF\nLIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING\nNEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS\nSOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n"
+          }
+        ],
+        "reviewed_license": "BSD-3-Clause"
+      },
+      {
+        "name": "platformdirs",
+        "version": "4.14.3",
+        "expression": "MIT",
+        "legacy_license": null,
+        "project_urls": [
+          "Changelog, https://platformdirs.readthedocs.io/en/latest/changelog.html",
+          "Documentation, https://platformdirs.readthedocs.io",
+          "Homepage, https://github.com/tox-dev/platformdirs",
+          "Source, https://github.com/tox-dev/platformdirs",
+          "Tracker, https://github.com/tox-dev/platformdirs/issues"
+        ],
+        "files": [
+          {
+            "path": "platformdirs-4.14.3.dist-info/licenses/LICENSE",
+            "sha256": "29e0fd62e929850e86eb28c3fdccf0cefdf4fa94879011cffb3d0d4bed6d4db6",
+            "text": "MIT License\n\nCopyright (c) 2010-202x The platformdirs developers\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE.\n"
+          }
+        ],
+        "reviewed_license": "MIT"
+      },
+      {
+        "name": "tree-sitter",
+        "version": "0.26.0",
+        "expression": null,
+        "legacy_license": null,
+        "project_urls": [
+          "Homepage, https://tree-sitter.github.io/tree-sitter/",
+          "Source, https://github.com/tree-sitter/py-tree-sitter",
+          "Documentation, https://tree-sitter.github.io/py-tree-sitter/",
+          "Discord, https://discord.gg/w7nTvsVJhm",
+          "Matrix, https://matrix.to/#/#tree-sitter-chat:matrix.org"
+        ],
+        "files": [
+          {
+            "path": "tree_sitter-0.26.0.dist-info/licenses/LICENSE",
+            "sha256": "1af0790543fffac99dd3bd290bf83ca963f4f8029065eb6f35638f4df863ae8e",
+            "text": "The MIT License (MIT)\n\nCopyright (c) 2019 Max Brunsfeld, GitHub\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE.\n"
+          }
+        ],
+        "reviewed_license": "MIT"
+      },
+      {
+        "name": "tree-sitter-c",
+        "version": "0.24.2",
+        "expression": null,
+        "legacy_license": "MIT",
+        "project_urls": [
+          "Homepage, https://github.com/tree-sitter/tree-sitter-c"
+        ],
+        "files": [
+          {
+            "path": "tree_sitter_c-0.24.2.dist-info/licenses/LICENSE",
+            "sha256": "2e0110e07abef7c2548b26ec9d6969775617ca539a0dc8dbeeb14d6452c711d1",
+            "text": "The MIT License (MIT)\n\nCopyright (c) 2014 Max Brunsfeld\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE.\n"
+          }
+        ],
+        "reviewed_license": "MIT"
+      },
+      {
+        "name": "typing-extensions",
+        "version": "4.16.0",
+        "expression": "PSF-2.0",
+        "legacy_license": null,
+        "project_urls": [
+          "Bug Tracker, https://github.com/python/typing_extensions/issues",
+          "Changes, https://github.com/python/typing_extensions/blob/main/CHANGELOG.md",
+          "Documentation, https://typing-extensions.readthedocs.io/",
+          "Home, https://github.com/python/typing_extensions",
+          "Q & A, https://github.com/python/typing/discussions",
+          "Repository, https://github.com/python/typing_extensions"
+        ],
+        "files": [
+          {
+            "path": "typing_extensions-4.16.0.dist-info/licenses/LICENSE",
+            "sha256": "3b2f81fe21d181c499c59a256c8e1968455d6689d269aa85373bfb6af41da3bf",
+            "text": "A. HISTORY OF THE SOFTWARE\n==========================\n\nPython was created in the early 1990s by Guido van Rossum at Stichting\nMathematisch Centrum (CWI, see https://www.cwi.nl) in the Netherlands\nas a successor of a language called ABC.  Guido remains Python's\nprincipal author, although it includes many contributions from others.\n\nIn 1995, Guido continued his work on Python at the Corporation for\nNational Research Initiatives (CNRI, see https://www.cnri.reston.va.us)\nin Reston, Virginia where he released several versions of the\nsoftware.\n\nIn May 2000, Guido and the Python core development team moved to\nBeOpen.com to form the BeOpen PythonLabs team.  In October of the same\nyear, the PythonLabs team moved to Digital Creations, which became\nZope Corporation.  In 2001, the Python Software Foundation (PSF, see\nhttps://www.python.org/psf/) was formed, a non-profit organization\ncreated specifically to own Python-related Intellectual Property.\nZope Corporation was a sponsoring member of the PSF.\n\nAll Python releases are Open Source (see https://opensource.org for\nthe Open Source Definition).  Historically, most, but not all, Python\nreleases have also been GPL-compatible; the table below summarizes\nthe various releases.\n\n    Release         Derived     Year        Owner       GPL-\n                    from                                compatible? (1)\n\n    0.9.0 thru 1.2              1991-1995   CWI         yes\n    1.3 thru 1.5.2  1.2         1995-1999   CNRI        yes\n    1.6             1.5.2       2000        CNRI        no\n    2.0             1.6         2000        BeOpen.com  no\n    1.6.1           1.6         2001        CNRI        yes (2)\n    2.1             2.0+1.6.1   2001        PSF         no\n    2.0.1           2.0+1.6.1   2001        PSF         yes\n    2.1.1           2.1+2.0.1   2001        PSF         yes\n    2.1.2           2.1.1       2002        PSF         yes\n    2.1.3           2.1.2       2002        PSF         yes\n    2.2 and above   2.1.1       2001-now    PSF         yes\n\nFootnotes:\n\n(1) GPL-compatible doesn't mean that we're distributing Python under\n    the GPL.  All Python licenses, unlike the GPL, let you distribute\n    a modified version without making your changes open source.  The\n    GPL-compatible licenses make it possible to combine Python with\n    other software that is released under the GPL; the others don't.\n\n(2) According to Richard Stallman, 1.6.1 is not GPL-compatible,\n    because its license has a choice of law clause.  According to\n    CNRI, however, Stallman's lawyer has told CNRI's lawyer that 1.6.1\n    is \"not incompatible\" with the GPL.\n\nThanks to the many outside volunteers who have worked under Guido's\ndirection to make these releases possible.\n\n\nB. TERMS AND CONDITIONS FOR ACCESSING OR OTHERWISE USING PYTHON\n===============================================================\n\nPython software and documentation are licensed under the\nPython Software Foundation License Version 2.\n\nStarting with Python 3.8.6, examples, recipes, and other code in\nthe documentation are dual licensed under the PSF License Version 2\nand the Zero-Clause BSD license.\n\nSome software incorporated into Python is under different licenses.\nThe licenses are listed with code falling under that license.\n\n\nPYTHON SOFTWARE FOUNDATION LICENSE VERSION 2\n--------------------------------------------\n\n1. This LICENSE AGREEMENT is between the Python Software Foundation\n(\"PSF\"), and the Individual or Organization (\"Licensee\") accessing and\notherwise using this software (\"Python\") in source or binary form and\nits associated documentation.\n\n2. Subject to the terms and conditions of this License Agreement, PSF hereby\ngrants Licensee a nonexclusive, royalty-free, world-wide license to reproduce,\nanalyze, test, perform and/or display publicly, prepare derivative works,\ndistribute, and otherwise use Python alone or in any derivative version,\nprovided, however, that PSF's License Agreement and PSF's notice of copyright,\ni.e., \"Copyright (c) 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010,\n2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023 Python Software Foundation;\nAll Rights Reserved\" are retained in Python alone or in any derivative version\nprepared by Licensee.\n\n3. In the event Licensee prepares a derivative work that is based on\nor incorporates Python or any part thereof, and wants to make\nthe derivative work available to others as provided herein, then\nLicensee hereby agrees to include in any such work a brief summary of\nthe changes made to Python.\n\n4. PSF is making Python available to Licensee on an \"AS IS\"\nbasis.  PSF MAKES NO REPRESENTATIONS OR WARRANTIES, EXPRESS OR\nIMPLIED.  BY WAY OF EXAMPLE, BUT NOT LIMITATION, PSF MAKES NO AND\nDISCLAIMS ANY REPRESENTATION OR WARRANTY OF MERCHANTABILITY OR FITNESS\nFOR ANY PARTICULAR PURPOSE OR THAT THE USE OF PYTHON WILL NOT\nINFRINGE ANY THIRD PARTY RIGHTS.\n\n5. PSF SHALL NOT BE LIABLE TO LICENSEE OR ANY OTHER USERS OF PYTHON\nFOR ANY INCIDENTAL, SPECIAL, OR CONSEQUENTIAL DAMAGES OR LOSS AS\nA RESULT OF MODIFYING, DISTRIBUTING, OR OTHERWISE USING PYTHON,\nOR ANY DERIVATIVE THEREOF, EVEN IF ADVISED OF THE POSSIBILITY THEREOF.\n\n6. This License Agreement will automatically terminate upon a material\nbreach of its terms and conditions.\n\n7. Nothing in this License Agreement shall be deemed to create any\nrelationship of agency, partnership, or joint venture between PSF and\nLicensee.  This License Agreement does not grant permission to use PSF\ntrademarks or trade name in a trademark sense to endorse or promote\nproducts or services of Licensee, or any third party.\n\n8. By copying, installing or otherwise using Python, Licensee\nagrees to be bound by the terms and conditions of this License\nAgreement.\n\n\nBEOPEN.COM LICENSE AGREEMENT FOR PYTHON 2.0\n-------------------------------------------\n\nBEOPEN PYTHON OPEN SOURCE LICENSE AGREEMENT VERSION 1\n\n1. This LICENSE AGREEMENT is between BeOpen.com (\"BeOpen\"), having an\noffice at 160 Saratoga Avenue, Santa Clara, CA 95051, and the\nIndividual or Organization (\"Licensee\") accessing and otherwise using\nthis software in source or binary form and its associated\ndocumentation (\"the Software\").\n\n2. Subject to the terms and conditions of this BeOpen Python License\nAgreement, BeOpen hereby grants Licensee a non-exclusive,\nroyalty-free, world-wide license to reproduce, analyze, test, perform\nand/or display publicly, prepare derivative works, distribute, and\notherwise use the Software alone or in any derivative version,\nprovided, however, that the BeOpen Python License is retained in the\nSoftware, alone or in any derivative version prepared by Licensee.\n\n3. BeOpen is making the Software available to Licensee on an \"AS IS\"\nbasis.  BEOPEN MAKES NO REPRESENTATIONS OR WARRANTIES, EXPRESS OR\nIMPLIED.  BY WAY OF EXAMPLE, BUT NOT LIMITATION, BEOPEN MAKES NO AND\nDISCLAIMS ANY REPRESENTATION OR WARRANTY OF MERCHANTABILITY OR FITNESS\nFOR ANY PARTICULAR PURPOSE OR THAT THE USE OF THE SOFTWARE WILL NOT\nINFRINGE ANY THIRD PARTY RIGHTS.\n\n4. BEOPEN SHALL NOT BE LIABLE TO LICENSEE OR ANY OTHER USERS OF THE\nSOFTWARE FOR ANY INCIDENTAL, SPECIAL, OR CONSEQUENTIAL DAMAGES OR LOSS\nAS A RESULT OF USING, MODIFYING OR DISTRIBUTING THE SOFTWARE, OR ANY\nDERIVATIVE THEREOF, EVEN IF ADVISED OF THE POSSIBILITY THEREOF.\n\n5. This License Agreement will automatically terminate upon a material\nbreach of its terms and conditions.\n\n6. This License Agreement shall be governed by and interpreted in all\nrespects by the law of the State of California, excluding conflict of\nlaw provisions.  Nothing in this License Agreement shall be deemed to\ncreate any relationship of agency, partnership, or joint venture\nbetween BeOpen and Licensee.  This License Agreement does not grant\npermission to use BeOpen trademarks or trade names in a trademark\nsense to endorse or promote products or services of Licensee, or any\nthird party.  As an exception, the \"BeOpen Python\" logos available at\nhttp://www.pythonlabs.com/logos.html may be used according to the\npermissions granted on that web page.\n\n7. By copying, installing or otherwise using the software, Licensee\nagrees to be bound by the terms and conditions of this License\nAgreement.\n\n\nCNRI LICENSE AGREEMENT FOR PYTHON 1.6.1\n---------------------------------------\n\n1. This LICENSE AGREEMENT is between the Corporation for National\nResearch Initiatives, having an office at 1895 Preston White Drive,\nReston, VA 20191 (\"CNRI\"), and the Individual or Organization\n(\"Licensee\") accessing and otherwise using Python 1.6.1 software in\nsource or binary form and its associated documentation.\n\n2. Subject to the terms and conditions of this License Agreement, CNRI\nhereby grants Licensee a nonexclusive, royalty-free, world-wide\nlicense to reproduce, analyze, test, perform and/or display publicly,\nprepare derivative works, distribute, and otherwise use Python 1.6.1\nalone or in any derivative version, provided, however, that CNRI's\nLicense Agreement and CNRI's notice of copyright, i.e., \"Copyright (c)\n1995-2001 Corporation for National Research Initiatives; All Rights\nReserved\" are retained in Python 1.6.1 alone or in any derivative\nversion prepared by Licensee.  Alternately, in lieu of CNRI's License\nAgreement, Licensee may substitute the following text (omitting the\nquotes): \"Python 1.6.1 is made available subject to the terms and\nconditions in CNRI's License Agreement.  This Agreement together with\nPython 1.6.1 may be located on the internet using the following\nunique, persistent identifier (known as a handle): 1895.22/1013.  This\nAgreement may also be obtained from a proxy server on the internet\nusing the following URL: http://hdl.handle.net/1895.22/1013\".\n\n3. In the event Licensee prepares a derivative work that is based on\nor incorporates Python 1.6.1 or any part thereof, and wants to make\nthe derivative work available to others as provided herein, then\nLicensee hereby agrees to include in any such work a brief summary of\nthe changes made to Python 1.6.1.\n\n4. CNRI is making Python 1.6.1 available to Licensee on an \"AS IS\"\nbasis.  CNRI MAKES NO REPRESENTATIONS OR WARRANTIES, EXPRESS OR\nIMPLIED.  BY WAY OF EXAMPLE, BUT NOT LIMITATION, CNRI MAKES NO AND\nDISCLAIMS ANY REPRESENTATION OR WARRANTY OF MERCHANTABILITY OR FITNESS\nFOR ANY PARTICULAR PURPOSE OR THAT THE USE OF PYTHON 1.6.1 WILL NOT\nINFRINGE ANY THIRD PARTY RIGHTS.\n\n5. CNRI SHALL NOT BE LIABLE TO LICENSEE OR ANY OTHER USERS OF PYTHON\n1.6.1 FOR ANY INCIDENTAL, SPECIAL, OR CONSEQUENTIAL DAMAGES OR LOSS AS\nA RESULT OF MODIFYING, DISTRIBUTING, OR OTHERWISE USING PYTHON 1.6.1,\nOR ANY DERIVATIVE THEREOF, EVEN IF ADVISED OF THE POSSIBILITY THEREOF.\n\n6. This License Agreement will automatically terminate upon a material\nbreach of its terms and conditions.\n\n7. This License Agreement shall be governed by the federal\nintellectual property law of the United States, including without\nlimitation the federal copyright law, and, to the extent such\nU.S. federal law does not apply, by the law of the Commonwealth of\nVirginia, excluding Virginia's conflict of law provisions.\nNotwithstanding the foregoing, with regard to derivative works based\non Python 1.6.1 that incorporate non-separable material that was\npreviously distributed under the GNU General Public License (GPL), the\nlaw of the Commonwealth of Virginia shall govern this License\nAgreement only as to issues arising under or with respect to\nParagraphs 4, 5, and 7 of this License Agreement.  Nothing in this\nLicense Agreement shall be deemed to create any relationship of\nagency, partnership, or joint venture between CNRI and Licensee.  This\nLicense Agreement does not grant permission to use CNRI trademarks or\ntrade name in a trademark sense to endorse or promote products or\nservices of Licensee, or any third party.\n\n8. By clicking on the \"ACCEPT\" button where indicated, or by copying,\ninstalling or otherwise using Python 1.6.1, Licensee agrees to be\nbound by the terms and conditions of this License Agreement.\n\n        ACCEPT\n\n\nCWI LICENSE AGREEMENT FOR PYTHON 0.9.0 THROUGH 1.2\n--------------------------------------------------\n\nCopyright (c) 1991 - 1995, Stichting Mathematisch Centrum Amsterdam,\nThe Netherlands.  All rights reserved.\n\nPermission to use, copy, modify, and distribute this software and its\ndocumentation for any purpose and without fee is hereby granted,\nprovided that the above copyright notice appear in all copies and that\nboth that copyright notice and this permission notice appear in\nsupporting documentation, and that the name of Stichting Mathematisch\nCentrum or CWI not be used in advertising or publicity pertaining to\ndistribution of the software without specific, written prior\npermission.\n\nSTICHTING MATHEMATISCH CENTRUM DISCLAIMS ALL WARRANTIES WITH REGARD TO\nTHIS SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND\nFITNESS, IN NO EVENT SHALL STICHTING MATHEMATISCH CENTRUM BE LIABLE\nFOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES\nWHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN\nACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT\nOF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.\n\nZERO-CLAUSE BSD LICENSE FOR CODE IN THE PYTHON DOCUMENTATION\n----------------------------------------------------------------------\n\nPermission to use, copy, modify, and/or distribute this software for any\npurpose with or without fee is hereby granted.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH\nREGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY\nAND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,\nINDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM\nLOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR\nOTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR\nPERFORMANCE OF THIS SOFTWARE.\n"
+          }
+        ],
+        "reviewed_license": "PSF-2.0"
+      },
+      {
+        "name": "yescc",
+        "version": "0.1.0",
+        "expression": "MIT",
+        "legacy_license": null,
+        "project_urls": [
+          "Homepage, https://github.com/wuqiuwangtian/yescc",
+          "Repository, https://github.com/wuqiuwangtian/yescc",
+          "Issues, https://github.com/wuqiuwangtian/yescc/issues",
+          "Changelog, https://github.com/wuqiuwangtian/yescc/blob/main/CHANGELOG.md"
+        ],
+        "files": [
+          {
+            "path": "yescc-0.1.0.dist-info/licenses/LICENSE",
+            "sha256": "f4b287bcddf914510e40affde456cab5204b91e97ca07e2d833539611488ed11",
+            "text": "MIT License\n\nCopyright (c) 2026 五秋望田 (wuqiuwangtian)\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE.\n"
+          },
+          {
+            "path": "yescc-0.1.0.dist-info/licenses/THIRD_PARTY_NOTICES.md",
+            "sha256": "e4955d8d0adba90257c70e11805b4f13c6a757b80a1c3333d1851dc6a3b59512",
+            "text": "# Third-party notices\n\nYesCC itself is licensed under MIT; see `LICENSE`. This inventory covers the\nruntime dependencies pinned in `uv.lock` for the 0.1.0 candidate wheel evaluation.\nDependencies are installed separately and are **not vendored in the YesCC wheel**.\nEach dependency retains its own license; the YesCC MIT license does not replace it.\n\n| Distribution | Reviewed version | License recorded in distribution |\n| --- | --- | --- |\n| anyio | 4.16.0 | MIT |\n| certifi | 2026.10.23 | MPL-2.0 |\n| h11 | 0.16.0 | MIT |\n| httpcore | 1.0.9 | BSD-3-Clause |\n| httpx | 0.28.1 | BSD-3-Clause |\n| idna | 3.20 | BSD-3-Clause |\n| platformdirs | 4.14.3 | MIT |\n| tree-sitter | 0.26.0 | MIT (license file; metadata omits identifier) |\n| tree-sitter-c | 0.24.2 | MIT |\n| typing-extensions | 4.16.0 | PSF-2.0 (full bundled historical notices retained) |\n\nThe original installed license texts, package versions, source project links and\nSHA-256 hashes are recorded by `bench/package_smoke.py` in the package evidence\nunder `docs/评测/`. CI checks the actual clean installation, including the presence\nof license files and changes to the reviewed license identifiers. This inventory\nis scoped to those exact runtime artifacts, not all possible versions allowed by\n`pyproject.toml`, optional development tools, or future standalone executables.\n\nBefore distributing a standalone executable, collect the original notices and\nlicense texts of the bundled Python runtime, libraries, freezer and data files.\nCertifi includes a Mozilla-derived certificate bundle: retain its license and\nprovide the covered source as required by [MPL 2.0 §3](https://www.mozilla.org/en-US/MPL/2.0/).\nPython's original historical notices must also be retained; see the\n[Python license documentation](https://docs.python.org/3/license.html).\nStandalone binary distribution remains a separate, unfinished release check.\n"
+          }
+        ],
+        "reviewed_license": "MIT"
+      }
+    ]
+  },
+  "vendor_model_api_calls": 0,
+  "host_agent_cost_included": false,
+  "limits": [
+    "Actual check is opt-in and model_creative run only, not semantic or safety assurance",
+    "Independent blackbox is Linux-only; trap/no-capability wrappers simulate conditions while still using GCC",
+    "Independent blackbox binds first and Windows-fix wheels; final early-output-guard wheel has separate root targeted 6-case installed followup, not a third independent blackbox",
+    "Windows mode evidence is actual CI repository e2e, separate from independent installed-wheel evidence",
+    "First CI failed four Windows unit jobs; first reports are retained separately and not merged into final CI success",
+    "No formal merge, release, PyPI upload or native candidate rebuild; daily RC4 and earlier trial remain unchanged"
+  ]
+}
