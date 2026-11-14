@@ -44,3 +44,19 @@ def test_summary_does_not_present_unknown_cost_as_free() -> None:
     })
     assert "费用未知" in summary
     assert "$0" not in summary
+
+
+def test_optional_check_summary_distinguishes_scope_and_execution() -> None:
+    from yescc.report import summarize
+
+    checked = summarize({"undefined_behavior_check": {"performed": True, "mode": "trap"}})
+    assert "创意候选检查：trap" in checked and "不证明无UB" in checked
+    unavailable = summarize({"undefined_behavior_check": {
+        "performed": False, "available": False,
+    }})
+    assert "不可用，未检查作品" in unavailable
+    skipped = summarize({"undefined_behavior_check": {
+        "performed": False, "available": None, "reason": "not_model_creative",
+    }})
+    assert "未执行（not_model_creative）" in skipped
+    assert "创意候选检查" not in summarize({})

@@ -24,6 +24,8 @@
 
 - 创意检查和推理配置见 [ADR-0021](docs/adr/0021-creative-quality-and-model-controls.md)：仅完整AI生成C显式链接libm；仅model_creative的run执行有限输出检查，build不得偷偷运行。native不受模型配置影响；参数/缓存/费用和真实验证阶段如实记录，推理正文不进报告。
 
+- 可选UBSan检查见 [ADR-0022](docs/adr/0022-optional-undefined-behavior-check.md)：`--check-undefined`默认关闭，仅model_creative run探针/检查；沿用当前GCC、runtime优先trap回退、不可用明确失败，候选只运行一次。build带开关报用法错误；探针不冒充作品验证、诊断不认证UB，关闭时旧缓存身份保持。
+
 ## 协作与交付
 
 - 若会话已授权多 agent 并行，分派前明确文件归属、依赖、基线与验收；共享工作区中避免两个 agent 同时写同一文件。主导者负责整合后检查，子任务“完成”不等于整个项目验收通过。

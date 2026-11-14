@@ -182,6 +182,7 @@ class ModelSession:
         self.last_cache_key: str | None = None
         self.budget_reason: str | None = None
         self.toolchain: dict[str, str] = {}
+        self.creative_validation_profile: dict[str, object] | None = None
 
     @property
     def available(self) -> bool:
@@ -252,20 +253,21 @@ class ModelSession:
         self.budget.check_deadline()
         if self.attempts >= self.max_rounds:
             raise BudgetExceeded(f"已达到最大候选尝试次数 {self.max_rounds}")
-        key = cache_key(
-            {
-                "kind": kind,
-                "prompt_version": PROMPT_VERSION,
-                "provider": settings.provider,
-                "base_url": settings.base_url,
-                "model": settings.model,
-                "generation_settings": request_parameters(
-                    settings, max_tokens=settings.max_output_tokens, temperature=temperature
-                ),
-                "toolchain": self.toolchain,
-                "payload": cache_payload,
-            }
-        )
+        identity: dict[str, object] = {
+            "kind": kind,
+            "prompt_version": PROMPT_VERSION,
+            "provider": settings.provider,
+            "base_url": settings.base_url,
+            "model": settings.model,
+            "generation_settings": request_parameters(
+                settings, max_tokens=settings.max_output_tokens, temperature=temperature
+            ),
+            "toolchain": self.toolchain,
+            "payload": cache_payload,
+        }
+        if kind == "creative" and self.creative_validation_profile is not None:
+            identity["creative_validation_profile"] = self.creative_validation_profile
+        key = cache_key(identity)
         self.last_cache_key = key
         self.stats.provider = settings.provider
         self.stats.tier = tier

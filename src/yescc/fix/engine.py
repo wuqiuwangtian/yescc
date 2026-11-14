@@ -10,6 +10,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from yescc.adapters.base import BuildResult, LanguageAdapter
+from yescc.errors import UsageError
 from yescc.fix.c_rules import (
     Candidate,
     changed_count,
@@ -73,6 +74,33 @@ def _destination(cwd: Path, passthrough: Sequence[str], artifact: Path) -> Path:
     return cwd / artifact.name
 
 
+def _same_file(first: Path, second: Path) -> bool:
+    """同时识别路径/符号链接别名和已存在的硬链接别名。"""
+    try:
+        if first.resolve() == second.resolve():
+            return True
+        return first.exists() and second.exists() and first.samefile(second)
+    except OSError as exc:
+        raise UsageError(f"无法确认构建产物不会覆盖输入源文件：{exc}") from exc
+
+
+def _protected_destination(
+    cwd: Path,
+    passthrough: Sequence[str],
+    artifact: Path,
+    protected_source: Path,
+) -> Path:
+    destination = _destination(cwd, passthrough, artifact)
+    if not _same_file(destination, protected_source):
+        return destination
+    if _output_argument(passthrough) is not None:
+        raise UsageError("输出路径 -o 指向输入源文件，拒绝覆盖。")
+    destination = cwd / ".yescc" / protected_source.stem / artifact.name
+    if _same_file(destination, protected_source):
+        raise UsageError("默认产物与备选输出路径均指向输入源文件，拒绝覆盖。")
+    return destination
+
+
 def _resolve_paths(passthrough: Sequence[str], cwd: Path) -> list[str]:
     """内部临时构建仍按用户 cwd 解释相对搜索路径，原生参数不受影响。"""
     options = {"-I", "-L", "-iquote", "-isystem", "-idirafter", "-include", "-imacros"}
@@ -101,8 +129,17 @@ def build_in_temp(
     source_dir: Path,
     *,
     link_math: bool = False,
+    extra_flags: Sequence[str] = (),
+    compile_timeout_s: float | None = None,
+    protected_source: Path | None = None,
 ) -> TempBuild:
     """把源码写到隔离目录、用真实工具链构建，成功后把产物复制回 cwd。"""
+    original = protected_source if protected_source is not None else source_dir / filename
+    explicit_output = _output_argument(passthrough)
+    if explicit_output is not None:
+        destination = _destination(cwd, passthrough, Path(filename))
+        if _same_file(destination, original):
+            raise UsageError("输出路径 -o 指向输入源文件，拒绝覆盖。")
     with tempfile.TemporaryDirectory(prefix="yescc-build-") as raw_directory:
         directory = Path(raw_directory)
         for header in source_dir.glob("*.h"):
@@ -125,11 +162,25 @@ def build_in_temp(
             and not explicit_math
         ):
             arguments.append("-lm")
-        build = adapter.build(target, arguments, directory)
+        arguments.extend(extra_flags)
+        if compile_timeout_s is None:
+            build = adapter.build(target, arguments, directory)
+        else:
+            from yescc.sandbox.undefined import bounded_c_build
+
+            build = bounded_c_build(
+                adapter.toolchain().command,
+                target,
+                arguments,
+                directory,
+                timeout_s=compile_timeout_s,
+            )
         artifact: Path | None = None
         if build.returncode == 0 and build.artifact is not None:
-            destination = _destination(cwd, passthrough, build.artifact)
+            destination = _protected_destination(cwd, passthrough, build.artifact, original)
             destination.parent.mkdir(parents=True, exist_ok=True)
+            if _same_file(destination, original):
+                raise UsageError("构建产物输出路径指向输入源文件，拒绝覆盖。")
             shutil.copy2(build.artifact, destination)
             artifact = destination
         return TempBuild(build=build, artifact=artifact)
