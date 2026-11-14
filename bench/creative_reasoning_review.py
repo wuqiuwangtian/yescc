@@ -96,7 +96,8 @@ def materialize(workspace: Path, phase: str = "discovery") -> dict[str, str]:
     ]})
     rubric = workspace / "snapshot/bench/creative_reasoning_rubric.json"
     (materials / "rubric.json").write_bytes(rubric.read_bytes())
-    manifest = {str(p.relative_to(materials)): sha(p) for p in sorted(materials.rglob("*.json"))}
+    manifest = {p.relative_to(materials).as_posix(): sha(p)
+                for p in sorted(materials.rglob("*.json"))}
     write_new(workspace / f"{phase}-material-manifest.json", manifest)
     return manifest
 

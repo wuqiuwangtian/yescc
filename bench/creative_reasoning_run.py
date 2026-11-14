@@ -79,7 +79,7 @@ def prepare(workspace: Path, *, fake_endpoint: str | None = None,
         target = snapshot / relative
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_bytes((root / relative).read_bytes())
-        manifest[str(target.relative_to(workspace))] = _sha(target)
+        manifest[target.relative_to(workspace).as_posix()] = _sha(target)
     cases = _json(root / protocol["cases_file"])["cases"]
     phase = _phase(protocol["tasks"], cases, 2026111407)
     _write(workspace / "phases/discovery.json", phase)

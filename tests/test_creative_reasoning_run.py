@@ -26,7 +26,7 @@ def test_prepare_is_offline_and_creates_frozen_outside_snapshot(tmp_path: Path) 
     assert verified == freeze
     assert protocol["product_commit"] == freeze["product_commit"]
     assert len(freeze["preflight"]["plans"]) == 42
-    phase = json.loads((workspace / "phases/discovery.json").read_text())
+    phase = json.loads((workspace / "phases/discovery.json").read_text(encoding="utf-8"))
     assert len(phase["review_mapping"]) == 42
     assert set(phase["cases"][0]) == {"id", "input"}
     with pytest.raises(FileExistsError):
@@ -105,15 +105,16 @@ def test_halted_task_stops_batch_and_keeps_reservation_raw_output(tmp_path: Path
         assert child.call_count == 1
     assert summary["planned_tasks"] == 42 and summary["completed_tasks"] == 1
     assert summary["stopped_reason"] == "unknown_usage"
-    ledger = [json.loads(x) for x in (workspace / "reservations.jsonl").read_text().splitlines()]
+    raw_ledger = (workspace / "reservations.jsonl").read_text(encoding="utf-8")
+    ledger = [json.loads(x) for x in raw_ledger.splitlines()]
     assert len(ledger) == 1 and ledger[0]["reserved_usd"] == .005
     directory = workspace / "runs" / summary["outcomes"][0]
     assert (directory / "program.stdout").read_bytes() == b"observed\n"
     assert (directory / "program.stderr").read_bytes() == b"diagnostic\n"
     assert (directory / "generated.c").is_file()
-    outcome = json.loads((directory / "outcome.json").read_text())
+    outcome = json.loads((directory / "outcome.json").read_text(encoding="utf-8"))
     assert outcome["source_unchanged"] and outcome["report"]["model"]["cost_known"] is False
-    assert "test-key" not in (directory / "environment.json").read_text()
+    assert "test-key" not in (directory / "environment.json").read_text(encoding="utf-8")
 
 
 def test_all_tasks_share_served_model_and_append_full_reservations(tmp_path: Path) -> None:
@@ -131,7 +132,7 @@ def test_all_tasks_share_served_model_and_append_full_reservations(tmp_path: Pat
     assert observed == [""] + ["frozen-served"] * 41
     assert summary["completed_tasks"] == summary["planned_tasks"] == 42
     assert summary["reservation_slots"] == 42 and summary["stopped_reason"] is None
-    assert len((workspace / "reservations.jsonl").read_text().splitlines()) == 42
+    assert len((workspace / "reservations.jsonl").read_text(encoding="utf-8").splitlines()) == 42
 
 
 def test_host_timeout_cleans_child_and_preserves_partial_bytes(tmp_path: Path) -> None:
@@ -150,8 +151,8 @@ def test_confirmation_rejects_no_winner_before_opening_sealed(tmp_path: Path) ->
     runner.prepare(workspace)
     selection = tmp_path / "selection.json"
     runner._write(selection, {"selected_profile": None, "gates": {}})
-    sealed = json.loads((workspace / "snapshot" / runner.PROTOCOL).read_text())["confirmation"][
-        "sealed_path_outside_repository"]
+    protocol = json.loads((workspace / "snapshot" / runner.PROTOCOL).read_text(encoding="utf-8"))
+    sealed = protocol["confirmation"]["sealed_path_outside_repository"]
     original_read = Path.read_bytes
 
     def no_sealed(path):
@@ -203,14 +204,15 @@ def test_actual_snapshot_cli_known_then_unknown_stops_local_http(
     assert summary["stopped_reason"] == "unknown_usage"
     if known_first:
         first_path = workspace / "runs" / summary["outcomes"][0] / "outcome.json"
-        first = json.loads(first_path.read_text())
+        first = json.loads(first_path.read_text(encoding="utf-8"))
         assert first["guard"]["halted_reason"] is None
         assert first["guard"]["served_model"] == "local-served"
         assert first["report"]["model"]["cost_known"] is True
     directory = workspace / "runs" / summary["outcomes"][-1]
     assert (directory / "program.stdout").read_bytes() == b"LOCAL" + os.linesep.encode()
-    saved = json.loads((directory / "outcome.json").read_text())
+    saved = json.loads((directory / "outcome.json").read_text(encoding="utf-8"))
     assert saved["report"]["model"]["cost_known"] is False
-    events = [json.loads(s) for s in (directory / "provider-events.jsonl").read_text().splitlines()]
+    raw_events = (directory / "provider-events.jsonl").read_text(encoding="utf-8")
+    events = [json.loads(s) for s in raw_events.splitlines()]
     assert sum(e["event"] == "request" for e in events) == 1
     assert events[-1]["usage_known"] is False

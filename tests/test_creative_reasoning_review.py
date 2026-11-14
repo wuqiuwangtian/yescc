@@ -49,13 +49,13 @@ def evidence(tmp_path: Path) -> Path:
 
 def update_review(workspace: Path, suffix: str, ident: str, **changes) -> None:
     path = workspace / "reviews" / f"discovery-{suffix}.json"
-    rows = json.loads(path.read_text())
+    rows = json.loads(path.read_text(encoding="utf-8"))
     next(r for r in rows if r["id"] == ident).update(changes)
     path.write_text(json.dumps(rows))
 
 
 def primary_id(workspace: Path, profile: str) -> str:
-    mapping = json.loads((workspace / "review-mapping-discovery.json").read_text())
+    mapping = json.loads((workspace / "review-mapping-discovery.json").read_text(encoding="utf-8"))
     return next(i for i, t in mapping.items() if t["profile"] == profile and t["repeat"] == 1)
 
 
@@ -78,7 +78,7 @@ def test_null_is_preserved_and_failure_stays_in_utility_denominator(evidence: Pa
     assert result["joint_creative_ready"] == 11
     assert result["creativity_utility"] == pytest.approx(66 / 24)
     assert result["conditional_mean_creativity"] == 3
-    raw = json.loads((evidence / "reviews/discovery-a.json").read_text())
+    raw = json.loads((evidence / "reviews/discovery-a.json").read_text(encoding="utf-8"))
     assert next(r for r in raw if r["id"] == ident)["scores"]["creativity"] is None
 
 
@@ -103,17 +103,17 @@ def test_material_changes_are_not_silently_rereviewed(evidence: Path) -> None:
 
 def test_missing_review_cannot_be_dropped_from_denominator(evidence: Path) -> None:
     path = evidence / "reviews/discovery-a.json"
-    rows = json.loads(path.read_text())
+    rows = json.loads(path.read_text(encoding="utf-8"))
     path.write_text(json.dumps(rows[:-1]))
     with pytest.raises(ValueError, match="missing"):
         analyze(evidence)
 
 
 def test_unknown_cost_blocks_selection_across_groups(evidence: Path) -> None:
-    mapping = json.loads((evidence / "review-mapping-discovery.json").read_text())
+    mapping = json.loads((evidence / "review-mapping-discovery.json").read_text(encoding="utf-8"))
     task = mapping[primary_id(evidence, "tokens")]
     path = evidence / "runs" / task["task_id"] / "outcome.json"
-    outcome = json.loads(path.read_text())
+    outcome = json.loads(path.read_text(encoding="utf-8"))
     outcome["report"]["model"]["cost_known"] = False
     path.write_text(json.dumps(outcome))
     result = analyze(evidence)
@@ -123,7 +123,8 @@ def test_unknown_cost_blocks_selection_across_groups(evidence: Path) -> None:
 
 def test_materials_are_anonymous_and_do_not_publish_design_notes(evidence: Path) -> None:
     ident = primary_id(evidence, "default")
-    item = json.loads((evidence / "review-materials-discovery/items" / f"{ident}.json").read_text())
+    path = evidence / "review-materials-discovery/items" / f"{ident}.json"
+    item = json.loads(path.read_text(encoding="utf-8"))
     assert set(item) == {"id", "input", "source", "stdout", "evidence"}
     assert not {"profile", "model", "duration_ms", "cost", "literal_requirements"} & set(item)
     with pytest.raises(FileExistsError):
@@ -132,7 +133,7 @@ def test_materials_are_anonymous_and_do_not_publish_design_notes(evidence: Path)
 
 def test_mapping_cannot_shrink_the_planned_denominator(evidence: Path) -> None:
     path = evidence / "review-mapping-discovery.json"
-    mapping = json.loads(path.read_text())
+    mapping = json.loads(path.read_text(encoding="utf-8"))
     mapping.pop(next(iter(mapping)))
     path.write_text(json.dumps(mapping))
     with pytest.raises(ValueError, match="frozen task plan"):
@@ -141,12 +142,12 @@ def test_mapping_cannot_shrink_the_planned_denominator(evidence: Path) -> None:
 
 def test_duplicate_task_mapping_is_rejected_even_with_rehashed_manifest(evidence: Path) -> None:
     path = evidence / "review-mapping-discovery.json"
-    mapping = json.loads(path.read_text())
+    mapping = json.loads(path.read_text(encoding="utf-8"))
     a, b = list(mapping)[:2]
     mapping[a] = mapping[b]
     path.write_text(json.dumps(mapping))
     freeze_path = evidence / "execution-freeze.json"
-    freeze = json.loads(freeze_path.read_text())
+    freeze = json.loads(freeze_path.read_text(encoding="utf-8"))
     freeze["files"]["review-mapping-discovery.json"] = sha(path)
     freeze_path.write_text(json.dumps(freeze))
     with pytest.raises(ValueError, match="cover all frozen tasks"):
@@ -156,11 +157,11 @@ def test_duplicate_task_mapping_is_rejected_even_with_rehashed_manifest(evidence
 def test_claimed_success_without_source_blocks_selection(evidence: Path) -> None:
     ident = primary_id(evidence, "low")
     path = evidence / "review-materials-discovery/items" / f"{ident}.json"
-    item = json.loads(path.read_text())
+    item = json.loads(path.read_text(encoding="utf-8"))
     item["source"] = ""
     path.write_text(json.dumps(item))
     manifest_path = evidence / "discovery-material-manifest.json"
-    manifest = json.loads(manifest_path.read_text())
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     manifest[f"items/{ident}.json"] = sha(path)
     manifest_path.write_text(json.dumps(manifest))
     for suffix in ("a", "b"):
