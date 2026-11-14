@@ -1,0 +1,442 @@
+{
+  "schema": "yescc-creative-reasoning-protocol-v1",
+  "product_commit": "be51ca701c0f25692df10f8a5acdec8f3557c4cd",
+  "product_prompt_version": "m6-creative-3",
+  "scope": "Freeze and offline preflight only; no paid experiment started by this commit.",
+  "cases_file": "bench/creative_reasoning_inputs.json",
+  "rubric_file": "bench/creative_reasoning_rubric.json",
+  "frozen_files": {
+    "src/yescc/__init__.py": "010eaecb449d534f6fb58df58a369eb65d2e263cb44f7fb17e49a90ad7a4b8fe",
+    "src/yescc/__main__.py": "b8e0fc6239cf07f8c225dd9e7698b686865304da0b6cc444dda822d1063cacbc",
+    "src/yescc/adapters/__init__.py": "caa055b45ec1bdd187db21a5f68a7b37f2c59a2d740a6c27e42cf1d1479551b4",
+    "src/yescc/adapters/base.py": "335c2afb1458db5c5d7e12304b5eb4a9c3ba87727174b8e4644a0e9733242df8",
+    "src/yescc/adapters/c.py": "9167ebcfe0e8ecf5dea9696b60ef23d7c2be2316cdda593858f91caeab1193ee",
+    "src/yescc/adapters/javascript.py": "d847a0d353e5569ee9a38777469aea04e03416fabb89d2327fea1294f12765c4",
+    "src/yescc/adapters/python.py": "4f73070a19b99a68c1c686f72d62330bdf36354f76b63af0aebcf3bc4aac1aad",
+    "src/yescc/adapters/registry.py": "944fb41c8473fe0031ac1d69e5054084dfb0e20364774481bf37e618a998cf1c",
+    "src/yescc/cli.py": "b3db10dc173439180e71aa471f79a8bae56d27591c8337d561de1a47a58fbad0",
+    "src/yescc/errors.py": "1c561029a49df07fb884f48e150eb05473497a0d941376d1f3323803475dfe17",
+    "src/yescc/fallback/__init__.py": "74f84974071dbb6b18410a922e731778274aa9bb7d45db82c34b6b88f5390fbc",
+    "src/yescc/fallback/deterministic.py": "07f9065cf4de01e22663f6779c00cf81219cc0f3f89335a8b8df349658d0ee13",
+    "src/yescc/fallback/guidance.py": "f4939c3910d68b55de2ba0371afcb38c4d272810edb13d091b54790cb32553cb",
+    "src/yescc/fallback/quality.py": "9bc07150d01d5aaabab8eec49fd66f2b4b23bb1e6eca99cf2c096de33b716950",
+    "src/yescc/fix/__init__.py": "61795abae9b8f8f20132b8fb8a4c405e144d2098dc59609314ad1450960da7f6",
+    "src/yescc/fix/c_rules.py": "c3f5e6427b0b0cb55f0b02dae653eadf2ce827ddf506131afb86b64177f32fec",
+    "src/yescc/fix/engine.py": "cab5e41557cca86a9b7783611e1070945c64fa34863d812c03341e11dfc11ff2",
+    "src/yescc/fix/feedback.py": "d4d5ad7893993b72feb6df8a4bc3703a6021427c0d0b55b9c25cf7f334095a57",
+    "src/yescc/fix/lexer.py": "013e45ff043660558e80ccfc3e4fca6cfe4556a7174a1613fa15222ff8fdd851",
+    "src/yescc/fix/parser.py": "c843e1bdc3e7683a4c65370b3eda2fa27f2439bb571ded171c55689de5843b3d",
+    "src/yescc/model/__init__.py": "7dd3993af6a8a724cfb3aded88b3c68ed1e6e2db07960ce5cecccf2128a1e738",
+    "src/yescc/model/base.py": "0006f64d0996f103df7cb5de24b2138064259ec62efbc45848a8ec9668eb0650",
+    "src/yescc/model/budget.py": "b1500b36b6a0f40947ee5c61b09eb26f93c6e66ddba4411df3b4cdb4cf118df9",
+    "src/yescc/model/cache.py": "b1bd6377a60181975f18db442397056d75674f545d1211033a78eba7a82190c6",
+    "src/yescc/model/config.py": "c9dc9342f6528544466fa1eb26c3bac71ecd0a6a91d0cb9ead6466edbc73b5b8",
+    "src/yescc/model/openai_compat.py": "cd9d5719366860003457fa7b1f6e62310b56bb4da1bf5b46abbdea9d96b36ad9",
+    "src/yescc/model/prompts.py": "96f17d9b204806927d88865bf7917198a5e842fac275765eb29fc9dd479c4b46",
+    "src/yescc/model/session.py": "70bd8be3504742cba943261b57af4eff907c1584cf5230a6bcde126d029584d0",
+    "src/yescc/patch.py": "2b2daa96319d016daf284205d8af429eddf903ea05efd1c7c6977cd332e1a775",
+    "src/yescc/pipeline.py": "c20831a2d7906a303c3254855bfa7718ecf1b46a6443782e0d3ca446f8aee41e",
+    "src/yescc/report.py": "5bb87fa4864c55f7b69e7fb8860c6d5cf897615af37601383c3a5c056275e166",
+    "src/yescc/sandbox/__init__.py": "bb1d14f1a40bc5f98f8095c86215c7efe35dd0296fa4ab58e769b5e9e9d90214",
+    "src/yescc/sandbox/creative.py": "967969175c0cb42661655056f9ba3cd5ba6b194ce8cf3655bf1772bc9962f37c",
+    "src/yescc/sandbox/runner.py": "deef6e924bb8ea98b5b20ff67bf868ac0dbb0fe7bdc45dc9cdb3a41869b4c15f",
+    "src/yescc/sandbox/undefined.py": "a48bd06bb6d744899b954b84404755b5ac7981589e950fa9a0c89078fd708a45",
+    "src/yescc/util.py": "811b8ad271c3d656df74be5a55ddd415710842d3a57e394b54587c7bb7ed4d0f",
+    "bench/creative_reasoning.py": "f1db26b683ec90723c2c78bf6a48db569498dd6659e091fdc9e22684c22cdfe1",
+    "bench/creative_reasoning_inputs.json": "ead533afcf028875a3a4149d9bf9a911939d94d9d8d7162c49bd2fee6d604e35",
+    "bench/creative_reasoning_rubric.json": "dd61d237d4c936fcc4b3b2530a4741a4b877bd244c8d1842a24b59d1fab611e0",
+    "tests/test_creative_reasoning.py": "2230a1d4c035aa3e7ea3791e66ce664d06e29b6ef7d5b87348b49ef774cc75c4"
+  },
+  "settings": {
+    "provider": "deepseek",
+    "model": "deepseek-flash",
+    "base_url": "https://api.deepseek.com/v1",
+    "input_price_per_mtok": 0.3,
+    "output_price_per_mtok": 1.2,
+    "price_convention": "peak, cache-miss input price for all tokens; conservative estimate, not invoice",
+    "price_checked_date": "2026-11-14",
+    "price_source": "https://api-docs.deepseek.com/quick_start/pricing/",
+    "controls_source": "https://api-docs.deepseek.com/guides/thinking_mode/",
+    "documented_model_version": "DeepSeek-V4.1-Flash-1017; alias backend cannot be independently authenticated",
+    "task_budget_usd": 0.005,
+    "maximum_total_reservation_usd": 0.5,
+    "max_rounds": 2,
+    "request_timeout_s": 45,
+    "product_task_wall_s": 180,
+    "run_timeout_s": 3,
+    "run_output_bytes": 65536,
+    "no_cache": true,
+    "check_undefined": false,
+    "prompt_supplement": null,
+    "tools": null
+  },
+  "profiles": [
+    {
+      "id": "default",
+      "thinking": "disabled",
+      "reasoning_effort": null,
+      "max_output_tokens": 1024,
+      "cli_arguments": [
+        "--thinking",
+        "disabled",
+        "--reasoning-effort",
+        "auto",
+        "--max-output-tokens",
+        "1024"
+      ]
+    },
+    {
+      "id": "tokens",
+      "thinking": "disabled",
+      "reasoning_effort": null,
+      "max_output_tokens": 4096,
+      "cli_arguments": [
+        "--thinking",
+        "disabled",
+        "--reasoning-effort",
+        "auto",
+        "--max-output-tokens",
+        "4096"
+      ]
+    },
+    {
+      "id": "low",
+      "thinking": "enabled",
+      "reasoning_effort": "low",
+      "max_output_tokens": 4096,
+      "cli_arguments": [
+        "--thinking",
+        "enabled",
+        "--reasoning-effort",
+        "low",
+        "--max-output-tokens",
+        "4096"
+      ]
+    }
+  ],
+  "tasks": [
+    {
+      "task_id": "effort-d09__default__r1",
+      "case_id": "effort-d09",
+      "profile": "default",
+      "repeat": 1
+    },
+    {
+      "task_id": "effort-d03__low__r2",
+      "case_id": "effort-d03",
+      "profile": "low",
+      "repeat": 2
+    },
+    {
+      "task_id": "effort-d08__low__r1",
+      "case_id": "effort-d08",
+      "profile": "low",
+      "repeat": 1
+    },
+    {
+      "task_id": "effort-d07__default__r1",
+      "case_id": "effort-d07",
+      "profile": "default",
+      "repeat": 1
+    },
+    {
+      "task_id": "effort-d08__default__r1",
+      "case_id": "effort-d08",
+      "profile": "default",
+      "repeat": 1
+    },
+    {
+      "task_id": "effort-d03__low__r1",
+      "case_id": "effort-d03",
+      "profile": "low",
+      "repeat": 1
+    },
+    {
+      "task_id": "effort-d03__tokens__r2",
+      "case_id": "effort-d03",
+      "profile": "tokens",
+      "repeat": 2
+    },
+    {
+      "task_id": "effort-d01__low__r1",
+      "case_id": "effort-d01",
+      "profile": "low",
+      "repeat": 1
+    },
+    {
+      "task_id": "effort-d11__default__r1",
+      "case_id": "effort-d11",
+      "profile": "default",
+      "repeat": 1
+    },
+    {
+      "task_id": "effort-d05__tokens__r1",
+      "case_id": "effort-d05",
+      "profile": "tokens",
+      "repeat": 1
+    },
+    {
+      "task_id": "effort-d06__default__r1",
+      "case_id": "effort-d06",
+      "profile": "default",
+      "repeat": 1
+    },
+    {
+      "task_id": "effort-d11__default__r2",
+      "case_id": "effort-d11",
+      "profile": "default",
+      "repeat": 2
+    },
+    {
+      "task_id": "effort-d02__default__r1",
+      "case_id": "effort-d02",
+      "profile": "default",
+      "repeat": 1
+    },
+    {
+      "task_id": "effort-d02__low__r1",
+      "case_id": "effort-d02",
+      "profile": "low",
+      "repeat": 1
+    },
+    {
+      "task_id": "effort-d09__low__r1",
+      "case_id": "effort-d09",
+      "profile": "low",
+      "repeat": 1
+    },
+    {
+      "task_id": "effort-d03__default__r1",
+      "case_id": "effort-d03",
+      "profile": "default",
+      "repeat": 1
+    },
+    {
+      "task_id": "effort-d11__tokens__r2",
+      "case_id": "effort-d11",
+      "profile": "tokens",
+      "repeat": 2
+    },
+    {
+      "task_id": "effort-d04__low__r1",
+      "case_id": "effort-d04",
+      "profile": "low",
+      "repeat": 1
+    },
+    {
+      "task_id": "effort-d08__tokens__r1",
+      "case_id": "effort-d08",
+      "profile": "tokens",
+      "repeat": 1
+    },
+    {
+      "task_id": "effort-d03__default__r2",
+      "case_id": "effort-d03",
+      "profile": "default",
+      "repeat": 2
+    },
+    {
+      "task_id": "effort-d12__default__r1",
+      "case_id": "effort-d12",
+      "profile": "default",
+      "repeat": 1
+    },
+    {
+      "task_id": "effort-d07__tokens__r1",
+      "case_id": "effort-d07",
+      "profile": "tokens",
+      "repeat": 1
+    },
+    {
+      "task_id": "effort-d04__default__r1",
+      "case_id": "effort-d04",
+      "profile": "default",
+      "repeat": 1
+    },
+    {
+      "task_id": "effort-d05__low__r1",
+      "case_id": "effort-d05",
+      "profile": "low",
+      "repeat": 1
+    },
+    {
+      "task_id": "effort-d06__low__r1",
+      "case_id": "effort-d06",
+      "profile": "low",
+      "repeat": 1
+    },
+    {
+      "task_id": "effort-d06__tokens__r1",
+      "case_id": "effort-d06",
+      "profile": "tokens",
+      "repeat": 1
+    },
+    {
+      "task_id": "effort-d11__low__r2",
+      "case_id": "effort-d11",
+      "profile": "low",
+      "repeat": 2
+    },
+    {
+      "task_id": "effort-d01__default__r1",
+      "case_id": "effort-d01",
+      "profile": "default",
+      "repeat": 1
+    },
+    {
+      "task_id": "effort-d12__low__r1",
+      "case_id": "effort-d12",
+      "profile": "low",
+      "repeat": 1
+    },
+    {
+      "task_id": "effort-d07__low__r1",
+      "case_id": "effort-d07",
+      "profile": "low",
+      "repeat": 1
+    },
+    {
+      "task_id": "effort-d04__tokens__r1",
+      "case_id": "effort-d04",
+      "profile": "tokens",
+      "repeat": 1
+    },
+    {
+      "task_id": "effort-d12__tokens__r1",
+      "case_id": "effort-d12",
+      "profile": "tokens",
+      "repeat": 1
+    },
+    {
+      "task_id": "effort-d09__tokens__r1",
+      "case_id": "effort-d09",
+      "profile": "tokens",
+      "repeat": 1
+    },
+    {
+      "task_id": "effort-d01__tokens__r1",
+      "case_id": "effort-d01",
+      "profile": "tokens",
+      "repeat": 1
+    },
+    {
+      "task_id": "effort-d10__tokens__r1",
+      "case_id": "effort-d10",
+      "profile": "tokens",
+      "repeat": 1
+    },
+    {
+      "task_id": "effort-d03__tokens__r1",
+      "case_id": "effort-d03",
+      "profile": "tokens",
+      "repeat": 1
+    },
+    {
+      "task_id": "effort-d10__low__r1",
+      "case_id": "effort-d10",
+      "profile": "low",
+      "repeat": 1
+    },
+    {
+      "task_id": "effort-d10__default__r1",
+      "case_id": "effort-d10",
+      "profile": "default",
+      "repeat": 1
+    },
+    {
+      "task_id": "effort-d11__low__r1",
+      "case_id": "effort-d11",
+      "profile": "low",
+      "repeat": 1
+    },
+    {
+      "task_id": "effort-d11__tokens__r1",
+      "case_id": "effort-d11",
+      "profile": "tokens",
+      "repeat": 1
+    },
+    {
+      "task_id": "effort-d05__default__r1",
+      "case_id": "effort-d05",
+      "profile": "default",
+      "repeat": 1
+    },
+    {
+      "task_id": "effort-d02__tokens__r1",
+      "case_id": "effort-d02",
+      "profile": "tokens",
+      "repeat": 1
+    }
+  ],
+  "shuffle_seed": 20261114,
+  "repeat_inputs": [
+    "effort-d03",
+    "effort-d11"
+  ],
+  "confirmation": {
+    "sealed_path_outside_repository": "/home/wqwt/ai-tests/yescc-generation-support-2026-11-13/fresh-design/confirmation.json",
+    "sealed_sha256": "604075926245307733bb53aed37fb2e5675c8916f703508d3a43de987bbca592",
+    "sealed_input_count": 8,
+    "maximum_tasks": 16,
+    "when": "Only after both reviewers finish all discovery tasks and exactly one eligible candidate is selected; otherwise do not open.",
+    "comparison": "default versus selected profile, each input once; new frozen order and anonymous IDs before requests; no other profile or prompt changes"
+  },
+  "evaluation": {
+    "reviewers": 2,
+    "reviewer_context": "fork_turns=none; only anonymized input, original source/stdout, factual path/technical validation flags and frozen rubric; no profile/model/timing/cost/expected annotations",
+    "strong": "unchanged rubric threshold; not a consistency veto or release gate",
+    "joint_creative_ready": "both reviewers strong, creativity>=2 and consistency=pass, plus actual model_creative run validation; fallback is not ready",
+    "contradictions": "any reviewer consistency=fail; keep uncertain and disagreement separately, never silently adjudicate",
+    "ratings": "preserve observed scores; missing/unscorable scores remain null",
+    "primary_creativity_utility": "sum observed creativity for scorable generated artifacts over both reviewers / (2 * all planned tasks). Non-creative, failed and unscorable tasks contribute no numerator, without inventing a zero rating. Also publish conditional scorable means and all denominators.",
+    "primary_set": "12 distinct inputs, repeat=1 only; 2 fixed repetitions are separate stability check",
+    "discovery_gate": {
+      "joint_ready_min_gain": 2,
+      "all_task_creativity_utility_min_gain": 0.2,
+      "model_run_count": "at least default",
+      "contradictions": "no more than default",
+      "repeat_joint_ready": "at least default across the two fixed repetitions",
+      "mean_all_task_wall_time": "at most 2 times default, including failed tasks",
+      "cost_known": "all attempted tasks have known usage/accounting; otherwise stop and no selection",
+      "invalid_or_missing_core_evidence": "no candidate selection"
+    },
+    "selection_tie_break": [
+      "higher joint ready",
+      "higher all-task creativity utility",
+      "lower mean all-task wall time",
+      "lower conservative known subtotal",
+      "alphabetical profile id"
+    ],
+    "confirmation_gate": {
+      "joint_ready_min_gain": 1,
+      "all_task_creativity_utility": "at least default",
+      "model_run_count": "at least default",
+      "contradictions": "no more than default",
+      "mean_all_task_wall_time": "at most 2 times default",
+      "all_costs_known": true,
+      "core_evidence_complete": true
+    },
+    "adoption": "Both gates provide a recommendation only. Show gains/cost/latency/failures to maintainer before any production default change. Failure of either gate keeps current defaults; no tuning/regrading/repeated selection on these inputs."
+  },
+  "execution_contract": [
+    "Freeze runner, anonymity mapping, source snapshot and file hashes before first paid request; verify all hashes before every task. Protocol is not an API runner.",
+    "Recheck official price/capability pages before payment. If incompatible with frozen prices/model/settings, stop and create a separately versioned protocol before any request; never adjust after observing works.",
+    "Use actual public run --play CLI. Clear inherited YESCC_/FCOMP_ model settings, explicitly configure only frozen L3 provider/model/base URL/prices/timeout and isolated config/cache; do not read credentials during offline preflight.",
+    "Reserve 0.005 per task append-only before starting, never reclaim phase slots from cheap/failed tasks; max 42 discovery plus conditional 16 confirmation = 0.29 USD, below 0.50 stage ceiling. Host agent cost not included.",
+    "No discovery smoke/pilot paid calls beyond listed tasks. Failed task remains in denominator; at most product two candidates/requests per task, no manual reruns or best-of selection.",
+    "Record actual request payload and returned model/finish reason/usage/cost-known flags; omit authorization, keys and reasoning text before persistence. Never mutate request or inject reminders after reservation.",
+    "Store command, sanitized environment, raw stdout/stderr, report, every received/parsed candidate and actual validation evidence, original input before/after hashes and monotonic wall time; incomplete evidence cannot qualify.",
+    "Host process group timeout 195 seconds is a cleanup guard, not the model task wall. Record timeout/cancellation as failure and stop pending children; do not retry manually.",
+    "Stop new requests on unknown fees, served-model mismatch across arms, changed source/protocol/price assumptions or unsupported controls. Preserve completed/failed evidence and full task denominators; incomplete batch is not a fair quality result.",
+    "Actual token cap may be below requested 4096 and lower on retry; thinking and visible output share it. Disabled profiles send temperature 0.4, low omits it; this is a practical configuration comparison, not an isolated causal effect of reasoning.",
+    "Local cache disabled does not disable provider prefix caching. Report provider cache-hit usage separately, still use conservative full input pricing.",
+    "No automatic model reviewer, search, database, prompt supplements, default sanitizer, new model routing or expanded budgets. No merge/release/install replacement in this phase.",
+    "Before any paid execution, implement and offline-test an HTTP boundary guard that prevents any next request within the same CLI task after unknown fees/model drift/unsupported controls; a post-task report check alone is insufficient. This guard is not yet an API runner in this preparation commit.",
+    "For fake-server CLI rehearsal, --provider overrides BASE_URL env using the provider registry: explicitly replace that registry with the loopback URL and reject all non-loopback sends. Real runs must audit the selected official endpoint without exposing credentials."
+  ],
+  "limits": [
+    "12 AI-designed inputs from six themes, two AI reviewers and fixed repeats are exploratory; no human gold, representative population or statistical significance.",
+    "Old studies are development evidence only. Existing eight sealed inputs have not been parsed for this protocol and stay closed unless discovery gate qualifies.",
+    "No true model quality, speed or spending outcome is established by mock/offline preflight."
+  ]
+}

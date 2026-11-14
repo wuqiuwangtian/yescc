@@ -2,3 +2,8 @@
 /bench/creative_consistency_cases.json text eol=lf
 /bench/creative_generation_examples.json text eol=lf
 /bench/ubsan_cases.json text eol=lf
+# The reasoning protocol verifies exact product/source and research asset bytes.
+/src/yescc/**/*.py text eol=lf
+/bench/creative_reasoning.py text eol=lf
+/bench/creative_reasoning_*.json text eol=lf
+/tests/test_creative_reasoning.py text eol=lf
