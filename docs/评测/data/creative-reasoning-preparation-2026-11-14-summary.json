@@ -1,0 +1,45 @@
+{
+  "protocol_sha256": "ddf9733c7b271dd8dbcf97a9b430e5c7cc71e362f794bb895fd7091a4e16fdb9",
+  "frozen_files": 40,
+  "discovery_inputs": 12,
+  "planned_discovery_tasks": 42,
+  "planned_discovery_reservation_usd": 0.21,
+  "planned_conditional_confirmation_tasks": 16,
+  "planned_stage_reservation_usd": 0.29,
+  "paid_quality_experiment_started": false,
+  "sealed_inputs_opened": false,
+  "initial_fixture_external_http_401": 4,
+  "initial_fixture_returned_model_outputs": 0,
+  "initial_401_usage_known": false,
+  "zero_bill_verified": false,
+  "initial_wire_payloads_captured": false,
+  "corrected_cli_local_profiles": [
+    {
+      "profile": "default",
+      "max_tokens": 1024,
+      "model_calls_to_local_fake": 1,
+      "candidate_runs": 1
+    },
+    {
+      "profile": "low",
+      "max_tokens": 3399,
+      "model_calls_to_local_fake": 1,
+      "candidate_runs": 1
+    },
+    {
+      "profile": "tokens",
+      "max_tokens": 3399,
+      "model_calls_to_local_fake": 1,
+      "candidate_runs": 1
+    }
+  ],
+  "full_suite": {
+    "passed": 1248,
+    "skipped": 1,
+    "failures": 0
+  },
+  "source_platform": "Linux/WSL2 only for this preparation; remote CI separately checked",
+  "host_agent_cost_known": false,
+  "archive_files": 76,
+  "archive_sha256": "4b3d4d94c4493c4f6c69848515ca1e95817db36d471714f9cb198c396569f926"
+}
