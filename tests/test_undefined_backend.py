@@ -82,7 +82,11 @@ def test_never_selects_another_compiler_and_reports_both_failures(tmp_path: Path
     assert len(profile.probes) == 2
     for probe in profile.probes:
         assert probe["reason"] == "control_compile_failed"
-        assert missing in str(probe)
+        normal = probe["normal"]
+        assert isinstance(normal, dict)
+        compilation = normal["compile"]
+        assert isinstance(compilation, dict)
+        assert compilation["command"][0] == missing
 
 
 @pytest.mark.parametrize(
@@ -156,7 +160,8 @@ def test_bounded_build_preserves_command_and_never_runs_output(gcc: str, tmp_pat
     result = undefined.bounded_c_build(gcc, source, arguments, tmp_path)
     assert result.command == [gcc, str(source), *arguments]
     assert result.returncode == 0
-    assert result.artifact == tmp_path / "program"
+    expected = "program.exe" if os.name == "nt" else "program"
+    assert result.artifact == tmp_path / expected
     assert not marker.exists()
 
 

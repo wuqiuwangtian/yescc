@@ -44,7 +44,15 @@ def _default_artifact(source: Path, passthrough: Sequence[str], cwd: Path) -> Pa
     output = _output_argument(passthrough)
     if output is not None:
         path = Path(output)
-        return path if path.is_absolute() else cwd / path
+        path = path if path.is_absolute() else cwd / path
+        non_executable = {"-c", "-S", "-E", "-M", "-MM", "-r", "-shared"}
+        if os.name == "nt" and not path.suffix and not non_executable.intersection(passthrough):
+            executable = path.with_name(path.name + ".exe")
+            # MinGW may append .exe without replacing an older extensionless file.
+            # Prefer the actual executable only in this narrow linked-output case.
+            if executable.is_file():
+                return executable
+        return path
     if any(flag in passthrough for flag in ("-E", "-M", "-MM")):
         return None
     if "-c" in passthrough:
