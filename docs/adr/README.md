@@ -25,5 +25,6 @@
 | [0019](0019-command-error-json-envelope.md) | 可预期命令错误的 JSON 对象 | 已实施，用户确认方案 |
 | [0020](0020-native-release-candidates.md) | 原生发布候选与外部工具链 | 已实施，待正式发布 |
 | [0021](0021-creative-quality-and-model-controls.md) | 创意输出检查与模型推理控制 | 已实施 |
+| [0022](0022-optional-undefined-behavior-check.md) | 可选的创意运行期未定义行为检查 | 实施中，用户确认默认关闭 |
 
 相关文档：[路线图](../项目路线图与发布计划.md)、[需求报告](../初版需求报告.md)、[技术参考](../技术参考与验证计划.md)。
