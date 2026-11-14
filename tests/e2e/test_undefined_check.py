@@ -127,6 +127,19 @@ def test_overflow_output_is_hidden_and_next_candidate_is_actually_checked(
     generated = saved["result"]["generated"]
     assert (tmp_path / generated["source"]).read_text("utf-8") == GOOD
     assert saved["result"]["fallback"]["kind"] == "model_creative"
+    evidence_dir = os.environ.get("YESCC_TEST_EVIDENCE_DIR")
+    if evidence_dir:
+        directory = Path(evidence_dir)
+        directory.mkdir(parents=True, exist_ok=True)
+        name = "unsafe" if extra else "sandbox"
+        (directory / f"undefined-{name}.json").write_text(
+            json.dumps({
+                "platform": sys.platform, "python": sys.version,
+                "stdout_base64": base64.b64encode(result.stdout).decode("ascii"),
+                "stderr_base64": base64.b64encode(result.stderr).decode("ascii"),
+                "exit_code": result.returncode, "report": saved,
+            }, ensure_ascii=False, indent=2) + "\n", encoding="utf-8",
+        )
 
 
 def test_failed_checked_candidate_exhausts_original_limit_and_is_not_cached(
