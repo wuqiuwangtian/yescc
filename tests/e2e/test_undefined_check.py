@@ -579,3 +579,26 @@ def test_implicit_a_out_artifact_cannot_replace_the_original_input(
     assert len(fake_model.requests) == 1
     if checked:
         _assert_checked(saved)
+
+
+@pytest.mark.parametrize("hardlink", [False, True], ids=["same-path", "hardlink"])
+def test_explicit_source_output_is_rejected_before_any_model_request(
+    tmp_path: Path, fake_model: FakeModelServer, monkeypatch: pytest.MonkeyPatch,
+    capfd: pytest.CaptureFixture[str], hardlink: bool,
+) -> None:
+    monkeypatch.chdir(tmp_path)
+    source = _input(tmp_path)
+    output = source
+    if hardlink:
+        output = tmp_path / "output-alias"
+        try:
+            output.hardlink_to(source)
+        except OSError as exc:
+            pytest.skip(f"hardlink unavailable: {exc}")
+    fake_model.responses.append({"source": GOOD})
+    result = main([str(source), "--play", "--json", "-o", str(output)])
+    saved = json.loads(capfd.readouterr().out)
+    assert result == 100 and saved["report_kind"] == "command_error"
+    assert not fake_model.requests and len(fake_model.responses) == 1
+    assert source.read_text("utf-8") == TEXT
+    assert not (tmp_path / ".yescc").exists()

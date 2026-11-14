@@ -24,7 +24,7 @@ from yescc.fallback import fallback_output, generate_c_program
 from yescc.fallback.guidance import degradation_guidance
 from yescc.fallback.quality import creative_source_issues
 from yescc.fix import parse_c
-from yescc.fix.engine import attempt_repair, build_in_temp
+from yescc.fix.engine import _output_argument, _same_file, attempt_repair, build_in_temp
 from yescc.model import (
     BudgetExceeded,
     ModelError,
@@ -546,10 +546,8 @@ def _model_generate(
     profile = ctx.undefined_profile if check_requested else None
     if check_requested and session.attempts < ctx.invocation.max_rounds:
         validate_undefined_options(ctx.invocation.passthrough)
-        from yescc.fix.engine import _output_argument
-
         output = _output_argument(ctx.invocation.passthrough)
-        if output is not None and (ctx.cwd / output).resolve() == ctx.source.resolve():
+        if output is not None and _same_file(ctx.cwd / output, ctx.source):
             raise UsageError("检查产物的 -o 路径不能覆盖原始输入。")
         if session.budget.remaining_s <= 0:
             session.budget_reason = "已达到任务墙钟上限，未执行检查能力探针"
@@ -906,6 +904,9 @@ def execute(argv: list[str], invocation: Invocation) -> int:
         raise UsageError("--check-undefined 只用于模型创意 run，build 不执行检查。")
     cwd = Path.cwd()
     source = _validate_source(invocation.source)
+    output = _output_argument(invocation.passthrough)
+    if output is not None and _same_file(cwd / output, source):
+        raise UsageError("输出路径 -o 指向输入源文件，拒绝覆盖；未请求模型。")
     size, encoding, text = _read_source(source)
     # 显式语言错误不能进入未知输入的创意兜底（包括 --play），也不应创建模型会话。
     if invocation.lang is not None:
