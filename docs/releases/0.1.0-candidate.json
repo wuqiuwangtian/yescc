@@ -1,43 +1,54 @@
 {
   "schema": "yescc-release-candidate-v1",
   "version": "0.1.0",
-  "source_commit": "9b4cedff363bf9e2594bc866030f53b96d7a608d",
-  "production_source_tree": "52d64e41aeb47c5e5b27d6c86d915b66c7df2ae2",
-  "production_unchanged_from_main": "e403901db398a02121819fd5a5dfa3c06b5b8e05",
+  "source_commit": "e40086fc4ada36b613db73303b30e5ba92c09ce0",
+  "production_source_tree": "052a1e187a70047762f033afec0db1a52961085e",
   "merged": false,
   "published": false,
   "formal_release_authorized": false,
-  "pull_request": "https://github.com/wuqiuwangtian/yescc/pull/15",
+  "pull_requests": [
+    "https://github.com/wuqiuwangtian/yescc/pull/15",
+    "https://github.com/wuqiuwangtian/yescc/pull/16"
+  ],
   "assets": {
-    "yescc-0.1.0-py3-none-any.whl": "daf4e00823d38ef75d08acfa8c771af63f6537e68b231b651d342d01f1f80d54",
-    "yescc-0.1.0.tar.gz": "40983eb82572db5084593844a769a766869f84f2ee0e1435d118c04eb3ecd3e2",
-    "yescc-0.1.0-linux-x86_64.tar.gz": "40111ab717c02eda35684ad6a865c9c038811a97d274ae9428124e1b1aebdf75",
-    "yescc-0.1.0-windows-x86_64.zip": "77502c2f12f729e2681cf466ad2067cf70b2b7ede5fa9fa9a3b265b0a09a4554"
+    "yescc-0.1.0-py3-none-any.whl": "ea5e323cd49f52672e8e2eacf6ef820de225ffb5993cf4f4daa65fd15abcd1ce",
+    "yescc-0.1.0.tar.gz": "5a6786622e297e2973489d2358968db29f930bf65042e89af0f19c68e75baa12",
+    "yescc-0.1.0-linux-x86_64.tar.gz": "0c6f495bd6fa40e39b46a97e96aba5ac14b0c4a89db90b69841ab7f41cef6f90",
+    "yescc-0.1.0-windows-x86_64.zip": "386a9af15728d2bd3245135f0a15248171f016bd38599eae3ebecfe41d733a72"
   },
   "candidate_workflow": {
-    "id": 43688155608,
-    "url": "https://github.com/wuqiuwangtian/yescc/actions/runs/43688155608",
+    "id": 43694409633,
+    "url": "https://github.com/wuqiuwangtian/yescc/actions/runs/43694409633",
     "successful_jobs": 7
   },
-  "source_ci": {
-    "id": 43688211265,
-    "url": "https://github.com/wuqiuwangtian/yescc/actions/runs/43688211265",
-    "successful_jobs": 14
-  },
-  "artifact_expires_at": "2027-02-13T07:02:49Z",
-  "validation": {
-    "local_source_tests": {
-      "passed": 1337,
-      "skipped": 1
+  "source_ci": [
+    {
+      "id": 43694408423,
+      "successful_jobs": 14
     },
+    {
+      "id": 43694414506,
+      "successful_jobs": 14
+    }
+  ],
+  "artifact_expires_at": "2027-02-13T08:25:10Z",
+  "validation": {
+    "local_full_before_test_only_fix": {
+      "passed": 1359,
+      "skipped": 1,
+      "source_commit": "0fd506196f9e40497f2a4aa85f801316934fd00b"
+    },
+    "corrected_targeted_tests": 13,
     "native_smoke": {
       "Linux": {
-        "passed": 22,
-        "total": 22
+        "passed": 27,
+        "total": 27,
+        "optional_rejection_mode": "runtime"
       },
       "Windows": {
-        "passed": 22,
-        "total": 22
+        "passed": 27,
+        "total": 27,
+        "optional_rejection_mode": "trap"
       }
     },
     "wheel_smoke": {
@@ -55,45 +66,49 @@
       "total_per_matrix": 6
     },
     "independent_asset_audit": {
-      "passed": 2320,
-      "total": 2320
+      "passed": 2556,
+      "total": 2556
     },
     "independent_ai_trial": {
-      "cli": 24,
-      "fake_http": 8,
-      "assertions": 45,
+      "source_commit": "0fd506196f9e40497f2a4aa85f801316934fd00b",
+      "platform": "Linux",
+      "cli": 16,
+      "fake_http": 4,
+      "assertions": 43,
       "passed": 43,
-      "failed": 2,
-      "tested_initial_candidate": true
-    },
-    "same_ai_final_candidate_followup": {
-      "cli": 6,
-      "fake_http": 2,
-      "assertions": 29,
-      "passed": 27,
-      "failed": 2,
-      "new_independent_tester": false
+      "failed": 0,
+      "final_archive_new_independent_trial": false,
+      "bridge": "Final production source and Linux ELF match tested candidate; final native smoke and source audit recorded separately."
     }
   },
-  "license_unresolved": [],
-  "license_scope": "Actual bundle/TOC/source/notice bindings; not legal opinion or reproducible-build proof. Initial e403 Linux origin collision retained as failed evidence.",
-  "source_wheel_caveat": "Windows native builder wheel was not retained; its manifest digest differs from Linux wheel. Both actual frozen product source inventories bind 35 modules exactly to Git. Auxiliary Windows CI wheel is a separate artifact, not that native builder wheel.",
-  "known_nonblocking_ux_findings": [
+  "resolved_ux_findings": [
     {
       "id": "UX-1",
-      "status": "open",
-      "description": "Optional-check rejection is recorded in report but terminal fallback does not directly explain rejection."
+      "resolution": "Fallback guidance cites actual rejected run and check mode while preserving budget stop reason, without forwarding failed output or certifying UB."
     },
     {
       "id": "UX-2",
-      "status": "open",
-      "description": "Missing GCC strict build JSON fails with 102 but lacks a locatable missing-tool reason."
+      "resolution": "Actual failure cause persists in result.failure_message and explain; missing tools do not fabricate compiler attempts or diagnostics."
     }
   ],
+  "open_product_findings_in_this_trial": [],
+  "license_unresolved": [],
+  "license_scope": "Actual bundle/TOC/source/notice binding, not legal advice or reproducible-build proof. Linux executable/package origin collision remains corrected.",
+  "actual_native_builder_wheels_retained": true,
+  "builder_wheel_comparison": "Both original input wheels match manifest hashes; product source members match Git. Platform differences in license line endings/RECORD and ZIP metadata are recorded directly.",
+  "historical_ci_failure": {
+    "head": "0fd506196f9e40497f2a4aa85f801316934fd00b",
+    "runs": [
+      43693016124,
+      43693035482
+    ],
+    "reason": "New strict compiler diagnostic test compared LF GCC bytes with CRLF Windows text output. Product output path unchanged; corrected test compares entire diagnostic allowing only CRLF/LF and requires >4000-byte output. Raw program-stream checks remain unchanged.",
+    "preserved": true
+  },
   "public_pypi_root_install": "pending publication; local-wheel rehearsal only",
   "g6": "pending",
   "daily_install_updated": false,
   "real_model_api_calls_this_stage": 0,
   "host_agent_cost_known": false,
-  "next_step": "Improve the two diagnostic messages before formal publication; then freeze a new source, rebuild/review changed assets and confirm main integration/publication separately."
+  "next_step": "Review and integrate PR15 then PR16, preserving commits and checking final tree/CI. Confirm tag/Release/PyPI publication separately; then verify actual public-index install and observation window."
 }
