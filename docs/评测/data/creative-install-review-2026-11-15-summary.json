@@ -1,0 +1,86 @@
+{
+  "schema": "yescc-install-review-evidence-v1",
+  "archive": "creative-install-review-2026-11-15.json.gz",
+  "archive_sha256": "4063e115a4ceb8c72fbd4ad938cb2195caff044c49625614d5969725f0dfd1ad",
+  "archived_files": 501,
+  "archive_bytes": 808308,
+  "excluded_executable_files": 42,
+  "excluded_symlinks": [],
+  "fresh_directory_replay_matches_saved_summary": true,
+  "replay_scope": "Only saved records/ZIP/XML/Python-source-AST/hash checks. No package installation, product/compiler/C/tester execution, keys, network or new model requests. Original audit verifier is preserved as an original-environment receipt; use replay.py for a relocated archive.",
+  "original_environment_audit_conditions_passed": 1116,
+  "observations": {
+    "packages": [
+      {
+        "label": "initial",
+        "source_commit": "dc21d0cbf4b595b1e9bd916794d89450db765f73",
+        "wheel_sha256": "8b0a966940b811c3d97569d0e8ea9216b2efb24a0d6cffb23ca649fbef019d95",
+        "modules": 36,
+        "package_smoke_passed": 18
+      },
+      {
+        "label": "final",
+        "source_commit": "2f55aaaac2c391722d267da3bb0fd36715463eea",
+        "wheel_sha256": "daf4e00823d38ef75d08acfa8c771af63f6537e68b231b651d342d01f1f80d54",
+        "modules": 36,
+        "package_smoke_passed": 18
+      }
+    ],
+    "installed_source_receipts_not_new_install": true,
+    "only_production_difference": "guidance footer string",
+    "phases": {
+      "initial": {
+        "cases": 31,
+        "fake_http_requests": 19,
+        "assertions": 163,
+        "passed": 162,
+        "failed": 1
+      },
+      "followup": {
+        "cases": 8,
+        "fake_http_requests": 2,
+        "assertions": 62,
+        "passed": 62,
+        "failed": 0
+      }
+    },
+    "cli_calls_with_help": 40,
+    "fake_http_requests": 21,
+    "real_model_api_calls": 0,
+    "known_product_issue": "BB-01 fixed in final wheel",
+    "source_tests": {
+      "passed": 1333,
+      "skipped": 1
+    },
+    "source_ci_successful_jobs": 14,
+    "merge_source_candidate": "2f55aaaac2c391722d267da3bb0fd36715463eea",
+    "merge_base": "bb38b6f01dbd39341d0b9c3c3973efb835eb0588",
+    "candidate_commits_over_main": 49,
+    "ordered_pull_requests": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14
+    ],
+    "formal_merge_done": false,
+    "release_done": false,
+    "host_agent_cost_known": false
+  },
+  "limitations": [
+    "AI user trial, not human acceptance or real model quality.",
+    "Initial failure retained; same tester followup is not a second independent trial.",
+    "First eight subprocess HOME overrides, one setup failure, initial analyzer false positives preserved.",
+    "Full venvs, bytecode and compiled C programs excluded; original audit hash manifest may reference excluded binaries.",
+    "Source candidate is 2f55aaa; later evidence commits must be queried from Git, not treated as a new product-source test.",
+    "No main merge, formal release or global install update performed."
+  ]
+}
