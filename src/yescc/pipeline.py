@@ -21,6 +21,7 @@ from yescc.errors import (
     UsageError,
 )
 from yescc.fallback import fallback_output, generate_c_program
+from yescc.fallback.guidance import degradation_guidance
 from yescc.fix import parse_c
 from yescc.fix.engine import attempt_repair, build_in_temp
 from yescc.model import (
@@ -337,7 +338,8 @@ def _finalize(
                 "attempts": ctx.session.attempts,
                 "blocked_reason": ctx.session.budget_reason,
             }
-            if ctx.session is not None else None
+            if ctx.session is not None
+            else None
         ),
         "limits": (
             {
@@ -389,6 +391,10 @@ def _finalize(
             f"（kind={fallback.get('kind', 'unknown')}，不是原程序的修复）。",
             file=sys.stderr,
         )
+        guidance = fallback.get("guidance")
+        if isinstance(guidance, list):
+            for hint in guidance:
+                print(f"yescc: {hint}", file=sys.stderr)
     if artifact is not None and sys.stderr.isatty():
         line = _status_line(status, artifact, repair, fallback, ctx.cwd, model_stats.calls)
         print(line, file=sys.stderr)
@@ -407,9 +413,9 @@ def _write_patched(
     directory.mkdir(parents=True, exist_ok=True)
     name = f"{prefix}{ctx.source.name}" if prefix else ctx.source.name
     patched = directory / name
-    patched.write_text(patched_source, encoding="utf-8")
+    patched.write_text(patched_source, encoding="utf-8", newline="")
     patch_file = directory / "patch.diff"
-    patch_file.write_text(diff_text, encoding="utf-8")
+    patch_file.write_text(diff_text, encoding="utf-8", newline="")
     return patched, patch_file
 
 
@@ -462,6 +468,8 @@ def _model_repair(
                 "patched_source": display_path(patched, ctx.cwd),
                 "patch": display_path(patch_file, ctx.cwd),
                 "assumptions": outcome.assumptions,
+                "patch_normalizations": outcome.normalizations,
+                "raw_diff": outcome.diff,
             }
             sandbox: SandboxOutcome | None = None
             program_exit: int | None = None
@@ -633,6 +641,17 @@ def _deterministic_fallback(ctx: Context, reason: str) -> int:
         sandbox=sandbox,
         fallback={
             "kind": output.kind,
+            "guidance": degradation_guidance(
+                ctx.text,
+                language=ctx.language,
+                kind=output.kind,
+                offline=ctx.invocation.offline,
+                model_available=ctx.session is not None and ctx.session.available,
+                model_attempted=ctx.session is not None
+                and bool(ctx.session.stats.calls or ctx.session.stats.cache_hits),
+                budget_blocked=ctx.session is not None and bool(ctx.session.budget_reason),
+                rule_builds=sum(item["kind"] == "rule" for item in ctx.attempts),
+            ),
             "reason": reason,
             "source": display_path(source_file, ctx.cwd),
         },
@@ -675,6 +694,9 @@ def execute(argv: list[str], invocation: Invocation) -> int:
     cwd = Path.cwd()
     source = _validate_source(invocation.source)
     size, encoding, text = _read_source(source)
+    # 显式语言错误不能进入未知输入的创意兜底（包括 --play），也不应创建模型会话。
+    if invocation.lang is not None:
+        detect_language(source, invocation.lang)
     session = ModelSession(
         offline=invocation.offline,
         no_cache=invocation.no_cache,
@@ -769,7 +791,7 @@ def execute(argv: list[str], invocation: Invocation) -> int:
 
     if language == "c":
         outcome = attempt_repair(
-            adapter, text, source.name, invocation.passthrough, cwd, source.parent
+            adapter, text, source.name, invocation.passthrough, cwd, source.parent, native.stderr
         )
         for index, (_, build) in enumerate(outcome.attempts, start=2):
             ctx.attempts.append(_attempt("rule", index, build))
@@ -823,8 +845,7 @@ def explain(source: Path | None, as_json: bool) -> int:
     report_file = report_path(Path.cwd(), source)
     payload = load_report(report_file)
     if payload is None:
-        print(f"没有找到报告：{report_file}。先运行一次构建再查看。", file=sys.stderr)
-        return int(ExitCode.USAGE)
+        raise UsageError(f"没有找到报告：{report_file}。先运行一次构建再查看。")
     if as_json:
         print(json.dumps(payload, ensure_ascii=False, indent=2))
     else:

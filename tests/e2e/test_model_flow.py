@@ -20,15 +20,13 @@ REPAIR_DIFF = """--- a/main.c
 +++ b/main.c
 @@ -1,2 +1,2 @@
  #include <stdio.h>
--int main(void) { printf("hi\\n") return 0; }
+-int main(void) { emit_hi("hi\\n"); return 0; }
 +int main(void) { printf("hi\\n"); return 0; }
 """
 
-BROKEN_C = '#include <stdio.h>\nint main(void) { printf("hi\\n") return 0; }\n'
+BROKEN_C = '#include <stdio.h>\nint main(void) { emit_hi("hi\\n"); return 0; }\n'
 
-HELLO_SOURCE = (
-    '#include <stdio.h>\nint main(void) { printf("hello\\n"); return 0; }\n'
-)
+HELLO_SOURCE = '#include <stdio.h>\nint main(void) { printf("hello\\n"); return 0; }\n'
 
 
 def _run(args: list[str], cwd: Path, stdin: str = "") -> subprocess.CompletedProcess[str]:
@@ -50,7 +48,9 @@ def _report(directory: Path, stem: str) -> dict[str, object]:
 
 
 def test_model_repair_applies_diff(tmp_path: Path, fake_model: FakeModelServer) -> None:
-    fake_model.responses.append({"diff": REPAIR_DIFF, "assumptions": ["missing semicolon"]})
+    fake_model.responses.append(
+        {"diff": REPAIR_DIFF, "assumptions": ["emit_hi intended as printf"]}
+    )
     (tmp_path / "main.c").write_text(BROKEN_C, encoding="utf-8")
 
     result = _run(["run", "main.c"], tmp_path)
@@ -96,9 +96,7 @@ def test_creative_fallback_uses_model(tmp_path: Path, fake_model: FakeModelServe
     assert report["result"]["fallback"]["kind"] == "model_creative"
 
 
-def test_model_cache_avoids_second_call(
-    tmp_path: Path, fake_model: FakeModelServer
-) -> None:
+def test_model_cache_avoids_second_call(tmp_path: Path, fake_model: FakeModelServer) -> None:
     fake_model.responses.extend(
         [
             {"source": HELLO_SOURCE, "assumptions": []},
@@ -140,9 +138,7 @@ def test_offline_never_calls_model(tmp_path: Path, fake_model: FakeModelServer) 
     assert report["model"] is None or report["model"]["calls"] == 0
 
 
-def test_invalid_model_output_falls_back(
-    tmp_path: Path, fake_model: FakeModelServer
-) -> None:
+def test_invalid_model_output_falls_back(tmp_path: Path, fake_model: FakeModelServer) -> None:
     fake_model.responses.append("this is not json")
     (tmp_path / "notes.txt").write_text("写一个程序输出 hello\n", encoding="utf-8")
     result = _run(["notes.txt"], tmp_path)
@@ -177,13 +173,17 @@ def test_trace_and_emit_source(tmp_path: Path, fake_model: FakeModelServer) -> N
 
 def test_l2_compile_failure_upgrades_to_l3(tmp_path: Path, fake_model: FakeModelServer) -> None:
     invalid_source = '#include <stdio.h>\nint main(void) { puts("hi"); return missing; }\n'
-    invalid_diff = "".join(difflib.unified_diff(
-        BROKEN_C.splitlines(keepends=True), invalid_source.splitlines(keepends=True),
-        fromfile="main.c", tofile="main.c",
-    ))
-    fake_model.responses.extend([
-        {"diff": invalid_diff}, {"diff": REPAIR_DIFF}, {"diff": invalid_diff}
-    ])
+    invalid_diff = "".join(
+        difflib.unified_diff(
+            BROKEN_C.splitlines(keepends=True),
+            invalid_source.splitlines(keepends=True),
+            fromfile="main.c",
+            tofile="main.c",
+        )
+    )
+    fake_model.responses.extend(
+        [{"diff": invalid_diff}, {"diff": REPAIR_DIFF}, {"diff": invalid_diff}]
+    )
     (tmp_path / "main.c").write_text(BROKEN_C, encoding="utf-8")
     result = _run(["run", "main.c"], tmp_path)
     assert result.returncode == 0, result.stderr

@@ -30,6 +30,7 @@ class FakeModelServer:
     def __init__(self) -> None:
         self.responses: list[object] = []
         self.requests: list[dict[str, object]] = []
+        self.status_code = 200
         self.usage: object = {"prompt_tokens": 10, "completion_tokens": 5}
         owner = self
 
@@ -54,7 +55,7 @@ class FakeModelServer:
                         "usage": owner.usage,
                     }
                 ).encode("utf-8")
-                self.send_response(200)
+                self.send_response(owner.status_code)
                 self.send_header("Content-Type", "application/json")
                 self.send_header("Content-Length", str(len(body)))
                 self.end_headers()

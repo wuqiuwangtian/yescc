@@ -1,0 +1,109 @@
+{
+  "dataset_sha256": "d24f6ce70b73f746e932c6b932d6aeb4c2c88bff4ec1724bf7465b1c648a2ab2",
+  "prompt_version": "m4-1",
+  "provider": "deepseek",
+  "model": "deepseek-chat",
+  "cost_usd": 0.0025095,
+  "records": [
+    {
+      "id": "complex_product",
+      "source": "#include <stdio.h>\n#include <string.h>\n#include <ctype.h>\n/* 读入两个整数，输出乘积 */\nint main(void) {\ninteger_t a,b; if (scanf(\"%lld%lld\", &a,&b) != 2) return 0;\nprintf(\"%lld\\n\", (long long)(a*b));\nreturn 0;\n}\n",
+      "filename": "complex_product.c",
+      "diagnostics": "/tmp/yescc-m5-capture-zrlur3lk/complex_product/complex_product.c: In function ‘main’:\n/tmp/yescc-m5-capture-zrlur3lk/complex_product/complex_product.c:6:1: error: unknown type name ‘integer_t’\n    6 | integer_t a,b; if (scanf(\"%lld%lld\", &a,&b) != 2) return 0;\n      | ^~~~~~~~~\n",
+      "raw_response": "{\"diff\": \"--- a/complex_product.c\\n+++ b/complex_product.c\\n@@ -3,7 +3,7 @@\\n #include <ctype.h>\\n /* 读入两个整数，输出乘积 */\\n int main(void) {\\n-integer_t a,b; if (scanf(\\\"%lld%lld\\\", &a,&b) != 2) return 0;\\n+long long a,b; if (scanf(\\\"%lld%lld\\\", &a,&b) != 2) return 0;\\n printf(\\\"%lld\\\\n\\\", (long long)(a*b));\\n return 0;\\n }\\n\", \"assumptions\": [\"integer_t is not a standard type; long long matches the %lld format specifiers used with a and b.\"]}",
+      "applied_by_m4": true,
+      "patch_errors": [],
+      "calls": 1,
+      "cost_usd": 0.00029602000000000003
+    },
+    {
+      "id": "complex_sign",
+      "source": "#include <stdio.h>\n#include <string.h>\n#include <ctype.h>\n/* 读入整数，负数输出 -1，零输出 0，正数输出 1 */\nint main(void) {\nlong long n; if (scanf(\"%lld\", &n) != 1) return 0;\nemit_result(\"%lld\\n\", (long long)((n>0)-(n<0)));\nreturn 0;\n}\n",
+      "filename": "complex_sign.c",
+      "diagnostics": "/tmp/yescc-m5-capture-zrlur3lk/complex_sign/complex_sign.c: In function ‘main’:\n/tmp/yescc-m5-capture-zrlur3lk/complex_sign/complex_sign.c:7:1: error: implicit declaration of function ‘emit_result’ [-Wimplicit-function-declaration]\n    7 | emit_result(\"%lld\\n\", (long long)((n>0)-(n<0)));\n      | ^~~~~~~~~~~\n",
+      "raw_response": "{\"diff\": \"--- a/complex_sign.c\\n+++ b/complex_sign.c\\n@@ -5,7 +5,7 @@\\n int main(void) {\\n long long n; if (scanf(\\\"%lld\\\", &n) != 1) return 0;\\n-emit_result(\\\"%lld\\\\n\\\", (long long)((n>0)-(n<0)));\\n+printf(\\\"%lld\\\\n\\\", (long long)((n>0)-(n<0)));\\n return 0;\\n }\\n\", \"assumptions\": [\"emit_result was intended to be printf; replacing the call with printf fixes the implicit declaration error with minimal change.\"]}",
+      "applied_by_m4": true,
+      "patch_errors": [],
+      "calls": 1,
+      "cost_usd": 0.00027641
+    },
+    {
+      "id": "complex_parity",
+      "source": "#include <stdio.h>\n#include <string.h>\n#include <ctype.h>\n/* 读入整数，偶数输出 EVEN，奇数输出 ODD */\nint main(void) {\nlong long n;scanf(\"%lld\",&n);printf(\"%s\\n\",n%2?\"ODD\":\"EVEN\");\nreturn result_code;\n}\n",
+      "filename": "complex_parity.c",
+      "diagnostics": "/tmp/yescc-m5-capture-zrlur3lk/complex_parity/complex_parity.c: In function ‘main’:\n/tmp/yescc-m5-capture-zrlur3lk/complex_parity/complex_parity.c:7:8: error: ‘result_code’ undeclared (first use in this function)\n    7 | return result_code;\n      |        ^~~~~~~~~~~\n/tmp/yescc-m5-capture-zrlur3lk/complex_parity/complex_parity.c:7:8: note: each undeclared identifier is reported only once for each function it appears in\n",
+      "raw_response": "{\"diff\": \"--- a/complex_parity.c\\n+++ b/complex_parity.c\\n@@ -5,5 +5,5 @@\\n long long n;scanf(\\\"%lld\\\",&n);printf(\\\"%s\\\\n\\\",n%2?\\\"ODD\\\":\\\"EVEN\\\");\\n-return result_code;\\n+return 0;\\n }\\n\", \"assumptions\": [\"result_code was intended to be the program exit status; returning 0 is the minimal fix.\"]}",
+      "applied_by_m4": false,
+      "patch_errors": [
+        "patch: 上下文不匹配"
+      ],
+      "calls": 1,
+      "cost_usd": 0.00024221000000000003
+    },
+    {
+      "id": "complex_factorial",
+      "source": "#include <stdio.h>\n#include <string.h>\n#include <ctype.h>\n/* 读入 0 到 20 的 n，输出 n 的阶乘，0 的阶乘为 1 */\nint main(void) {\nlong long n,r=1scanf(\"%lld\",&n);for(int i=2;i<=n;i++)r*=i;printf(\"%lld\\n\",r);\nreturn 0;\n}\n",
+      "filename": "complex_factorial.c",
+      "diagnostics": "/tmp/yescc-m5-capture-zrlur3lk/complex_factorial/complex_factorial.c: In function ‘main’:\n/tmp/yescc-m5-capture-zrlur3lk/complex_factorial/complex_factorial.c:6:15: error: invalid suffix ‘scanf’ on integer constant\n    6 | long long n,r=1scanf(\"%lld\",&n);for(int i=2;i<=n;i++)r*=i;printf(\"%lld\\n\",r);\n      |               ^~~~~~\n",
+      "raw_response": "{\"diff\": \"--- a/complex_factorial.c\\n+++ b/complex_factorial.c\\n@@ -3,7 +3,7 @@\\n /* 读入 0 到 20 的 n，输出 n 的阶乘，0 的阶乘为 1 */\\n int main(void) {\\n-long long n,r=1scanf(\\\"%lld\\\",&n);for(int i=2;i<=n;i++)r*=i;printf(\\\"%lld\\\\n\\\",r);\\n+long long n,r=1;scanf(\\\"%lld\\\",&n);for(int i=2;i<=n;i++)r*=i;printf(\\\"%lld\\\\n\\\",r);\\n return 0;\\n }\\n\", \"assumptions\": [\"A semicolon was missing between the initializer 'r=1' and the scanf call; adding it fixes the invalid suffix error.\"]}",
+      "applied_by_m4": false,
+      "patch_errors": [
+        "patch: 上下文不匹配"
+      ],
+      "calls": 1,
+      "cost_usd": 0.00033272
+    },
+    {
+      "id": "complex_power",
+      "source": "#include <stdio.h>\n#include <string.h>\n#include <ctype.h>\n/* 读入整数 a 和 0 到 8 的 b，输出 a 的 b 次方，0 的 0 次方取 1 */\nint main(void) {\nlong long a,b,r=1;scanf(\"%lld%lld\",&a,&b);while(b-->0)r*=a;printf(\"%lld\\n\",r);\nreturn result_code;\n}\n",
+      "filename": "complex_power.c",
+      "diagnostics": "/tmp/yescc-m5-capture-zrlur3lk/complex_power/complex_power.c: In function ‘main’:\n/tmp/yescc-m5-capture-zrlur3lk/complex_power/complex_power.c:7:8: error: ‘result_code’ undeclared (first use in this function)\n    7 | return result_code;\n      |        ^~~~~~~~~~~\n/tmp/yescc-m5-capture-zrlur3lk/complex_power/complex_power.c:7:8: note: each undeclared identifier is reported only once for each function it appears in\n",
+      "raw_response": "{\"diff\": \"--- a/complex_power.c\\n+++ b/complex_power.c\\n@@ -5,4 +5,4 @@\\n long long a,b,r=1;scanf(\\\"%lld%lld\\\",&a,&b);while(b-->0)r*=a;printf(\\\"%lld\\\\n\\\",r);\\n-return result_code;\\n+return 0;\\n }\\n\", \"assumptions\": [\"result_code was a placeholder for the program exit status; returning 0 is the intended success code.\"]}",
+      "applied_by_m4": false,
+      "patch_errors": [
+        "patch: 上下文不匹配"
+      ],
+      "calls": 1,
+      "cost_usd": 0.00025446
+    },
+    {
+      "id": "complex_digit_count",
+      "source": "#include <stdio.h>\n#include <string.h>\n#include <ctype.h>\n/* 读入绝对值不超过十亿的整数，输出绝对值的十进制位数，0 为一位 */\nint main(void) {\nlong long n,r=0scanf(\"%lld\",&n);if(n<0)n=-n;do{r++;n/=10;}while(n);printf(\"%lld\\n\",r);\nreturn 0;\n}\n",
+      "filename": "complex_digit_count.c",
+      "diagnostics": "/tmp/yescc-m5-capture-zrlur3lk/complex_digit_count/complex_digit_count.c: In function ‘main’:\n/tmp/yescc-m5-capture-zrlur3lk/complex_digit_count/complex_digit_count.c:6:15: error: invalid suffix ‘scanf’ on integer constant\n    6 | long long n,r=0scanf(\"%lld\",&n);if(n<0)n=-n;do{r++;n/=10;}while(n);printf(\"%lld\\n\",r);\n      |               ^~~~~~\n",
+      "raw_response": "{\"diff\": \"--- a/complex_digit_count.c\\n+++ b/complex_digit_count.c\\n@@ -3,7 +3,7 @@\\n /* 读入绝对值不超过十亿的整数，输出绝对值的十进制位数，0 为一位 */\\n int main(void) {\\n-long long n,r=0scanf(\\\"%lld\\\",&n);if(n<0)n=-n;do{r++;n/=10;}while(n);printf(\\\"%lld\\\\n\\\",r);\\n+long long n,r=0;scanf(\\\"%lld\\\",&n);if(n<0)n=-n;do{r++;n/=10;}while(n);printf(\\\"%lld\\\\n\\\",r);\\n return 0;\\n }\\n\", \"assumptions\": [\"Missing semicolon after r=0 caused the parser to treat scanf as an integer suffix; inserting ';' fixes it.\"]}",
+      "applied_by_m4": false,
+      "patch_errors": [
+        "patch: 上下文不匹配"
+      ],
+      "calls": 1,
+      "cost_usd": 0.00033407
+    },
+    {
+      "id": "complex_divisor_count",
+      "source": "#include <stdio.h>\n#include <string.h>\n#include <ctype.h>\n/* 读入 1 到 10000 的 n，输出正因数数量 */\nint main(void) {\nlong long n,r=0;scanf(\"%lld\",&n);for(int d=1;d<=n;d++)if(n%d==0)r++;printf(\"%lld\\n\",r);\nreturn result_code;\n}\n",
+      "filename": "complex_divisor_count.c",
+      "diagnostics": "/tmp/yescc-m5-capture-zrlur3lk/complex_divisor_count/complex_divisor_count.c: In function ‘main’:\n/tmp/yescc-m5-capture-zrlur3lk/complex_divisor_count/complex_divisor_count.c:7:8: error: ‘result_code’ undeclared (first use in this function)\n    7 | return result_code;\n      |        ^~~~~~~~~~~\n/tmp/yescc-m5-capture-zrlur3lk/complex_divisor_count/complex_divisor_count.c:7:8: note: each undeclared identifier is reported only once for each function it appears in\n",
+      "raw_response": "{\"diff\": \"--- a/complex_divisor_count.c\\n+++ b/complex_divisor_count.c\\n@@ -5,4 +5,4 @@\\n long long n,r=0;scanf(\\\"%lld\\\",&n);for(int d=1;d<=n;d++)if(n%d==0)r++;printf(\\\"%lld\\\\n\\\",r);\\n-return result_code;\\n+return 0;\\n }\\n\", \"assumptions\": [\"result_code was an undefined placeholder; returning 0 is the standard success exit code for main.\"]}",
+      "applied_by_m4": false,
+      "patch_errors": [
+        "patch: 上下文不匹配"
+      ],
+      "calls": 1,
+      "cost_usd": 0.00026054
+    },
+    {
+      "id": "complex_triangle",
+      "source": "#include <stdio.h>\n#include <string.h>\n#include <ctype.h>\n/* 读入三个整数边长，能构成非退化三角形输出 YES，否则 NO */\nint main(void) {\nlong long a,b,cscanf(\"%lld%lld%lld\",&a,&b,&c);printf(\"%s\\n\",a>0&&b>0&&c>0&&a+b>c&&a+c>b&&b+c>a?\"YES\":\"NO\");\nreturn 0;\n}\n",
+      "filename": "complex_triangle.c",
+      "diagnostics": "/tmp/yescc-m5-capture-zrlur3lk/complex_triangle/complex_triangle.c: In function ‘main’:\n/tmp/yescc-m5-capture-zrlur3lk/complex_triangle/complex_triangle.c:6:22: error: expected declaration specifiers or ‘...’ before string constant\n    6 | long long a,b,cscanf(\"%lld%lld%lld\",&a,&b,&c);printf(\"%s\\n\",a>0&&b>0&&c>0&&a+b>c&&a+c>b&&b+c>a?\"YES\":\"NO\");\n      |                      ^~~~~~~~~~~~~~\n/tmp/yescc-m5-capture-zrlur3lk/complex_triangle/complex_triangle.c:6:37: error: expected declaration specifiers or ‘...’ before ‘&’ token\n    6 | long long a,b,cscanf(\"%lld%lld%lld\",&a,&b,&c);printf(\"%s\\n\",a>0&&b>0&&c>0&&a+b>c&&a+c>b&&b+c>a?\"YES\":\"NO\");\n      |                                     ^\n/tmp/yescc-m5-capture-zrlur3lk/complex_triangle/complex_triangle.c:6:40: error: expected declaration specifiers or ‘...’ before ‘&’ token\n    6 | long long a,b,cscanf(\"%lld%lld%lld\",&a,&b,&c);printf(\"%s\\n\",a>0&&b>0&&c>0&&a+b>c&&a+c>b&&b+c>a?\"YES\":\"NO\");\n      |                                        ^\n/tmp/yescc-m5-capture-zrlur3lk/complex_triangle/complex_triangle.c:6:43: error: expected declaration specifiers or ‘...’ before ‘&’ token\n    6 | long long a,b,cscanf(\"%lld%lld%lld\",&a,&b,&c);printf(\"%s\\n\",a>0&&b>0&&c>0&&a+b>c&&a+c>b&&b+c>a?\"YES\":\"NO\");\n      |                                           ^\n/tmp/yescc-m5-capture-zrlur3lk/complex_triangle/complex_triangle.c:6:71: error: ‘c’ undeclared (first use in this function)\n    6 | long long a,b,cscanf(\"%lld%lld%lld\",&a,&b,&c);printf(\"%s\\n\",a>0&&b>0&&c>0&&a+b>c&&a+c>b&&b+c>a?\"YES\":\"NO\");\n      |                                                                       ^\n/tmp/yescc-m5-capture-zrlur3lk/complex_triangle/complex_triangle.c:6:71: note: each undeclared identifier is reported only once for each function it appears in\n",
+      "raw_response": "{\"diff\": \"--- a/complex_triangle.c\\n+++ b/complex_triangle.c\\n@@ -3,7 +3,7 @@\\n /* 读入三个整数边长，能构成非退化三角形输出 YES，否则 NO */\\n int main(void) {\\n-long long a,b,cscanf(\\\"%lld%lld%lld\\\",&a,&b,&c);printf(\\\"%s\\\\n\\\",a>0&&b>0&&c>0&&a+b>c&&a+c>b&&b+c>a?\\\"YES\\\":\\\"NO\\\");\\n+long long a,b,c;scanf(\\\"%lld%lld%lld\\\",&a,&b,&c);printf(\\\"%s\\\\n\\\",a>0&&b>0&&c>0&&a+b>c&&a+c>b&&b+c>a?\\\"YES\\\":\\\"NO\\\");\\n return 0;\\n }\\n\", \"assumptions\": [\"The declaration 'long long a,b,c' was missing a semicolon before the scanf call; adding ';' separates the declaration from the statement.\"]}",
+      "applied_by_m4": false,
+      "patch_errors": [
+        "patch: 上下文不匹配"
+      ],
+      "calls": 1,
+      "cost_usd": 0.00051307
+    }
+  ]
+}

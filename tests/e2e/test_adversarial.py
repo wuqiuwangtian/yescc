@@ -20,8 +20,8 @@ import json,sys
 from dataclasses import asdict
 from pathlib import Path
 from yescc.sandbox import run_ai_command
-r=run_ai_command([sys.executable,'-c',sys.argv[1],*sys.argv[2:]],
-                 unsafe=False,cwd=Path.cwd(),timeout_s=0.4)
+r=run_ai_command([sys.executable,'-c',sys.argv[1],*sys.argv[2:-1]],
+                 unsafe=False,cwd=Path.cwd(),timeout_s=float(sys.argv[-1]))
 print('__YESCC_OUTCOME__'+json.dumps(asdict(r)),file=sys.stderr,flush=True)
 """
 
@@ -123,10 +123,14 @@ ATTACKS = (
 
 
 def run_script(
-    script: str, tmp_path: Path, args: list[str] | None = None, stdin: str = ""
+    script: str,
+    tmp_path: Path,
+    args: list[str] | None = None,
+    stdin: str = "",
+    timeout_s: float = 0.4,
 ) -> tuple[subprocess.CompletedProcess[str], dict[str, object], str]:
     result = subprocess.run(
-        [sys.executable, "-c", WRAPPER, script, *(args or [])],
+        [sys.executable, "-c", WRAPPER, script, *(args or []), str(timeout_s)],
         cwd=tmp_path,
         input=stdin,
         capture_output=True,
@@ -187,7 +191,7 @@ def test_loopback_network_matches_report(tmp_path: Path) -> None:
             f" s=socket.create_connection(('127.0.0.1',{port}),timeout=0.1); "
             "s.close(); print('connected')\nexcept OSError: print('blocked')"
         )
-        result, outcome, _ = run_script(script, tmp_path)
+        result, outcome, _ = run_script(script, tmp_path, timeout_s=3)
     assert outcome["exit_code"] == 0
     assert result.stdout == ("blocked\n" if outcome["network_isolated"] else "connected\n")
 

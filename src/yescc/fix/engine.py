@@ -4,12 +4,22 @@ from __future__ import annotations
 
 import shutil
 import tempfile
+from collections import deque
 from collections.abc import Sequence
 from dataclasses import dataclass
 from pathlib import Path
 
 from yescc.adapters.base import BuildResult, LanguageAdapter
-from yescc.fix.c_rules import Candidate, generate_candidates
+from yescc.fix.c_rules import (
+    Candidate,
+    changed_count,
+    generate_candidates,
+    insert_missing_semicolons,
+)
+from yescc.fix.feedback import semicolon_from_diagnostics
+
+MAX_RULE_BUILDS = 24
+MAX_REFINEMENTS = 4
 
 
 @dataclass
@@ -96,7 +106,7 @@ def build_in_temp(
         for header in source_dir.glob("*.h"):
             shutil.copy2(header, directory / header.name)
         target = directory / filename
-        target.write_text(text, encoding="utf-8")
+        target.write_text(text, encoding="utf-8", newline="")
         arguments = _resolve_paths(_without_output(passthrough), cwd)
         arguments.extend(["-iquote", str(source_dir.resolve())])
         build = adapter.build(target, arguments, directory)
@@ -116,15 +126,47 @@ def attempt_repair(
     passthrough: Sequence[str],
     cwd: Path,
     source_dir: Path,
+    diagnostics: str = "",
 ) -> RepairOutcome:
-    """按改动量从小到大验证规则候选；第一个通过真实编译的候选胜出。"""
+    """在有界队列中验证组合/反馈候选；首个完整构建成功的候选胜出。"""
     outcome = RepairOutcome(attempts=[])
-    for candidate in generate_candidates(source_text):
-        result = build_in_temp(adapter, candidate.text, filename, passthrough, cwd, source_dir)
+    queue = deque((candidate, 0) for candidate in generate_candidates(source_text))
+    seed = semicolon_from_diagnostics(source_text, diagnostics, filename)
+    if seed is not None:
+        queue.appendleft((Candidate(seed, ("semicolon_gcc",), changed_count(source_text, seed)), 0))
+    seen = {source_text}
+    while queue and len(outcome.attempts) < MAX_RULE_BUILDS:
+        candidate, depth = queue.popleft()
+        if candidate.text in seen:
+            continue
+        seen.add(candidate.text)
+        result = build_in_temp(
+            adapter,
+            candidate.text,
+            filename,
+            [*passthrough, "-fdiagnostics-parseable-fixits"],
+            cwd,
+            source_dir,
+        )
         outcome.attempts.append(("rule", result.build))
         if result.build.returncode == 0:
             outcome.candidate = candidate
             outcome.build = result.build
             outcome.artifact = result.artifact
             break
+        if depth >= MAX_REFINEMENTS:
+            continue
+        for patched, rule in (
+            (insert_missing_semicolons(candidate.text), "semicolon_ast"),
+            (
+                semicolon_from_diagnostics(candidate.text, result.build.stderr, filename),
+                "semicolon_gcc",
+            ),
+        ):
+            if patched is None or patched == candidate.text or patched in seen:
+                continue
+            rules = tuple(dict.fromkeys((*candidate.rules, rule)))
+            queue.appendleft(
+                (Candidate(patched, rules, changed_count(source_text, patched)), depth + 1)
+            )
     return outcome

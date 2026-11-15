@@ -14,9 +14,7 @@ pytestmark = pytest.mark.e2e
 PYTHON = sys.executable
 
 
-def _run(
-    args: list[str], cwd: Path, stdin: str = ""
-) -> subprocess.CompletedProcess[str]:
+def _run(args: list[str], cwd: Path, stdin: str = "") -> subprocess.CompletedProcess[str]:
     return subprocess.run(
         [PYTHON, "-m", "yescc", *args],
         cwd=str(cwd),
@@ -66,14 +64,13 @@ def test_explain_without_report(tmp_path: Path) -> None:
     assert "没有找到报告" in result.stderr
 
 
-def test_broken_c_falls_back_by_default(tmp_path: Path) -> None:
+def test_semicolon_is_repaired_without_model(tmp_path: Path) -> None:
     (tmp_path / "broken.c").write_text("int main(void) { return 0 }\n", encoding="utf-8")
     result = _run(["broken.c"], tmp_path)
     assert result.returncode == 0
-    assert "创意兜底" in result.stderr
     report = json.loads((tmp_path / ".yescc" / "broken" / "report.json").read_text("utf-8"))
-    assert report["result"]["status"] == "creative_fallback"
-    assert report["result"]["fallback"]["kind"] == "print_input"
+    assert report["result"]["status"] == "repaired"
+    assert report["result"]["fallback"] is None
 
 
 def test_broken_c_strict_shows_toolchain_output(tmp_path: Path) -> None:

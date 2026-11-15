@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from importlib.metadata import version
 from pathlib import Path
 
 import pytest
@@ -12,7 +13,7 @@ from yescc.errors import ExitCode, UsageError
 
 def test_version(capsys: pytest.CaptureFixture[str]) -> None:
     assert main(["--version"]) == 0
-    assert "yescc" in capsys.readouterr().out
+    assert capsys.readouterr().out == f"yescc {version('yescc')}\n"
 
 
 def test_help(capsys: pytest.CaptureFixture[str]) -> None:

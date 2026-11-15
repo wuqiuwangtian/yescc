@@ -1,0 +1,9 @@
+{
+  "l3": {
+    "base_url": "http://127.0.0.1:18888/v1",
+    "name": "blackbox-fake",
+    "input_price_per_mtok": 1,
+    "output_price_per_mtok": 1,
+    "timeout_s": 3
+  }
+}
