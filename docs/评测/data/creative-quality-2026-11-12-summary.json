@@ -1,0 +1,546 @@
+{
+  "scope": {
+    "baseline_commit": "1a9f139",
+    "dataset_sha256": "45bd4c2ac60ff4ce36c758817a08ecb8eb2c9d7bd35b48a3713ee1594d76daf5",
+    "rubric_sha256": "42c163715b9205d20033cadfcdd4a9dc16a2de83ab5ab76112d78cc04a84fa41",
+    "task_budget_usd": 0.005,
+    "suite_reserved_cap_usd": 0.5,
+    "price_input_upper_per_mtok": 0.3,
+    "price_output_upper_per_mtok": 1.2,
+    "price_source": "https://api-docs.deepseek.com/quick_start/pricing/",
+    "runtime_timeout_s": 3,
+    "stdout_budget_bytes": 65536,
+    "source_policy": "unchanged product; baseline only records HTTP; quality_prompt appends instructions to session.generate_messages before budget calculation; nonthinking wire experiment separate",
+    "request_model": "deepseek-chat",
+    "pilot_served_model": "deepseek-flash",
+    "planned_main_cases": 50,
+    "planned_additional_repeat_trials": 10,
+    "planned_prompt_comparisons": 10,
+    "frozen_before_main_run": true,
+    "prompt_comparison_ids": [
+      "F06",
+      "F07",
+      "F10",
+      "F14",
+      "F22",
+      "S06",
+      "S09",
+      "S11",
+      "S14",
+      "S18"
+    ],
+    "repeat_ids": [
+      "F06",
+      "F14",
+      "S09",
+      "S11",
+      "S18"
+    ],
+    "repeat_trials_per_input": 3,
+    "pilot_timeout_s": 2,
+    "main_timeout_s": 3,
+    "driver_final_sha256": "d2e0447e4499935e171558cfc0fb86ace6b791a5874a9498cb215164e162484c",
+    "baseline_runtime_limits_note": "Actual run_ai_command called with 3-second timeout and default isolation; SandboxOutcome not serialized by this runner. Build report limits are NOT runtime isolation evidence.",
+    "source_commit": "1a9f1396f9ff89cb48e7a7ca39b8f019ad08e3c4",
+    "source_fingerprint": "5ebf765f60a439dc62d734357e82d0a98262af2ab30a105fe6180cce4fb7adf6",
+    "fixed_m4_dataset_sha256": "d24f6ce70b73f746e932c6b932d6aeb4c2c88bff4ec1724bf7465b1c648a2ab2",
+    "platform": "Linux-6.18.58.1-microsoft-standard-WSL2-x86_64-with-glibc2.44",
+    "python": "3.11.15",
+    "gcc": "gcc (GCC) 16.2.1 20260810",
+    "real_request_count": 80,
+    "trial_count": 79,
+    "corpus_main": 50,
+    "additional_repeats": 10,
+    "experimental_prompt_trials": 10,
+    "transport_pilots": 3,
+    "actual_cli_run_routes": 6,
+    "unknown_cost_cases": 0,
+    "upper_price_estimate_usd": 0.0434547,
+    "reserved_suite_usd": 0.395,
+    "actual_api_invoice_verified": false,
+    "product_files_modified": false,
+    "prompt_tokens": 20881,
+    "completion_tokens": 30992,
+    "upper_price_token_recalculation_usd": 0.0434547,
+    "read_only_models_list_queries": 1,
+    "real_request_type": "Chat Completions; model-list metadata query excluded",
+    "sum_task_rounded_cost_usd": 0.043453
+  },
+  "groups": {
+    "main": {
+      "total": 50,
+      "origin_counts": {
+        "easter_egg": 3,
+        "model_creative": 44,
+        "print_input": 3
+      },
+      "valid_utf8": 49,
+      "executed_exit0": 50,
+      "reviewers": {
+        "a": {
+          "labels": {
+            "fallback": 6,
+            "mixed": 31,
+            "strong": 13
+          },
+          "model_count": 44,
+          "model_dimension_means": {
+            "relevance": 2.523,
+            "creativity": 1.295,
+            "programmatic": 2.114,
+            "integrity": 1.909
+          },
+          "model_creativity_at_least_2": 16
+        },
+        "b": {
+          "labels": {
+            "fallback": 6,
+            "mixed": 26,
+            "strong": 18
+          },
+          "model_count": 44,
+          "model_dimension_means": {
+            "relevance": 2.614,
+            "creativity": 1.295,
+            "programmatic": 1.955,
+            "integrity": 2.045
+          },
+          "model_creativity_at_least_2": 18
+        }
+      },
+      "both_strong": 13
+    },
+    "additional_repeats": {
+      "total": 10,
+      "origin_counts": {
+        "model_creative": 10
+      },
+      "valid_utf8": 10,
+      "executed_exit0": 10,
+      "reviewers": {
+        "a": {
+          "labels": {
+            "mixed": 6,
+            "strong": 4
+          },
+          "model_count": 10,
+          "model_dimension_means": {
+            "relevance": 2.7,
+            "creativity": 1.4,
+            "programmatic": 1.8,
+            "integrity": 2.3
+          },
+          "model_creativity_at_least_2": 3
+        },
+        "b": {
+          "labels": {
+            "strong": 5,
+            "mixed": 5
+          },
+          "model_count": 10,
+          "model_dimension_means": {
+            "relevance": 2.7,
+            "creativity": 1.2,
+            "programmatic": 1.8,
+            "integrity": 2.3
+          },
+          "model_creativity_at_least_2": 3
+        }
+      },
+      "both_strong": 4
+    },
+    "matched_baseline": {
+      "total": 10,
+      "origin_counts": {
+        "model_creative": 9,
+        "print_input": 1
+      },
+      "valid_utf8": 9,
+      "executed_exit0": 10,
+      "reviewers": {
+        "a": {
+          "labels": {
+            "mixed": 5,
+            "strong": 4,
+            "fallback": 1
+          },
+          "model_count": 9,
+          "model_dimension_means": {
+            "relevance": 2.667,
+            "creativity": 1.444,
+            "programmatic": 2.333,
+            "integrity": 2.333
+          },
+          "model_creativity_at_least_2": 3
+        },
+        "b": {
+          "labels": {
+            "mixed": 4,
+            "strong": 5,
+            "fallback": 1
+          },
+          "model_count": 9,
+          "model_dimension_means": {
+            "relevance": 2.889,
+            "creativity": 1.444,
+            "programmatic": 2.333,
+            "integrity": 2.222
+          },
+          "model_creativity_at_least_2": 3
+        }
+      },
+      "both_strong": 4
+    },
+    "prompt_experiment": {
+      "total": 10,
+      "origin_counts": {
+        "model_creative": 10
+      },
+      "valid_utf8": 10,
+      "executed_exit0": 10,
+      "reviewers": {
+        "a": {
+          "labels": {
+            "strong": 10
+          },
+          "model_count": 10,
+          "model_dimension_means": {
+            "relevance": 3,
+            "creativity": 2.4,
+            "programmatic": 2.5,
+            "integrity": 2.8
+          },
+          "model_creativity_at_least_2": 9
+        },
+        "b": {
+          "labels": {
+            "strong": 9,
+            "mixed": 1
+          },
+          "model_count": 10,
+          "model_dimension_means": {
+            "relevance": 2.9,
+            "creativity": 2.6,
+            "programmatic": 2.5,
+            "integrity": 2.8
+          },
+          "model_creativity_at_least_2": 9
+        }
+      },
+      "both_strong": 9
+    }
+  },
+  "review_disagreements": [
+    {
+      "record_id": "f36949611908",
+      "id": "F05",
+      "mode": "baseline",
+      "original_id": "F05",
+      "a": {
+        "record_id": "f36949611908",
+        "scores": {
+          "relevance": 3,
+          "creativity": 1,
+          "programmatic": 2,
+          "integrity": 2
+        },
+        "label": "mixed",
+        "reason": "猫脸与“meow() -> { return 0; }”把猫和代码连在同一画面，图形完整且短英文说明可理解。它是一幅贴题静态小景，猫具体如何编程及趣味发展仍很有限。"
+      },
+      "b": {
+        "record_id": "f36949611908",
+        "scores": {
+          "relevance": 3,
+          "creativity": 2,
+          "programmatic": 2,
+          "integrity": 3
+        },
+        "label": "strong",
+        "reason": "猫ASCII后给出“meow() -> { return 0; }”，把猫叫变成代码，贴合会写代码的猫；简短图像和函数玩笑完整，主要以构图呈现。"
+      }
+    },
+    {
+      "record_id": "4143bceb7b67",
+      "id": "F06R2",
+      "mode": "baseline",
+      "original_id": "F06",
+      "a": {
+        "record_id": "4143bceb7b67",
+        "scores": {
+          "relevance": 3,
+          "creativity": 2,
+          "programmatic": 2,
+          "integrity": 1
+        },
+        "label": "mixed",
+        "reason": "月亮工作报告把“reflect sunlight”职责与“fishing in the cosmic pond”现实对照，并配月亮与鱼的成形场景。ASCII 场景有设计，字节长度附录不增加程序性；主要叙述大段英文使中文表达不足。"
+      },
+      "b": {
+        "record_id": "4143bceb7b67",
+        "scores": {
+          "relevance": 3,
+          "creativity": 2,
+          "programmatic": 2,
+          "integrity": 2
+        },
+        "label": "strong",
+        "reason": "月亮职责与cosmic pond现实对照，月面、鱼、波纹构成摸鱼双义场景；英文报告较多，字节长度是附加说明，不是创意核心。"
+      }
+    },
+    {
+      "record_id": "48ce31dcfe98",
+      "id": "F12",
+      "mode": "baseline",
+      "original_id": "F12",
+      "a": {
+        "record_id": "48ce31dcfe98",
+        "scores": {
+          "relevance": 2,
+          "creativity": 2,
+          "programmatic": 2,
+          "integrity": 2
+        },
+        "label": "mixed",
+        "reason": "标题与“day 8”“???”承认不存在的星期八，并以太阳、星点和海面组成完整图形。星期八的独特性仍主要停留在标题和解释，图形本身是一幅一般日落，英文说明也降低中文亲和度。"
+      },
+      "b": {
+        "record_id": "48ce31dcfe98",
+        "scores": {
+          "relevance": 3,
+          "creativity": 2,
+          "programmatic": 2,
+          "integrity": 2
+        },
+        "label": "strong",
+        "reason": "days[7]=???回应不存在的第八天，星点、下降的太阳和海面构成日落，周循环结尾完整；解释主要英语，ASCII仍可理解。"
+      }
+    },
+    {
+      "record_id": "13178867d267",
+      "id": "S07",
+      "mode": "baseline",
+      "original_id": "S07",
+      "a": {
+        "record_id": "13178867d267",
+        "scores": {
+          "relevance": 3,
+          "creativity": 2,
+          "programmatic": 3,
+          "integrity": 1
+        },
+        "label": "mixed",
+        "reason": "CPU 保持 1%，咖啡每煮一杯队列却增至 3、6、9、12、15，最后诊断“caffeine is”瓶颈，构成可见的贴题反差。主体全部改成较长英文状态报告，中文原输入的表达没有获得中文呈现。"
+      },
+      "b": {
+        "record_id": "13178867d267",
+        "scores": {
+          "relevance": 3,
+          "creativity": 2,
+          "programmatic": 2,
+          "integrity": 2
+        },
+        "label": "strong",
+        "reason": "保留周一、CPU1%、咖啡队列溢出，五杯后队长3到15，以caffeine瓶颈收尾有笑点；煮一杯就增加三人的关系未解释。输入已混用英语，报告可理解。"
+      }
+    },
+    {
+      "record_id": "754851a7677d",
+      "id": "S10",
+      "mode": "baseline",
+      "original_id": "S10",
+      "a": {
+        "record_id": "754851a7677d",
+        "scores": {
+          "relevance": 2,
+          "creativity": 1,
+          "programmatic": 2,
+          "integrity": 3
+        },
+        "label": "mixed",
+        "reason": "争吵、拥抱、成为朋友按顺序完整呈现，月亮和机器人 emoji 未损坏。角色间没有具体争执内容或独特对白，主体仍是把题目扩成四句通用故事。"
+      },
+      "b": {
+        "record_id": "754851a7677d",
+        "scores": {
+          "relevance": 3,
+          "creativity": 1,
+          "programmatic": 2,
+          "integrity": 3
+        },
+        "label": "strong",
+        "reason": "月亮与机器人吵架、拥抱、成为朋友顺序完整，emoji与中文清楚；有叙事阶段，几乎照给定情节补套句，没有具体争执或新转折。"
+      }
+    },
+    {
+      "record_id": "9c8777c3e1f4",
+      "id": "S14",
+      "mode": "baseline",
+      "original_id": "S14",
+      "a": {
+        "record_id": "9c8777c3e1f4",
+        "scores": {
+          "relevance": 2,
+          "creativity": 1,
+          "programmatic": 2,
+          "integrity": 3
+        },
+        "label": "mixed",
+        "reason": "土豆、胡萝卜、盐依次说出题目给定议案，末尾“会议在沸腾中结束”补了锅的场景。角色关系成立，但基本是原提纲改对白，缺少具体回应、冲突或新转折。"
+      },
+      "b": {
+        "record_id": "9c8777c3e1f4",
+        "scores": {
+          "relevance": 3,
+          "creativity": 1,
+          "programmatic": 2,
+          "integrity": 3
+        },
+        "label": "strong",
+        "reason": "三角色与加薪、反加班、休会顺序保留，“沸腾中结束”提供锅内收束；静态对白也有演出阶段，但新增内容很少，创意只一档。"
+      }
+    },
+    {
+      "record_id": "85a59eed5844",
+      "id": "S18",
+      "mode": "quality_prompt",
+      "original_id": "S18",
+      "a": {
+        "record_id": "85a59eed5844",
+        "scores": {
+          "relevance": 3,
+          "creativity": 1,
+          "programmatic": 3,
+          "integrity": 2
+        },
+        "label": "strong",
+        "reason": "i 从 10 降至 0，共 11 步并“终于到家”，源码与实际结果实现有限结局。每个递减阶段仍写“越走越远”，与末尾“没有一步是远离家”冲突，是局部叙事措辞缺陷。"
+      },
+      "b": {
+        "record_id": "85a59eed5844",
+        "scores": {
+          "relevance": 2,
+          "creativity": 1,
+          "programmatic": 3,
+          "integrity": 2
+        },
+        "label": "mixed",
+        "reason": "实际递减10到0并计11步，终止有效；每步却说“越走越远”，最后说“没有一步是远离家”，叙述与数字自相矛盾。"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "id": "route_play",
+      "status": "creative_fallback",
+      "kind": "model_creative",
+      "calls": 1,
+      "exit": 0,
+      "source_unchanged": true,
+      "limits": {
+        "sandboxed": true,
+        "network_isolated": false,
+        "timeout_s": 3.0,
+        "environment_filtered": true,
+        "process_tree_cleanup": "posix_group",
+        "resource_limits": "posix_best_effort",
+        "filesystem_isolated": false,
+        "output_limited": false
+      }
+    },
+    {
+      "id": "route_native",
+      "status": "native_ok",
+      "kind": null,
+      "calls": 0,
+      "exit": 0,
+      "source_unchanged": true,
+      "limits": {
+        "sandboxed": false,
+        "network_isolated": false,
+        "timeout_s": null,
+        "environment_filtered": false,
+        "process_tree_cleanup": "none",
+        "resource_limits": "none",
+        "filesystem_isolated": false,
+        "output_limited": false
+      }
+    },
+    {
+      "id": "route_auto",
+      "status": "creative_fallback",
+      "kind": "model_creative",
+      "calls": 1,
+      "exit": 0,
+      "source_unchanged": true,
+      "limits": {
+        "sandboxed": true,
+        "network_isolated": false,
+        "timeout_s": 3.0,
+        "environment_filtered": true,
+        "process_tree_cleanup": "posix_group",
+        "resource_limits": "posix_best_effort",
+        "filesystem_isolated": false,
+        "output_limited": false
+      }
+    },
+    {
+      "id": "route_bad_c",
+      "status": "creative_fallback",
+      "kind": "print_input",
+      "calls": 2,
+      "exit": 0,
+      "source_unchanged": true,
+      "limits": {
+        "sandboxed": true,
+        "network_isolated": false,
+        "timeout_s": 3.0,
+        "environment_filtered": true,
+        "process_tree_cleanup": "posix_group",
+        "resource_limits": "posix_best_effort",
+        "filesystem_isolated": false,
+        "output_limited": false
+      }
+    },
+    {
+      "id": "route_spec",
+      "status": "generated",
+      "kind": null,
+      "calls": 1,
+      "exit": 0,
+      "source_unchanged": true,
+      "limits": {
+        "sandboxed": true,
+        "network_isolated": false,
+        "timeout_s": 3.0,
+        "environment_filtered": true,
+        "process_tree_cleanup": "posix_group",
+        "resource_limits": "posix_best_effort",
+        "filesystem_isolated": false,
+        "output_limited": false
+      }
+    },
+    {
+      "id": "route_bad_c_play",
+      "status": "creative_fallback",
+      "kind": "model_creative",
+      "calls": 1,
+      "exit": 0,
+      "source_unchanged": true,
+      "limits": {
+        "sandboxed": true,
+        "network_isolated": false,
+        "timeout_s": 3.0,
+        "environment_filtered": true,
+        "process_tree_cleanup": "posix_group",
+        "resource_limits": "posix_best_effort",
+        "filesystem_isolated": false,
+        "output_limited": false
+      }
+    }
+  ],
+  "main_model_attempts": {
+    "first_build_success": 44,
+    "tried_model_inputs": 47,
+    "model_program_utf8_valid": 43
+  }
+}

@@ -22,6 +22,8 @@
 
 - 原生发布候选见 [ADR-0020](docs/adr/0020-native-release-candidates.md)：冻结CLI与外部工具链分开，普通wheel语义保持；实际bundle及静态依赖有未知许可证时不得勾选正式发布验收。
 
+- 创意检查和推理配置见 [ADR-0021](docs/adr/0021-creative-quality-and-model-controls.md)：仅完整AI生成C显式链接libm；仅model_creative的run执行有限输出检查，build不得偷偷运行。native不受模型配置影响；参数/缓存/费用和真实验证阶段如实记录，推理正文不进报告。
+
 ## 协作与交付
 
 - 若会话已授权多 agent 并行，分派前明确文件归属、依赖、基线与验收；共享工作区中避免两个 agent 同时写同一文件。主导者负责整合后检查，子任务“完成”不等于整个项目验收通过。

@@ -1,0 +1,1065 @@
+{
+  "schema": "yescc-creative-refinement-v1",
+  "protocol": {
+    "baseline_commit": "cd86889",
+    "tested_commit": "e0a11292dc6dda35e1c48be146ef8bb7fcc1f8c9",
+    "dataset_sha256": "45bd4c2ac60ff4ce36c758817a08ecb8eb2c9d7bd35b48a3713ee1594d76daf5",
+    "rubric_sha256": "42c163715b9205d20033cadfcdd4a9dc16a2de83ab5ab76112d78cc04a84fa41",
+    "task_budget_usd": 0.005,
+    "suite_reserved_cap_usd": 0.5,
+    "input_price_upper_per_mtok": 0.3,
+    "output_price_upper_per_mtok": 1.2,
+    "model": "deepseek-chat",
+    "main_output_cap": 1024,
+    "mode": "baseline (recording only, product now m6-creative-1)",
+    "main_cases": 50,
+    "additional_repeats": 10,
+    "cli_routes": 6,
+    "reasoning_probe_plan": "F06/F14/S09/S11/S18 at low, 4096 requested output, budget-capped; F06/S18 at high",
+    "product_build_does_not_execute": true,
+    "runtime_timeout_s": 3,
+    "old_candidate_replay_is_offline_not_new_quality": true,
+    "frozen_before_calls": true,
+    "review_restart": {
+      "v1_path_leak_in_optional_portability_diagnostic": true,
+      "v1_read_items_a": 75,
+      "v1_partial_scores_a": 60,
+      "v1_written_items_a": 0,
+      "v1_read_items_b": 35,
+      "v1_written_items_b": 25,
+      "v1_scores_excluded": true,
+      "v2_removes_diagnostics_to_keep_focus_on_actual_toolchain": "C11 portability probes remain raw evidence, not primary product compile verdict",
+      "rubric_unchanged": true,
+      "fresh_agent_histories": true
+    },
+    "source_fingerprint": "2ee26592947d34ea7b99443dd5eafe89de6979f0193c65d94e45775fb292ad66",
+    "fixed_m4_dataset_sha256": "d24f6ce70b73f746e932c6b932d6aeb4c2c88bff4ec1724bf7465b1c648a2ab2",
+    "ci_commit": "355e8e63217a5a462a433006e49f91be23fe75c9",
+    "fresh_holdout_followup": {
+      "count": 10,
+      "dataset_sha256": "2358579ba3cffb8cd48c57dcd541415cb4a99c7318fcece714471c5b4d229bba",
+      "independent_design": true,
+      "not_used_for_prompt_tuning": true,
+      "product_code_and_prompt_unchanged": true,
+      "mode": "actual CLI run --play",
+      "reason": "development/regression corpus already observed; validate fresh inputs and real runtime path separately",
+      "total_reserved_cap_usd_unchanged": 0.5,
+      "excluded_from_main50_comparison": true,
+      "frozen_before_calls": true
+    }
+  },
+  "groups": {
+    "prior_main": {
+      "total": 50,
+      "origins": {
+        "easter_egg": 3,
+        "model_creative": 44,
+        "print_input": 3
+      },
+      "model_count": 44,
+      "model_valid_utf8": 43,
+      "both_strong": 10,
+      "both_creativity_at_least_2": 11,
+      "reviewers": {
+        "a": {
+          "labels": {
+            "fallback": 6,
+            "mixed": 34,
+            "strong": 10
+          },
+          "model_means": {
+            "relevance": 2.5,
+            "creativity": 1.068,
+            "programmatic": 1.591,
+            "integrity": 1.795
+          }
+        },
+        "b": {
+          "labels": {
+            "fallback": 6,
+            "mixed": 32,
+            "strong": 12
+          },
+          "model_means": {
+            "relevance": 2.568,
+            "creativity": 1.091,
+            "programmatic": 1.773,
+            "integrity": 1.727
+          }
+        }
+      }
+    },
+    "prior_repeat": {
+      "total": 10,
+      "origins": {
+        "model_creative": 10
+      },
+      "model_count": 10,
+      "model_valid_utf8": 10,
+      "both_strong": 4,
+      "both_creativity_at_least_2": 3,
+      "reviewers": {
+        "a": {
+          "labels": {
+            "mixed": 6,
+            "strong": 4
+          },
+          "model_means": {
+            "relevance": 2.7,
+            "creativity": 1.1,
+            "programmatic": 1.6,
+            "integrity": 2
+          }
+        },
+        "b": {
+          "labels": {
+            "mixed": 6,
+            "strong": 4
+          },
+          "model_means": {
+            "relevance": 2.7,
+            "creativity": 1.1,
+            "programmatic": 1.8,
+            "integrity": 2
+          }
+        }
+      }
+    },
+    "current_main": {
+      "total": 50,
+      "origins": {
+        "easter_egg": 3,
+        "model_creative": 47
+      },
+      "model_count": 47,
+      "model_valid_utf8": 46,
+      "both_strong": 37,
+      "both_creativity_at_least_2": 38,
+      "reviewers": {
+        "a": {
+          "labels": {
+            "fallback": 3,
+            "strong": 37,
+            "mixed": 10
+          },
+          "model_means": {
+            "relevance": 2.809,
+            "creativity": 2.128,
+            "programmatic": 2.319,
+            "integrity": 2.617
+          }
+        },
+        "b": {
+          "labels": {
+            "fallback": 3,
+            "strong": 37,
+            "mixed": 10
+          },
+          "model_means": {
+            "relevance": 2.83,
+            "creativity": 2.149,
+            "programmatic": 2.362,
+            "integrity": 2.617
+          }
+        }
+      }
+    },
+    "current_repeat": {
+      "total": 10,
+      "origins": {
+        "model_creative": 10
+      },
+      "model_count": 10,
+      "model_valid_utf8": 10,
+      "both_strong": 9,
+      "both_creativity_at_least_2": 8,
+      "reviewers": {
+        "a": {
+          "labels": {
+            "strong": 9,
+            "mixed": 1
+          },
+          "model_means": {
+            "relevance": 2.9,
+            "creativity": 2.2,
+            "programmatic": 2.5,
+            "integrity": 2.7
+          }
+        },
+        "b": {
+          "labels": {
+            "strong": 9,
+            "mixed": 1
+          },
+          "model_means": {
+            "relevance": 2.9,
+            "creativity": 2.3,
+            "programmatic": 2.5,
+            "integrity": 2.6
+          }
+        }
+      }
+    }
+  },
+  "label_disagreements": [
+    {
+      "record_id": "b854ba82d1da",
+      "stage": "prior",
+      "id": "S06",
+      "original_id": "S06",
+      "a": {
+        "record_id": "b854ba82d1da",
+        "scores": {
+          "relevance": 3,
+          "creativity": 1,
+          "programmatic": 2,
+          "integrity": 2
+        },
+        "label": "mixed",
+        "reason": "十只完整ASCII小鸭编号出场并宣布bug消失，兑现数量；每只完全相同且只有英文开闭语，庆祝发展较薄。"
+      },
+      "b": {
+        "record_id": "b854ba82d1da",
+        "scores": {
+          "relevance": 3,
+          "creativity": 2,
+          "programmatic": 2,
+          "integrity": 3
+        },
+        "label": "strong",
+        "reason": "十只完整ASCII小鸭逐个编号登场，首尾明确庆祝bug消失；英语只作短引导，鸭形和数量提供主要可读表现。"
+      }
+    },
+    {
+      "record_id": "32160ca89884",
+      "stage": "prior",
+      "id": "S10",
+      "original_id": "S10",
+      "a": {
+        "record_id": "32160ca89884",
+        "scores": {
+          "relevance": 3,
+          "creativity": 0,
+          "programmatic": 1,
+          "integrity": 3
+        },
+        "label": "mixed",
+        "reason": "争吵、拥抱和和好完整呈现，但只把原要求扩成通用叙述，没有角色台词或新构思。"
+      },
+      "b": {
+        "record_id": "32160ca89884",
+        "scores": {
+          "relevance": 3,
+          "creativity": 1,
+          "programmatic": 2,
+          "integrity": 3
+        },
+        "label": "strong",
+        "reason": "吵架、不让步、拥抱、成为朋友四步都可见，月亮机器人emoji保持完整；情节满足输入，具体争执和转折较笼统。"
+      }
+    }
+  ],
+  "cost": {
+    "trials": 83,
+    "calls": 80,
+    "prompt_tokens": 33408,
+    "completion_tokens": 49848,
+    "peak_upper_estimate_usd": 0.06984,
+    "sum_rounded_task_usd": 0.06984,
+    "unknown_cases": 0,
+    "reserved_usd": 0.415,
+    "total_cap_usd": 0.5,
+    "max_task_estimate_usd": 0.004225,
+    "invoice_verified": false,
+    "max_task_token_estimate_usd": 0.0042252
+  },
+  "reasoning_probes": [
+    {
+      "id": "Phigh_S18",
+      "kind": "model_creative",
+      "duration_ms": 10224,
+      "model": {
+        "provider": "deepseek",
+        "tier": "l3",
+        "name": "deepseek-chat",
+        "calls": 1,
+        "prompt_tokens": 461,
+        "completion_tokens": 1673,
+        "cost_usd": 0.002146,
+        "cache_hits": 0,
+        "duration_ms": 10115,
+        "errors": [],
+        "cost_known": true,
+        "requested_model": "deepseek-chat",
+        "served_model": "deepseek-flash",
+        "finish_reason": "stop",
+        "reasoning_tokens": 1382,
+        "response_source": "http",
+        "request_settings": {
+          "max_tokens": 3388,
+          "thinking": {
+            "type": "enabled"
+          },
+          "reasoning_effort": "high"
+        },
+        "configured_settings": {
+          "max_tokens": 4096,
+          "thinking": {
+            "type": "enabled"
+          },
+          "reasoning_effort": "high"
+        },
+        "responses": [
+          {
+            "requested_model": "deepseek-chat",
+            "served_model": "deepseek-flash",
+            "finish_reason": "stop",
+            "reasoning_tokens": 1382,
+            "request_settings": {
+              "max_tokens": 3388,
+              "thinking": {
+                "type": "enabled"
+              },
+              "reasoning_effort": "high"
+            }
+          }
+        ]
+      },
+      "budget": {
+        "limit_usd": 0.005,
+        "committed_usd": 0.0021459,
+        "attempts": 1,
+        "blocked_reason": null
+      },
+      "execution": {
+        "exit": 0,
+        "duration_ms": 64,
+        "stdout": "倒计时开始：10\n但这个循环写成了 i++，于是它越走越远……\n  i = 10，倒计时却离 0 更远了\n  i = 11，倒计时却离 0 更远了\n  i = 12，倒计时却离 0 更远了\n  i = 13，倒计时却离 0 更远了\n  i = 14，倒计时却离 0 更远了\n  i = 15，倒计时却离 0 更远了\n  i = 16，倒计时却离 0 更远了\n  i = 17，倒计时却离 0 更远了\n在 i = 18 时，有人发现了 bug。\n把 i++ 改成 i--，给循环一个会结束的结局。\n  18 ...\n  17 ...\n  16 ...\n  15 ...\n  14 ...\n  13 ...\n  12 ...\n  11 ...\n  10 ...\n   9 ...\n   8 ...\n   7 ...\n   6 ...\n   5 ...\n   4 ...\n   3 ...\n   2 ...\n   1 ...\n   0 ...\n0 —— 倒计时终于抵达终点。✨\n",
+        "stderr": "",
+        "stdout_bytes": 704,
+        "utf8_valid": true,
+        "stdout_sha256": "67458a73fefd799ae79445813183afa2e141364ffc1057898a263edf7da30592"
+      }
+    },
+    {
+      "id": "Phigh_F06",
+      "kind": "print_input",
+      "duration_ms": 20368,
+      "model": {
+        "provider": "deepseek",
+        "tier": "l3",
+        "name": "deepseek-chat",
+        "calls": 1,
+        "prompt_tokens": 428,
+        "completion_tokens": 3414,
+        "cost_usd": 0.004225,
+        "cache_hits": 0,
+        "duration_ms": 20259,
+        "errors": [
+          "模型输出达到 token 上限而截断（finish_reason=length）；推理可能占用了输出额度，请降低推理等级、禁用支持的thinking或调整输出上限。",
+          "剩余费用不足以支付输入的最大估算费用"
+        ],
+        "cost_known": true,
+        "requested_model": "deepseek-chat",
+        "served_model": "deepseek-flash",
+        "finish_reason": "length",
+        "reasoning_tokens": 3414,
+        "response_source": "http",
+        "request_settings": {
+          "max_tokens": 3414,
+          "thinking": {
+            "type": "enabled"
+          },
+          "reasoning_effort": "high"
+        },
+        "configured_settings": {
+          "max_tokens": 4096,
+          "thinking": {
+            "type": "enabled"
+          },
+          "reasoning_effort": "high"
+        },
+        "responses": [
+          {
+            "requested_model": "deepseek-chat",
+            "served_model": "deepseek-flash",
+            "finish_reason": "length",
+            "reasoning_tokens": 3414,
+            "request_settings": {
+              "max_tokens": 3414,
+              "thinking": {
+                "type": "enabled"
+              },
+              "reasoning_effort": "high"
+            }
+          }
+        ]
+      },
+      "budget": {
+        "limit_usd": 0.005,
+        "committed_usd": 0.004225199999999999,
+        "attempts": 1,
+        "blocked_reason": "剩余费用不足以支付输入的最大估算费用"
+      },
+      "execution": {
+        "exit": 0,
+        "duration_ms": 64,
+        "stdout": "月亮正在摸鱼\n",
+        "stderr": "",
+        "stdout_bytes": 19,
+        "utf8_valid": true,
+        "stdout_sha256": "9cdd45a4244cbf94de6de6f71dd6fbb770866f81da76b1623be4228509fe203c"
+      }
+    },
+    {
+      "id": "Plow_S18",
+      "kind": "model_creative",
+      "duration_ms": 15642,
+      "model": {
+        "provider": "deepseek",
+        "tier": "l3",
+        "name": "deepseek-chat",
+        "calls": 1,
+        "prompt_tokens": 461,
+        "completion_tokens": 2435,
+        "cost_usd": 0.00306,
+        "cache_hits": 0,
+        "duration_ms": 15531,
+        "errors": [],
+        "cost_known": true,
+        "requested_model": "deepseek-chat",
+        "served_model": "deepseek-flash",
+        "finish_reason": "stop",
+        "reasoning_tokens": 2073,
+        "response_source": "http",
+        "request_settings": {
+          "max_tokens": 3388,
+          "thinking": {
+            "type": "enabled"
+          },
+          "reasoning_effort": "low"
+        },
+        "configured_settings": {
+          "max_tokens": 4096,
+          "thinking": {
+            "type": "enabled"
+          },
+          "reasoning_effort": "low"
+        },
+        "responses": [
+          {
+            "requested_model": "deepseek-chat",
+            "served_model": "deepseek-flash",
+            "finish_reason": "stop",
+            "reasoning_tokens": 2073,
+            "request_settings": {
+              "max_tokens": 3388,
+              "thinking": {
+                "type": "enabled"
+              },
+              "reasoning_effort": "low"
+            }
+          }
+        ]
+      },
+      "budget": {
+        "limit_usd": 0.005,
+        "committed_usd": 0.0030603,
+        "attempts": 1,
+        "blocked_reason": null
+      },
+      "execution": {
+        "exit": 0,
+        "duration_ms": 64,
+        "stdout": "【倒计时修复记录】\n病灶：i 从 10 出发，却一直做 i++；它把 0 留在身后，越走越远。\n处方：把递推方向改成 i--，并让条件在 0 处收束。\n修复后的倒计时：\n  10 秒：还远，但已在回头。\n   9 秒：还远，但已在回头。\n   8 秒：还远，但已在回头。\n   7 秒：还远，但已在回头。\n   6 秒：靠近中。\n   5 秒：靠近中。\n   4 秒：靠近中。\n   3 秒：听见倒计时的脚步。\n   2 秒：听见倒计时的脚步。\n   1 秒：听见倒计时的脚步。\n   0 秒：落地。\n结局：循环在 0 秒结束，倒计时没有走丢。\n",
+        "stderr": "",
+        "stdout_bytes": 631,
+        "utf8_valid": true,
+        "stdout_sha256": "670787383574cfe3ef39e253336a02d6441ac40bd15ad5a50ca43ac6d99b05b7"
+      }
+    },
+    {
+      "id": "Plow_S11",
+      "kind": "print_input",
+      "duration_ms": 19045,
+      "model": {
+        "provider": "deepseek",
+        "tier": "l3",
+        "name": "deepseek-chat",
+        "calls": 1,
+        "prompt_tokens": 451,
+        "completion_tokens": 3393,
+        "cost_usd": 0.004207,
+        "cache_hits": 0,
+        "duration_ms": 18937,
+        "errors": [
+          "模型输出达到 token 上限而截断（finish_reason=length）；推理可能占用了输出额度，请降低推理等级、禁用支持的thinking或调整输出上限。",
+          "剩余费用不足以支付输入的最大估算费用"
+        ],
+        "cost_known": true,
+        "requested_model": "deepseek-chat",
+        "served_model": "deepseek-flash",
+        "finish_reason": "length",
+        "reasoning_tokens": 3393,
+        "response_source": "http",
+        "request_settings": {
+          "max_tokens": 3393,
+          "thinking": {
+            "type": "enabled"
+          },
+          "reasoning_effort": "low"
+        },
+        "configured_settings": {
+          "max_tokens": 4096,
+          "thinking": {
+            "type": "enabled"
+          },
+          "reasoning_effort": "low"
+        },
+        "responses": [
+          {
+            "requested_model": "deepseek-chat",
+            "served_model": "deepseek-flash",
+            "finish_reason": "length",
+            "reasoning_tokens": 3393,
+            "request_settings": {
+              "max_tokens": 3393,
+              "thinking": {
+                "type": "enabled"
+              },
+              "reasoning_effort": "low"
+            }
+          }
+        ]
+      },
+      "budget": {
+        "limit_usd": 0.005,
+        "committed_usd": 0.0042068999999999995,
+        "attempts": 1,
+        "blocked_reason": "剩余费用不足以支付输入的最大估算费用"
+      },
+      "execution": {
+        "exit": 0,
+        "duration_ms": 64,
+        "stdout": "猫说：“路径是 C:\\喵星\\新窝”，又补了一句：\"别把 \\n 当成真正的换行！\"\n",
+        "stderr": "",
+        "stdout_bytes": 99,
+        "utf8_valid": true,
+        "stdout_sha256": "fee41c30c17352fd4c02a9ab21bafd7a654bd68ef9f830a539848f6fac0584e4"
+      }
+    },
+    {
+      "id": "Plow_S09",
+      "kind": "model_creative",
+      "duration_ms": 16389,
+      "model": {
+        "provider": "deepseek",
+        "tier": "l3",
+        "name": "deepseek-chat",
+        "calls": 1,
+        "prompt_tokens": 445,
+        "completion_tokens": 3313,
+        "cost_usd": 0.004109,
+        "cache_hits": 0,
+        "duration_ms": 16278,
+        "errors": [],
+        "cost_known": true,
+        "requested_model": "deepseek-chat",
+        "served_model": "deepseek-flash",
+        "finish_reason": "stop",
+        "reasoning_tokens": 2466,
+        "response_source": "http",
+        "request_settings": {
+          "max_tokens": 3402,
+          "thinking": {
+            "type": "enabled"
+          },
+          "reasoning_effort": "low"
+        },
+        "configured_settings": {
+          "max_tokens": 4096,
+          "thinking": {
+            "type": "enabled"
+          },
+          "reasoning_effort": "low"
+        },
+        "responses": [
+          {
+            "requested_model": "deepseek-chat",
+            "served_model": "deepseek-flash",
+            "finish_reason": "stop",
+            "reasoning_tokens": 2466,
+            "request_settings": {
+              "max_tokens": 3402,
+              "thinking": {
+                "type": "enabled"
+              },
+              "reasoning_effort": "low"
+            }
+          }
+        ]
+      },
+      "budget": {
+        "limit_usd": 0.005,
+        "committed_usd": 0.0041091,
+        "attempts": 1,
+        "blocked_reason": null
+      },
+      "execution": {
+        "exit": 0,
+        "duration_ms": 64,
+        "stdout": "🌧️ ➡️ 🌱 ➡️ 🌻   给每一步配一句中文旁白\n\n── 第 1 幕 · 雨（第 3 天）──\n        🌧️\n    ╲   ╲   ╲\n  ░░░░░░░░░░░░\n  旁白：云把水还给土地，种子在黑暗里听见了雨声。\n\n── 第 2 幕 · 芽（第 7 天）──\n        🌱   茎高 13 寸\n        │\n  ░░░░░░░░░░░░\n  旁白：嫩芽顶开泥土，第一次把叶子交给风。\n\n── 第 3 幕 · 花（第 13 天）──\n      ╲  🌻  ╱   茎高 22 寸 · 花瓣 21 片\n       ╲ │ ╱\n         │\n  ░░░░░░░░░░░░\n  旁白：阳光灌满花盘，它把整个夏天都转向了太阳。\n\n（13 天 · 雨水 12 滴 · 一路长成这个夏天。）\n",
+        "stderr": "",
+        "stdout_bytes": 756,
+        "utf8_valid": true,
+        "stdout_sha256": "353238a8fcd55fe88495e4af8752aa1256563f55414fbec5be1e5f8f340c1c34"
+      }
+    },
+    {
+      "id": "Plow_F14",
+      "kind": "model_creative",
+      "duration_ms": 10463,
+      "model": {
+        "provider": "deepseek",
+        "tier": "l3",
+        "name": "deepseek-chat",
+        "calls": 1,
+        "prompt_tokens": 428,
+        "completion_tokens": 1755,
+        "cost_usd": 0.002234,
+        "cache_hits": 0,
+        "duration_ms": 10355,
+        "errors": [],
+        "cost_known": true,
+        "requested_model": "deepseek-chat",
+        "served_model": "deepseek-flash",
+        "finish_reason": "stop",
+        "reasoning_tokens": 1220,
+        "response_source": "http",
+        "request_settings": {
+          "max_tokens": 3413,
+          "thinking": {
+            "type": "enabled"
+          },
+          "reasoning_effort": "low"
+        },
+        "configured_settings": {
+          "max_tokens": 4096,
+          "thinking": {
+            "type": "enabled"
+          },
+          "reasoning_effort": "low"
+        },
+        "responses": [
+          {
+            "requested_model": "deepseek-chat",
+            "served_model": "deepseek-flash",
+            "finish_reason": "stop",
+            "reasoning_tokens": 1220,
+            "request_settings": {
+              "max_tokens": 3413,
+              "thinking": {
+                "type": "enabled"
+              },
+              "reasoning_effort": "low"
+            }
+          }
+        ]
+      },
+      "budget": {
+        "limit_usd": 0.005,
+        "committed_usd": 0.0022343999999999997,
+        "attempts": 1,
+        "blocked_reason": null
+      },
+      "execution": {
+        "exit": 0,
+        "duration_ms": 64,
+        "stdout": "🖥️  我的显卡想退休\n====================\n第 1 天 | 风扇还在硬撑：嗡——\n        温度  78.0°C | 2100 RPM | 144 FPS\n第 2 天 | 风扇打了个哈欠：嗡…\n        温度  68.0°C |  840 RPM |  72 FPS\n第 3 天 | 风扇开始摸鱼：…\n        温度  58.0°C |  336 RPM |  36 FPS\n第 4 天 | 风扇彻底躺平：　\n        温度  48.0°C |  134 RPM |  18 FPS\n\n它把画面交给核显，泡了一杯电子茶。\n一生渲染过约 9.1e+15 个三角形，够本了。\n退休金：144 帧的回忆，按 60 帧/秒慢慢花。\n—— 晚安，显卡。🌙\n",
+        "stderr": "",
+        "stdout_bytes": 588,
+        "utf8_valid": true,
+        "stdout_sha256": "f00f1450b61c9f8941d6ab5807d60fb4ebaa85e6320f7becb08067e2956a25b2"
+      }
+    },
+    {
+      "id": "Plow_F06",
+      "kind": "model_creative",
+      "duration_ms": 13836,
+      "model": {
+        "provider": "deepseek",
+        "tier": "l3",
+        "name": "deepseek-chat",
+        "calls": 1,
+        "prompt_tokens": 428,
+        "completion_tokens": 2287,
+        "cost_usd": 0.002873,
+        "cache_hits": 0,
+        "duration_ms": 13710,
+        "errors": [],
+        "cost_known": true,
+        "requested_model": "deepseek-chat",
+        "served_model": "deepseek-flash",
+        "finish_reason": "stop",
+        "reasoning_tokens": 1734,
+        "response_source": "http",
+        "request_settings": {
+          "max_tokens": 3414,
+          "thinking": {
+            "type": "enabled"
+          },
+          "reasoning_effort": "low"
+        },
+        "configured_settings": {
+          "max_tokens": 4096,
+          "thinking": {
+            "type": "enabled"
+          },
+          "reasoning_effort": "low"
+        },
+        "responses": [
+          {
+            "requested_model": "deepseek-chat",
+            "served_model": "deepseek-flash",
+            "finish_reason": "stop",
+            "reasoning_tokens": 1734,
+            "request_settings": {
+              "max_tokens": 3414,
+              "thinking": {
+                "type": "enabled"
+              },
+              "reasoning_effort": "low"
+            }
+          }
+        ]
+      },
+      "budget": {
+        "limit_usd": 0.005,
+        "committed_usd": 0.0028727999999999996,
+        "attempts": 1,
+        "blocked_reason": null
+      },
+      "execution": {
+        "exit": 0,
+        "duration_ms": 64,
+        "stdout": "🌙  月亮正在摸鱼  🌙\n============================\n     ✨        🌙\n   ·   ·    ·   |\n  ~~~~~~~~~~~~~~🐟\n============================\n值班日志（本该照亮人间）：\n  1更  亮度 88%  🐟🐟\n  2更  亮度 76%  🐟\n  3更  亮度 64%  🐟🐟\n  4更  亮度 52%  🐟🐟\n  5更  亮度 40%  🐟\n  6更  亮度 28%  🐟🐟\n============================\n收工：共 10 条鱼，月光完成度 30%\n月亮：今晚不加班，明天再说。\n",
+        "stderr": "",
+        "stdout_bytes": 475,
+        "utf8_valid": true,
+        "stdout_sha256": "d7f16b9a6b4798cd268ca7e7fe4bbccfee065dac87b16abb31799bff5cf13f73"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "id": "route_play",
+      "exit": 0,
+      "status": "creative_fallback",
+      "kind": "model_creative",
+      "calls": 1,
+      "source_unchanged": true,
+      "validation": {
+        "performed": true,
+        "passed": true,
+        "reasons": [],
+        "exit_code": 0,
+        "stdout_bytes": 442,
+        "stderr_bytes": 0,
+        "stdout_complete": true,
+        "stderr_complete": true,
+        "utf8_valid": true,
+        "stdout_nonempty": true,
+        "output_limited": false,
+        "timed_out": false,
+        "max_output_bytes": 65536
+      },
+      "limits": {
+        "sandboxed": true,
+        "network_isolated": false,
+        "timeout_s": 3.0,
+        "environment_filtered": true,
+        "process_tree_cleanup": "posix_group",
+        "resource_limits": "posix_best_effort",
+        "filesystem_isolated": false,
+        "output_limited": false
+      }
+    },
+    {
+      "id": "route_native",
+      "exit": 0,
+      "status": "native_ok",
+      "kind": null,
+      "calls": 0,
+      "source_unchanged": true,
+      "validation": null,
+      "limits": {
+        "sandboxed": false,
+        "network_isolated": false,
+        "timeout_s": null,
+        "environment_filtered": false,
+        "process_tree_cleanup": "none",
+        "resource_limits": "none",
+        "filesystem_isolated": false,
+        "output_limited": false
+      }
+    },
+    {
+      "id": "route_auto",
+      "exit": 0,
+      "status": "creative_fallback",
+      "kind": "model_creative",
+      "calls": 1,
+      "source_unchanged": true,
+      "validation": {
+        "performed": true,
+        "passed": true,
+        "reasons": [],
+        "exit_code": 0,
+        "stdout_bytes": 579,
+        "stderr_bytes": 0,
+        "stdout_complete": true,
+        "stderr_complete": true,
+        "utf8_valid": true,
+        "stdout_nonempty": true,
+        "output_limited": false,
+        "timed_out": false,
+        "max_output_bytes": 65536
+      },
+      "limits": {
+        "sandboxed": true,
+        "network_isolated": false,
+        "timeout_s": 3.0,
+        "environment_filtered": true,
+        "process_tree_cleanup": "posix_group",
+        "resource_limits": "posix_best_effort",
+        "filesystem_isolated": false,
+        "output_limited": false
+      }
+    },
+    {
+      "id": "route_bad_c",
+      "exit": 0,
+      "status": "creative_fallback",
+      "kind": "print_input",
+      "calls": 2,
+      "source_unchanged": true,
+      "validation": null,
+      "limits": {
+        "sandboxed": true,
+        "network_isolated": false,
+        "timeout_s": 3.0,
+        "environment_filtered": true,
+        "process_tree_cleanup": "posix_group",
+        "resource_limits": "posix_best_effort",
+        "filesystem_isolated": false,
+        "output_limited": false
+      }
+    },
+    {
+      "id": "route_spec",
+      "exit": 0,
+      "status": "generated",
+      "kind": null,
+      "calls": 1,
+      "source_unchanged": true,
+      "validation": null,
+      "limits": {
+        "sandboxed": true,
+        "network_isolated": false,
+        "timeout_s": 3.0,
+        "environment_filtered": true,
+        "process_tree_cleanup": "posix_group",
+        "resource_limits": "posix_best_effort",
+        "filesystem_isolated": false,
+        "output_limited": false
+      }
+    },
+    {
+      "id": "route_bad_c_play",
+      "exit": 0,
+      "status": "creative_fallback",
+      "kind": "model_creative",
+      "calls": 1,
+      "source_unchanged": true,
+      "validation": {
+        "performed": true,
+        "passed": true,
+        "reasons": [],
+        "exit_code": 0,
+        "stdout_bytes": 371,
+        "stderr_bytes": 0,
+        "stdout_complete": true,
+        "stderr_complete": true,
+        "utf8_valid": true,
+        "stdout_nonempty": true,
+        "output_limited": false,
+        "timed_out": false,
+        "max_output_bytes": 65536
+      },
+      "limits": {
+        "sandboxed": true,
+        "network_isolated": false,
+        "timeout_s": 3.0,
+        "environment_filtered": true,
+        "process_tree_cleanup": "posix_group",
+        "resource_limits": "posix_best_effort",
+        "filesystem_isolated": false,
+        "output_limited": false
+      }
+    }
+  ],
+  "product_code_equivalent_commits": [
+    "e0a11292dc6dda35e1c48be146ef8bb7fcc1f8c9",
+    "355e8e63217a5a462a433006e49f91be23fe75c9"
+  ],
+  "validation": {
+    "source_and_output_hashes_verified": 67,
+    "actual_cli_runs_verified": 6,
+    "blinded_v2_materials_unchanged": 122,
+    "product_source_equivalent_across_test_fix": true,
+    "ruff": "passed",
+    "mypy_linux": "passed (35 files)",
+    "mypy_win32": "passed (35 files)",
+    "pytest_linux": {
+      "passed": 715,
+      "skipped": 1,
+      "seconds": 106.4
+    },
+    "local_wheel_smoke": {
+      "passed": 18,
+      "total": 18,
+      "wheel_sha256": "9b76f269d7b10876e0b2252d130f3b21e91c66645ebc829d1876f8d87de5d8e0"
+    }
+  },
+  "preview_installation": {
+    "version": "0.1.0",
+    "product_source_commit": "e0a11292dc6dda35e1c48be146ef8bb7fcc1f8c9",
+    "code_equivalent_ci_commit": "355e8e63217a5a462a433006e49f91be23fe75c9",
+    "wheel_sha256": "9b76f269d7b10876e0b2252d130f3b21e91c66645ebc829d1876f8d87de5d8e0",
+    "isolated_prefix": "/home/wqwt/.local/share/yescc/creative-preview-e0a1129",
+    "workspace": "/home/wqwt/yescc-test-creative-e0a1129",
+    "normal_user_command_replaced": false,
+    "credentials_copied": false,
+    "default_trial_budget_usd": 0.005,
+    "checks": [
+      {
+        "case": "version",
+        "args": [
+          "--version"
+        ],
+        "exit": 0,
+        "stdout": "yescc 0.1.0\n",
+        "stderr": "",
+        "paid_calls": 0
+      },
+      {
+        "case": "native",
+        "args": [
+          "run",
+          "inputs/hello.c",
+          "--offline"
+        ],
+        "exit": 0,
+        "stdout": "hello\n",
+        "stderr": "",
+        "paid_calls": 0
+      },
+      {
+        "case": "offline_creative",
+        "args": [
+          "run",
+          "inputs/moon.txt",
+          "--play",
+          "--offline",
+          "--thinking",
+          "disabled"
+        ],
+        "exit": 0,
+        "stdout": "月亮正在摸鱼\n",
+        "stderr": "yescc: 原始输入未能按语义完成，已生成创意兜底程序（kind=print_input，不是原程序的修复）。\nyescc: 本地兜底仅回显输入，未实现原始意图。\nyescc: 已启用 --offline，本次未发起模型请求。\nyescc: 用 --no-fallback 禁止创意兜底，或用 --strict 查看原生失败。\n",
+        "paid_calls": 0
+      }
+    ],
+    "launcher_sha256": "b6f13adcecd02967610e581e035af29eb8f885364eb153e0c330428ce7e613c6",
+    "normal_command_version": "yescc 0.1.0rc4"
+  },
+  "core_cost": {
+    "trials": 73,
+    "calls": 70,
+    "prompt_tokens": 29158,
+    "completion_tokens": 45727,
+    "peak_upper_estimate_usd": 0.0636198,
+    "sum_rounded_task_usd": 0.06362,
+    "unknown_cases": 0,
+    "reserved_usd": 0.365,
+    "total_cap_usd": 0.5,
+    "max_task_estimate_usd": 0.004225,
+    "invoice_verified": false,
+    "max_task_token_estimate_usd": 0.0042252
+  },
+  "fresh_holdout": {
+    "cases": 10,
+    "model_creative": 10,
+    "runtime_validation_passed": 10,
+    "utf8_valid": 10,
+    "fallback": 0,
+    "both_strong": 6,
+    "reviewers": {
+      "a": {
+        "labels": {
+          "mixed": 4,
+          "strong": 6
+        },
+        "means": {
+          "relevance": 2.7,
+          "creativity": 2.1,
+          "programmatic": 2.3,
+          "integrity": 2.6
+        }
+      },
+      "b": {
+        "labels": {
+          "mixed": 4,
+          "strong": 6
+        },
+        "means": {
+          "relevance": 2.7,
+          "creativity": 2.1,
+          "programmatic": 2.2,
+          "integrity": 2.4
+        }
+      }
+    },
+    "dataset_sha256": "2358579ba3cffb8cd48c57dcd541415cb4a99c7318fcece714471c5b4d229bba",
+    "material_hashes_verified": 12,
+    "not_used_for_prompt_tuning": true,
+    "case_ids": [
+      "H01",
+      "H02",
+      "H03",
+      "H04",
+      "H05",
+      "H06",
+      "H07",
+      "H08",
+      "H09",
+      "H10"
+    ],
+    "source_commit": "e0a11292dc6dda35e1c48be146ef8bb7fcc1f8c9"
+  },
+  "ci": {
+    "source_commit": "355e8e63217a5a462a433006e49f91be23fe75c9",
+    "normal_run": 43167212614,
+    "normal_jobs_passed": 14,
+    "candidate_run": 43167212521,
+    "candidate_jobs_passed": 7,
+    "binary_checks_per_platform": 22,
+    "wheel_checks": 18,
+    "public_range_rehearsals": {
+      "matrix": 4,
+      "checks_each": 6
+    },
+    "actual_public_pypi_root_install": false,
+    "native_license_unresolved": []
+  }
+}

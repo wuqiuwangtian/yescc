@@ -185,6 +185,21 @@ def run_case(case: Case, root: Path, models: bool, budget: float) -> dict[str, o
     unchanged = hashlib.sha256(source.read_bytes()).hexdigest() == initial_hash
     model = report.get("model") or {}
     attempts = report.get("budget", {}).get("attempts", 0)
+    successful_model_build = any(
+        attempt["kind"] == "model" and attempt["exit_code"] == 0
+        for attempt in report["attempts"]
+    )
+    fallback_kind = (result.get("fallback") or {}).get("kind")
+    model_origin = (
+        fallback_kind == "model_creative"
+        if case.category == "fun"
+        else (
+            result["status"] == "generated"
+            if case.category == "nl"
+            else "model" in (result.get("repair") or {}).get("rules", [])
+        )
+    )
+    model_success = bool(correct and unchanged and model_origin and successful_model_build)
     if case.category == "native":
         correct = correct and model.get("calls", 0) == 0
     return {
@@ -201,7 +216,9 @@ def run_case(case: Case, root: Path, models: bool, budget: float) -> dict[str, o
         "cost_usd": model.get("cost_usd", 0),
         "cost_known": model.get("cost_known", True),
         "committed_usd": report.get("budget", {}).get("committed_usd", 0),
-        "first_candidate_correct": bool(correct and attempts == 1),
+        "fallback_kind": fallback_kind,
+        "model_success": model_success,
+        "first_candidate_correct": bool(model_success and attempts == 1),
         "model_builds": sum(a["kind"] == "model" for a in report["attempts"]),
         "duration_ms": int((time.perf_counter() - started) * 1000),
         "budget_blocked": report.get("budget", {}).get("blocked_reason"),
@@ -223,6 +240,7 @@ def summarize(rows: list[dict[str, object]]) -> dict[str, object]:
             "first_candidate_correct": sum(
                 r.get("first_candidate_correct", False) for r in evaluated
             ),
+            "model_success": sum(r.get("model_success", False) for r in evaluated),
             "p50_ms": times[(len(times) - 1) // 2] if times else None,
             "p95_ms": times[min(len(times) - 1, int(len(times) * 0.95))] if times else None,
         }

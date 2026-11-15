@@ -14,6 +14,7 @@ import platformdirs
 from yescc.model.base import (
     BudgetExceeded,
     Message,
+    ModelConfigurationError,
     ModelError,
     ModelResponseError,
     ModelUnavailable,
@@ -23,8 +24,8 @@ from yescc.model.cache import cache_key
 from yescc.model.cache import discard as discard_cache
 from yescc.model.cache import load as load_cache
 from yescc.model.cache import store as store_cache
-from yescc.model.config import ModelSettings, load_settings
-from yescc.model.openai_compat import OpenAICompatibleProvider
+from yescc.model.config import ModelSettings, load_settings, resolve_controls
+from yescc.model.openai_compat import OpenAICompatibleProvider, request_parameters
 from yescc.model.prompts import (
     PROMPT_VERSION,
     generate_messages,
@@ -51,6 +52,13 @@ class ModelStats:
     cost_known: bool = True
     cloud_used: bool = False
     uploaded_bytes: int = 0
+    served_model: str | None = None
+    finish_reason: str | None = None
+    reasoning_tokens: int | None = None
+    response_source: str | None = None
+    request_settings: dict[str, object] | None = None
+    configured_settings: dict[str, object] | None = None
+    responses: list[dict[str, object]] = field(default_factory=list)
 
     def as_dict(self) -> dict[str, object]:
         return {
@@ -65,6 +73,14 @@ class ModelStats:
             "duration_ms": self.duration_ms,
             "errors": self.errors[:5],
             "cost_known": self.cost_known,
+            "requested_model": self.name,
+            "served_model": self.served_model,
+            "finish_reason": self.finish_reason,
+            "reasoning_tokens": self.reasoning_tokens,
+            "response_source": self.response_source,
+            "request_settings": self.request_settings,
+            "configured_settings": self.configured_settings,
+            "responses": self.responses,
         }
 
 
@@ -119,16 +135,46 @@ class ModelSession:
         max_rounds: int,
         provider_override: str | None = None,
         model_override: str | None = None,
+        reasoning_effort_override: str | None = None,
+        thinking_override: str | None = None,
+        max_output_tokens_override: int | None = None,
     ) -> None:
         self.offline = offline
         self.no_cache = no_cache
         self.max_rounds = max_rounds
-        self.settings_l2 = (
-            None if provider_override or model_override else load_settings("l2")
-        )
+        self.settings_l2 = None if provider_override or model_override else load_settings("l2")
         self.settings_l3 = load_settings(
             "l3", provider_override=provider_override, model_override=model_override
         )
+
+        def with_overrides(settings: ModelSettings | None) -> ModelSettings | None:
+            if settings is None:
+                return None
+            return replace(
+                settings,
+                reasoning_effort=(
+                    settings.reasoning_effort
+                    if reasoning_effort_override is None
+                    else None
+                    if reasoning_effort_override == "auto"
+                    else reasoning_effort_override
+                ),
+                thinking=(
+                    settings.thinking
+                    if thinking_override is None
+                    else None
+                    if thinking_override == "auto"
+                    else thinking_override
+                ),
+                max_output_tokens=(
+                    settings.max_output_tokens
+                    if max_output_tokens_override is None
+                    else max_output_tokens_override
+                ),
+            )
+
+        self.settings_l2 = with_overrides(self.settings_l2)
+        self.settings_l3 = with_overrides(self.settings_l3)
         self.budget = Budget(max_usd=budget_usd, max_rounds=max_rounds)
         self.stats = ModelStats()
         self.attempts = 0
@@ -171,7 +217,7 @@ class ModelSession:
         if not known:
             if not settings.is_local:
                 raise BudgetExceeded("云端模型价格未知，请配置输入和输出的 USD/Mtok 单价")
-            return 1024, 0.0, False
+            return settings.max_output_tokens, 0.0, False
         assert input_price is not None and output_price is not None
         encoded = json.dumps(
             [{"role": item.role, "content": item.content} for item in messages],
@@ -181,7 +227,11 @@ class ModelSession:
         remaining = self.budget.max_usd - self.budget.spent_usd - input_bound
         if remaining < 0:
             raise BudgetExceeded("剩余费用不足以支付输入的最大估算费用")
-        max_tokens = min(1024, int(remaining * 1_000_000 / output_price)) if output_price else 1024
+        max_tokens = (
+            min(settings.max_output_tokens, int(remaining * 1_000_000 / output_price))
+            if output_price
+            else settings.max_output_tokens
+        )
         if max_tokens < 1:
             raise BudgetExceeded("剩余费用不足以生成一个输出 token")
         return max_tokens, input_bound + max_tokens * output_price / 1_000_000, True
@@ -197,6 +247,8 @@ class ModelSession:
     ) -> dict[str, object]:
         if self.offline:
             raise ModelUnavailable("离线模式禁用模型请求")
+        settings = resolve_controls(settings)
+        temperature = 0.4 if kind == "creative" else 0.0
         self.budget.check_deadline()
         if self.attempts >= self.max_rounds:
             raise BudgetExceeded(f"已达到最大候选尝试次数 {self.max_rounds}")
@@ -207,6 +259,9 @@ class ModelSession:
                 "provider": settings.provider,
                 "base_url": settings.base_url,
                 "model": settings.model,
+                "generation_settings": request_parameters(
+                    settings, max_tokens=settings.max_output_tokens, temperature=temperature
+                ),
                 "toolchain": self.toolchain,
                 "payload": cache_payload,
             }
@@ -215,19 +270,33 @@ class ModelSession:
         self.stats.provider = settings.provider
         self.stats.tier = tier
         self.stats.name = settings.model
+        self.stats.configured_settings = request_parameters(
+            settings, max_tokens=settings.max_output_tokens, temperature=temperature
+        )
         if not self.no_cache:
             cached = load_cache(key)
             self.budget.check_deadline()
             if cached is not None:
                 self.stats.cache_hits += 1
                 self.attempts += 1
+                self.stats.response_source = "cache"
+                self.stats.served_model = None
+                self.stats.finish_reason = None
+                self.stats.reasoning_tokens = None
+                self.stats.request_settings = None
                 return cached
 
         max_tokens, reserved, prices_known = self._request_limit(settings, messages)
+        parameters = request_parameters(settings, max_tokens=max_tokens, temperature=temperature)
         self.budget.reserve(reserved)
         self.attempts += 1
         _show_cloud_notice(settings)
         self.stats.calls += 1
+        self.stats.response_source = "http"
+        self.stats.request_settings = parameters
+        self.stats.served_model = None
+        self.stats.finish_reason = None
+        self.stats.reasoning_tokens = None
         if not settings.is_local:
             self.stats.cloud_used = True
             self.stats.uploaded_bytes += sum(len(item.content.encode("utf-8")) for item in messages)
@@ -235,9 +304,7 @@ class ModelSession:
         try:
             completion = OpenAICompatibleProvider(
                 replace(settings, timeout_s=min(settings.timeout_s, self.budget.remaining_s))
-            ).complete(
-                messages, max_tokens=max_tokens, temperature=0.0 if kind != "creative" else 0.4
-            )
+            ).complete(messages, max_tokens=max_tokens, temperature=temperature)
         except ModelError:
             self.stats.cost_known = False
             raise
@@ -245,12 +312,27 @@ class ModelSession:
             self.stats.duration_ms += int((time.perf_counter() - started) * 1000)
         self.stats.prompt_tokens += completion.prompt_tokens
         self.stats.completion_tokens += completion.completion_tokens
+        self.stats.served_model = completion.served_model
+        self.stats.finish_reason = completion.finish_reason
+        self.stats.reasoning_tokens = completion.reasoning_tokens
+        self.stats.responses.append(
+            {
+                "requested_model": settings.model,
+                "served_model": completion.served_model,
+                "finish_reason": completion.finish_reason,
+                "reasoning_tokens": completion.reasoning_tokens,
+                "request_settings": parameters,
+            }
+        )
         known = prices_known and completion.usage_known
         self.stats.cost_known = self.stats.cost_known and known
         if known:
             self.stats.cost_usd += completion.cost_usd
             self.budget.settle(reserved, completion.cost_usd)
         self.budget.check_deadline()
+
+        if completion.response_error is not None:
+            raise ModelResponseError(completion.response_error)
 
         data = parse_json_object(completion.text)
         if not self.no_cache:
@@ -264,6 +346,12 @@ class ModelSession:
         diagnostics: str,
         feedback: str = "",
     ) -> ModelRepair | None:
+        if self.offline:
+            return None
+        # An invalid later tier must not turn earlier paid usage into a command error.
+        for configured in (self.settings_l2, self.settings_l3):
+            if configured is not None:
+                resolve_controls(configured)
         while self.attempts < self.max_rounds:
             self.budget.check_deadline()
             try:
@@ -285,7 +373,7 @@ class ModelSession:
                         "feedback": feedback,
                     },
                 )
-            except BudgetExceeded:
+            except (BudgetExceeded, ModelConfigurationError):
                 raise
             except ModelError as exc:
                 self.stats.errors.append(str(exc))

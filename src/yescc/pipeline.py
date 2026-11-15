@@ -22,6 +22,7 @@ from yescc.errors import (
 )
 from yescc.fallback import fallback_output, generate_c_program
 from yescc.fallback.guidance import degradation_guidance
+from yescc.fallback.quality import creative_source_issues
 from yescc.fix import parse_c
 from yescc.fix.engine import attempt_repair, build_in_temp
 from yescc.model import (
@@ -30,8 +31,9 @@ from yescc.model import (
     ModelSession,
     ModelStats,
 )
+from yescc.model.base import ModelConfigurationError
 from yescc.report import SCHEMA_VERSION, load_report, report_path, summarize, write_report
-from yescc.sandbox import SandboxOutcome, run_ai_command
+from yescc.sandbox import SandboxOutcome, run_ai_command, run_creative_command
 from yescc.util import (
     display_path,
     read_text_utf8,
@@ -100,6 +102,9 @@ class Invocation:
     max_rounds: int = 2
     provider: str | None = None
     model: str | None = None
+    reasoning_effort: str | None = None
+    thinking: str | None = None
+    max_output_tokens: int | None = None
     emit_source: bool = False
     trace: bool = False
     unsafe_run: bool = False
@@ -350,7 +355,7 @@ def _finalize(
                 "process_tree_cleanup": sandbox.process_tree_cleanup,
                 "resource_limits": sandbox.resource_limits,
                 "filesystem_isolated": False,
-                "output_limited": False,
+                "output_limited": sandbox.output_limited,
             }
             if sandbox is not None
             else {
@@ -430,6 +435,8 @@ def _model_repair(
     session.toolchain = ctx.toolchain
     try:
         outcome = session.repair(ctx.text, ctx.source.name, native.stderr)
+    except ModelConfigurationError as exc:
+        raise UsageError(str(exc)) from exc
     except (ModelError, BudgetExceeded) as exc:
         if isinstance(exc, BudgetExceeded):
             session.budget_reason = str(exc)
@@ -492,6 +499,8 @@ def _model_repair(
                 native.stderr,
                 feedback=_compiler_feedback(result.build),
             )
+        except ModelConfigurationError as exc:
+            raise UsageError(str(exc)) from exc
         except (ModelError, BudgetExceeded) as exc:
             if isinstance(exc, BudgetExceeded):
                 session.budget_reason = str(exc)
@@ -515,19 +524,34 @@ def _model_generate(
     if session is None or not session.available:
         return None
     session.toolchain = ctx.toolchain
-    try:
-        program = session.generate(ctx.text, creative=creative)
-    except (ModelError, BudgetExceeded) as exc:
-        if isinstance(exc, BudgetExceeded):
+    feedback = ""
+    round_number = 0
+    while session.attempts < ctx.invocation.max_rounds:
+        before = session.attempts
+        try:
+            program = session.generate(ctx.text, creative=creative, feedback=feedback)
+        except ModelConfigurationError as exc:
+            raise UsageError(str(exc)) from exc
+        except BudgetExceeded as exc:
             session.budget_reason = str(exc)
-        session.stats.errors.append(str(exc))
-        _trace(ctx, f"model generate skipped: {exc}")
-        return None
-    if program is None:
-        return None
-
-    round_number = 1
-    while round_number <= ctx.invocation.max_rounds:
+            session.stats.errors.append(str(exc))
+            return None
+        except ModelError as exc:
+            session.stats.errors.append(str(exc))
+            _trace(ctx, f"model generate rejected: {exc}")
+            # Invalid configuration makes no request/attempt; never spin on it.
+            if session.attempts == before:
+                return None
+            session.discard_response()
+            feedback = str(exc)
+            continue
+        if program is None:
+            if session.attempts == before:
+                return None
+            session.discard_response()
+            feedback = "The response did not contain a nonempty complete C source."
+            continue
+        round_number += 1
         result = build_in_temp(
             adapter,
             program.source,
@@ -535,13 +559,75 @@ def _model_generate(
             ctx.invocation.passthrough,
             ctx.cwd,
             ctx.source.parent,
+            link_math=True,
         )
-        ctx.attempts.append(_attempt("model", round_number, result.build))
+        attempt = _attempt("model", round_number, result.build)
+        ctx.attempts.append(attempt)
         _trace(
             ctx,
             f"model generate build round={round_number} exit={result.build.returncode}",
         )
         if result.build.returncode == 0:
+            source_checks: dict[str, object] | None = None
+            if creative:
+                issues = creative_source_issues(program.source)
+                source_checks = {"performed": True, "passed": not issues, "reasons": issues}
+                attempt["source_checks"] = source_checks
+                if issues:
+                    feedback = (
+                        "Creative output mixes wide and narrow stdout functions. "
+                        "Use UTF-8 byte strings with printf/puts only; mixing wprintf "
+                        "and printf/puts can silently lose output."
+                    )
+                    session.stats.errors.append("creative source rejected: " + ", ".join(issues))
+                    session.discard_response()
+                    continue
+            sandbox: SandboxOutcome | None = None
+            program_exit: int | None = None
+            validation: dict[str, object] = {
+                "performed": False, "passed": None, "reason": "build_only",
+            }
+            if ctx.invocation.mode == "run":
+                if creative:
+                    if (
+                        result.artifact is None
+                        or result.artifact.suffix.lower() in _NON_EXECUTABLE_SUFFIXES
+                    ):
+                        raise UsageError("本次构建没有产生可执行文件，无法运行。")
+                    executed = run_creative_command(
+                        [str(result.artifact), *ctx.invocation.run_args],
+                        unsafe=ctx.invocation.unsafe_run,
+                        cwd=ctx.cwd,
+                    )
+                    sandbox = executed.sandbox
+                    program_exit = sandbox.exit_code
+                    validation = executed.validation
+                    attempt["validation"] = validation
+                    attempt["validation_limits"] = {
+                        "sandboxed": sandbox.sandboxed,
+                        "network_isolated": sandbox.network_isolated,
+                        "timeout_s": sandbox.timeout_s,
+                        "environment_filtered": sandbox.environment_filtered,
+                        "process_tree_cleanup": sandbox.process_tree_cleanup,
+                        "resource_limits": sandbox.resource_limits,
+                        "output_limited": sandbox.output_limited,
+                    }
+                    if not validation["passed"] and program_exit != 130:
+                        feedback = (
+                            "The creative program failed its actual run: "
+                            + json.dumps(validation, ensure_ascii=False)
+                            + ". Produce visible valid UTF-8 output; exit 0 within limits."
+                        )
+                        session.stats.errors.append(
+                            "creative run rejected: " + str(validation["reasons"])
+                        )
+                        session.discard_response()
+                        continue
+                    if validation["passed"]:
+                        _emit_program_bytes(executed.stdout, stderr=False)
+                        _emit_program_bytes(executed.stderr, stderr=True)
+                else:
+                    program_exit, sandbox = _run_program(ctx, result.artifact)
             directory = ctx.cwd / ".yescc" / ctx.source.stem
             directory.mkdir(parents=True, exist_ok=True)
             filename = "fallback.c" if creative else "generated.c"
@@ -554,6 +640,9 @@ def _model_generate(
                 "io_contract": program.io_contract,
                 "assumptions": program.assumptions,
             }
+            if creative:
+                generated["source_checks"] = source_checks
+                generated["validation"] = validation
             fallback: dict[str, object] | None = (
                 {
                     "kind": "model_creative",
@@ -563,10 +652,6 @@ def _model_generate(
                 if creative
                 else None
             )
-            sandbox: SandboxOutcome | None = None
-            program_exit: int | None = None
-            if ctx.invocation.mode == "run":
-                program_exit, sandbox = _run_program(ctx, result.artifact)
             return _finalize(
                 ctx,
                 status=status,
@@ -577,23 +662,23 @@ def _model_generate(
                 fallback=fallback,
                 emitted_source=program.source,
             )
-        try:
-            session.discard_response()
-            program = session.generate(
-                ctx.text,
-                creative=creative,
-                feedback=_compiler_feedback(result.build),
-            )
-        except (ModelError, BudgetExceeded) as exc:
-            if isinstance(exc, BudgetExceeded):
-                session.budget_reason = str(exc)
-            session.stats.errors.append(str(exc))
-            _trace(ctx, f"model generate retry skipped: {exc}")
-            return None
-        if program is None:
-            return None
-        round_number += 1
+        session.discard_response()
+        feedback = _compiler_feedback(result.build)
+    session.budget_reason = f"已达到最大候选尝试次数 {ctx.invocation.max_rounds}"
     return None
+
+
+def _emit_program_bytes(data: bytes, *, stderr: bool) -> None:
+    """只转发通过检查的创意输出；普通原生输出仍沿用继承流。"""
+    stream = sys.stderr if stderr else sys.stdout
+    stream.flush()
+    binary = getattr(stream, "buffer", None)
+    if binary is not None:
+        binary.write(data)
+        binary.flush()
+    else:
+        stream.write(data.decode("utf-8", errors="replace"))
+        stream.flush()
 
 
 def _deterministic_fallback(ctx: Context, reason: str) -> int:
@@ -704,6 +789,9 @@ def execute(argv: list[str], invocation: Invocation) -> int:
         max_rounds=invocation.max_rounds,
         provider_override=invocation.provider,
         model_override=invocation.model,
+        reasoning_effort_override=invocation.reasoning_effort,
+        thinking_override=invocation.thinking,
+        max_output_tokens_override=invocation.max_output_tokens,
     )
     ctx = Context(
         argv=argv,

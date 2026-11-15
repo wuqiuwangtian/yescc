@@ -38,6 +38,9 @@ _HELP = """YesCC（Yes Compiler Collection）
       --max-rounds N  候选尝试（含缓存）与请求次数上限（默认 2）
       --provider NAME 覆盖模型供应商（deepseek/openai/ollama/...）
       --model NAME    覆盖模型名
+      --reasoning-effort LEVEL  推理等级（auto/none/minimal/low/medium/high/xhigh/max）
+      --thinking MODE 模型思考开关（auto/enabled/disabled，按供应商支持）
+      --max-output-tokens N  模型输出额度上限（1–16384，仍受费用预算限制）
       --emit-source   输出修复/生成后的完整源码
       --trace         输出每层尝试与模型调用摘要
       --unsafe-run    AI 产物在真实 cwd 运行（默认临时目录沙箱）
@@ -170,6 +173,27 @@ def parse(argv: Sequence[str]) -> ParsedCommand:
             value, index = _take_value(args, index, "--model")
             invocation.model = value
             continue
+        if arg == "--reasoning-effort":
+            value, index = _take_value(args, index, arg)
+            if value not in {"auto", "none", "minimal", "low", "medium", "high", "xhigh", "max"}:
+                raise UsageError("--reasoning-effort 需要受支持的推理等级，详见 --help。")
+            invocation.reasoning_effort = value
+            continue
+        if arg == "--thinking":
+            value, index = _take_value(args, index, arg)
+            if value not in {"auto", "enabled", "disabled"}:
+                raise UsageError("--thinking 需要 auto、enabled 或 disabled。")
+            invocation.thinking = value
+            continue
+        if arg == "--max-output-tokens":
+            value, index = _take_value(args, index, arg)
+            try:
+                invocation.max_output_tokens = int(value)
+            except ValueError as exc:
+                raise UsageError("--max-output-tokens 需要1–16384的整数。") from exc
+            if not 1 <= invocation.max_output_tokens <= 16384:
+                raise UsageError("--max-output-tokens 需要1–16384的整数。")
+            continue
         if arg == "--explain":
             invocation.explain = True
             index += 1
@@ -225,7 +249,10 @@ def parse(argv: Sequence[str]) -> ParsedCommand:
     return ParsedCommand(action="execute", invocation=invocation)
 
 
-_CLI_VALUE_FLAGS = {"--budget", "--max-rounds", "--provider", "--model", "--lang"}
+_CLI_VALUE_FLAGS = {
+    "--budget", "--max-rounds", "--provider", "--model", "--lang",
+    "--reasoning-effort", "--thinking", "--max-output-tokens",
+}
 
 
 def _requests_json(argv: list[str]) -> bool:

@@ -99,6 +99,8 @@ def build_in_temp(
     passthrough: Sequence[str],
     cwd: Path,
     source_dir: Path,
+    *,
+    link_math: bool = False,
 ) -> TempBuild:
     """把源码写到隔离目录、用真实工具链构建，成功后把产物复制回 cwd。"""
     with tempfile.TemporaryDirectory(prefix="yescc-build-") as raw_directory:
@@ -109,6 +111,20 @@ def build_in_temp(
         target.write_text(text, encoding="utf-8", newline="")
         arguments = _resolve_paths(_without_output(passthrough), cwd)
         arguments.extend(["-iquote", str(source_dir.resolve())])
+        # Only generated C opts in; native calls and rule/model repairs keep the
+        # user's link contract. Put libraries after the source/object arguments.
+        no_link = {"-c", "-S", "-E", "-M", "-MM", "-fsyntax-only", "-nostdlib", "-nodefaultlibs"}
+        explicit_math = "-lm" in arguments or any(
+            arg == "-l" and index + 1 < len(arguments) and arguments[index + 1] == "m"
+            for index, arg in enumerate(arguments)
+        )
+        if (
+            link_math
+            and adapter.name == "c"
+            and not no_link.intersection(arguments)
+            and not explicit_math
+        ):
+            arguments.append("-lm")
         build = adapter.build(target, arguments, directory)
         artifact: Path | None = None
         if build.returncode == 0 and build.artifact is not None:

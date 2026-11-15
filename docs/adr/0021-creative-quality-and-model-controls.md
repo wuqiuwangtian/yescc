@@ -1,0 +1,47 @@
+# ADR-0021：创意输出检查与模型推理控制
+
+- 状态：已实施（2026-11-12）。补充ADR-0012/0013/0015/0020，不修改首版语言范围或发布授权。
+- 来源：维护者在创意专项结果后要求按建议顺序改进，并增加可调整的推理设置；数据库/联网检索本轮不实施。
+
+## 决策
+
+### 生成C与原生工具链
+
+- 只有完整AI生成的C候选（自然语言/创意）通过`build_in_temp(..., link_math=True)`显式链接`-lm`，真实命令进入attempt。合法原生、规则、模型补丁修复均不暗加库。
+- `-c/-S/-E/-M/-MM/-fsyntax-only/-nostdlib/-nodefaultlibs`不追加；显式`-lm`或`-l m`不重复。没有增加其他外部库，也不猜测源码依赖。
+
+### 推理设置、预算与兼容性
+
+- 新CLI：`--thinking auto|enabled|disabled`、`--reasoning-effort auto|none|minimal|low|medium|high|xhigh|max`、`--max-output-tokens 1..16384`。同名环境项为`YESCC_MODEL_[L2_|L3_]THINKING/REASONING_EFFORT/MAX_OUTPUT_TOKENS`，tier优先于通用项，CLI优先于环境。
+- CLI显式auto清除该项环境控制，返回项目供应商默认，并非强制采用服务端默认。DeepSeek普通模型默认显式禁用thinking；`deepseek-reasoner`默认启用。用户选择推理等级时DeepSeek启用thinking，规范化minimal→low、medium/xhigh→high；none禁用；disabled与有效推理等级冲突时拒绝。
+- OpenAI发送Chat Completions的`reasoning_effort`；显式effort时用`max_completion_tokens`，有效推理时不传temperature。OpenAI不接受DeepSeek式thinking开关；未声明能力的兼容供应商拒绝显式推理设置。模型具体是否支持某个API枚举仍由模型/供应商决定，不保证所有OpenAI模型都支持所有等级。
+- 默认输出上限仍1024；可调上限不会扩张费用预算。推理与可见正文共享供应商的输出额度，仍先按消息字节/配置单价预留，并按剩余费用下调实际上限。费用未知、单价缺失、候选/请求/时间限制均沿用ADR-0015。
+- 配置在模型路径、缓存/预留之前校验，native成功和offline不因模型环境错误失败。修复路径首次请求前预检所有潜在L2/L3控制，避免先收费再发现后级配置错而丢失费用；生成只校验选中层。已知配置错作为UsageError/100、JSON为command_error，不写造构建费用或覆盖旧报告。
+- 不支持的具体模型/远端参数可能在请求后返回HTTP错误：此类请求仍计次数和预留，费用未知则明确未知。不会自动删除用户设置后再付费重试。
+- `length`、过滤、空正文先保存可靠usage、结算预算，再拒绝响应；不把已知费用误标未知。模型响应/JSON/源码不可用可在原候选上限内重试，没有新增长轮数或费用。
+- 缓存键加入有效推理、输出上限和提示版本；坏构建/坏运行清缓存。缓存命中不伪造served model/finish reason/新请求参数；`configured_settings`只表示配置，`request_settings`表示本次实际HTTP参数。
+
+### 创意检查的范围
+
+- 新创意提示要求一个贴题构思、语言/情绪匹配和完整短作品，避免泛化字节统计/翻译/复述，保护UTF-8；不要求所有诗歌都必须有算法。提示版本`m6-creative-1`，旧缓存失效，不改历史成绩。
+- 编译通过后对创意源码做有限风格检查：直接`wprintf/vwprintf/putwchar`与`printf/vprintf/puts/putchar`混用则拒绝候选。先按C续行规则处理LF/CRLF，再忽略注释和字符串；真实源码字节不改。此保守规则即使两调用在互斥分支也拒绝，不覆盖所有stdio调用、宏和间接调用，不称完整C语义分析。
+- **build不执行程序**。只记录source_checks及`generated.validation.performed=false`，不把编译说成运行验证或作品正确。
+- 仅model_creative的显式run，使用原有隔离/冻结环境路径执行一次，stdin为空、捕获stdout/stderr。检查退出0、未超时/超量、stdout非Unicode空白、stdout可解码UTF-8。普通生成/修复、确定性兜底和原生输出保持既有运行语义。
+- stdout+stderr合计64KiB为创意run额度：轮询及退出后检测超量、清理进程组，最多保留额度内前缀；磁盘瞬间写入可超过额度，不称严格字节或文件系统隔离。截断stdout不能据前缀判完整UTF-8，记未知；该上限不应用于原生程序。
+- 未通过的模型作品输出不转发；记录attempt.validation及实际validation_limits，失效缓存，并在原候选/请求/费用/时间上限内重试，耗尽后仍如实print_input。成功输出按原始字节转发，生成程序不重复执行。取消/130直接结束，不再请求模型。
+- `--unsafe-run`只沿用既有放宽运行位置/环境的含义，不解除创意检查、超时或输出额度。检查不能撤销程序已产生的副作用，也不证明安全、完整、贴题或有趣。
+- 修复与创意仍共享原有候选额度，不自动预留或加钱；明确创作需求使用`--play`。改变两者分配需另行决定。
+
+### 报告与评测
+
+- schema v1只增字段：模型的requested/served、finish_reason、reasoning_tokens、configured/request_settings和响应摘要；不记录推理正文。逐候选source_checks/validation/validation_limits与最终generated.validation分别来自实际阶段。
+- 最终limits只代表最终实际运行；先前失败候选限制在attempt中，不能从编译limits推断已运行/断网。output_limited仅在确实观察到超额时为true。
+- 固定M4数据/oracle/原passed口径不变；新增fallback_kind/model_success，以真实来源、成功模型构建和行为检查区分模型作品、固定梗、原文回显，修正历史fun_03式首候选污染。model_success仍不是创意评分。
+
+## 依据与验证
+
+- [创意专项](../评测/2026-11-12.md)的六份数学候选、非法UTF-8、宽窄流缺行、默认思考空正文和候选耗尽记录。
+- [DeepSeek思考控制](https://api-docs.deepseek.com/guides/thinking_mode/)及[计价](https://api-docs.deepseek.com/quick_start/pricing/)。
+- [OpenAI Chat Completions参数](https://developers.openai.com/api/reference/resources/chat/subresources/completions/methods/create)及[推理说明](https://developers.openai.com/api/docs/guides/reasoning?api-mode=chat)。
+
+离线回归、双平台CI、当前真实复测和未测边界按日期保存在docs/评测；状态只维护路线图§10。
