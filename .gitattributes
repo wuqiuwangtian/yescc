@@ -7,3 +7,5 @@
 /bench/creative_reasoning.py text eol=lf
 /bench/creative_reasoning_*.json text eol=lf
 /tests/test_creative_reasoning.py text eol=lf
+/bench/creative_reasoning_*.py text eol=lf
+/tests/test_creative_reasoning_*.py text eol=lf

@@ -120,6 +120,12 @@ uv run pytest tests/test_creative_reasoning.py -q
 
 本工具不是API runner。付费前须冻结实际执行器、匿名映射与快照，离线证明未知费用等异常能阻断同一任务内后续HTTP请求，复核官方价目/能力；失配先停，不看作品后调参数或重跑。通过两阶段也只形成供维护者选择的建议，不自动修改生产默认。冻结设计、预检证据及测试隔离首轮失误见[本日评测](../docs/评测/2026-11-14.md#生成阶段推理设置对照准备)。
 
+`creative_reasoning_run`提供研究执行器，`prepare --workspace <仓库外新目录>`只复制/核对冻结快照及匿名映射；`run --workspace <同目录> --credentials-file <仓库外model.env>`才读取维护者已授权凭据并按42项计划调用真实API。没有内置付费授权：必须沿路线图A3及当前专项预算执行。`--fake-endpoint http://127.0.0.1:<port>/v1`仅供prepare离线测试，run使用假密钥；不能传任意外部服务。
+
+`creative_reasoning_guard`在不改实际wire内容的前提下记录去密钥/推理正文的请求响应，拒绝端点/参数/次数漂移，未知费用、HTTP错误或服务模型漂移后阻断同一CLI内下一HTTP并停止下一任务。已知usage的length仍可用原额度重试。账本每任务预留$0.005且不回收任务槽，整批不可重复/恢复重跑；超时清理POSIX进程组，Windows以taskkill尽力清理，不阻止独立逃逸进程。原始输出/报告/候选响应和实际HTTP计数保留，被挡住的产品尝试与HTTP分开。
+
+全部42项完成后，`uv run python -m bench.creative_reasoning_review materials --workspace <目录>`生成匿名材料；两位独立AI按冻结rubric分别保存`reviews/discovery-a.json`、`discovery-b.json`。再用同模块`analyze`计算`discovery-selection.json`，核对冻结任务/mapping、保留null与失败分母，缺源码的声称成功作品阻断选择。只有唯一候选通过冻结门槛时，执行器的`confirmation --workspace <目录> --selection-file <selection.json>`才重新计算结果、核对双评并启封8题；没有候选不读取正文。完整实验结果单独写本日评测，不能用假服务验证代替创意质量。
+
 ## M5 独立审计（全部离线）
 
 ```bash
