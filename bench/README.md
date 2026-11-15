@@ -177,6 +177,8 @@ uv run python -m bench.binary_archive_smoke --archive dist/native/yescc-0.1.0-li
 
 Windows归档后缀为zip、目标名windows-x86_64。构建只在当前平台原生执行；CLI包、实际外部工具链与许可覆盖分别验收，详见[ADR-0020](../docs/adr/0020-native-release-candidates.md)。`binary-licenses.json`的unresolved不为空时不可关闭正式许可门槛；工作流保持候选artifact，不创建tag/Release或上传索引。
 
+来源采集分别保存物理bundle路径与Python导入模块名；同名的Linux入口`yescc`和包`yescc`各自保留原始TOC及source hash。未知原生文件不能借用同名模块的归属。修改采集器后须重建并复核实际候选，旧的`coverage_complete=true`不能代替修补后的来源验证。
+
 README动图由实际三例输出生成，可选安装Pillow后运行 `python -m bench.render_demo --binary <冻结入口> --font <本机允许使用的中文字体> --output docs/assets/yescc-demo.gif --record dist/m6-demo.json`。记录来源、源文件保护和原始stdout/stderr；不要用编造的终端输出替代真实演示。
 
 

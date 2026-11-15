@@ -470,7 +470,8 @@ def collect(
                 }
             )
 
-    mappings: dict[str, dict[str, Any]] = {}
+    file_mappings: dict[str, dict[str, Any]] = {}
+    module_mappings: dict[str, dict[str, Any]] = {}
     toc_records = []
     for toc in sorted(workdir.rglob("*.toc")):
         if not toc.name.startswith(("Analysis-", "COLLECT-", "PYZ-")):
@@ -486,14 +487,17 @@ def collect(
             record: dict[str, Any] = {"source": raw_source, "kind": kind, "toc": str(toc)}
             if source.is_absolute() and source.is_file():
                 record["source_sha256"] = _sha(source)
-            mappings[destination.replace("\\", "/")] = record
+            # PYZ names are import names, not physical bundle destinations. A
+            # package named yescc must not replace the Linux executable yescc.
+            target = (
+                module_mappings if kind.startswith(("PYMODULE", "PYSOURCE")) else file_mappings
+            )
+            target[destination.replace("\\", "/")] = record
     if not toc_records:
         unresolved.append({"component": "build-toc", "reason": "no Analysis/COLLECT TOC found"})
 
     pure_modules = []
-    for destination, origin in sorted(mappings.items()):
-        if not origin["kind"].startswith(("PYMODULE", "PYSOURCE")):
-            continue
+    for destination, origin in sorted(module_mappings.items()):
         source = Path(origin["source"]).resolve()
         owner = owner_for(source)
         if owner is None and (
@@ -546,7 +550,7 @@ def collect(
         if path.is_file():
             record.update({"sha256": _sha(path), "bytes": path.stat().st_size})
         logical = relative.removeprefix("_internal/")
-        origin = mappings.get(relative) or mappings.get(logical)
+        origin = file_mappings.get(relative) or file_mappings.get(logical)
         if origin:
             record["origin"] = origin
         is_native = (origin or {}).get("kind") in {"BINARY", "EXTENSION", "EXECUTABLE"}

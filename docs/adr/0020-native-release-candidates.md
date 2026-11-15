@@ -11,6 +11,7 @@
 - 发布 Linux 候选在 Ubuntu 24.04 的系统 Python 上构建，记录实际 glibc 基线；不能声称兼容所有 Linux。本机 Arch/PBS 打包仅作为开发验证。Windows 以原生 CI 实测为依据，不扩称所有旧 Windows 或 ARM 可用。
 - 构建器记录源码提交与工作区是否有改动、打包器、解释器、系统、逐文件哈希和 symlink。验收器必须在仓库外解包并验证 manifest，清除源码/venv/PYTHONPATH 等依赖，再检查真实 CLI；只用本机假模型，不读取真实凭据。
 - 许可审计以实际 bundle 文件及 TOC 来源为分母，保留运行依赖、CPython、打包器、证书源的原始声明；额外原生库和静态链接部分不能由一个 CPython LICENSE 代替。coverage_complete 仅表示采集范围已查，不是法律意见；有未知项必须列 unresolved 并阻止正式发布验收。
+- 物理文件路径与Python导入模块名分别映射；例如Linux可执行文件`yescc`与Python包`yescc`同名时，两者来源不能互相覆盖。物理原生文件必须按实际COLLECT/Analysis记录归属，未知BINARY不能借用同名已知模块的许可而被放行。
 - certifi 的实际 PEM 与许可原文、锁定 sdist URL/哈希及源获取说明一起留存；不把网页链接当作已经镜像整个上游源码。GNU GPL 的 PyInstaller bootloader exception 不能误写成 LGPL，也不能覆盖第三方依赖的许可义务。
 - 候选工作流只构建、验证和保存 Actions artifact，无上传索引、tag 或 Release 步骤。0.1.0 源码版本号不表示已经发布；PyPI 实际安装、正式资产及观察窗仍是 G6 必须项。
 

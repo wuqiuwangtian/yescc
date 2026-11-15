@@ -59,6 +59,54 @@ def test_unknown_native_file_stays_unresolved(
     assert report["bundle_files"][0]["sha256"]
 
 
+@pytest.mark.parametrize("native_kind", ["EXECUTABLE", "BINARY"])
+@pytest.mark.parametrize("module_kind", ["PYMODULE", "PYSOURCE"])
+def test_same_named_native_file_and_python_module_keep_separate_origins(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    native_kind: str,
+    module_kind: str,
+) -> None:
+    import hashlib
+
+    _isolate_inventory(monkeypatch)
+    monkeypatch.setattr(binary_licenses, "_builtin_components", set)
+    project = tmp_path / "project"
+    source = project / "src/yescc/__init__.py"
+    source.parent.mkdir(parents=True)
+    source.write_bytes(b"VERSION = 'fixture'\n")
+    monkeypatch.setattr(binary_licenses, "ROOT", project)
+    native = tmp_path / "built/yescc"
+    native.parent.mkdir()
+    native.write_bytes(b"fixture native program, not Python source")
+    bundle = tmp_path / "bundle"
+    bundle.mkdir()
+    (bundle / "yescc").write_bytes(native.read_bytes())
+    work = tmp_path / "work"
+    work.mkdir()
+    (work / "COLLECT-00.toc").write_text(repr((["yescc", str(native), native_kind],)))
+    (work / "PYZ-00.toc").write_text(repr((["yescc", str(source), module_kind],)))
+
+    report = binary_licenses.collect(bundle, work, tmp_path / "audit.json")
+
+    physical = next(row for row in report["bundle_files"] if row["path"] == "yescc")
+    module = next(row for row in report["pure_python_modules"] if row["module"] == "yescc")
+    assert physical["origin"]["kind"] == native_kind
+    assert physical["origin"]["source"] == str(native)
+    assert physical["origin"]["source_sha256"] == hashlib.sha256(native.read_bytes()).hexdigest()
+    assert module["origin"]["kind"] == module_kind
+    assert module["origin"]["source"] == str(source)
+    assert module["origin"]["source_sha256"] == hashlib.sha256(source.read_bytes()).hexdigest()
+    assert module["license_component"] == "yescc"
+    if native_kind == "EXECUTABLE":
+        assert physical["license_component"] == "yescc + PyInstaller bootloader"
+    else:
+        assert "license_component" not in physical
+        assert {"component": "yescc", "reason": "native origin/license not resolved"} in report[
+            "unresolved"
+        ]
+
+
 @pytest.mark.parametrize("builtin", [False, True])
 def test_dynamic_dependency_requires_actual_bundled_library_and_notice(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch, builtin: bool
