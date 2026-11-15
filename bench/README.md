@@ -87,6 +87,16 @@ items为非空数组，包含安全文件名id/case_id、input/source/stdout、r
 
 研究费用、协议、原始记录和未集成决定见[2026-11-13](../docs/评测/2026-11-13.md)。常规CI仍仅使用本地静态响应；真实研究调用按路线图授权、单价和费用预留独立约束，不把此回放命令当付费执行器。
 
+逐项事实核对另由`creative_fact_review.py`提供：每条判断（包括pass）需2–4项可见事实，状态与最终verdict一致；每项都有stdout与input/source原文引文。引文只证明出处，不证明判断正确。`creative_fact_eval.py`离线比较basic、facts、facts_low三组；effort由外部受限研究调用器设置，不在回放时调用模型。
+
+```bash
+uv run python -m bench.creative_fact_eval \
+  --items /path/to/materials.json --responses /path/to/model-responses \
+  --output /tmp/creative-fact-comparison.json
+```
+
+响应布局为`<basic|facts|facts_low>/<id>.txt`；items与上一工具格式相同。缺失/坏证据为invalid，不因推理已付费而接受空判断；争议参考单列，分别报告旧难例诊断/开发澄清/独立新题材。三组共享单任务费用上限，thinking的推理token与正文共用输出额度，长度耗尽不等于逻辑能力结论。澄清题必须配新产物，不能把旧产物套新输入来回写成绩；协议与结果继续见同日评测。
+
 ## M5 独立审计（全部离线）
 
 ```bash
