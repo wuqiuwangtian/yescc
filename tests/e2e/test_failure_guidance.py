@@ -246,16 +246,25 @@ def test_native_nonzero_program_exit_preserves_streams_without_failure_hint(
     assert source.read_bytes() == before and not fake_model.requests
 
 
-def test_strict_compiler_failure_keeps_original_native_output(
+def test_strict_compiler_failure_preserves_complete_diagnostic_text(
     tmp_path: Path, fake_model: FakeModelServer,
 ) -> None:
-    source = _write(tmp_path, "broken.c", "int main(void) { return unknown_native_symbol; }\n")
+    source = _write(
+        tmp_path, "broken.c",
+        "int main(void) {\n    int total = 0;\n"
+        + "".join(f"    total += unknown_native_symbol_{index};\n" for index in range(48))
+        + "    return total;\n}\n",
+    )
     compiler = shutil.which("gcc") or shutil.which("gcc.exe") or shutil.which("cc")
     assert compiler is not None
     native = subprocess.run([compiler, str(source)], cwd=tmp_path,
                             capture_output=True, timeout=30, check=False)
-    assert native.returncode != 0
+    assert native.returncode != 0 and len(native.stderr) > 4000
     built = _run(tmp_path, str(source), "--strict")
     assert built.returncode == 102
-    assert built.stdout == native.stdout and built.stderr == native.stderr
+    # Compiler diagnostics already cross a text-mode capture/write boundary.
+    # Compare the entire text, allowing only CRLF/LF, with no trimming or loss.
+    # Native program stdout/stderr have separate raw-byte assertions above.
+    assert built.stdout.replace(b"\r\n", b"\n") == native.stdout.replace(b"\r\n", b"\n")
+    assert built.stderr.replace(b"\r\n", b"\n") == native.stderr.replace(b"\r\n", b"\n")
     assert not fake_model.requests
