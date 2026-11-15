@@ -1,0 +1,140 @@
+[
+  {
+    "id": "defined-unsigned-wrap",
+    "source": "#include <limits.h>\n#include <stdio.h>\nint main(void) {\n    volatile unsigned int top = UINT_MAX;\n    unsigned int result = top + 1u;\n    printf(\"%u\\n\", result);\n    return 0;\n}\n",
+    "expectation": "defined",
+    "category": "unsigned_wrap",
+    "note": "无符号最大值加一按模 UINT_MAX+1 回绕为零；不能把这种合法回绕当作有符号溢出。",
+    "standard_basis": "C11 6.2.5p9: unsigned arithmetic is reduced modulo one more than the maximum value.",
+    "expected_stdout": "0\n"
+  },
+  {
+    "id": "defined-utf8-literature",
+    "source": "#include <stdio.h>\nint main(void) {\n    fputs(\"月光把旧信折成一只船，\\n让沉默沿着窗台远航。\\n\", stdout);\n    return 0;\n}\n",
+    "expectation": "defined",
+    "category": "utf8_literary_output",
+    "note": "完整 UTF-8 字符串文学输出，没有普通多字节字符常量；精确字节对照要求编译器输入和执行字符集为 UTF-8。",
+    "standard_basis": "C11 6.4.5 and 7.21.7.4: a null-terminated string is passed to fputs.",
+    "expected_stdout": "月光把旧信折成一只船，\n让沉默沿着窗台远航。\n"
+  },
+  {
+    "id": "defined-libm",
+    "source": "#include <math.h>\n#include <stdio.h>\nint main(void) {\n    volatile double square = 9.0;\n    volatile double angle = 0.0;\n    printf(\"%.0f %.0f\\n\", sqrt(square), cos(angle));\n    return 0;\n}\n",
+    "expectation": "defined",
+    "category": "libm_valid_domain",
+    "note": "sqrt(9) 与 cos(0) 均在有效定义域；volatile 避免仅靠常量折叠隐藏 libm 链接需求，构建时需 -lm。输出取整后为 3 1。",
+    "standard_basis": "C11 7.12.4.5 and 7.12.7.5: cos and sqrt are defined for these arguments.",
+    "expected_stdout": "3 1\n"
+  },
+  {
+    "id": "defined-one-past",
+    "source": "#include <stddef.h>\n#include <stdio.h>\nint main(void) {\n    int values[3] = {4, 5, 6};\n    int *end = values + 3;\n    ptrdiff_t length = end - values;\n    printf(\"%td %d\\n\", length, *(end - 1));\n    return 0;\n}\n",
+    "expectation": "defined",
+    "category": "legal_one_past_pointer",
+    "note": "允许形成尾后一位指针并与同数组起点相减；仅解引用 end-1，绝不解引用 end。",
+    "standard_basis": "C11 6.5.6p8-p9: one-past formation and same-array pointer subtraction are permitted.",
+    "expected_stdout": "3 6\n"
+  },
+  {
+    "id": "defined-signed-limit",
+    "source": "#include <limits.h>\n#include <stdio.h>\nint main(void) {\n    volatile int near_top = INT_MAX - 1;\n    int result = near_top + 1;\n    printf(\"%d\\n\", result == INT_MAX);\n    return 0;\n}\n",
+    "expectation": "defined",
+    "category": "signed_in_range_boundary",
+    "note": "结果恰为 INT_MAX 而没有超出范围；输出比较结果，避免把宿主 int 位宽写进预期。",
+    "standard_basis": "C11 6.5p5: this arithmetic result is within the representable range.",
+    "expected_stdout": "1\n"
+  },
+  {
+    "id": "defined-unsigned-shift",
+    "source": "#include <stdio.h>\nint main(void) {\n    volatile unsigned int value = 1u;\n    volatile int shift = 3;\n    printf(\"%u\\n\", value << shift);\n    return 0;\n}\n",
+    "expectation": "defined",
+    "category": "legal_unsigned_shift",
+    "note": "C 保证 unsigned int 至少 16 位，因此计数 3 合法；1u 左移三位得到 8。",
+    "standard_basis": "C11 5.2.4.2.1 and 6.5.7p3-p4: the nonnegative shift count is below the unsigned width.",
+    "expected_stdout": "8\n"
+  },
+  {
+    "id": "undefined-array-index",
+    "source": "#include <stdio.h>\nint main(void) {\n    int values[3] = {4, 5, 6};\n    volatile int index = 3;\n    printf(\"%d\\n\", values[index]);\n    return 0;\n}\n",
+    "expectation": "undefined",
+    "category": "array_out_of_bounds",
+    "note": "实际路径读取三元素数组的下标 3，即解引用尾后一位；volatile 使索引在运行期读取。",
+    "standard_basis": "C11 6.5.2.1p2 and 6.5.6p8: a one-past pointer must not be dereferenced."
+  },
+  {
+    "id": "undefined-signed-add",
+    "source": "#include <limits.h>\n#include <stdio.h>\nint main(void) {\n    volatile int top = INT_MAX;\n    printf(\"%d\\n\", top + 1);\n    return 0;\n}\n",
+    "expectation": "undefined",
+    "category": "signed_integer_overflow",
+    "note": "运行时对 INT_MAX 加一，数学结果不能以 int 表示；不能用普通构建碰巧回绕当作合法语义。",
+    "standard_basis": "C11 6.5p5: a result outside the representable range is undefined behavior."
+  },
+  {
+    "id": "undefined-divide-zero",
+    "source": "#include <stdio.h>\nint main(void) {\n    volatile int numerator = 7;\n    volatile int denominator = 0;\n    printf(\"%d\\n\", numerator / denominator);\n    return 0;\n}\n",
+    "expectation": "undefined",
+    "category": "integer_division_by_zero",
+    "note": "整数除数实际为零；这里不使用浮点除零，避免混淆浮点实现的 IEEE 行为。",
+    "standard_basis": "C11 6.5.5p5: division by a zero second operand is undefined behavior."
+  },
+  {
+    "id": "undefined-shift-width",
+    "source": "#include <limits.h>\n#include <stdio.h>\nint main(void) {\n    volatile unsigned int value = 1u;\n    volatile unsigned int shift = sizeof(unsigned int) * CHAR_BIT;\n    printf(\"%u\\n\", value << shift);\n    return 0;\n}\n",
+    "expectation": "undefined",
+    "category": "shift_count_out_of_range",
+    "note": "计数等于 unsigned int 对象的总位数，必然不小于操作数的值宽度，因此超出合法移位计数范围。",
+    "standard_basis": "C11 6.5.7p3: a shift count greater than or equal to the promoted left operand width is undefined."
+  },
+  {
+    "id": "undefined-negative-left-shift",
+    "source": "#include <stdio.h>\nint main(void) {\n    volatile int value = -1;\n    volatile int shift = 1;\n    printf(\"%d\\n\", value << shift);\n    return 0;\n}\n",
+    "expectation": "undefined",
+    "category": "negative_signed_left_shift",
+    "note": "负的有符号左操作数参与左移，在本研究的 C11 语义下属于 UB；不是负数右移的实现定义情况。",
+    "standard_basis": "C11 6.5.7p4: signed left shift is defined only for a nonnegative left operand with a representable result."
+  },
+  {
+    "id": "undefined-null-load",
+    "source": "#include <stddef.h>\n#include <stdio.h>\nint main(void) {\n    int value = 7;\n    int *pointer = &value;\n    volatile int choose_null = 1;\n    if (choose_null) {\n        pointer = NULL;\n    }\n    printf(\"%d\\n\", *pointer);\n    return 0;\n}\n",
+    "expectation": "undefined",
+    "category": "null_pointer_dereference",
+    "note": "运行时分支选中空指针并实际解引用；不用依赖 int 补码表示的 INT_MIN/-1 作为正例，避免把平台假设藏进 UB 标签。",
+    "standard_basis": "C11 6.5.3.2p4: indirection through an invalid pointer has undefined behavior."
+  },
+  {
+    "id": "boundary-wrong-fact",
+    "source": "#include <stdio.h>\nint main(void) {\n    puts(\"2 + 2 = 5\");\n    return 0;\n}\n",
+    "expectation": "boundary",
+    "category": "semantic_content_error",
+    "note": "实际 C 执行定义良好但算术陈述错误；UBSan 不判断输出内容或创作意图，沉默不是内容正确的证据。",
+    "standard_basis": "C11 7.21.7.9: puts of a valid string is defined; semantic truth is outside sanitizer scope.",
+    "boundary_semantics": "defined_but_incorrect_content"
+  },
+  {
+    "id": "boundary-unexecuted-ub",
+    "source": "#include <stdio.h>\nint main(void) {\n    int values[2] = {8, 9};\n    volatile int take_bad_branch = 0;\n    if (take_bad_branch) {\n        volatile int index = 2;\n        printf(\"%d\\n\", values[index]);\n    } else {\n        puts(\"safe branch\");\n    }\n    return 0;\n}\n",
+    "expectation": "boundary",
+    "category": "unexecuted_undefined_branch",
+    "note": "坏分支包含越界但本次明确不执行；实际路径定义良好。运行期检查不证明没有潜伏 UB，不应要求本次检出。",
+    "standard_basis": "C11 6.8.4.1p2: only the selected if/else substatement is executed.",
+    "boundary_semantics": "defined_executed_path_with_latent_ub"
+  },
+  {
+    "id": "boundary-heap-overrun",
+    "source": "#include <stdio.h>\n#include <stdlib.h>\nint main(void) {\n    volatile int *values = malloc(2 * sizeof *values);\n    if (values == NULL) {\n        return 2;\n    }\n    values[0] = 4;\n    values[1] = 5;\n    volatile int index = 2;\n    values[index] = 6;\n    printf(\"%d\\n\", values[index]);\n    free((void *)values);\n    return 0;\n}\n",
+    "expectation": "boundary",
+    "category": "heap_out_of_bounds_coverage",
+    "note": "分配成功后对两元素堆块下标 2 的写读属于 UB；UBSan 对动态分配边界的覆盖依编译器、优化和检查集而变，可能需 ASan。本例不能预设一定漏检或检出。分配失败返回 2。",
+    "standard_basis": "C11 6.5.6p8 and 7.22.3: access beyond an allocated object is undefined.",
+    "boundary_semantics": "undefined_if_allocation_succeeds"
+  },
+  {
+    "id": "boundary-use-after-free",
+    "source": "#include <stdio.h>\n#include <stdlib.h>\nint main(void) {\n    int *value = malloc(sizeof *value);\n    if (value == NULL) {\n        return 2;\n    }\n    *value = 7;\n    free(value);\n    printf(\"%d\\n\", *(volatile int *)value);\n    return 0;\n}\n",
+    "expectation": "boundary",
+    "category": "use_after_free_coverage",
+    "note": "分配成功后读取释放对象属于 UB；volatile 避免仅把旧值作为常量输出。UBSan 不保证追踪堆生命周期，通常需要 ASan，不能预设任何具体输出或退出码。分配失败返回 2。",
+    "standard_basis": "C11 6.2.4p2 and 7.22.3.3: referring to an object outside its lifetime is undefined.",
+    "boundary_semantics": "undefined_if_allocation_succeeds"
+  }
+]

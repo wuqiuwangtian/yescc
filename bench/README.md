@@ -157,3 +157,16 @@ README动图由实际三例输出生成，可选安装Pillow后运行 `python -m
 
 
 发布后索引验证：`uv run python -m bench.index_smoke --expected-version 0.1.0 --output dist/published-install.json` 从公共PyPI安装根包和依赖；手动工作流 `Published install verification` 在Linux/Windows × Python3.11/3.14执行。发布前可加 `--wheel <候选whl>` 演练同一套检查，根包来自本地、依赖按公开版本范围解析，报告明确为local_wheel_rehearsal，不算实际PyPI发布验收。两种模式均只离线运行产品，不使用真实模型。
+
+
+## 运行期未定义行为离线研究
+
+`ubsan_corpus`从已归档的54份模型源码逐字核对来源，加2份冻结示例和16份明确正反例，生成新的72件研究语料；`ubsan_study`对普通/插桩源码副本分别编译运行，支持runtime与trap两模式。研究不调用模型，不改变生产C适配器、run/build或默认提示。
+
+```bash
+uv run python -m bench.ubsan_corpus --output-dir dist/ubsan-local
+uv run python -m bench.ubsan_study --cases dist/ubsan-local/cases.json --compiler gcc --mode runtime --output dist/ubsan-local/runtime.json
+uv run python -m bench.ubsan_study --cases dist/ubsan-local/cases.json --compiler gcc --mode trap --output dist/ubsan-local/trap.json
+```
+
+目录和报告必须是新路径，已有输入/结果不会覆盖。需要真实C工具链，**上述命令会编译并运行保存的C**，按现有超时/输出和尽力隔离执行，不提供文件系统强隔离。runtime需要目标运行库，trap免运行库但异常退出本身不证明UB。报告区分实际compiler探针、未测/构建失败/超时/输出超限、普通及插桩结果；退出0只表示研究记录完成，不代表无UB、支持或语义正确。候选stderr可伪造，工具不认证UB；原字节和仅CRLF/LF兼容的严格UTF8文本比较分开。具体结果与平台版本见同日评测，当前任务仅维护路线图§10.16。
