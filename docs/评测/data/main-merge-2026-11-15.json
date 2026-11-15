@@ -1,0 +1,1843 @@
+{
+  "schema": "yescc-main-merge-v1",
+  "observed_at_utc": "2026-11-15T06:37:28.202737+00:00",
+  "initial_main": "bb38b6f01dbd39341d0b9c3c3973efb835eb0588",
+  "reviewed_candidate": "a5669935dbd14bc73118b5fd6264ee7deceb6c61",
+  "reviewed_tree": "0fbdd0d1aa5ef8720785797eac160dca1d77c57e",
+  "source_merged_main": "47deb902ccd458c0f3550e0deb54d56c35dc0404",
+  "source_tree_matches_reviewed_candidate": true,
+  "all_original_heads_preserved_as_ancestors": true,
+  "method": "merge",
+  "branches_deleted": false,
+  "release_performed": false,
+  "pull_requests": [
+    {
+      "number": 2,
+      "title": "feat(m5): 发布候选、规则修补与独立验收",
+      "url": "https://github.com/wuqiuwangtian/yescc/pull/2",
+      "state": "closed",
+      "base": "main",
+      "head": "f685198d5bb35ea772b95d2da83cd5a850f83ca5",
+      "merge_commit": "5ea499cce997d749e59264ce97e904674364410c",
+      "merged_at": "2026-11-15T06:32:21Z",
+      "tree": "eac5f0aca0e71e1748028356681d5e5057aa6733"
+    },
+    {
+      "number": 3,
+      "title": "feat(m6): 原生发布候选、来源审计与安装验证",
+      "url": "https://github.com/wuqiuwangtian/yescc/pull/3",
+      "state": "closed",
+      "base": "main",
+      "head": "1a9f1396f9ff89cb48e7a7ca39b8f019ad08e3c4",
+      "merge_commit": "af3414a84c33dd3a2ea76a1acc54cabd9c1d44e0",
+      "merged_at": "2026-11-15T06:33:25Z",
+      "tree": "f105afaf1de915533afe852bff9541d6ebb5398d"
+    },
+    {
+      "number": 4,
+      "title": "feat(creative): 可调推理与有限创意运行验证",
+      "url": "https://github.com/wuqiuwangtian/yescc/pull/4",
+      "state": "closed",
+      "base": "main",
+      "head": "006bf8daf734d9bed9ac0ee98e51ad52cec63177",
+      "merge_commit": "f8a3022caf6e96d2ae9fa14594a26d239cbbb8d8",
+      "merged_at": "2026-11-15T06:33:38Z",
+      "tree": "c6e5732cb08653b223a5a6fd98dd05059835f5c1"
+    },
+    {
+      "number": 5,
+      "title": "feat(creative): 符号常量护栏与冻结一致性回归",
+      "url": "https://github.com/wuqiuwangtian/yescc/pull/5",
+      "state": "closed",
+      "base": "main",
+      "head": "f368b44bddb62aca5a42d91f1edbb85586d24f19",
+      "merge_commit": "51e96cb1433223fc797b8436c609a21f36908a5f",
+      "merged_at": "2026-11-15T06:33:52Z",
+      "tree": "7fb0d3a8895affb0092ab0d0c5f26087cf0a8e84"
+    },
+    {
+      "number": 6,
+      "title": "test(creative): 比较约束提取与独立评审的识错与误拒绝",
+      "url": "https://github.com/wuqiuwangtian/yescc/pull/6",
+      "state": "closed",
+      "base": "main",
+      "head": "e504d6f45e5533002a09139f3b2698c529175243",
+      "merge_commit": "2d857afab925fcd9da6d39bfc1d6ad582fbcc7e8",
+      "merged_at": "2026-11-15T06:34:26Z",
+      "tree": "ac80a0eabc598f2ef8a559af4d15b1c114215ac8"
+    },
+    {
+      "number": 7,
+      "title": "test(creative): 对照逐项核对与固定预算下的low推理",
+      "url": "https://github.com/wuqiuwangtian/yescc/pull/7",
+      "state": "closed",
+      "base": "main",
+      "head": "57afeb757a059e60fc631b830c5a6ea9fd275bbd",
+      "merge_commit": "dfbc106bc41d35baaa9d5e7aa3076f058b12b866",
+      "merged_at": "2026-11-15T06:34:41Z",
+      "tree": "52205acc959dd68ea094c101e9bf0e61bc86c2e2"
+    },
+    {
+      "number": 8,
+      "title": "test(creative): 对照生成侧短示例与本地事实",
+      "url": "https://github.com/wuqiuwangtian/yescc/pull/8",
+      "state": "closed",
+      "base": "main",
+      "head": "b0ef0b9acb7b98d17859b78263cccf73d7f05e97",
+      "merge_commit": "dc191bf653f11eda79b684552b6fdff37b7274da",
+      "merged_at": "2026-11-15T06:34:56Z",
+      "tree": "a3c83aee3c25d29d659918c07e47f5f431ebbf91"
+    },
+    {
+      "number": 9,
+      "title": "test(creative): 评估运行期未定义行为检查与平台边界",
+      "url": "https://github.com/wuqiuwangtian/yescc/pull/9",
+      "state": "closed",
+      "base": "main",
+      "head": "07160fcdf9a31f2790ab31205f6b62dbc45e9d36",
+      "merge_commit": "af38139bd7cfe44008899e4e322bab75fb98bf4a",
+      "merged_at": "2026-11-15T06:35:12Z",
+      "tree": "176518566bc2ed9fa1ef9e2ac5a9580d1711faa4"
+    },
+    {
+      "number": 10,
+      "title": "feat(creative): 可选运行期错误检查，默认关闭",
+      "url": "https://github.com/wuqiuwangtian/yescc/pull/10",
+      "state": "closed",
+      "base": "main",
+      "head": "be51ca701c0f25692df10f8a5acdec8f3557c4cd",
+      "merge_commit": "49819df766b65ad2707b35e14aaabb9341a219cb",
+      "merged_at": "2026-11-15T06:35:24Z",
+      "tree": "a4866ac4c4a7880f589158ab327163024d95db3e"
+    },
+    {
+      "number": 11,
+      "title": "bench(creative): 冻结生成推理配置对照与离线预检",
+      "url": "https://github.com/wuqiuwangtian/yescc/pull/11",
+      "state": "closed",
+      "base": "main",
+      "head": "3608d20559944d1053d6ea9181937317e684ee59",
+      "merge_commit": "a1fce91b023c2343592d1966925724d54ccb7219",
+      "merged_at": "2026-11-15T06:35:38Z",
+      "tree": "38950cce1f5362d6cd0b4b714aa0747a491fc983"
+    },
+    {
+      "number": 12,
+      "title": "bench(creative): 归档同预算生成推理对照，保持默认配置",
+      "url": "https://github.com/wuqiuwangtian/yescc/pull/12",
+      "state": "closed",
+      "base": "main",
+      "head": "e97619dabc1c65e0a0b0c0a5456d86f7956e3561",
+      "merge_commit": "594d3cb133c842707d4f07c17d87787525cc3a6f",
+      "merged_at": "2026-11-15T06:35:58Z",
+      "tree": "6a5380b86af952cec0b05a2d26f55957ab4425c6"
+    },
+    {
+      "number": 13,
+      "title": "fix(creative): 显示截断与预算裁剪原因，保留原输出",
+      "url": "https://github.com/wuqiuwangtian/yescc/pull/13",
+      "state": "closed",
+      "base": "main",
+      "head": "dc21d0cbf4b595b1e9bd916794d89450db765f73",
+      "merge_commit": "02dfc5a82c3b999889c283d2bad4f865fd2e30e5",
+      "merged_at": "2026-11-15T06:36:12Z",
+      "tree": "2d0e1827423500c6c7c1bcf7bcdba2e60e22dcee"
+    },
+    {
+      "number": 14,
+      "title": "test(release): 安装包用户复核与合并候选检查",
+      "url": "https://github.com/wuqiuwangtian/yescc/pull/14",
+      "state": "closed",
+      "base": "main",
+      "head": "a5669935dbd14bc73118b5fd6264ee7deceb6c61",
+      "merge_commit": "47deb902ccd458c0f3550e0deb54d56c35dc0404",
+      "merged_at": "2026-11-15T06:36:25Z",
+      "tree": "0fbdd0d1aa5ef8720785797eac160dca1d77c57e"
+    }
+  ],
+  "head_ci_before_merging": [
+    {
+      "number": 2,
+      "head": "f685198d5bb35ea772b95d2da83cd5a850f83ca5",
+      "ci": [
+        {
+          "conclusion": "success",
+          "databaseId": 42993156304,
+          "headSha": "f685198d5bb35ea772b95d2da83cd5a850f83ca5",
+          "status": "completed",
+          "url": "https://github.com/wuqiuwangtian/yescc/actions/runs/42993156304",
+          "workflowName": "CI"
+        },
+        {
+          "conclusion": "success",
+          "databaseId": 42983226332,
+          "headSha": "f685198d5bb35ea772b95d2da83cd5a850f83ca5",
+          "status": "completed",
+          "url": "https://github.com/wuqiuwangtian/yescc/actions/runs/42983226332",
+          "workflowName": "CI"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "head": "1a9f1396f9ff89cb48e7a7ca39b8f019ad08e3c4",
+      "ci": [
+        {
+          "conclusion": "success",
+          "databaseId": 43006012609,
+          "headSha": "1a9f1396f9ff89cb48e7a7ca39b8f019ad08e3c4",
+          "status": "completed",
+          "url": "https://github.com/wuqiuwangtian/yescc/actions/runs/43006012609",
+          "workflowName": "CI"
+        },
+        {
+          "conclusion": "success",
+          "databaseId": 43006003645,
+          "headSha": "1a9f1396f9ff89cb48e7a7ca39b8f019ad08e3c4",
+          "status": "completed",
+          "url": "https://github.com/wuqiuwangtian/yescc/actions/runs/43006003645",
+          "workflowName": "CI"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "head": "006bf8daf734d9bed9ac0ee98e51ad52cec63177",
+      "ci": [
+        {
+          "conclusion": "success",
+          "databaseId": 43185102234,
+          "headSha": "006bf8daf734d9bed9ac0ee98e51ad52cec63177",
+          "status": "completed",
+          "url": "https://github.com/wuqiuwangtian/yescc/actions/runs/43185102234",
+          "workflowName": "CI"
+        },
+        {
+          "conclusion": "success",
+          "databaseId": 43185094798,
+          "headSha": "006bf8daf734d9bed9ac0ee98e51ad52cec63177",
+          "status": "completed",
+          "url": "https://github.com/wuqiuwangtian/yescc/actions/runs/43185094798",
+          "workflowName": "CI"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "head": "f368b44bddb62aca5a42d91f1edbb85586d24f19",
+      "ci": [
+        {
+          "conclusion": "success",
+          "databaseId": 43192611443,
+          "headSha": "f368b44bddb62aca5a42d91f1edbb85586d24f19",
+          "status": "completed",
+          "url": "https://github.com/wuqiuwangtian/yescc/actions/runs/43192611443",
+          "workflowName": "CI"
+        },
+        {
+          "conclusion": "success",
+          "databaseId": 43192597552,
+          "headSha": "f368b44bddb62aca5a42d91f1edbb85586d24f19",
+          "status": "completed",
+          "url": "https://github.com/wuqiuwangtian/yescc/actions/runs/43192597552",
+          "workflowName": "CI"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "head": "e504d6f45e5533002a09139f3b2698c529175243",
+      "ci": [
+        {
+          "conclusion": "success",
+          "databaseId": 43358817567,
+          "headSha": "e504d6f45e5533002a09139f3b2698c529175243",
+          "status": "completed",
+          "url": "https://github.com/wuqiuwangtian/yescc/actions/runs/43358817567",
+          "workflowName": "CI"
+        },
+        {
+          "conclusion": "success",
+          "databaseId": 43358811904,
+          "headSha": "e504d6f45e5533002a09139f3b2698c529175243",
+          "status": "completed",
+          "url": "https://github.com/wuqiuwangtian/yescc/actions/runs/43358811904",
+          "workflowName": "CI"
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "head": "57afeb757a059e60fc631b830c5a6ea9fd275bbd",
+      "ci": [
+        {
+          "conclusion": "success",
+          "databaseId": 43363979195,
+          "headSha": "57afeb757a059e60fc631b830c5a6ea9fd275bbd",
+          "status": "completed",
+          "url": "https://github.com/wuqiuwangtian/yescc/actions/runs/43363979195",
+          "workflowName": "CI"
+        },
+        {
+          "conclusion": "success",
+          "databaseId": 43363972266,
+          "headSha": "57afeb757a059e60fc631b830c5a6ea9fd275bbd",
+          "status": "completed",
+          "url": "https://github.com/wuqiuwangtian/yescc/actions/runs/43363972266",
+          "workflowName": "CI"
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "head": "b0ef0b9acb7b98d17859b78263cccf73d7f05e97",
+      "ci": [
+        {
+          "conclusion": "success",
+          "databaseId": 43379599993,
+          "headSha": "b0ef0b9acb7b98d17859b78263cccf73d7f05e97",
+          "status": "completed",
+          "url": "https://github.com/wuqiuwangtian/yescc/actions/runs/43379599993",
+          "workflowName": "CI"
+        },
+        {
+          "conclusion": "success",
+          "databaseId": 43379591505,
+          "headSha": "b0ef0b9acb7b98d17859b78263cccf73d7f05e97",
+          "status": "completed",
+          "url": "https://github.com/wuqiuwangtian/yescc/actions/runs/43379591505",
+          "workflowName": "CI"
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "head": "07160fcdf9a31f2790ab31205f6b62dbc45e9d36",
+      "ci": [
+        {
+          "conclusion": "success",
+          "databaseId": 43384349241,
+          "headSha": "07160fcdf9a31f2790ab31205f6b62dbc45e9d36",
+          "status": "completed",
+          "url": "https://github.com/wuqiuwangtian/yescc/actions/runs/43384349241",
+          "workflowName": "CI"
+        },
+        {
+          "conclusion": "success",
+          "databaseId": 43384339894,
+          "headSha": "07160fcdf9a31f2790ab31205f6b62dbc45e9d36",
+          "status": "completed",
+          "url": "https://github.com/wuqiuwangtian/yescc/actions/runs/43384339894",
+          "workflowName": "CI"
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "head": "be51ca701c0f25692df10f8a5acdec8f3557c4cd",
+      "ci": [
+        {
+          "conclusion": "success",
+          "databaseId": 43576431716,
+          "headSha": "be51ca701c0f25692df10f8a5acdec8f3557c4cd",
+          "status": "completed",
+          "url": "https://github.com/wuqiuwangtian/yescc/actions/runs/43576431716",
+          "workflowName": "CI"
+        },
+        {
+          "conclusion": "success",
+          "databaseId": 43576425874,
+          "headSha": "be51ca701c0f25692df10f8a5acdec8f3557c4cd",
+          "status": "completed",
+          "url": "https://github.com/wuqiuwangtian/yescc/actions/runs/43576425874",
+          "workflowName": "CI"
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "head": "3608d20559944d1053d6ea9181937317e684ee59",
+      "ci": [
+        {
+          "conclusion": "success",
+          "databaseId": 43581866106,
+          "headSha": "3608d20559944d1053d6ea9181937317e684ee59",
+          "status": "completed",
+          "url": "https://github.com/wuqiuwangtian/yescc/actions/runs/43581866106",
+          "workflowName": "CI"
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "head": "e97619dabc1c65e0a0b0c0a5456d86f7956e3561",
+      "ci": [
+        {
+          "conclusion": "success",
+          "databaseId": 43584666177,
+          "headSha": "e97619dabc1c65e0a0b0c0a5456d86f7956e3561",
+          "status": "completed",
+          "url": "https://github.com/wuqiuwangtian/yescc/actions/runs/43584666177",
+          "workflowName": "CI"
+        }
+      ]
+    },
+    {
+      "number": 13,
+      "head": "dc21d0cbf4b595b1e9bd916794d89450db765f73",
+      "ci": [
+        {
+          "conclusion": "success",
+          "databaseId": 43680578367,
+          "headSha": "dc21d0cbf4b595b1e9bd916794d89450db765f73",
+          "status": "completed",
+          "url": "https://github.com/wuqiuwangtian/yescc/actions/runs/43680578367",
+          "workflowName": "CI"
+        },
+        {
+          "conclusion": "success",
+          "databaseId": 43680574175,
+          "headSha": "dc21d0cbf4b595b1e9bd916794d89450db765f73",
+          "status": "completed",
+          "url": "https://github.com/wuqiuwangtian/yescc/actions/runs/43680574175",
+          "workflowName": "CI"
+        }
+      ]
+    },
+    {
+      "number": 14,
+      "head": "a5669935dbd14bc73118b5fd6264ee7deceb6c61",
+      "ci": [
+        {
+          "conclusion": "success",
+          "databaseId": 43684859142,
+          "headSha": "a5669935dbd14bc73118b5fd6264ee7deceb6c61",
+          "status": "completed",
+          "url": "https://github.com/wuqiuwangtian/yescc/actions/runs/43684859142",
+          "workflowName": "CI"
+        }
+      ]
+    }
+  ],
+  "source_main_ci_run": 43686210166,
+  "source_main_ci_conclusion": "success",
+  "later_documentation_commits": "Query Git; this record binds source integration, not its own commit.",
+  "source_main_ci": {
+    "conclusion": "success",
+    "databaseId": 43686210166,
+    "headSha": "47deb902ccd458c0f3550e0deb54d56c35dc0404",
+    "jobs": [
+      {
+        "completedAt": "2026-11-15T06:37:32Z",
+        "conclusion": "success",
+        "databaseId": 132727175330,
+        "name": "package smoke (windows-latest)",
+        "startedAt": "2026-11-15T06:36:46Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-11-15T06:36:50Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-11-15T06:36:48Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:36:56Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@v7",
+            "number": 2,
+            "startedAt": "2026-11-15T06:36:50Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:36:58Z",
+            "conclusion": "success",
+            "name": "Run astral-sh/setup-uv@v10.3.3",
+            "number": 3,
+            "startedAt": "2026-11-15T06:36:56Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:37:03Z",
+            "conclusion": "success",
+            "name": "Run uv sync --extra dev --locked",
+            "number": 4,
+            "startedAt": "2026-11-15T06:36:58Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:37:05Z",
+            "conclusion": "success",
+            "name": "Run uv build",
+            "number": 5,
+            "startedAt": "2026-11-15T06:37:03Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:37:21Z",
+            "conclusion": "success",
+            "name": "Clean wheel install, CLI paths and license inventory",
+            "number": 6,
+            "startedAt": "2026-11-15T06:37:05Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:37:25Z",
+            "conclusion": "success",
+            "name": "Retain RC package evidence",
+            "number": 7,
+            "startedAt": "2026-11-15T06:37:21Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:37:28Z",
+            "conclusion": "success",
+            "name": "Post Run astral-sh/setup-uv@v10.3.3",
+            "number": 13,
+            "startedAt": "2026-11-15T06:37:25Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:37:30Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@v7",
+            "number": 14,
+            "startedAt": "2026-11-15T06:37:28Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:37:30Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 15,
+            "startedAt": "2026-11-15T06:37:30Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/wuqiuwangtian/yescc/actions/runs/43686210166/job/132727175330"
+      },
+      {
+        "completedAt": "2026-11-15T06:37:58Z",
+        "conclusion": "success",
+        "databaseId": 132727175477,
+        "name": "test (windows-latest, py3.14)",
+        "startedAt": "2026-11-15T06:36:45Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-11-15T06:36:46Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-11-15T06:36:46Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:36:52Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@v7",
+            "number": 2,
+            "startedAt": "2026-11-15T06:36:46Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:36:54Z",
+            "conclusion": "success",
+            "name": "Run astral-sh/setup-uv@v10.3.3",
+            "number": 3,
+            "startedAt": "2026-11-15T06:36:52Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:36:58Z",
+            "conclusion": "success",
+            "name": "Run uv sync --extra dev --locked",
+            "number": 4,
+            "startedAt": "2026-11-15T06:36:54Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:36:59Z",
+            "conclusion": "success",
+            "name": "Run uv run ruff check .",
+            "number": 5,
+            "startedAt": "2026-11-15T06:36:58Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:37:02Z",
+            "conclusion": "success",
+            "name": "Run uv run mypy",
+            "number": 6,
+            "startedAt": "2026-11-15T06:36:59Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:37:52Z",
+            "conclusion": "success",
+            "name": "Run uv run pytest -m \"not e2e\"",
+            "number": 7,
+            "startedAt": "2026-11-15T06:37:02Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:37:53Z",
+            "conclusion": "success",
+            "name": "CLI smoke test",
+            "number": 8,
+            "startedAt": "2026-11-15T06:37:52Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:37:54Z",
+            "conclusion": "success",
+            "name": "Post Run astral-sh/setup-uv@v10.3.3",
+            "number": 15,
+            "startedAt": "2026-11-15T06:37:53Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:37:57Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@v7",
+            "number": 16,
+            "startedAt": "2026-11-15T06:37:54Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:37:57Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 17,
+            "startedAt": "2026-11-15T06:37:57Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/wuqiuwangtian/yescc/actions/runs/43686210166/job/132727175477"
+      },
+      {
+        "completedAt": "2026-11-15T06:37:30Z",
+        "conclusion": "success",
+        "databaseId": 132727175478,
+        "name": "test (ubuntu-latest, py3.13)",
+        "startedAt": "2026-11-15T06:36:45Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-11-15T06:36:47Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-11-15T06:36:46Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:36:49Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@v7",
+            "number": 2,
+            "startedAt": "2026-11-15T06:36:47Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:36:50Z",
+            "conclusion": "success",
+            "name": "Run astral-sh/setup-uv@v10.3.3",
+            "number": 3,
+            "startedAt": "2026-11-15T06:36:49Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:36:52Z",
+            "conclusion": "success",
+            "name": "Run uv sync --extra dev --locked",
+            "number": 4,
+            "startedAt": "2026-11-15T06:36:50Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:36:52Z",
+            "conclusion": "success",
+            "name": "Run uv run ruff check .",
+            "number": 5,
+            "startedAt": "2026-11-15T06:36:52Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:36:53Z",
+            "conclusion": "success",
+            "name": "Run uv run mypy",
+            "number": 6,
+            "startedAt": "2026-11-15T06:36:52Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:37:25Z",
+            "conclusion": "success",
+            "name": "Run uv run pytest -m \"not e2e\"",
+            "number": 7,
+            "startedAt": "2026-11-15T06:36:53Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:37:26Z",
+            "conclusion": "success",
+            "name": "CLI smoke test",
+            "number": 8,
+            "startedAt": "2026-11-15T06:37:25Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:37:27Z",
+            "conclusion": "success",
+            "name": "Post Run astral-sh/setup-uv@v10.3.3",
+            "number": 15,
+            "startedAt": "2026-11-15T06:37:26Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:37:28Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@v7",
+            "number": 16,
+            "startedAt": "2026-11-15T06:37:27Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:37:28Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 17,
+            "startedAt": "2026-11-15T06:37:28Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/wuqiuwangtian/yescc/actions/runs/43686210166/job/132727175478"
+      },
+      {
+        "completedAt": "2026-11-15T06:37:26Z",
+        "conclusion": "success",
+        "databaseId": 132727175493,
+        "name": "test (ubuntu-latest, py3.11)",
+        "startedAt": "2026-11-15T06:36:45Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-11-15T06:36:47Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-11-15T06:36:46Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:36:49Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@v7",
+            "number": 2,
+            "startedAt": "2026-11-15T06:36:47Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:36:51Z",
+            "conclusion": "success",
+            "name": "Run astral-sh/setup-uv@v10.3.3",
+            "number": 3,
+            "startedAt": "2026-11-15T06:36:49Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:36:52Z",
+            "conclusion": "success",
+            "name": "Run uv sync --extra dev --locked",
+            "number": 4,
+            "startedAt": "2026-11-15T06:36:51Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:36:52Z",
+            "conclusion": "success",
+            "name": "Run uv run ruff check .",
+            "number": 5,
+            "startedAt": "2026-11-15T06:36:52Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:36:53Z",
+            "conclusion": "success",
+            "name": "Run uv run mypy",
+            "number": 6,
+            "startedAt": "2026-11-15T06:36:52Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:37:24Z",
+            "conclusion": "success",
+            "name": "Run uv run pytest -m \"not e2e\"",
+            "number": 7,
+            "startedAt": "2026-11-15T06:36:53Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:37:24Z",
+            "conclusion": "success",
+            "name": "CLI smoke test",
+            "number": 8,
+            "startedAt": "2026-11-15T06:37:24Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:37:24Z",
+            "conclusion": "success",
+            "name": "Post Run astral-sh/setup-uv@v10.3.3",
+            "number": 15,
+            "startedAt": "2026-11-15T06:37:24Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:37:24Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@v7",
+            "number": 16,
+            "startedAt": "2026-11-15T06:37:24Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:37:24Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 17,
+            "startedAt": "2026-11-15T06:37:24Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/wuqiuwangtian/yescc/actions/runs/43686210166/job/132727175493"
+      },
+      {
+        "completedAt": "2026-11-15T06:42:30Z",
+        "conclusion": "success",
+        "databaseId": 132727175499,
+        "name": "e2e (windows-latest, py3.14)",
+        "startedAt": "2026-11-15T06:36:46Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-11-15T06:36:49Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-11-15T06:36:47Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:36:55Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@v7",
+            "number": 2,
+            "startedAt": "2026-11-15T06:36:49Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:36:56Z",
+            "conclusion": "success",
+            "name": "Run astral-sh/setup-uv@v10.3.3",
+            "number": 3,
+            "startedAt": "2026-11-15T06:36:55Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:37:01Z",
+            "conclusion": "success",
+            "name": "Run uv sync --extra dev --locked",
+            "number": 4,
+            "startedAt": "2026-11-15T06:36:56Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:37:03Z",
+            "conclusion": "success",
+            "name": "Verify toolchains",
+            "number": 5,
+            "startedAt": "2026-11-15T06:37:01Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:41:02Z",
+            "conclusion": "success",
+            "name": "Run uv run pytest -m e2e",
+            "number": 6,
+            "startedAt": "2026-11-15T06:37:03Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:42:06Z",
+            "conclusion": "success",
+            "name": "M4 offline benchmark (no model requests)",
+            "number": 7,
+            "startedAt": "2026-11-15T06:41:02Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:42:23Z",
+            "conclusion": "success",
+            "name": "M5 failure audit and independent oracle checks",
+            "number": 8,
+            "startedAt": "2026-11-15T06:42:06Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:42:24Z",
+            "conclusion": "success",
+            "name": "Retain benchmark evidence",
+            "number": 9,
+            "startedAt": "2026-11-15T06:42:23Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:42:26Z",
+            "conclusion": "success",
+            "name": "Post Run astral-sh/setup-uv@v10.3.3",
+            "number": 17,
+            "startedAt": "2026-11-15T06:42:24Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:42:28Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@v7",
+            "number": 18,
+            "startedAt": "2026-11-15T06:42:26Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:42:28Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 19,
+            "startedAt": "2026-11-15T06:42:28Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/wuqiuwangtian/yescc/actions/runs/43686210166/job/132727175499"
+      },
+      {
+        "completedAt": "2026-11-15T06:37:16Z",
+        "conclusion": "success",
+        "databaseId": 132727175506,
+        "name": "package smoke (ubuntu-latest)",
+        "startedAt": "2026-11-15T06:36:46Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-11-15T06:36:49Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-11-15T06:36:47Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:36:55Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@v7",
+            "number": 2,
+            "startedAt": "2026-11-15T06:36:49Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:36:58Z",
+            "conclusion": "success",
+            "name": "Run astral-sh/setup-uv@v10.3.3",
+            "number": 3,
+            "startedAt": "2026-11-15T06:36:55Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:36:59Z",
+            "conclusion": "success",
+            "name": "Run uv sync --extra dev --locked",
+            "number": 4,
+            "startedAt": "2026-11-15T06:36:58Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:37:00Z",
+            "conclusion": "success",
+            "name": "Run uv build",
+            "number": 5,
+            "startedAt": "2026-11-15T06:36:59Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:37:10Z",
+            "conclusion": "success",
+            "name": "Clean wheel install, CLI paths and license inventory",
+            "number": 6,
+            "startedAt": "2026-11-15T06:37:00Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:37:13Z",
+            "conclusion": "success",
+            "name": "Retain RC package evidence",
+            "number": 7,
+            "startedAt": "2026-11-15T06:37:10Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:37:13Z",
+            "conclusion": "success",
+            "name": "Post Run astral-sh/setup-uv@v10.3.3",
+            "number": 13,
+            "startedAt": "2026-11-15T06:37:13Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:37:13Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@v7",
+            "number": 14,
+            "startedAt": "2026-11-15T06:37:13Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:37:13Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 15,
+            "startedAt": "2026-11-15T06:37:13Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/wuqiuwangtian/yescc/actions/runs/43686210166/job/132727175506"
+      },
+      {
+        "completedAt": "2026-11-15T06:38:02Z",
+        "conclusion": "success",
+        "databaseId": 132727175515,
+        "name": "test (windows-latest, py3.11)",
+        "startedAt": "2026-11-15T06:36:45Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-11-15T06:36:46Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-11-15T06:36:46Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:36:52Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@v7",
+            "number": 2,
+            "startedAt": "2026-11-15T06:36:46Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:36:53Z",
+            "conclusion": "success",
+            "name": "Run astral-sh/setup-uv@v10.3.3",
+            "number": 3,
+            "startedAt": "2026-11-15T06:36:52Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:36:57Z",
+            "conclusion": "success",
+            "name": "Run uv sync --extra dev --locked",
+            "number": 4,
+            "startedAt": "2026-11-15T06:36:53Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:36:58Z",
+            "conclusion": "success",
+            "name": "Run uv run ruff check .",
+            "number": 5,
+            "startedAt": "2026-11-15T06:36:57Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:37:00Z",
+            "conclusion": "success",
+            "name": "Run uv run mypy",
+            "number": 6,
+            "startedAt": "2026-11-15T06:36:58Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:37:57Z",
+            "conclusion": "success",
+            "name": "Run uv run pytest -m \"not e2e\"",
+            "number": 7,
+            "startedAt": "2026-11-15T06:37:00Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:37:57Z",
+            "conclusion": "success",
+            "name": "CLI smoke test",
+            "number": 8,
+            "startedAt": "2026-11-15T06:37:57Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:37:58Z",
+            "conclusion": "success",
+            "name": "Post Run astral-sh/setup-uv@v10.3.3",
+            "number": 15,
+            "startedAt": "2026-11-15T06:37:57Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:38:00Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@v7",
+            "number": 16,
+            "startedAt": "2026-11-15T06:37:58Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:38:00Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 17,
+            "startedAt": "2026-11-15T06:38:00Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/wuqiuwangtian/yescc/actions/runs/43686210166/job/132727175515"
+      },
+      {
+        "completedAt": "2026-11-15T06:38:05Z",
+        "conclusion": "success",
+        "databaseId": 132727175522,
+        "name": "test (windows-latest, py3.12)",
+        "startedAt": "2026-11-15T06:36:45Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-11-15T06:36:46Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-11-15T06:36:46Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:36:53Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@v7",
+            "number": 2,
+            "startedAt": "2026-11-15T06:36:46Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:36:54Z",
+            "conclusion": "success",
+            "name": "Run astral-sh/setup-uv@v10.3.3",
+            "number": 3,
+            "startedAt": "2026-11-15T06:36:53Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:36:57Z",
+            "conclusion": "success",
+            "name": "Run uv sync --extra dev --locked",
+            "number": 4,
+            "startedAt": "2026-11-15T06:36:54Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:36:58Z",
+            "conclusion": "success",
+            "name": "Run uv run ruff check .",
+            "number": 5,
+            "startedAt": "2026-11-15T06:36:57Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:37:01Z",
+            "conclusion": "success",
+            "name": "Run uv run mypy",
+            "number": 6,
+            "startedAt": "2026-11-15T06:36:58Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:38:00Z",
+            "conclusion": "success",
+            "name": "Run uv run pytest -m \"not e2e\"",
+            "number": 7,
+            "startedAt": "2026-11-15T06:37:01Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:38:01Z",
+            "conclusion": "success",
+            "name": "CLI smoke test",
+            "number": 8,
+            "startedAt": "2026-11-15T06:38:00Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:38:03Z",
+            "conclusion": "success",
+            "name": "Post Run astral-sh/setup-uv@v10.3.3",
+            "number": 15,
+            "startedAt": "2026-11-15T06:38:01Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:38:05Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@v7",
+            "number": 16,
+            "startedAt": "2026-11-15T06:38:03Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:38:05Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 17,
+            "startedAt": "2026-11-15T06:38:05Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/wuqiuwangtian/yescc/actions/runs/43686210166/job/132727175522"
+      },
+      {
+        "completedAt": "2026-11-15T06:37:27Z",
+        "conclusion": "success",
+        "databaseId": 132727175532,
+        "name": "test (ubuntu-latest, py3.12)",
+        "startedAt": "2026-11-15T06:36:45Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-11-15T06:36:46Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-11-15T06:36:46Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:36:48Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@v7",
+            "number": 2,
+            "startedAt": "2026-11-15T06:36:46Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:36:48Z",
+            "conclusion": "success",
+            "name": "Run astral-sh/setup-uv@v10.3.3",
+            "number": 3,
+            "startedAt": "2026-11-15T06:36:48Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:36:50Z",
+            "conclusion": "success",
+            "name": "Run uv sync --extra dev --locked",
+            "number": 4,
+            "startedAt": "2026-11-15T06:36:48Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:36:50Z",
+            "conclusion": "success",
+            "name": "Run uv run ruff check .",
+            "number": 5,
+            "startedAt": "2026-11-15T06:36:50Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:36:52Z",
+            "conclusion": "success",
+            "name": "Run uv run mypy",
+            "number": 6,
+            "startedAt": "2026-11-15T06:36:50Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:37:23Z",
+            "conclusion": "success",
+            "name": "Run uv run pytest -m \"not e2e\"",
+            "number": 7,
+            "startedAt": "2026-11-15T06:36:52Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:37:23Z",
+            "conclusion": "success",
+            "name": "CLI smoke test",
+            "number": 8,
+            "startedAt": "2026-11-15T06:37:23Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:37:25Z",
+            "conclusion": "success",
+            "name": "Post Run astral-sh/setup-uv@v10.3.3",
+            "number": 15,
+            "startedAt": "2026-11-15T06:37:23Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:37:25Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@v7",
+            "number": 16,
+            "startedAt": "2026-11-15T06:37:25Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:37:25Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 17,
+            "startedAt": "2026-11-15T06:37:25Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/wuqiuwangtian/yescc/actions/runs/43686210166/job/132727175532"
+      },
+      {
+        "completedAt": "2026-11-15T06:41:46Z",
+        "conclusion": "success",
+        "databaseId": 132727175536,
+        "name": "e2e (windows-latest, py3.11)",
+        "startedAt": "2026-11-15T06:36:45Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-11-15T06:36:46Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-11-15T06:36:46Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:36:58Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@v7",
+            "number": 2,
+            "startedAt": "2026-11-15T06:36:46Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:36:59Z",
+            "conclusion": "success",
+            "name": "Run astral-sh/setup-uv@v10.3.3",
+            "number": 3,
+            "startedAt": "2026-11-15T06:36:58Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:37:04Z",
+            "conclusion": "success",
+            "name": "Run uv sync --extra dev --locked",
+            "number": 4,
+            "startedAt": "2026-11-15T06:36:59Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:37:05Z",
+            "conclusion": "success",
+            "name": "Verify toolchains",
+            "number": 5,
+            "startedAt": "2026-11-15T06:37:04Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:40:34Z",
+            "conclusion": "success",
+            "name": "Run uv run pytest -m e2e",
+            "number": 6,
+            "startedAt": "2026-11-15T06:37:05Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:41:24Z",
+            "conclusion": "success",
+            "name": "M4 offline benchmark (no model requests)",
+            "number": 7,
+            "startedAt": "2026-11-15T06:40:34Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:41:41Z",
+            "conclusion": "success",
+            "name": "M5 failure audit and independent oracle checks",
+            "number": 8,
+            "startedAt": "2026-11-15T06:41:24Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:41:42Z",
+            "conclusion": "success",
+            "name": "Retain benchmark evidence",
+            "number": 9,
+            "startedAt": "2026-11-15T06:41:41Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:41:43Z",
+            "conclusion": "success",
+            "name": "Post Run astral-sh/setup-uv@v10.3.3",
+            "number": 17,
+            "startedAt": "2026-11-15T06:41:42Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:41:45Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@v7",
+            "number": 18,
+            "startedAt": "2026-11-15T06:41:43Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:41:45Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 19,
+            "startedAt": "2026-11-15T06:41:45Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/wuqiuwangtian/yescc/actions/runs/43686210166/job/132727175536"
+      },
+      {
+        "completedAt": "2026-11-15T06:39:46Z",
+        "conclusion": "success",
+        "databaseId": 132727175550,
+        "name": "e2e (ubuntu-latest, py3.11)",
+        "startedAt": "2026-11-15T06:36:45Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-11-15T06:36:47Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-11-15T06:36:46Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:36:48Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@v7",
+            "number": 2,
+            "startedAt": "2026-11-15T06:36:47Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:36:50Z",
+            "conclusion": "success",
+            "name": "Run astral-sh/setup-uv@v10.3.3",
+            "number": 3,
+            "startedAt": "2026-11-15T06:36:48Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:36:52Z",
+            "conclusion": "success",
+            "name": "Run uv sync --extra dev --locked",
+            "number": 4,
+            "startedAt": "2026-11-15T06:36:50Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:36:52Z",
+            "conclusion": "success",
+            "name": "Verify toolchains",
+            "number": 5,
+            "startedAt": "2026-11-15T06:36:52Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:39:06Z",
+            "conclusion": "success",
+            "name": "Run uv run pytest -m e2e",
+            "number": 6,
+            "startedAt": "2026-11-15T06:36:52Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:39:37Z",
+            "conclusion": "success",
+            "name": "M4 offline benchmark (no model requests)",
+            "number": 7,
+            "startedAt": "2026-11-15T06:39:06Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:39:43Z",
+            "conclusion": "success",
+            "name": "M5 failure audit and independent oracle checks",
+            "number": 8,
+            "startedAt": "2026-11-15T06:39:37Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:39:44Z",
+            "conclusion": "success",
+            "name": "Retain benchmark evidence",
+            "number": 9,
+            "startedAt": "2026-11-15T06:39:43Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:39:44Z",
+            "conclusion": "success",
+            "name": "Post Run astral-sh/setup-uv@v10.3.3",
+            "number": 17,
+            "startedAt": "2026-11-15T06:39:44Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:39:44Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@v7",
+            "number": 18,
+            "startedAt": "2026-11-15T06:39:44Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:39:44Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 19,
+            "startedAt": "2026-11-15T06:39:44Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/wuqiuwangtian/yescc/actions/runs/43686210166/job/132727175550"
+      },
+      {
+        "completedAt": "2026-11-15T06:39:46Z",
+        "conclusion": "success",
+        "databaseId": 132727175600,
+        "name": "e2e (ubuntu-latest, py3.14)",
+        "startedAt": "2026-11-15T06:36:45Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-11-15T06:36:47Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-11-15T06:36:46Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:36:49Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@v7",
+            "number": 2,
+            "startedAt": "2026-11-15T06:36:47Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:36:50Z",
+            "conclusion": "success",
+            "name": "Run astral-sh/setup-uv@v10.3.3",
+            "number": 3,
+            "startedAt": "2026-11-15T06:36:49Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:36:51Z",
+            "conclusion": "success",
+            "name": "Run uv sync --extra dev --locked",
+            "number": 4,
+            "startedAt": "2026-11-15T06:36:50Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:36:51Z",
+            "conclusion": "success",
+            "name": "Verify toolchains",
+            "number": 5,
+            "startedAt": "2026-11-15T06:36:51Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:39:05Z",
+            "conclusion": "success",
+            "name": "Run uv run pytest -m e2e",
+            "number": 6,
+            "startedAt": "2026-11-15T06:36:51Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:39:37Z",
+            "conclusion": "success",
+            "name": "M4 offline benchmark (no model requests)",
+            "number": 7,
+            "startedAt": "2026-11-15T06:39:05Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:39:42Z",
+            "conclusion": "success",
+            "name": "M5 failure audit and independent oracle checks",
+            "number": 8,
+            "startedAt": "2026-11-15T06:39:37Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:39:43Z",
+            "conclusion": "success",
+            "name": "Retain benchmark evidence",
+            "number": 9,
+            "startedAt": "2026-11-15T06:39:42Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:39:44Z",
+            "conclusion": "success",
+            "name": "Post Run astral-sh/setup-uv@v10.3.3",
+            "number": 17,
+            "startedAt": "2026-11-15T06:39:43Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:39:44Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@v7",
+            "number": 18,
+            "startedAt": "2026-11-15T06:39:44Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:39:44Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 19,
+            "startedAt": "2026-11-15T06:39:44Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/wuqiuwangtian/yescc/actions/runs/43686210166/job/132727175600"
+      },
+      {
+        "completedAt": "2026-11-15T06:37:26Z",
+        "conclusion": "success",
+        "databaseId": 132727175724,
+        "name": "test (ubuntu-latest, py3.14)",
+        "startedAt": "2026-11-15T06:36:45Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-11-15T06:36:48Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-11-15T06:36:46Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:36:51Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@v7",
+            "number": 2,
+            "startedAt": "2026-11-15T06:36:48Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:36:52Z",
+            "conclusion": "success",
+            "name": "Run astral-sh/setup-uv@v10.3.3",
+            "number": 3,
+            "startedAt": "2026-11-15T06:36:51Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:36:53Z",
+            "conclusion": "success",
+            "name": "Run uv sync --extra dev --locked",
+            "number": 4,
+            "startedAt": "2026-11-15T06:36:52Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:36:53Z",
+            "conclusion": "success",
+            "name": "Run uv run ruff check .",
+            "number": 5,
+            "startedAt": "2026-11-15T06:36:53Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:36:54Z",
+            "conclusion": "success",
+            "name": "Run uv run mypy",
+            "number": 6,
+            "startedAt": "2026-11-15T06:36:53Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:37:23Z",
+            "conclusion": "success",
+            "name": "Run uv run pytest -m \"not e2e\"",
+            "number": 7,
+            "startedAt": "2026-11-15T06:36:54Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:37:23Z",
+            "conclusion": "success",
+            "name": "CLI smoke test",
+            "number": 8,
+            "startedAt": "2026-11-15T06:37:23Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:37:25Z",
+            "conclusion": "success",
+            "name": "Post Run astral-sh/setup-uv@v10.3.3",
+            "number": 15,
+            "startedAt": "2026-11-15T06:37:23Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:37:25Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@v7",
+            "number": 16,
+            "startedAt": "2026-11-15T06:37:25Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:37:25Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 17,
+            "startedAt": "2026-11-15T06:37:25Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/wuqiuwangtian/yescc/actions/runs/43686210166/job/132727175724"
+      },
+      {
+        "completedAt": "2026-11-15T06:37:51Z",
+        "conclusion": "success",
+        "databaseId": 132727175742,
+        "name": "test (windows-latest, py3.13)",
+        "startedAt": "2026-11-15T06:36:45Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-11-15T06:36:46Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-11-15T06:36:46Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:36:51Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@v7",
+            "number": 2,
+            "startedAt": "2026-11-15T06:36:46Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:36:53Z",
+            "conclusion": "success",
+            "name": "Run astral-sh/setup-uv@v10.3.3",
+            "number": 3,
+            "startedAt": "2026-11-15T06:36:51Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:36:57Z",
+            "conclusion": "success",
+            "name": "Run uv sync --extra dev --locked",
+            "number": 4,
+            "startedAt": "2026-11-15T06:36:53Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:36:58Z",
+            "conclusion": "success",
+            "name": "Run uv run ruff check .",
+            "number": 5,
+            "startedAt": "2026-11-15T06:36:57Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:37:00Z",
+            "conclusion": "success",
+            "name": "Run uv run mypy",
+            "number": 6,
+            "startedAt": "2026-11-15T06:36:58Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:37:46Z",
+            "conclusion": "success",
+            "name": "Run uv run pytest -m \"not e2e\"",
+            "number": 7,
+            "startedAt": "2026-11-15T06:37:00Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:37:47Z",
+            "conclusion": "success",
+            "name": "CLI smoke test",
+            "number": 8,
+            "startedAt": "2026-11-15T06:37:46Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:37:48Z",
+            "conclusion": "success",
+            "name": "Post Run astral-sh/setup-uv@v10.3.3",
+            "number": 15,
+            "startedAt": "2026-11-15T06:37:47Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:37:50Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@v7",
+            "number": 16,
+            "startedAt": "2026-11-15T06:37:48Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-15T06:37:50Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 17,
+            "startedAt": "2026-11-15T06:37:50Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/wuqiuwangtian/yescc/actions/runs/43686210166/job/132727175742"
+      }
+    ],
+    "status": "completed",
+    "url": "https://github.com/wuqiuwangtian/yescc/actions/runs/43686210166"
+  },
+  "local_checks": {
+    "uv_sync_locked": "passed",
+    "ruff": "passed",
+    "mypy": "passed",
+    "production_files_checked": 36,
+    "full_local_pytest": "Reused exact reviewed tree evidence: 1333 passed/1 skipped. New main CI runs matrix tests."
+  }
+}
