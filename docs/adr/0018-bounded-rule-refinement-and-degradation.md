@@ -23,6 +23,7 @@
 - 不自动把 C++ 转 C、不切换到 g++。字符串/注释外的 `std::`、`cout <<`、`cin >>` 仅提供特征提示；不是完整语言识别。
 - `creative_fallback` 和 `fallback.kind` 保持原语义。确定性兜底新增 schema v1 字段 `result.fallback.guidance: list[str]`，说明是否为输入回显、offline/模型配置/预算与尝试限制、规则尝试次数以及可用开关。字段基于实际执行路径。
 - 普通输出将同一说明写 stderr，`--explain` 展示说明，`--json` 仍只输出一个 JSON。`print_input` 的程序输出保持不变；增加说明不冒充创意能力提高。
+- 模型输出截断的说明按[ADR-0021](0021-creative-quality-and-model-controls.md)补充：只引用真实响应/额度和预算阻断，旧报告未知字段不猜，成功模型/原生输出不附加失败说明。
 - 编译成功不证明意图等价。新增多错误测试的行为检查与原 M4 冻结数据分列；不修改其输入或 oracle。
 
 ## 验收数据迁移

@@ -1,0 +1,86 @@
+{
+  "source_commit": "06aa2640cf20d5b7442e9a7090b445fa7f8b1d59",
+  "source_snapshot_files": 50,
+  "historical_product_commit": "be51ca701c0f25692df10f8a5acdec8f3557c4cd",
+  "historical_frozen_files": 40,
+  "historical_restored_snapshot_files": 47,
+  "historical_protocol_retuned": false,
+  "captured_original_length_replays": [
+    {
+      "case_id": "effort-d01__low__r1",
+      "actual_request_cap": 3396,
+      "configured_cap": 4096,
+      "local_http_requests": 1,
+      "stdout_preserved": true
+    },
+    {
+      "case_id": "effort-d03__low__r1",
+      "actual_request_cap": 3399,
+      "configured_cap": 4096,
+      "local_http_requests": 1,
+      "stdout_preserved": true
+    },
+    {
+      "case_id": "effort-d03__low__r2",
+      "actual_request_cap": 3399,
+      "configured_cap": 4096,
+      "local_http_requests": 1,
+      "stdout_preserved": true
+    },
+    {
+      "case_id": "effort-d05__low__r1",
+      "actual_request_cap": 3408,
+      "configured_cap": 4096,
+      "local_http_requests": 1,
+      "stdout_preserved": true
+    },
+    {
+      "case_id": "effort-d08__low__r1",
+      "actual_request_cap": 3398,
+      "configured_cap": 4096,
+      "local_http_requests": 1,
+      "stdout_preserved": true
+    },
+    {
+      "case_id": "effort-d11__low__r1",
+      "actual_request_cap": 3393,
+      "configured_cap": 4096,
+      "local_http_requests": 1,
+      "stdout_preserved": true
+    },
+    {
+      "case_id": "effort-d11__low__r2",
+      "actual_request_cap": 3393,
+      "configured_cap": 4096,
+      "local_http_requests": 1,
+      "stdout_preserved": true
+    }
+  ],
+  "local_replay_http_requests": 7,
+  "real_supplier_model_calls_this_work": 0,
+  "sealed_holdout_opened": false,
+  "final_tests": {
+    "passed": 1333,
+    "skipped": 1,
+    "failures": 0
+  },
+  "new_tests": 32,
+  "source_ci": [
+    {
+      "run_id": 43679432880,
+      "head_sha": "06aa2640cf20d5b7442e9a7090b445fa7f8b1d59",
+      "successful_jobs": 14
+    },
+    {
+      "run_id": 43679398619,
+      "head_sha": "06aa2640cf20d5b7442e9a7090b445fa7f8b1d59",
+      "successful_jobs": 14
+    }
+  ],
+  "review_issue_fixed": "cross-provider thinking suggestion is conditional",
+  "fees_in_replay_reports": "simulated from original usage, not actual new charges",
+  "host_agent_cost_known": false,
+  "archive_files": 115,
+  "archive_sha256": "bac6ddf6a4c207987b8c3a4179cbc337060bef7ac417d59e293e094f4951969e",
+  "fresh_restore_and_pure_json_replay": "passed"
+}

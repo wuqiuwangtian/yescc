@@ -36,6 +36,9 @@
 ### 报告与评测
 
 - schema v1只增字段：模型的requested/served、finish_reason、reasoning_tokens、configured/request_settings和响应摘要；不记录推理正文。逐候选source_checks/validation/validation_limits与最终generated.validation分别来自实际阶段。
+- 每条`model.responses`增量记录`provider/configured_settings/prompt_tokens/completion_tokens/usage_known`，与该响应自己的`request_settings/finish_reason/reasoning_tokens`绑定。后续预检配置或供应商变化不能覆盖前一响应的请求事实；usage未知时的零占位不当已知用量或总费用，不存推理正文。
+- 仅确定性兜底新增可见说明：真实记录的length、实际请求上限、同响应配置上限与预算裁剪、已报告推理token和实际预算停止原因；没有响应不从配置猜截断，旧响应无配置上限不配对最新配置，cache不伪造新HTTP事实。已发生的截断可保留为历史原因，不声称其一定是最后一次请求或唯一失败原因。费用未知明确小计边界，stderr/JSON中的guidance/explain一致，成功原生/模型输出不追加失败说明。
+- 指定DeepSeek关闭推理的CLI建议必须明确“仅使用DeepSeek时”；混合供应商不能从某条历史响应推断全局thinking开关可用。说明不会自动禁用用户推理、调高token/费用、额外请求、改缓存身份或提示；输入/输出费用预留不足给出通俗提示，`budget.blocked_reason`原记录保留。建议不是提高生成质量的验收结论。
 - 最终limits只代表最终实际运行；先前失败候选限制在attempt中，不能从编译limits推断已运行/断网。output_limited仅在确实观察到超额时为true。
 - 固定M4数据/oracle/原passed口径不变；新增fallback_kind/model_success，以真实来源、成功模型构建和行为检查区分模型作品、固定梗、原文回显，修正历史fun_03式首候选污染。model_success仍不是创意评分。
 - `bench.creative_consistency`仅对已捕获stdout做冻结输入的显式输出约束检查，不执行程序、不接入生产run、不做通用语义裁决。12条独立新题材与M4数据分开：8条有行数/顺序/符号数量等检查，4条开放题须另评审；空checks标not_assessed，不计语义通过。原始字节解码UTF-8，不做Unicode归一化或终端宽度推测；缺文件/非法UTF-8失败，非法配置拒绝，保存数据与输出SHA。题目/检查/样例在调用前冻结，不能根据模型输出放宽oracle。
@@ -57,3 +60,5 @@
 - [OpenAI Chat Completions参数](https://developers.openai.com/api/reference/resources/chat/subresources/completions/methods/create)及[推理说明](https://developers.openai.com/api/docs/guides/reasoning?api-mode=chat)。
 
 离线回归、双平台CI、当前真实复测和未测边界按日期保存在docs/评测；状态只维护路线图§10。
+
+已冻结生成推理研究仅绑定其原产品源码。后续生产修改不重写旧协议/40成员指纹或原始归档：显式从核验归档恢复47个历史snapshot文件，预检在`-I`隔离Python里使用原产品/原helper，禁止网络及进一步进程执行。研究执行器分别记录历史产品根和当前工具根，默认源码漂移仍拒绝；当前CLI回归继续使用当前产品。历史预检成功不能当新产品质量证据，恢复/预检本身不授权或启动付费实验。

@@ -5,24 +5,29 @@ from __future__ import annotations
 import json
 import os
 import shutil
+import subprocess
 from pathlib import Path
 from unittest.mock import patch
 
 import pytest
 from bench.creative_reasoning import PROTOCOL, ROOT, main, preflight
 
+from tests import reasoning_fixtures
 from tests.conftest import FakeModelServer
 from yescc.cli import main as cli
 from yescc.model.config import DEFAULT_BASE_URLS
 
+historical_source = reasoning_fixtures.historical_source
 
-def test_preflight_uses_no_network_configuration_or_candidate_execution() -> None:
+
+def test_preflight_uses_no_network_configuration_or_candidate_execution(
+    historical_source: Path,
+) -> None:
     with (
         patch("httpx.Client.send", side_effect=AssertionError("network forbidden")),
         patch("yescc.model.config._env", side_effect=AssertionError("config forbidden")),
-        patch("subprocess.Popen", side_effect=AssertionError("execution forbidden")),
     ):
-        report = preflight()
+        report = preflight(historical_source)
     assert report["discovery_tasks"] == 42
     assert report["discovery_reservation_usd"] == pytest.approx(0.21)
     assert report["maximum_planned_reservation_usd"] == pytest.approx(0.29)
@@ -42,12 +47,12 @@ def test_preflight_uses_no_network_configuration_or_candidate_execution() -> Non
 
 
 @pytest.fixture
-def frozen_copy(tmp_path: Path) -> Path:
-    protocol = json.loads((ROOT / PROTOCOL).read_text("utf-8"))
+def frozen_copy(tmp_path: Path, historical_source: Path) -> Path:
+    protocol = json.loads((historical_source / PROTOCOL).read_text("utf-8"))
     for relative in [PROTOCOL, *protocol["frozen_files"]]:
         target = tmp_path / relative
         target.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(ROOT / relative, target)
+        shutil.copyfile(historical_source / relative, target)
     return tmp_path
 
 
@@ -66,15 +71,17 @@ def test_unbalanced_task_plan_is_rejected(frozen_copy: Path) -> None:
     protocol = json.loads(path.read_text("utf-8"))
     protocol["tasks"][0]["profile"] = "missing-profile"
     path.write_text(json.dumps(protocol), encoding="utf-8")
-    with pytest.raises(ValueError, match="unbalanced"):
+    with pytest.raises(ValueError, match="historical protocol changed"):
         preflight(frozen_copy)
 
 
-def test_output_never_replaces_existing_file_or_symlink(tmp_path: Path) -> None:
+def test_output_never_replaces_existing_file_or_symlink(
+    tmp_path: Path, historical_source: Path,
+) -> None:
     target = tmp_path / "existing.json"
     target.write_bytes(b"original")
     with pytest.raises(FileExistsError):
-        main(["--output", str(target)])
+        main(["--source-root", str(historical_source), "--output", str(target)])
     assert target.read_bytes() == b"original"
     link = tmp_path / "alias.json"
     try:
@@ -82,7 +89,7 @@ def test_output_never_replaces_existing_file_or_symlink(tmp_path: Path) -> None:
     except OSError:
         pytest.skip("symlink creation unavailable")
     with pytest.raises(FileExistsError):
-        main(["--output", str(link)])
+        main(["--source-root", str(historical_source), "--output", str(link)])
     assert target.read_bytes() == b"original"
 
 
@@ -90,7 +97,7 @@ def test_output_never_replaces_existing_file_or_symlink(tmp_path: Path) -> None:
 @pytest.mark.parametrize("profile_id", ["default", "tokens", "low"])
 def test_planned_settings_match_actual_public_cli_request(
     profile_id: str, tmp_path: Path, fake_model: FakeModelServer,
-    monkeypatch: pytest.MonkeyPatch, capfd: pytest.CaptureFixture[str],
+    monkeypatch: pytest.MonkeyPatch, capfd: pytest.CaptureFixture[str], historical_source: Path,
 ) -> None:
     monkeypatch.chdir(tmp_path)
     # --provider intentionally selects its registered URL over BASE_URL env.
@@ -119,7 +126,7 @@ def test_planned_settings_match_actual_public_cli_request(
         monkeypatch.setenv(key, value)
     cases = json.loads((ROOT / "bench/creative_reasoning_inputs.json").read_text("utf-8"))
     case = next(c for c in cases["cases"] if c["id"] == "effort-d03")
-    plan = next(p for p in preflight()["plans"] if p["profile"] == profile_id
+    plan = next(p for p in preflight(historical_source)["plans"] if p["profile"] == profile_id
                 and p["case_id"] == case["id"] and p["repeat"] == 1)
     source = tmp_path / "input.txt"
     original = case["input"].encode("utf-8")
@@ -146,3 +153,29 @@ def test_planned_settings_match_actual_public_cli_request(
     (tmp_path / "request.json").write_text(json.dumps(request), encoding="utf-8")
     (tmp_path / "stdout.txt").write_text(output.out, encoding="utf-8")
     (tmp_path / "stderr.txt").write_text(output.err, encoding="utf-8")
+
+
+def test_current_checkout_cannot_impersonate_frozen_product() -> None:
+    with pytest.raises(ValueError, match="frozen file changed"):
+        preflight(ROOT)
+
+
+def test_historical_preflight_launches_clean_isolated_python(
+    historical_source: Path, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setenv("YESCC_MODEL_API_KEY", "must-not-be-forwarded")
+    monkeypatch.setenv("FCOMP_MODEL_API_KEY", "must-not-be-forwarded")
+    monkeypatch.setenv("ALL_PROXY", "http://invalid.example:9")
+    original = subprocess.run
+    launched = []
+
+    def checked(command, **kwargs):
+        assert command[1] == "-I"
+        assert not any(k.startswith(("YESCC_", "FCOMP_")) for k in kwargs["env"])
+        assert not any(k.upper().endswith("_PROXY") for k in kwargs["env"])
+        launched.append(command)
+        return original(command, **kwargs)
+
+    with patch("subprocess.run", side_effect=checked):
+        result = preflight(historical_source)
+    assert len(launched) == 1 and result["source_commit"].startswith("be51ca7")

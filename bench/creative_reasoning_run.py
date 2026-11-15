@@ -52,15 +52,17 @@ def _phase(tasks: list[dict[str, Any]], cases: list[dict[str, Any]], seed: int) 
 
 
 def prepare(workspace: Path, *, fake_endpoint: str | None = None,
-            root: Path = ROOT) -> dict[str, Any]:
+            root: Path = ROOT, source_root: Path | None = None) -> dict[str, Any]:
     """Create an outside-repository byte snapshot, without configuration or keys."""
     workspace = workspace.resolve()
-    if workspace.is_relative_to(root.resolve()):
+    source_root = (source_root or root).resolve()
+    if (workspace.is_relative_to(root.resolve())
+            or workspace.is_relative_to(source_root)):
         raise ValueError("workspace must be outside repository")
-    if _sha(root / PROTOCOL) != PROTOCOL_SHA:
+    if _sha(source_root / PROTOCOL) != PROTOCOL_SHA:
         raise ValueError("protocol changed")
-    checked = preflight(root)
-    protocol = _json(root / PROTOCOL)
+    checked = preflight(source_root)
+    protocol = _json(source_root / PROTOCOL)
     endpoint = protocol["settings"]["base_url"]
     mode = "live"
     if fake_endpoint is not None:
@@ -72,15 +74,16 @@ def prepare(workspace: Path, *, fake_endpoint: str | None = None,
         endpoint, mode = fake_endpoint.rstrip("/"), "local_fake"
     workspace.mkdir(parents=True, exist_ok=False)
     snapshot = workspace / "snapshot"
-    relative_files = [*protocol["frozen_files"], PROTOCOL, *RUNNER_FILES]
-    relative_files.extend(f for f in OPTIONAL_FILES if (root / f).exists())
+    product_files = [*protocol["frozen_files"], PROTOCOL]
+    tool_files = [*RUNNER_FILES, *(f for f in OPTIONAL_FILES if (root / f).exists())]
     manifest = {}
-    for relative in dict.fromkeys(relative_files):
+    for relative in dict.fromkeys([*product_files, *tool_files]):
+        origin = root if relative in tool_files else source_root
         target = snapshot / relative
         target.parent.mkdir(parents=True, exist_ok=True)
-        target.write_bytes((root / relative).read_bytes())
+        target.write_bytes((origin / relative).read_bytes())
         manifest[target.relative_to(workspace).as_posix()] = _sha(target)
-    cases = _json(root / protocol["cases_file"])["cases"]
+    cases = _json(source_root / protocol["cases_file"])["cases"]
     phase = _phase(protocol["tasks"], cases, 2026111407)
     _write(workspace / "phases/discovery.json", phase)
     _write(workspace / "review-mapping-discovery.json", phase["review_mapping"])
@@ -92,6 +95,7 @@ def prepare(workspace: Path, *, fake_endpoint: str | None = None,
               "protocol_sha256": PROTOCOL_SHA, "product_commit": protocol["product_commit"],
               "tool_base_commit": "3608d20559944d1053d6ea9181937317e684ee59",
               "checkout_commit": git.stdout.strip(), "mode": mode, "endpoint": endpoint,
+              "product_source_root": str(source_root), "tool_source_root": str(root.resolve()),
               "python": sys.version, "planned_tasks": 42,
               "maximum_phase_slots": 58, "maximum_reservation_usd": 0.29,
               "preflight": checked}
@@ -406,6 +410,8 @@ def main(argv: list[str] | None = None) -> int:
     prep = sub.add_parser("prepare")
     prep.add_argument("--workspace", type=Path, required=True)
     prep.add_argument("--fake-endpoint")
+    prep.add_argument("--source-root", type=Path,
+                      help="explicit historical snapshot; current product drift is rejected")
     run = sub.add_parser("run")
     run.add_argument("--workspace", type=Path, required=True)
     run.add_argument("--credentials-file", type=Path)
@@ -419,7 +425,8 @@ def main(argv: list[str] | None = None) -> int:
     child.add_argument("--task-id", required=True)
     args = parser.parse_args(argv)
     if args.command == "prepare":
-        result = prepare(args.workspace, fake_endpoint=args.fake_endpoint)
+        result = prepare(args.workspace, fake_endpoint=args.fake_endpoint,
+                         source_root=args.source_root)
         print(f"Frozen {len(result['files'])} files; no credential read or model call.")
     elif args.command == "run":
         result = run_workspace(args.workspace, args.credentials_file, phase=args.phase)

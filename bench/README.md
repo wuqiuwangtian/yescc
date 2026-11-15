@@ -108,11 +108,14 @@ uv run python -m bench.creative_fact_eval \
 ## 生成阶段推理设置对照准备
 
 ```bash
-uv run python -m bench.creative_reasoning --output dist/creative-reasoning-preflight.json
-uv run pytest tests/test_creative_reasoning.py -q
+uv run python -m bench.creative_reasoning_archive --destination ../yescc-reasoning-baseline
+uv run python -m bench.creative_reasoning --source-root ../yescc-reasoning-baseline --output dist/creative-reasoning-preflight.json
+uv run pytest tests/test_creative_reasoning*.py -q
 ```
 
-预检只核对冻结字节并复用产品费用/参数逻辑计算首请求，输出42项CLI计划；不加载用户模型配置/密钥，不联网、不执行C、不读取封存留出，也不启动付费实验。输出须为新文件，已有文件不覆盖。pytest另会通过loopback假服务和真实GCC验证三组公开CLI，不连接真实供应商；测试清理代理并校验假服务地址/端口。协议及源码使用LF保存以跨平台核对原字节。
+恢复目标须为仓库外新目录；固定SHA核对原始归档，只恢复原47个snapshot文件，不含封存留出/密钥/可执行文件。预检先核对原协议及40成员字节，再在`-I`隔离Python中使用原产品/原helper计算42项首请求计划；审计钩子禁止网络及进一步进程执行，不加载用户模型配置/密钥、不执行C、不读取封存留出、不启动付费实验。当前产品改动后不带`--source-root`会拒绝，不能用更新旧指纹掩盖漂移。输出须为新文件，已有文件不覆盖。
+
+pytest分别验证历史预检与当前公开CLI，后者通过loopback假服务和真实GCC验证三组参数，不把旧产品预检当成新产品验收。测试清理代理并校验假服务地址/端口；协议及源码以LF保存。旧实验数据/门槛/原始归档不变，历史结果仍见前轮评测；用当前新产品做真实实验需另冻结版本和协议。
 
 权威协议为`creative_reasoning_protocol.json`，输入/量表为同前缀JSON。主集12新输入×default(disabled/1024)、tokens(disabled/4096)、low(enabled/low/4096)，再固定两输入每组重复一次，共42任务；单任务$0.005、两候选/请求、无cache、无提示补充、默认不开UBSan。4096仍会受费用裁剪，推理/可见正文共用额度，low不传temperature，因此这是用户配置的综合对照。先测low，high/max不在本轮范围。
 
@@ -120,7 +123,7 @@ uv run pytest tests/test_creative_reasoning.py -q
 
 本工具不是API runner。付费前须冻结实际执行器、匿名映射与快照，离线证明未知费用等异常能阻断同一任务内后续HTTP请求，复核官方价目/能力；失配先停，不看作品后调参数或重跑。通过两阶段也只形成供维护者选择的建议，不自动修改生产默认。冻结设计、预检证据及测试隔离首轮失误见[本日评测](../docs/评测/2026-11-14.md#生成阶段推理设置对照准备)。
 
-`creative_reasoning_run`提供研究执行器，`prepare --workspace <仓库外新目录>`只复制/核对冻结快照及匿名映射；`run --workspace <同目录> --credentials-file <仓库外model.env>`才读取维护者已授权凭据并按42项计划调用真实API。没有内置付费授权：必须沿路线图A3及当前专项预算执行。`--fake-endpoint http://127.0.0.1:<port>/v1`仅供prepare离线测试，run使用假密钥；不能传任意外部服务。
+`creative_reasoning_run`提供研究执行器，`prepare --source-root <恢复的历史根> --workspace <另一个仓库外新目录>`分别核对旧产品和当前运行工具，记录`product_source_root/tool_source_root`，只复制/冻结字节及匿名映射；`run --workspace <同目录> --credentials-file <仓库外model.env>`才读取维护者已授权凭据并按42项计划调用真实API。恢复/预检/prepare都不会接着自动调用run。没有内置付费授权：必须沿路线图A3及当前专项预算执行，不能以复查为由重跑已完成实验。`--fake-endpoint http://127.0.0.1:<port>/v1`仅供prepare离线测试，run使用假密钥；不能传任意外部服务。
 
 `creative_reasoning_guard`在不改实际wire内容的前提下记录去密钥/推理正文的请求响应，拒绝端点/参数/次数漂移，未知费用、HTTP错误或服务模型漂移后阻断同一CLI内下一HTTP并停止下一任务。已知usage的length仍可用原额度重试。账本每任务预留$0.005且不回收任务槽，整批不可重复/恢复重跑；超时清理POSIX进程组，Windows以taskkill尽力清理，不阻止独立逃逸进程。原始输出/报告/候选响应和实际HTTP计数保留，被挡住的产品尝试与HTTP分开。
 

@@ -124,6 +124,8 @@ uv run yescc run examples/idea.txt --play --reasoning-effort low --max-output-to
 
 DeepSeek普通模型默认显式禁用thinking，选择推理等级会开启；OpenAI使用其reasoning_effort，不接受DeepSeek式thinking开关。具体模型支持的等级不同，兼容端点不会自动获得这些能力。环境可用`YESCC_MODEL_L3_THINKING/REASONING_EFFORT/MAX_OUTPUT_TOKENS`（L2同理）；CLI覆盖环境，thinking/effort的显式auto重置该项为项目默认。输出默认上限仍1024，最大可设16384，不增加费用或候选次数。完整规则见[模型控制与创意检查](docs/adr/0021-creative-quality-and-model-controls.md)。
 
+如果模型因`finish_reason=length`达到输出上限，最后只能回显输入，stderr和`--explain`会说明已记录响应的实际请求额度、可确认的预算裁剪、供应商报告的推理token及停止原因。配置4096不代表正文可用4096：推理与正文共享额度，剩余预算还会限制下一次请求。单独提高`--max-output-tokens`不会增加`--budget`；本次不会自动换推理设置或加钱。仅使用DeepSeek时，可显式用`--thinking disabled --reasoning-effort none`关闭推理；混合供应商请分别按能力配置。费用未知时会明确标为未知，不能把`cost_usd`小计当总费用。旧报告缺少的数据不补猜；这些说明不改变程序输出或兜底状态。
+
 模型创意的`run`先检查退出、非空UTF-8和64KiB合计输出额度，坏候选在原上限内重试；`build`只编译和检查有限源码风格，**不执行程序**。报告分别记录`source_checks`和`generated.validation`；检查通过仍不保证有趣、贴题或完整。原生程序不受这些创意输出限制。
 
 需要额外检查越界、整数溢出等执行错误时，可显式开启：

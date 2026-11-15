@@ -14,38 +14,55 @@ from unittest.mock import patch
 import pytest
 from bench import creative_reasoning_run as runner
 
+from tests import reasoning_fixtures
 
-def test_prepare_is_offline_and_creates_frozen_outside_snapshot(tmp_path: Path) -> None:
+historical_source = reasoning_fixtures.historical_source
+
+
+def test_prepare_is_offline_and_creates_frozen_outside_snapshot(
+    tmp_path: Path, historical_source: Path,
+) -> None:
     workspace = tmp_path / "study"
     with (
         patch.object(runner, "_secret", side_effect=AssertionError("credential read")),
         patch("httpx.Client.send", side_effect=AssertionError("network forbidden")),
     ):
-        freeze = runner.prepare(workspace)
+        freeze = runner.prepare(workspace, source_root=historical_source)
     protocol, verified = runner.verify_workspace(workspace)
     assert verified == freeze
     assert protocol["product_commit"] == freeze["product_commit"]
+    assert freeze["product_source_root"] == str(historical_source)
+    assert freeze["tool_source_root"] == str(runner.ROOT.resolve())
+    assert (workspace / "snapshot/bench/creative_reasoning.py").read_bytes() == (
+        historical_source / "bench/creative_reasoning.py").read_bytes()
+    assert (workspace / "snapshot/bench/creative_reasoning_run.py").read_bytes() == (
+        runner.ROOT / "bench/creative_reasoning_run.py").read_bytes()
     assert len(freeze["preflight"]["plans"]) == 42
     phase = json.loads((workspace / "phases/discovery.json").read_text(encoding="utf-8"))
     assert len(phase["review_mapping"]) == 42
     assert set(phase["cases"][0]) == {"id", "input"}
     with pytest.raises(FileExistsError):
-        runner.prepare(workspace)
+        runner.prepare(workspace, source_root=historical_source)
 
 
-def test_prepare_rejects_inside_repository_and_external_fake_endpoint(tmp_path: Path) -> None:
+def test_prepare_rejects_inside_repository_and_external_fake_endpoint(
+    tmp_path: Path, historical_source: Path,
+) -> None:
     with pytest.raises(ValueError, match="outside"):
-        runner.prepare(runner.ROOT / "dist/unwanted-runner-test")
+        runner.prepare(runner.ROOT / "dist/unwanted-runner-test", source_root=historical_source)
     for endpoint in ("https://example.com/v1", "http://127.0.0.1:9/v1?x=1",
                      "http://127.0.0.1:9/other", "http://user@127.0.0.1:9/v1"):
         with pytest.raises(ValueError, match="loopback"):
-            runner.prepare(tmp_path / "not-created", fake_endpoint=endpoint)
+            runner.prepare(tmp_path / "not-created", fake_endpoint=endpoint,
+                           source_root=historical_source)
     assert not (tmp_path / "not-created").exists()
 
 
-def test_frozen_bytes_are_checked_before_credentials_or_execution(tmp_path: Path) -> None:
+def test_frozen_bytes_are_checked_before_credentials_or_execution(
+    tmp_path: Path, historical_source: Path,
+) -> None:
     workspace = tmp_path / "study"
-    runner.prepare(workspace)
+    runner.prepare(workspace, source_root=historical_source)
     (workspace / "snapshot/src/yescc/model/prompts.py").write_text("changed")
     with (
         patch.object(runner, "_secret", side_effect=AssertionError("credential read")),
@@ -86,9 +103,11 @@ def _mock_outcome(directory: Path, *, halt: str | None, known: bool = True) -> N
     (directory / ".yescc/input/fallback.c").write_text("int main(void){return 0;}\n")
 
 
-def test_halted_task_stops_batch_and_keeps_reservation_raw_output(tmp_path: Path) -> None:
+def test_halted_task_stops_batch_and_keeps_reservation_raw_output(
+    tmp_path: Path, historical_source: Path,
+) -> None:
     workspace = tmp_path / "study"
-    runner.prepare(workspace, fake_endpoint="http://127.0.0.1:9/v1")
+    runner.prepare(workspace, source_root=historical_source, fake_endpoint="http://127.0.0.1:9/v1")
 
     def execute(command, directory, env):
         _mock_outcome(directory, halt="unknown_usage", known=False)
@@ -117,9 +136,11 @@ def test_halted_task_stops_batch_and_keeps_reservation_raw_output(tmp_path: Path
     assert "test-key" not in (directory / "environment.json").read_text(encoding="utf-8")
 
 
-def test_all_tasks_share_served_model_and_append_full_reservations(tmp_path: Path) -> None:
+def test_all_tasks_share_served_model_and_append_full_reservations(
+    tmp_path: Path, historical_source: Path,
+) -> None:
     workspace = tmp_path / "study"
-    runner.prepare(workspace, fake_endpoint="http://127.0.0.1:9/v1")
+    runner.prepare(workspace, source_root=historical_source, fake_endpoint="http://127.0.0.1:9/v1")
     observed = []
 
     def execute(command, directory, env):
@@ -146,9 +167,11 @@ def test_host_timeout_cleans_child_and_preserves_partial_bytes(tmp_path: Path) -
     assert time.monotonic() - before < 5
 
 
-def test_confirmation_rejects_no_winner_before_opening_sealed(tmp_path: Path) -> None:
+def test_confirmation_rejects_no_winner_before_opening_sealed(
+    tmp_path: Path, historical_source: Path,
+) -> None:
     workspace = tmp_path / "study"
-    runner.prepare(workspace)
+    runner.prepare(workspace, source_root=historical_source)
     selection = tmp_path / "selection.json"
     runner._write(selection, {"selected_profile": None, "gates": {}})
     protocol = json.loads((workspace / "snapshot" / runner.PROTOCOL).read_text(encoding="utf-8"))
@@ -166,7 +189,7 @@ def test_confirmation_rejects_no_winner_before_opening_sealed(tmp_path: Path) ->
 @pytest.mark.e2e
 @pytest.mark.parametrize("known_first,expected_tasks", [(False, 1), (True, 2)])
 def test_actual_snapshot_cli_known_then_unknown_stops_local_http(
-    tmp_path: Path, known_first: bool, expected_tasks: int,
+    tmp_path: Path, known_first: bool, expected_tasks: int, historical_source: Path,
 ) -> None:
     requests = []
 
@@ -193,7 +216,8 @@ def test_actual_snapshot_cli_known_then_unknown_stops_local_http(
     thread.start()
     try:
         workspace = tmp_path / "study"
-        runner.prepare(workspace, fake_endpoint=f"http://127.0.0.1:{server.server_port}/v1")
+        runner.prepare(workspace, source_root=historical_source,
+                       fake_endpoint=f"http://127.0.0.1:{server.server_port}/v1")
         summary = runner.run_workspace(workspace)
     finally:
         server.shutdown()
@@ -216,3 +240,13 @@ def test_actual_snapshot_cli_known_then_unknown_stops_local_http(
     events = [json.loads(s) for s in raw_events.splitlines()]
     assert sum(e["event"] == "request" for e in events) == 1
     assert events[-1]["usage_known"] is False
+
+
+def test_prepare_does_not_retarget_old_protocol_to_current_product(tmp_path: Path) -> None:
+    target = tmp_path / "not-created"
+    with (
+        patch.object(runner, "_secret", side_effect=AssertionError("credential read")),
+        pytest.raises(ValueError, match="frozen file changed"),
+    ):
+        runner.prepare(target)
+    assert not target.exists()

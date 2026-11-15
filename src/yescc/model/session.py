@@ -319,10 +319,17 @@ class ModelSession:
         self.stats.reasoning_tokens = completion.reasoning_tokens
         self.stats.responses.append(
             {
+                "provider": settings.provider,
                 "requested_model": settings.model,
                 "served_model": completion.served_model,
                 "finish_reason": completion.finish_reason,
                 "reasoning_tokens": completion.reasoning_tokens,
+                "prompt_tokens": completion.prompt_tokens,
+                "completion_tokens": completion.completion_tokens,
+                "usage_known": completion.usage_known,
+                "configured_settings": request_parameters(
+                    settings, max_tokens=settings.max_output_tokens, temperature=temperature,
+                ),
                 "request_settings": parameters,
             }
         )
