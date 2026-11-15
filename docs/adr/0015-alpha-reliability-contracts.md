@@ -32,6 +32,7 @@
 
 ### 报告 v1 的增量字段与准确性
 
+- 正常构建报告仅在已有实际失败消息时增加`result.failure_message`字符串，保留流水线原本用于终端的原因，文本explain同时显示。缺工具仍按构建失败102，不转成command_error、不伪造编译attempt、命令/版本或源码位置诊断；原生strict已有完整编译输出不追加重复错误，JSON保持单对象。旧报告缺字段不从当前环境猜原因。
 - `model.calls` 包含发起后失败的请求；`model.cost_known=false` 表示不能从 `cost_usd` 得到总费用。为保持 v1 数字类型，`cost_usd` 保留为已知部分的费用小计；摘要与评测工具将未知费用明确显示为“未知”。
 - `budget{limit_usd,committed_usd,attempts,blocked_reason}`：金额、含未结算预留的占用量、候选尝试数、流水线捕获的预算阻断原因。预留不是实际账单，不与已知费用相加当作支出。
 - `privacy.cloud_used` 按是否尝试非回环端点请求判断；`uploaded_bytes` 是这些请求中消息 content 的 UTF-8 字节总数，不含 JSON/HTTP 开销，不保证服务已收到。回环地址的网关后端是否上云无法自动判断。

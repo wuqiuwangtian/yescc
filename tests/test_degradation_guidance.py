@@ -10,7 +10,11 @@ from unittest.mock import patch
 import httpx
 import pytest
 
-from yescc.fallback.guidance import degradation_guidance, model_output_guidance
+from yescc.fallback.guidance import (
+    creative_validation_guidance,
+    degradation_guidance,
+    model_output_guidance,
+)
 from yescc.model.base import BudgetExceeded, ModelResponseError
 from yescc.model.config import ModelSettings
 from yescc.model.session import ModelSession
@@ -23,6 +27,60 @@ def truncated(**changes) -> dict:
         "request_settings": {"max_tokens": 2048, "thinking": {"type": "enabled"}},
         **changes,
     }
+
+
+@pytest.mark.parametrize("changes", [
+    {"performed": False}, {"performed": 1}, {"passed": True},
+    {"passed": None}, {"exit_code": 130},
+])
+def test_rejection_guidance_requires_a_real_rejected_run(changes) -> None:
+    validation = {"performed": True, "passed": False, "exit_code": 1, **changes}
+    assert creative_validation_guidance([{"kind": "model", "validation": validation}]) == []
+
+
+def test_rejection_history_survives_later_compile_failure_without_printing_program_text() -> None:
+    attempts = [{
+        "kind": "model", "validation": {
+            "performed": True, "passed": False, "exit_code": 7,
+            "reasons": ["exit_nonzero", "stdout_empty", "UNTRUSTED_REASON"],
+        },
+        "undefined_behavior_check": {
+            "performed": True, "mode": "trap", "stderr": "UNTRUSTED_DIAGNOSTIC",
+            "diagnostic_observed": True, "ub_detected": None,
+        },
+        "stdout": "REJECTED_PROGRAM_OUTPUT",
+    }, {"kind": "model", "exit_code": 1, "stderr": "later compile failure"}]
+    original = copy.deepcopy(attempts)
+    text = "\n".join(creative_validation_guidance(attempts))
+    assert "trap" in text and "退出码 7" in text and "没有可见标准输出" in text
+    assert "--explain" in text and "UNTRUSTED" not in text and "REJECTED_PROGRAM" not in text
+    assert "确认UB" not in text and "确认未定义行为" not in text
+    assert attempts == original
+
+
+def test_requesting_a_check_does_not_claim_it_ran_or_override_budget_reason() -> None:
+    text = "\n".join(degradation_guidance(
+        "idea", language=None, kind="print_input", offline=False, model_available=True,
+        model_attempted=True, budget_blocked=True, rule_builds=0,
+        budget_reason="已达到最大候选尝试次数 1",
+        attempts=[{
+            "kind": "model", "validation": {
+                "performed": True, "passed": False, "exit_code": -9,
+                "reasons": ["timeout", "output_limit", "stdout_invalid_utf8"],
+            },
+            "undefined_behavior_check": {"requested": True, "performed": False, "mode": "trap"},
+        }],
+    ))
+    assert "运行超时" in text and "输出超过额度" in text and "不是有效 UTF-8" in text
+    assert "最大候选尝试次数 1" in text and "trap" not in text
+
+
+def test_native_or_unperformed_attempts_do_not_become_creative_rejection_evidence() -> None:
+    assert creative_validation_guidance([
+        {"kind": "native", "validation": {"performed": True, "passed": False}},
+        {"kind": "model", "source_checks": {"performed": True, "passed": False}},
+        {"kind": "model", "validation": {"performed": False, "reason": "build_only"}},
+    ]) == []
 
 
 def test_actual_limits_reasoning_and_action_are_based_on_recorded_response() -> None:

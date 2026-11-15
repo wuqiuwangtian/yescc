@@ -380,6 +380,10 @@ def _finalize(
             }
         ),
     }
+    if failure_message is not None:
+        result_payload = payload["result"]
+        assert isinstance(result_payload, dict)
+        result_payload["failure_message"] = failure_message
     if ctx.invocation.check_undefined:
         payload["undefined_behavior_check"] = ctx.undefined_check or {
             "requested": True, "scope": "model_creative", "performed": False,
@@ -862,6 +866,7 @@ def _deterministic_fallback(ctx: Context, reason: str) -> int:
                 rule_builds=sum(item["kind"] == "rule" for item in ctx.attempts),
                 model=ctx.session.stats.as_dict() if ctx.session is not None else None,
                 budget_reason=ctx.session.budget_reason if ctx.session is not None else None,
+                attempts=ctx.attempts,
             ),
             "reason": reason,
             "source": display_path(source_file, ctx.cwd),

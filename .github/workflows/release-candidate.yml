@@ -94,3 +94,4 @@ jobs:
             dist/native/SHA256SUMS
             dist/native/work/yescc/*.toc
             dist/native/work/yescc/warn-yescc.txt
+            dist/native/work/wheel/*.whl

@@ -61,6 +61,9 @@ def summarize(payload: dict[str, Any]) -> str:
         lines.append(f"产物：{artifact}")
     if result.get("program_exit") is not None:
         lines.append(f"程序退出码：{result['program_exit']}")
+    failure_message = result.get("failure_message")
+    if isinstance(failure_message, str) and failure_message:
+        lines.append(f"失败原因：{failure_message}")
     check = payload.get("undefined_behavior_check")
     if isinstance(check, dict):
         if check.get("performed"):

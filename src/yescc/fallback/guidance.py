@@ -73,6 +73,48 @@ def model_output_guidance(model: dict[str, object] | None) -> list[str]:
     return hints
 
 
+def creative_validation_guidance(attempts: list[dict[str, object]]) -> list[str]:
+    """Describe the latest observed rejected run without replaying untrusted output."""
+    for attempt in reversed(attempts):
+        validation = attempt.get("validation")
+        if (
+            attempt.get("kind") != "model"
+            or not isinstance(validation, dict)
+            or validation.get("performed") is not True
+            or validation.get("passed") is not False
+            or validation.get("exit_code") == 130
+        ):
+            continue
+        check = attempt.get("undefined_behavior_check")
+        mode = check.get("mode") if isinstance(check, dict) else None
+        checked = (
+            isinstance(check, dict) and check.get("performed") is True
+            and isinstance(mode, str) and mode in {"runtime", "trap"}
+        )
+        prefix = f"启用 {mode} 可选检查的模型创意候选" if checked else "模型创意候选"
+        reasons = validation.get("reasons")
+        messages = []
+        if isinstance(reasons, list):
+            for reason, message in {
+                "timeout": "运行超时",
+                "output_limit": "输出超过额度",
+                "exit_nonzero": "非零退出",
+                "stdout_invalid_utf8": "标准输出不是有效 UTF-8",
+                "stdout_empty": "没有可见标准输出",
+            }.items():
+                if reason in reasons:
+                    code = validation.get("exit_code")
+                    if reason == "exit_nonzero" and type(code) is int:
+                        message += f"（退出码 {code}）"
+                    messages.append(message)
+        detail = "、".join(messages) or "运行验证未通过"
+        return [
+            f"{prefix}曾被实际运行验证拒绝；最近一次拒绝原因：{detail}。"
+            "详细诊断见报告或 --explain。"
+        ]
+    return []
+
+
 def degradation_guidance(
     text: str,
     *,
@@ -85,6 +127,7 @@ def degradation_guidance(
     rule_builds: int,
     model: dict[str, object] | None = None,
     budget_reason: str | None = None,
+    attempts: list[dict[str, object]] | None = None,
 ) -> list[str]:
     hints = [
         "本地兜底仅回显输入，未实现原始意图。"
@@ -93,6 +136,7 @@ def degradation_guidance(
     ]
     output_hints = [] if offline else model_output_guidance(model)
     hints.extend(output_hints)
+    hints.extend(creative_validation_guidance(attempts or []))
     if offline:
         hints.append("已启用 --offline，本次未发起模型请求。")
     elif not model_available:
