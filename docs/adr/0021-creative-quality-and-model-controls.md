@@ -42,6 +42,8 @@
 
 ## 依据与验证
 
+约束提取/独立自检的研究工具只在bench内运行：合同提取只看输入，评审只看输入/源码/实际stdout，冻结参考不交给模型；引文匹配只证明出处，格式错误或空结论不算通过。模型提取正则另受小语法约束，不能当任意可信oracle执行。该研究不改变上述生产检查、默认提示或费用/候选规则；数据与是否值得进一步验证的结论见[2026-11-13评测](../评测/2026-11-13.md)。
+
 - [创意专项](../评测/2026-11-12.md)的六份数学候选、非法UTF-8、宽窄流缺行、默认思考空正文和候选耗尽记录。
 - [DeepSeek思考控制](https://api-docs.deepseek.com/guides/thinking_mode/)及[计价](https://api-docs.deepseek.com/quick_start/pricing/)。
 - [OpenAI Chat Completions参数](https://developers.openai.com/api/reference/resources/chat/subresources/completions/methods/create)及[推理说明](https://developers.openai.com/api/docs/guides/reasoning?api-mode=chat)。

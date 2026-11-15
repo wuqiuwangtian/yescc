@@ -69,6 +69,24 @@ uv run python -m bench.creative_consistency \
 无checks的合法UTF-8输出标passed=null/not_assessed，不算语义通过；缺文件或非法UTF-8失败，非法配置拒绝。报告保留数据/逐输出SHA与检查明细。CLI退出0仅表示已配置约束无失败，开放题仍须评审，输入要求中的叙事因果也不能只靠这些检查证明。它不读取构建报告、不能证明输出来自模型或已通过生产run，调用者须另核来源/实际运行。只作为离线评测，不改变生产运行/候选预算或M4 oracle。
 
 
+## 约束提取与独立评审研究
+
+`creative_review.py`提供两条独立提示及严格响应校验；`creative_review_eval.py`只回放已捕获文本，不发模型请求、不执行C。它们未接入生产CLI，不增加默认模型调用、候选或预算。
+
+```bash
+uv run python -m bench.creative_review_eval \
+  --items /path/to/materials.json --responses /path/to/model-responses \
+  --output /tmp/creative-review-comparison.json
+```
+
+items为非空数组，包含安全文件名id/case_id、input/source/stdout、reference（pass/fail/contested），可带group和固定checks。同case_id必须对应同input。响应目录为`contracts/<case_id>.txt`与`reviews/<id>.txt`；合同每输入提取一次，输入以外的产物不交给提取模型；评审每产物独立，不提供reference或人工检查定义。
+
+合同为`{"checks":[{"check":{...},"evidence":"input中的逐字引文"}],"uncheckable":[]}`，最多8条，用既有六类显式检查。来自模型的line_sequence只接受fullmatch=true、≤256字符、一个`(.*)`/`(\d+)`/`([0-9]+)`捕获及字面前后缀；禁止任意正则语法。评审为`{"verdict":"pass|fail|unknown","findings":[{"reason":"...","evidence":[{"origin":"input|stdout|source","quote":"..."}]}]}`，fail必须带实际stdout和input/source引文；pass/unknown不带findings。严格JSON、重复键、字段、长度和引文匹配均验证，不容忍围栏/臆造证据。
+
+空合同/unknown为abstain，缺响应/坏格式/不在原文的引文为invalid，两者都不变相通过。引文存在只证明出处，不能证明约束忠实于输入或推理正确。reference来自冻结显式检查/既有双AI判断或独立合成正反例，不是人类真值。报告分既有/新探针、显式/开放，分别列覆盖、坏样本检出、好作品误拒绝及条件准确率；contested不进入准确率分母。CLI返回1表示存在invalid，0只表示回放完整，不代表评审质量达标；报告路径不能覆盖原始材料/响应，包含缺失响应路径与别名。
+
+研究费用、协议、原始记录和未集成决定见[2026-11-13](../docs/评测/2026-11-13.md)。常规CI仍仅使用本地静态响应；真实研究调用按路线图授权、单价和费用预留独立约束，不把此回放命令当付费执行器。
+
 ## M5 独立审计（全部离线）
 
 ```bash
