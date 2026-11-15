@@ -119,5 +119,8 @@ def degradation_guidance(
         )
         if looks_like_cpp(text):
             hints.append("检测到 C++ 风格标记；当前 AI 目标仅 C，请改用 C 语法或模型辅助改写。")
-    hints.append("用 --no-fallback 禁止创意兜底，或用 --strict 查看原生失败。")
+    hints.append(
+        "若启用了 --play，请先去掉它；再用 --no-fallback 禁止创意兜底，"
+        "或用 --strict 查看原生失败。"
+    )
     return hints
