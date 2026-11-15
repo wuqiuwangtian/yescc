@@ -17,6 +17,8 @@ from dataclasses import dataclass, replace
 from functools import lru_cache
 from pathlib import Path
 
+from yescc.util import external_command_context, external_environment, is_frozen
+
 DEFAULT_TIMEOUT_S = 10.0
 _ALLOWED_ENV = {
     "PATH",
@@ -68,12 +70,14 @@ def _network_isolation_supported() -> bool:
     if unshare is None:
         return False
     try:
-        completed = subprocess.run(
-            [unshare, "-n", "true"],
-            capture_output=True,
-            timeout=3,
-            check=False,
-        )
+        with external_command_context():
+            completed = subprocess.run(
+                [unshare, "-n", "true"],
+                capture_output=True,
+                timeout=3,
+                check=False,
+                env=external_environment() if is_frozen() else None,
+            )
     except (OSError, subprocess.SubprocessError):
         return False
     return completed.returncode == 0
@@ -123,14 +127,17 @@ def _run_once(
     timeout_s: float,
     preexec: Callable[[], None] | None,
 ) -> SandboxOutcome:
-    process = subprocess.Popen(
-        command,
-        cwd=str(cwd),
-        env=env,
-        preexec_fn=preexec,
-        start_new_session=os.name == "posix",
-        creationflags=getattr(subprocess, "CREATE_NEW_PROCESS_GROUP", 0) if os.name == "nt" else 0,
-    )
+    with external_command_context():
+        process = subprocess.Popen(
+            command,
+            cwd=str(cwd),
+            env=external_environment(env) if is_frozen() else env,
+            preexec_fn=preexec,
+            start_new_session=os.name == "posix",
+            creationflags=(
+                getattr(subprocess, "CREATE_NEW_PROCESS_GROUP", 0) if os.name == "nt" else 0
+            ),
+        )
     timed_out = False
     deadline = time.monotonic() + timeout_s
     try:
@@ -169,13 +176,14 @@ def _stop_process_tree(process: subprocess.Popen[bytes]) -> None:
             with suppress(ProcessLookupError):
                 killpg(process.pid, getattr(signal, "SIGKILL", 9))
     elif process.poll() is None:
-        with suppress(OSError, subprocess.SubprocessError):
+        with suppress(OSError, subprocess.SubprocessError), external_command_context():
             subprocess.run(
                 ["taskkill", "/PID", str(process.pid), "/T", "/F"],
                 stdout=subprocess.DEVNULL,
                 stderr=subprocess.DEVNULL,
                 timeout=5,
                 check=False,
+                env=external_environment() if is_frozen() else None,
             )
     if process.poll() is None:
         process.kill()

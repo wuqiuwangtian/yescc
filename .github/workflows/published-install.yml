@@ -1,0 +1,38 @@
+name: Published install verification
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Existing public PyPI version (this workflow never publishes)
+        type: string
+        required: true
+        default: "0.1.0"
+
+permissions:
+  contents: read
+
+jobs:
+  install:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python: ["3.11", "3.14"]
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.3.3
+        with:
+          python-version: ${{ matrix.python }}
+          enable-cache: true
+      - run: uv sync --extra dev --locked
+      - name: Install from public PyPI into a fresh external environment
+        env:
+          EXPECTED_VERSION: ${{ inputs.version }}
+        shell: bash
+        run: uv run python -m bench.index_smoke --expected-version "$EXPECTED_VERSION" --output dist/published-install.json
+      - uses: actions/upload-artifact@v7.0.2
+        with:
+          name: published-install-${{ runner.os }}-${{ matrix.python }}
+          path: dist/published-install.json

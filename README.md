@@ -11,13 +11,17 @@ YesCC 是一个「永不扫兴」的 AI 编译器：正确代码原样编译；�
 - **错误代码尽力挽救**：规则 → 便宜/本地模型 → 强模型，每层都交真实工具链验证。
 - **无意义输入也给出创造性解释**：确定性兜底、文化梗、模型创意解释；结果状态单独标注，绝不冒充原程序。
 
+![真实离线 CLI 三例](https://raw.githubusercontent.com/wuqiuwangtian/yescc/f9ed40cbff7368eb6fb89548ac5253dbd5f46151/docs/assets/yescc-demo.gif)
+
+图中为实际离线输出；创意兜底仅回显输入，不表示实现原始意图。
+
 ## 当前状态
 
 **v0.0.1-alpha（0.0.1a2）已发布**（[release](https://github.com/wuqiuwangtian/yescc/releases/tag/v0.0.1-alpha)）：三语言原生直通、C 规则修复、模型修复、自然语言生成与创意兜底可用；AI 产物默认在最小沙箱中运行。这是 alpha，接口与行为仍可能变化。
 
 仓库中的后续修复不代表已更新 TestPyPI 安装包；当前开发状态、未发布变更和接续任务统一见[路线图 §10](docs/项目路线图与发布计划.md#10-待决事项与下一步)。
 
-源码已进入 `0.1.0rc4` 候选准备；尚未上传索引或创建 Release。固定基准、安装验收与费用见[评测入口](docs/评测/README.md)，待完成项统一见路线图 §10。
+当前源码版本为 `0.1.0`，正在准备正式发布资产；尚未上传正式索引或创建新 Release。固定基准、安装验收与费用见[评测入口](docs/评测/README.md)，待完成项统一见路线图 §10。
 
 首版范围：C 为 AI 修复/生成目标；Python / C / JavaScript 保留原生直通；MIT 许可，PyPI + 独立二进制发布。长期目标「所有语言」与「编辑器插件」不变。进度见[路线图](docs/项目路线图与发布计划.md)。
 
@@ -34,6 +38,24 @@ yescc --version
 ```
 
 也可以 `uv tool install` 或从源码运行（见下）。
+
+## 免安装二进制（发布候选）
+
+候选包保存在 GitHub Actions 的 `Release candidate assets` 工作流 artifact 中，尚未正式发布。Linux x86_64 使用 tar.gz，Windows x86_64 使用 zip；下载后解压并保留整个目录（包含 `_internal`、`licenses`），直接运行 `./yescc --version` 或 PowerShell 的 `.\yescc.exe --version`。CLI 自带运行时，无需安装 YesCC 的 Python 包。
+
+用户程序仍需要对应工具链在 PATH：C 用 GCC，JavaScript 用 Node.js，Python 用可运行的 Python 3。二进制按 PATH 选择外部 Python；wheel 安装继续使用其所在环境的解释器。Linux 正式候选在 Ubuntu 24.04 构建，记录 glibc 基线，不保证旧 Linux、musl/Alpine、ARM 或 macOS 可用；Windows 候选内置 Python 3.14，其[最低平台为 Windows 10+](https://docs.python.org/3.14/using/windows.html#supported-windows-versions)；本项目仍只以原生 CI 验证范围为准。
+
+解压后在该目录执行：
+
+```bash
+./yescc run examples/hello.c --offline        # hello
+./yescc run examples/broken.c --offline       # repaired
+./yescc run examples/idea.txt --offline       # 明示 creative_fallback，回显输入
+```
+
+默认输出保持用户程序原样；若要确认修复状态，可执行 `./yescc examples/broken.c --explain --offline` 读取刚才的报告。
+
+Windows 将 `./yescc` 换为 `.\yescc.exe`。若程序提示缺工具链，先安装对应工具链；二进制不捆绑 GCC/Node 或用户项目依赖。候选的 `MANIFEST.json`、`SHA256SUMS` 和实际许可证审计用于核对资产；许可未知项未清零前不进行正式分发。
 
 ## 快速开始
 

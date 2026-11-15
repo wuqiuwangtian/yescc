@@ -82,3 +82,21 @@ RC2 的失败审计版本为 `m5-failure-v2`：预算用例从漏分号改为未
 `uv run python -m bench.prepare_blackbox --help` 提供准备入口。需给定仓库外全新 `--workspace`、与归档 CI 相符的 RC2 `--wheel`，以及工作区外的 `--receipt`。准备器拒绝覆盖已有目录；不复制项目源码、回归用例或成绩，不运行独立验收。模板位于 `bench/blackbox/`，仅包含用户功能说明、环境入口和测试协议。
 
 凭据清理/本机假配置等脚手架自检不等于产品验收；外部 AI 自建测试证据单独记录。工作区只做上下文隔离，不能声称强系统沙箱。维护者用新会话交付提示词，报告回传后再复核材料哈希、实际结果和剩余风险。
+
+
+## M6 原生候选（不发布）
+
+```bash
+uv sync --extra dev --extra release --locked
+uv build
+uv run twine check --strict dist/yescc-0.1.0*.whl dist/yescc-0.1.0*.tar.gz
+uv run python -m bench.binary_build --output dist/native
+uv run python -m bench.binary_archive_smoke --archive dist/native/yescc-0.1.0-linux-x86_64.tar.gz --expected-version 0.1.0 --output dist/native/binary-smoke.json
+```
+
+Windows归档后缀为zip、目标名windows-x86_64。构建只在当前平台原生执行；CLI包、实际外部工具链与许可覆盖分别验收，详见[ADR-0020](../docs/adr/0020-native-release-candidates.md)。`binary-licenses.json`的unresolved不为空时不可关闭正式许可门槛；工作流保持候选artifact，不创建tag/Release或上传索引。
+
+README动图由实际三例输出生成，可选安装Pillow后运行 `python -m bench.render_demo --binary <冻结入口> --font <本机允许使用的中文字体> --output docs/assets/yescc-demo.gif --record dist/m6-demo.json`。记录来源、源文件保护和原始stdout/stderr；不要用编造的终端输出替代真实演示。
+
+
+发布后索引验证：`uv run python -m bench.index_smoke --expected-version 0.1.0 --output dist/published-install.json` 从公共PyPI安装根包和依赖；手动工作流 `Published install verification` 在Linux/Windows × Python3.11/3.14执行。发布前可加 `--wheel <候选whl>` 演练同一套检查，根包来自本地、依赖按公开版本范围解析，报告明确为local_wheel_rehearsal，不算实际PyPI发布验收。两种模式均只离线运行产品，不使用真实模型。

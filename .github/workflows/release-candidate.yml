@@ -1,0 +1,96 @@
+name: Release candidate assets
+
+on:
+  push:
+    branches: ["feat/m6-*"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: candidate-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  index-rehearsal:
+    name: Public-range install rehearsal (${{ matrix.os }}, py${{ matrix.python }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python: ["3.11", "3.14"]
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.3.3
+        with:
+          python-version: ${{ matrix.python }}
+          enable-cache: true
+      - run: uv sync --extra dev --locked
+      - run: uv build --wheel
+      - run: uv run python -m bench.index_smoke --expected-version 0.1.0 --wheel dist/yescc-0.1.0-py3-none-any.whl --output dist/index-rehearsal.json
+      - uses: actions/upload-artifact@v7.0.2
+        with:
+          name: index-rehearsal-${{ runner.os }}-${{ matrix.python }}
+          path: dist/index-rehearsal.json
+
+  python-package:
+    name: Candidate wheel and sdist
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.3.3
+        with:
+          python-version: "3.11"
+          enable-cache: true
+      - run: uv sync --extra dev --extra release --locked
+      - run: uv build --out-dir dist/python
+      - run: uv run twine check --strict dist/python/*
+      - run: uv run python -m bench.package_smoke --wheel dist/python/yescc-0.1.0-py3-none-any.whl --output dist/python/package-smoke.json
+      - uses: actions/upload-artifact@v7.0.2
+        with:
+          name: candidate-python
+          path: dist/python/
+
+  native:
+    name: Candidate binary (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, windows-latest]
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.3.3
+        with:
+          enable-cache: true
+      - name: Use distribution Python for Linux native provenance
+        if: runner.os == 'Linux'
+        run: uv sync --python /usr/bin/python3 --extra dev --extra release --locked
+      - name: Prepare Windows builder
+        if: runner.os == 'Windows'
+        run: uv sync --no-managed-python --python 3.14 --extra dev --extra release --locked
+      - name: Verify external toolchains
+        run: |
+          gcc --version
+          node --version
+          python --version
+      - run: uv run python -m bench.binary_build --output dist/native
+      - name: Extract and verify the candidate outside the repository
+        shell: bash
+        run: |
+          archive=$(find dist/native -maxdepth 1 -type f \( -name '*.tar.gz' -o -name '*.zip' \))
+          uv run python -m bench.binary_archive_smoke --archive "$archive" --expected-version 0.1.0 --output dist/native/binary-smoke.json
+      - name: Retain candidates and audit evidence
+        if: always()
+        uses: actions/upload-artifact@v7.0.2
+        with:
+          name: candidate-native-${{ runner.os }}
+          path: |
+            dist/native/*.tar.gz
+            dist/native/*.zip
+            dist/native/*.json
+            dist/native/SHA256SUMS
+            dist/native/work/yescc/*.toc
+            dist/native/work/yescc/warn-yescc.txt
