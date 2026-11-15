@@ -55,6 +55,8 @@ jobs:
           gcc --version
           node --version
       - run: uv run pytest -m e2e
+        env:
+          YESCC_TEST_EVIDENCE_DIR: ${{ github.workspace }}/dist/undefined-check-evidence
       - name: M4 offline benchmark (no model requests)
         run: uv run python -m bench.harness --output dist/m4-offline.json
       - name: M5 failure audit and independent oracle checks
@@ -68,6 +70,7 @@ jobs:
           path: |
             dist/m4-offline.json
             dist/m5-*.json
+            dist/undefined-check-evidence/*.json
 
   package:
     name: package smoke (${{ matrix.os }})

@@ -31,6 +31,7 @@ _HELP = """YesCC（Yes Compiler Collection）
       --lang <语言>   指定语言：python | c | javascript
       --strict        原生模式：关闭修复与兜底，显示原始诊断
       --json          输出单一 JSON（构建/解释报告或可预期命令错误）
+      --check-undefined  仅模型创意 run 可选检查未定义行为（默认关闭）
       --no-fallback   不生成创意兜底；保留用法/输入/构建/预算等失败码
       --play          强制创意解释（跳过原生与规则）
       --offline       不发模型请求，模型路径降级
@@ -113,6 +114,10 @@ def parse(argv: Sequence[str]) -> ParsedCommand:
             return ParsedCommand(action="version", invocation=invocation)
         if arg == "--strict":
             invocation.strict = True
+            index += 1
+            continue
+        if arg == "--check-undefined":
+            invocation.check_undefined = True
             index += 1
             continue
         if arg == "--json":
@@ -230,6 +235,8 @@ def parse(argv: Sequence[str]) -> ParsedCommand:
         invocation.source = Path(arg)
         index += 1
 
+    if invocation.check_undefined and mode != "run":
+        raise UsageError("--check-undefined 只用于模型创意 run，build 不执行检查。")
     if invocation.explain:
         if mode == "run":
             raise UsageError("--explain 只用于构建模式。")

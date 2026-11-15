@@ -61,6 +61,14 @@ def summarize(payload: dict[str, Any]) -> str:
         lines.append(f"产物：{artifact}")
     if result.get("program_exit") is not None:
         lines.append(f"程序退出码：{result['program_exit']}")
+    check = payload.get("undefined_behavior_check")
+    if isinstance(check, dict):
+        if check.get("performed"):
+            lines.append(f"创意候选检查：{check.get('mode')}（已执行，不证明无UB或语义正确）")
+        elif check.get("available") is False:
+            lines.append("创意候选检查：不可用，未检查作品")
+        else:
+            lines.append(f"创意候选检查：未执行（{check.get('reason')}）")
     repair = result.get("repair")
     if isinstance(repair, dict):
         lines.append(f"修复规则：{', '.join(repair.get('rules', [])) or '无'}")

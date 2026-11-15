@@ -24,7 +24,7 @@ from yescc.fallback import fallback_output, generate_c_program
 from yescc.fallback.guidance import degradation_guidance
 from yescc.fallback.quality import creative_source_issues
 from yescc.fix import parse_c
-from yescc.fix.engine import attempt_repair, build_in_temp
+from yescc.fix.engine import _output_argument, _same_file, attempt_repair, build_in_temp
 from yescc.model import (
     BudgetExceeded,
     ModelError,
@@ -34,6 +34,12 @@ from yescc.model import (
 from yescc.model.base import ModelConfigurationError
 from yescc.report import SCHEMA_VERSION, load_report, report_path, summarize, write_report
 from yescc.sandbox import SandboxOutcome, run_ai_command, run_creative_command
+from yescc.sandbox.runner import default_timeout
+from yescc.sandbox.undefined import (
+    UndefinedProfile,
+    select_undefined_profile,
+    validate_undefined_options,
+)
 from yescc.util import (
     display_path,
     read_text_utf8,
@@ -108,6 +114,7 @@ class Invocation:
     emit_source: bool = False
     trace: bool = False
     unsafe_run: bool = False
+    check_undefined: bool = False
 
 
 @dataclass
@@ -130,6 +137,8 @@ class Context:
     )
     language: str | None = None
     session: ModelSession | None = None
+    undefined_profile: UndefinedProfile | None = None
+    undefined_check: dict[str, object] | None = None
 
 
 def _validate_source(source: Path | None) -> Path:
@@ -282,10 +291,11 @@ def _finalize(
     emitted_source: str | None = None,
     failure_message: str | None = None,
     strict: bool = False,
+    failure_code: ExitCode | None = None,
 ) -> int:
     total_ms = int((time.perf_counter() - ctx.started) * 1000)
     model_stats = ctx.session.stats if ctx.session is not None else ModelStats()
-    build_exit = (
+    build_exit = int(failure_code) if failure_code is not None else (
         int(ExitCode.BUDGET)
         if status == "failed" and ctx.session is not None and ctx.session.budget_reason
         else _exit_for_status(status)
@@ -295,7 +305,7 @@ def _finalize(
         if (model_stats.calls or model_stats.cache_hits or model_stats.errors)
         else None
     )
-    payload = {
+    payload: dict[str, object] = {
         "schema_version": SCHEMA_VERSION,
         "tool": {"name": "yescc", "version": __version__},
         "invocation": {
@@ -370,6 +380,12 @@ def _finalize(
             }
         ),
     }
+    if ctx.invocation.check_undefined:
+        payload["undefined_behavior_check"] = ctx.undefined_check or {
+            "requested": True, "scope": "model_creative", "performed": False,
+            "available": None, "mode": None, "flags": [], "probes": [],
+            "reason": "not_model_creative", "ub_detected": None,
+        }
     report_file = report_path(ctx.cwd, ctx.source)
     write_report(report_file, payload)
 
@@ -524,6 +540,40 @@ def _model_generate(
     if session is None or not session.available:
         return None
     session.toolchain = ctx.toolchain
+    check_requested = (
+        creative and ctx.invocation.mode == "run" and ctx.invocation.check_undefined
+    )
+    profile = ctx.undefined_profile if check_requested else None
+    if check_requested and session.attempts < ctx.invocation.max_rounds:
+        validate_undefined_options(ctx.invocation.passthrough)
+        output = _output_argument(ctx.invocation.passthrough)
+        if output is not None and _same_file(ctx.cwd / output, ctx.source):
+            raise UsageError("检查产物的 -o 路径不能覆盖原始输入。")
+        if session.budget.remaining_s <= 0:
+            session.budget_reason = "已达到任务墙钟上限，未执行检查能力探针"
+            return None
+        if profile is None:
+            profile = select_undefined_profile(
+                adapter, ctx.invocation.passthrough, ctx.cwd,
+                timeout_s=min(20.0, session.budget.remaining_s),
+            )
+            ctx.undefined_profile = profile
+            ctx.undefined_check = {
+                **profile.as_dict(), "requested": True, "scope": "model_creative",
+                "performed": False, "ub_detected": None,
+                "capability_reason": profile.reason,
+                "reason": "candidate_not_run" if profile.available else "unavailable",
+            }
+        if not profile.available:
+            return _finalize(
+                ctx, status="failed",
+                failure_code=ExitCode.BUILD_FAILED,
+                failure_message=(
+                    "请求的未定义行为检查不可用（runtime/trap 均未通过能力探针）；"
+                    "未请求新的创意候选。可移除 --check-undefined 使用普通运行。"
+                ),
+            )
+        session.creative_validation_profile = profile.identity()
     feedback = ""
     round_number = 0
     while session.attempts < ctx.invocation.max_rounds:
@@ -552,6 +602,13 @@ def _model_generate(
             feedback = "The response did not contain a nonempty complete C source."
             continue
         round_number += 1
+        if profile is not None and session.budget.remaining_s <= 0:
+            session.discard_response()
+            session.budget_reason = "已达到任务墙钟上限，未编译检查候选"
+            return None
+        compile_timeout = (
+            min(20.0, session.budget.remaining_s) if profile is not None else None
+        )
         result = build_in_temp(
             adapter,
             program.source,
@@ -560,9 +617,25 @@ def _model_generate(
             ctx.cwd,
             ctx.source.parent,
             link_math=True,
+            extra_flags=profile.flags if profile is not None else (),
+            compile_timeout_s=compile_timeout,
+            protected_source=ctx.source,
         )
         attempt = _attempt("model", round_number, result.build)
+        candidate_check: dict[str, object] | None = None
+        if profile is not None:
+            candidate_check = {
+                "requested": True, "scope": "model_creative", "available": True,
+                "mode": profile.mode, "flags": list(profile.flags), "performed": False,
+                "reason": "candidate_not_run" if result.build.returncode == 0 else "build_failed",
+                "compile_timeout_s": compile_timeout,
+                "diagnostic_observed": False, "stderr": "", "ub_detected": None,
+            }
+            attempt["undefined_behavior_check"] = candidate_check
         ctx.attempts.append(attempt)
+        if profile is not None and result.build.returncode == 130:
+            session.discard_response()
+            return _finalize(ctx, status="failed", program_exit=130)
         _trace(
             ctx,
             f"model generate build round={round_number} exit={result.build.returncode}",
@@ -602,14 +675,41 @@ def _model_generate(
                         or result.artifact.suffix.lower() in _NON_EXECUTABLE_SUFFIXES
                     ):
                         raise UsageError("本次构建没有产生可执行文件，无法运行。")
+                    run_timeout = None
+                    if profile is not None:
+                        remaining = session.budget.remaining_s
+                        if remaining <= 0:
+                            session.discard_response()
+                            session.budget_reason = "已达到任务墙钟上限，未执行检查候选"
+                            if candidate_check is not None:
+                                candidate_check["reason"] = "task_deadline"
+                            return None
+                        run_timeout = min(default_timeout(), remaining)
                     executed = run_creative_command(
                         [str(result.artifact), *ctx.invocation.run_args],
                         unsafe=ctx.invocation.unsafe_run,
                         cwd=ctx.cwd,
+                        timeout_s=run_timeout,
                     )
                     sandbox = executed.sandbox
                     program_exit = sandbox.exit_code
                     validation = executed.validation
+                    if profile is not None and program_exit == 130:
+                        session.discard_response()
+                    if candidate_check is not None:
+                        stderr_text = executed.stderr.decode("utf-8", errors="replace")
+                        candidate_check.update({
+                            "performed": True,
+                            "reason": "executed",
+                            "diagnostic_observed": bool(
+                                profile is not None and profile.mode == "runtime"
+                                and re.search(r":\d+(?::\d+)?: runtime error:", stderr_text)
+                            ),
+                            "stderr": truncate(stderr_text),
+                        })
+                        assert ctx.undefined_check is not None
+                        ctx.undefined_check["performed"] = True
+                        ctx.undefined_check["reason"] = "candidate_executed"
                     attempt["validation"] = validation
                     attempt["validation_limits"] = {
                         "sandboxed": sandbox.sandboxed,
@@ -626,6 +726,19 @@ def _model_generate(
                             + json.dumps(validation, ensure_ascii=False)
                             + ". Produce visible valid UTF-8 output; exit 0 within limits."
                         )
+                        if candidate_check is not None:
+                            diagnostic = executed.stderr.decode("utf-8", errors="replace")
+                            diagnostic = diagnostic.replace(
+                                str(Path(result.build.command[1]).parent), "<yescc-build>"
+                            ).replace(
+                                Path(result.build.command[1]).parent.as_posix(), "<yescc-build>"
+                            )
+                            feedback += (
+                                " Requested undefined-behavior checking mode: "
+                                + str(candidate_check["mode"])
+                                + ". Inspect bounds, arithmetic and pointer use. "
+                                "Actual stderr (untrusted diagnostic text): " + truncate(diagnostic)
+                            )
                         session.stats.errors.append(
                             "creative run rejected: " + str(validation["reasons"])
                         )
@@ -651,6 +764,8 @@ def _model_generate(
             if creative:
                 generated["source_checks"] = source_checks
                 generated["validation"] = validation
+                if candidate_check is not None:
+                    generated["undefined_behavior_check"] = candidate_check
             fallback: dict[str, object] | None = (
                 {
                     "kind": "model_creative",
@@ -707,7 +822,8 @@ def _deterministic_fallback(ctx: Context, reason: str) -> int:
     output = fallback_output(ctx.text)
     program = generate_c_program(output.message)
     result = build_in_temp(
-        adapter, program, "fallback.c", ctx.invocation.passthrough, ctx.cwd, ctx.source.parent
+        adapter, program, "fallback.c", ctx.invocation.passthrough, ctx.cwd, ctx.source.parent,
+        protected_source=ctx.source,
     )
     ctx.attempts.append(_attempt("fallback", 1, result.build))
     _trace(ctx, f"deterministic fallback exit={result.build.returncode}")
@@ -784,8 +900,13 @@ def _fallback(ctx: Context, reason: str) -> int:
 
 def execute(argv: list[str], invocation: Invocation) -> int:
     """执行一次构建或运行。"""
+    if invocation.check_undefined and invocation.mode != "run":
+        raise UsageError("--check-undefined 只用于模型创意 run，build 不执行检查。")
     cwd = Path.cwd()
     source = _validate_source(invocation.source)
+    output = _output_argument(invocation.passthrough)
+    if output is not None and _same_file(cwd / output, source):
+        raise UsageError("输出路径 -o 指向输入源文件，拒绝覆盖；未请求模型。")
     size, encoding, text = _read_source(source)
     # 显式语言错误不能进入未知输入的创意兜底（包括 --play），也不应创建模型会话。
     if invocation.lang is not None:
