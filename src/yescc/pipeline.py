@@ -860,6 +860,8 @@ def _deterministic_fallback(ctx: Context, reason: str) -> int:
                 and bool(ctx.session.stats.calls or ctx.session.stats.cache_hits),
                 budget_blocked=ctx.session is not None and bool(ctx.session.budget_reason),
                 rule_builds=sum(item["kind"] == "rule" for item in ctx.attempts),
+                model=ctx.session.stats.as_dict() if ctx.session is not None else None,
+                budget_reason=ctx.session.budget_reason if ctx.session is not None else None,
             ),
             "reason": reason,
             "source": display_path(source_file, ctx.cwd),
