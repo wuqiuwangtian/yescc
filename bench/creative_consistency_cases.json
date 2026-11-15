@@ -1,0 +1,257 @@
+[
+  {
+    "id": "CC01",
+    "input": "想象月港的最后一次发射倒计时：只输出四行，依次以“[3] ”、“[2] ”、“[1] ”、“[0] ”开头，前三行各写一个有画面感的准备动作，最后一行必须完整写成“[0] 星门开启”；倒计时到零就结束。",
+    "category": "countdown_zero_boundary",
+    "checks": [
+      {
+        "type": "line_count",
+        "equals": 4,
+        "include_blank": true
+      },
+      {
+        "type": "line_sequence",
+        "pattern": "^\\[([0-3])\\] .+$",
+        "expected": [
+          "3",
+          "2",
+          "1",
+          "0"
+        ],
+        "fullmatch": true
+      },
+      {
+        "type": "last_nonempty_line",
+        "text": "[0] 星门开启"
+      }
+    ],
+    "review_focus": "倒计时是否确实到零停止；前三个动作是否服务于月港发射，而非通用倒数旁白。",
+    "example_pass": "[3] 月尘从船翼悄悄滑落\n[2] 领航员把故乡折进衣袋\n[1] 舷窗里的星星屏住呼吸\n[0] 星门开启",
+    "example_fail": "[3] 月尘从船翼悄悄滑落\n[2] 领航员把故乡折进衣袋\n[1] 舷窗里的星星屏住呼吸\n[0] 星门开启\n[-1] 船还在等待"
+  },
+  {
+    "id": "CC02",
+    "input": "为一幅叫“借来的月光”的小画办微型展览：输出严格五行，第一行只有“借来的月光”，第二行完全空白，第三行以“画面：”开头自由描述画面，第四行以“心声：”开头自由写观画感受，第五行只有“展览结束”；不要再加空行。",
+    "category": "line_count_and_intentional_blank",
+    "checks": [
+      {
+        "type": "line_count",
+        "equals": 5,
+        "include_blank": true
+      },
+      {
+        "type": "line_count",
+        "equals": 4,
+        "include_blank": false
+      },
+      {
+        "type": "line_sequence",
+        "pattern": "^(借来的月光$|画面：|心声：|展览结束$|$).*$",
+        "expected": [
+          "借来的月光",
+          "",
+          "画面：",
+          "心声：",
+          "展览结束"
+        ],
+        "fullmatch": true
+      },
+      {
+        "type": "last_nonempty_line",
+        "text": "展览结束"
+      }
+    ],
+    "review_focus": "留白是否被当作真实输出行保留；画面和感受是否具体且相互呼应。",
+    "example_pass": "借来的月光\n\n画面：一把旧伞盛着半轮银白。\n心声：原来回家的路也能借来一点亮。\n展览结束",
+    "example_fail": "借来的月光\n画面：一把旧伞盛着半轮银白。\n心声：原来回家的路也能借来一点亮。\n展览结束"
+  },
+  {
+    "id": "CC03",
+    "input": "让三只萤火虫为迷路的蜗牛点亮回家路，写一到四行微型故事；全文必须恰好出现三个“✦”，每个代表一只萤火虫，它们可以分散在句子中，别再引入第四只萤火虫。",
+    "category": "object_quantity_with_free_narration",
+    "checks": [
+      {
+        "type": "line_count",
+        "min": 1,
+        "max": 4,
+        "include_blank": true
+      },
+      {
+        "type": "symbol_count",
+        "symbol": "✦",
+        "equals": 3
+      }
+    ],
+    "review_focus": "三个符号是否确实分别对应三只萤火虫；故事是否完成“迷路到找到归路”的小变化，文字不得暗增第四只。",
+    "example_pass": "✦贴着苔藓，✦停在叶尖，✦守住石缝。\n蜗牛顺着三盏小灯，把月色背回了家。",
+    "example_fail": "✦贴着苔藓，✦停在叶尖，✦守住石缝，✦又赶来帮忙。\n蜗牛顺着灯光回家。"
+  },
+  {
+    "id": "CC04",
+    "input": "模拟两个雪人一起等日落的小小一天，只写三行：清晨有两个雪人，行首写“清晨：☃☃｜”；正午融化掉一个，行首写“正午：☃｜”；夜晚最后一个也融化，行首写“夜晚：无｜”；每个竖线后自由写一句当时的情景，全文不要在这些行首之外再使用雪人符号。",
+    "category": "staged_state_change",
+    "checks": [
+      {
+        "type": "line_count",
+        "equals": 3,
+        "include_blank": true
+      },
+      {
+        "type": "line_sequence",
+        "pattern": "^(清晨：☃☃|正午：☃|夜晚：无)｜.+$",
+        "expected": [
+          "清晨：☃☃",
+          "正午：☃",
+          "夜晚：无"
+        ],
+        "fullmatch": true
+      },
+      {
+        "type": "symbol_count",
+        "symbol": "☃",
+        "equals": 3
+      }
+    ],
+    "review_focus": "每个阶段的叙述是否与存活数量一致，夜晚可以留下回忆或水迹，但不能让雪人继续做实体动作。",
+    "example_pass": "清晨：☃☃｜两顶胡萝卜鼻子朝着太阳打招呼。\n正午：☃｜留下的那位替一滩水守着围巾。\n夜晚：无｜两条倒映星光的小溪汇到了一起。",
+    "example_fail": "清晨：☃☃｜他们并肩等待。\n正午：☃☃｜谁也没有离开。\n夜晚：无｜围巾躺在水边。"
+  },
+  {
+    "id": "CC05",
+    "input": "写两到四行微型故事：一头鲸鱼把潮声装进信封寄给沙漠；全文恰好使用一次“🐋”和一次“✉️”，信封请原样使用这里这整串符号，其他文字自由发挥，最后一行必须只有“潮声已寄出。”。",
+    "category": "unicode_symbols_and_variation_selector",
+    "checks": [
+      {
+        "type": "line_count",
+        "min": 2,
+        "max": 4,
+        "include_blank": true
+      },
+      {
+        "type": "symbol_count",
+        "symbol": "🐋",
+        "equals": 1
+      },
+      {
+        "type": "symbol_count",
+        "symbol": "✉️",
+        "equals": 1
+      },
+      {
+        "type": "last_nonempty_line",
+        "text": "潮声已寄出。"
+      }
+    ],
+    "review_focus": "Unicode 符号是否原样显示，鲸鱼、信封、潮声和沙漠是否形成有因果的小故事，而非只堆意象。",
+    "example_pass": "🐋把整夜的潮声折进✉️，请候鸟捎给从没见过海的沙丘。\n沙丘拆信时，第一颗盐悄悄发亮。\n潮声已寄出。",
+    "example_fail": "🐋把整夜的潮声折进✉，请候鸟捎给从没见过海的沙丘。\n沙丘拆信时，第一颗盐悄悄发亮。\n潮声已寄出。"
+  },
+  {
+    "id": "CC06",
+    "input": "想象一个汉字“猫”坐上 UTF-8 小火车，只输出三行：第一行自由写一句短童话，第二行必须只有“字符数：1”，第三行必须只有“UTF-8字节数：3”；统计对象仅是单个汉字“猫”，不包括引号、换行或童话文字，请让童话也不把字符数和字节数混为一谈。",
+    "category": "character_vs_utf8_byte_count",
+    "checks": [
+      {
+        "type": "line_count",
+        "equals": 3,
+        "include_blank": true
+      },
+      {
+        "type": "contains",
+        "text": "猫"
+      },
+      {
+        "type": "line_sequence",
+        "pattern": "^(字符数：1|UTF-8字节数：3)$",
+        "expected": [
+          "字符数：1",
+          "UTF-8字节数：3"
+        ],
+        "fullmatch": true
+      }
+    ],
+    "review_focus": "叙述应表达一个汉字用三个 UTF-8 字节承载，不能说成三只猫、三个字符或三个汉字。",
+    "example_pass": "猫只有一位，却带着三个字节的小行李坐上了火车。\n字符数：1\nUTF-8字节数：3",
+    "example_fail": "猫带着行李坐上了火车。\n字符数：3\nUTF-8字节数：3"
+  },
+  {
+    "id": "CC07",
+    "input": "写一个两到四行的月兔送月饼小故事：月兔原有7枚月饼，先送出2枚，再送出3枚，期间没有其他增减；故事里必须出现“月兔”，最后另起一行只写结算式“7-2-3=2”，让叙述中的数量也和结算一致。",
+    "category": "arithmetic_narrative_consistency",
+    "checks": [
+      {
+        "type": "line_count",
+        "min": 2,
+        "max": 4,
+        "include_blank": true
+      },
+      {
+        "type": "contains",
+        "text": "月兔"
+      },
+      {
+        "type": "last_nonempty_line",
+        "text": "7-2-3=2"
+      }
+    ],
+    "review_focus": "除最终算式外，原有数量、两次赠送的先后和数量、剩余数量也都必须一致；故事要有赠送对象或动机。",
+    "example_pass": "月兔揣着7枚月饼出门，先送给守夜的云雀2枚，再送给修桥的星星3枚。\n它留着余下的2枚，和影子分坐在桂树下。\n7-2-3=2",
+    "example_fail": "月兔揣着7枚月饼出门，先送出2枚，再送出3枚。\n它留着余下的3枚，坐在桂树下。\n7-2-3=3"
+  },
+  {
+    "id": "CC08",
+    "input": "让一条载着晚霞的小船从东岸出发，只向西行进，最终停在西岸，写三到五行微型航行故事；正文至少出现一次“向西”，全文不能出现“向东”，最后一行必须只有“船最终停在西岸。”，其余描写自由。",
+    "category": "direction_and_destination",
+    "checks": [
+      {
+        "type": "line_count",
+        "min": 3,
+        "max": 5,
+        "include_blank": true
+      },
+      {
+        "type": "contains",
+        "text": "向西"
+      },
+      {
+        "type": "not_contains",
+        "text": "向东"
+      },
+      {
+        "type": "last_nonempty_line",
+        "text": "船最终停在西岸。"
+      }
+    ],
+    "review_focus": "航向、出发岸和终点是否从头到尾一致；晚霞是否参与故事而不只是被提及。",
+    "example_pass": "东岸松开缆绳，小船载着一舱晚霞向西。\n它把最红的一片留给河心，让归鸟认出回家的路。\n船最终停在西岸。",
+    "example_fail": "东岸松开缆绳，小船载着一舱晚霞向西。\n遇见归鸟后，它忽然向东绕了一圈。\n船最终停在西岸。"
+  },
+  {
+    "id": "CC09",
+    "input": "想象一座只收藏“没来得及说出口的话”的图书馆，今晚一封没有寄件人的信来借书：让程序展示一个短小而完整的故事，结尾要让开头的某个细节变得有新含义，不要解释寓意。",
+    "category": "open_narrative_payoff",
+    "checks": [],
+    "review_focus": "是否呈现独特设定、可辨认的行动和结局；结尾能否回扣真实出现过的细节，避免通用抒情或自我解释；长度适合终端一次阅读。"
+  },
+  {
+    "id": "CC10",
+    "input": "一粒盐忽然当上海洋的临时国王，它只能颁布一条法令，海水会照字面执行：让程序展示法令、生效后的意外和盐粒的最后决定，写成短小模拟或故事都可以，让后果真正来自那条法令。",
+    "category": "open_causal_simulation",
+    "checks": [],
+    "review_focus": "法令是否具体可理解，意外是否由规则推导出来，最后决定是否回应意外；阶段应有变化，不能只是换标签重复。"
+  },
+  {
+    "id": "CC11",
+    "input": "请用适合终端等宽显示的文字图案表现“影子比人先回家”，再配一两句短文字；图案本身要让人看出人与影子的错位关系，允许自由选择字符或 Unicode 符号，不要依赖颜色或真实动画。",
+    "category": "open_visual_relation",
+    "checks": [],
+    "review_focus": "实际渲染是否能看出人物、影子和归处的相对位置，图案能否独立承载主题；补充文字是否增色；不得把文字描述当成已经实现的动画。跨终端字宽差异应如实标注。"
+  },
+  {
+    "id": "CC12",
+    "input": "把“负数是冬天欠春天的花”写成一首短诗：让欠花、还清和多送一朵三个变化自然发生，可以出现数字，也可以不用，让诗意和数量关系都讲得通，不要写成数学讲义。",
+    "category": "open_poetic_math_transition",
+    "checks": [],
+    "review_focus": "负数、零和正数的含义能否在欠花、清偿、赠予的变化中自洽；意象是否连贯，转换是否清楚，避免只有数学标签或堆砌春冬词语。"
+  }
+]

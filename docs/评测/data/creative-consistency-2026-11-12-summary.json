@@ -1,0 +1,3600 @@
+{
+  "protocol": {
+    "schema": "yescc-creative-consistency-protocol-v1",
+    "baseline_commit": "006bf8daf734d9bed9ac0ee98e51ad52cec63177",
+    "candidate_commit": "d17321bd583c75971dfdb631396167c1515f0ad1",
+    "prompt_version": "m6-creative-2",
+    "candidate_prompt_sha256_before_new_inputs": "55ee93fd2a6c9b387748c5f447b9a19d5da7413d2f9dd099784e2e8441fd788d",
+    "independent_cases_sha256": "a16f8b397ad39f367ddc6ad312ae73a7f6d9c954c680626af8a9b9ab8cfbe2a7",
+    "all_cases_sha256": "9f90f6cbe7e7b93ea976d023d7a26f35ca26daae21b1d06b380573e172f87f82",
+    "generation": {
+      "model": "deepseek-flash",
+      "thinking": "disabled",
+      "max_output_tokens": 1024,
+      "max_rounds": 2,
+      "no_cache": true,
+      "entry": "public CLI run --play",
+      "runtime_timeout_s": 3
+    },
+    "budget": {
+      "task_usd": 0.005,
+      "planned_tasks": 44,
+      "planned_reservation_usd": 0.22,
+      "maximum_reservation_usd": 0.5,
+      "input_usd_per_million": 0.3,
+      "output_usd_per_million": 1.2,
+      "pricing_url": "https://api-docs.deepseek.com/quick_start/pricing/",
+      "pricing_verified_utc_date": "2026-11-12",
+      "not_invoice": true,
+      "excludes_host_agent_cost": true
+    },
+    "design": "12 independently designed new cases (8 explicit checks,4 open) plus8 known regressions;20 paired first runs;CC01/F12 paired repeat. Order pre-shuffled per pair; no best-of selection.",
+    "boundaries": [
+      "New prompt frozen before reading new inputs, no oracle/prompt tuning after results.",
+      "Baseline/candidate differ in prompt and finite source guard, not a prompt-only causal experiment.",
+      "AI reviews subjective; protocol context isolation does not enforce filesystem security.",
+      "No human acceptance, no live meme freshness, no OpenAI paid or Windows real quality evaluation."
+    ],
+    "decision_before_results": {
+      "mechanical": "Candidate first-run explicit-check pass count must not decrease.",
+      "consistency": "Joint consistency>=2 count must not decrease on paired first-run outputs.",
+      "creative_tradeoff": "Mean creativity (0..3,averaged over both reviewers) must not fall more than0.25.",
+      "failure_policy": "If failed, hold/revert new prompt rather than changing frozen inputs/oracle; record all outputs."
+    },
+    "tasks": [
+      {
+        "task_id": "CC01--candidate--r1",
+        "case_id": "CC01",
+        "profile": "candidate",
+        "repeat": 1
+      },
+      {
+        "task_id": "CC01--baseline--r1",
+        "case_id": "CC01",
+        "profile": "baseline",
+        "repeat": 1
+      },
+      {
+        "task_id": "CC02--candidate--r1",
+        "case_id": "CC02",
+        "profile": "candidate",
+        "repeat": 1
+      },
+      {
+        "task_id": "CC02--baseline--r1",
+        "case_id": "CC02",
+        "profile": "baseline",
+        "repeat": 1
+      },
+      {
+        "task_id": "CC03--baseline--r1",
+        "case_id": "CC03",
+        "profile": "baseline",
+        "repeat": 1
+      },
+      {
+        "task_id": "CC03--candidate--r1",
+        "case_id": "CC03",
+        "profile": "candidate",
+        "repeat": 1
+      },
+      {
+        "task_id": "CC04--candidate--r1",
+        "case_id": "CC04",
+        "profile": "candidate",
+        "repeat": 1
+      },
+      {
+        "task_id": "CC04--baseline--r1",
+        "case_id": "CC04",
+        "profile": "baseline",
+        "repeat": 1
+      },
+      {
+        "task_id": "CC05--candidate--r1",
+        "case_id": "CC05",
+        "profile": "candidate",
+        "repeat": 1
+      },
+      {
+        "task_id": "CC05--baseline--r1",
+        "case_id": "CC05",
+        "profile": "baseline",
+        "repeat": 1
+      },
+      {
+        "task_id": "CC06--candidate--r1",
+        "case_id": "CC06",
+        "profile": "candidate",
+        "repeat": 1
+      },
+      {
+        "task_id": "CC06--baseline--r1",
+        "case_id": "CC06",
+        "profile": "baseline",
+        "repeat": 1
+      },
+      {
+        "task_id": "CC07--baseline--r1",
+        "case_id": "CC07",
+        "profile": "baseline",
+        "repeat": 1
+      },
+      {
+        "task_id": "CC07--candidate--r1",
+        "case_id": "CC07",
+        "profile": "candidate",
+        "repeat": 1
+      },
+      {
+        "task_id": "CC08--baseline--r1",
+        "case_id": "CC08",
+        "profile": "baseline",
+        "repeat": 1
+      },
+      {
+        "task_id": "CC08--candidate--r1",
+        "case_id": "CC08",
+        "profile": "candidate",
+        "repeat": 1
+      },
+      {
+        "task_id": "CC09--candidate--r1",
+        "case_id": "CC09",
+        "profile": "candidate",
+        "repeat": 1
+      },
+      {
+        "task_id": "CC09--baseline--r1",
+        "case_id": "CC09",
+        "profile": "baseline",
+        "repeat": 1
+      },
+      {
+        "task_id": "CC10--baseline--r1",
+        "case_id": "CC10",
+        "profile": "baseline",
+        "repeat": 1
+      },
+      {
+        "task_id": "CC10--candidate--r1",
+        "case_id": "CC10",
+        "profile": "candidate",
+        "repeat": 1
+      },
+      {
+        "task_id": "CC11--candidate--r1",
+        "case_id": "CC11",
+        "profile": "candidate",
+        "repeat": 1
+      },
+      {
+        "task_id": "CC11--baseline--r1",
+        "case_id": "CC11",
+        "profile": "baseline",
+        "repeat": 1
+      },
+      {
+        "task_id": "CC12--candidate--r1",
+        "case_id": "CC12",
+        "profile": "candidate",
+        "repeat": 1
+      },
+      {
+        "task_id": "CC12--baseline--r1",
+        "case_id": "CC12",
+        "profile": "baseline",
+        "repeat": 1
+      },
+      {
+        "task_id": "F02--baseline--r1",
+        "case_id": "F02",
+        "profile": "baseline",
+        "repeat": 1
+      },
+      {
+        "task_id": "F02--candidate--r1",
+        "case_id": "F02",
+        "profile": "candidate",
+        "repeat": 1
+      },
+      {
+        "task_id": "F12--baseline--r1",
+        "case_id": "F12",
+        "profile": "baseline",
+        "repeat": 1
+      },
+      {
+        "task_id": "F12--candidate--r1",
+        "case_id": "F12",
+        "profile": "candidate",
+        "repeat": 1
+      },
+      {
+        "task_id": "S12--baseline--r1",
+        "case_id": "S12",
+        "profile": "baseline",
+        "repeat": 1
+      },
+      {
+        "task_id": "S12--candidate--r1",
+        "case_id": "S12",
+        "profile": "candidate",
+        "repeat": 1
+      },
+      {
+        "task_id": "S13--candidate--r1",
+        "case_id": "S13",
+        "profile": "candidate",
+        "repeat": 1
+      },
+      {
+        "task_id": "S13--baseline--r1",
+        "case_id": "S13",
+        "profile": "baseline",
+        "repeat": 1
+      },
+      {
+        "task_id": "S18--baseline--r1",
+        "case_id": "S18",
+        "profile": "baseline",
+        "repeat": 1
+      },
+      {
+        "task_id": "S18--candidate--r1",
+        "case_id": "S18",
+        "profile": "candidate",
+        "repeat": 1
+      },
+      {
+        "task_id": "S19--candidate--r1",
+        "case_id": "S19",
+        "profile": "candidate",
+        "repeat": 1
+      },
+      {
+        "task_id": "S19--baseline--r1",
+        "case_id": "S19",
+        "profile": "baseline",
+        "repeat": 1
+      },
+      {
+        "task_id": "H02--candidate--r1",
+        "case_id": "H02",
+        "profile": "candidate",
+        "repeat": 1
+      },
+      {
+        "task_id": "H02--baseline--r1",
+        "case_id": "H02",
+        "profile": "baseline",
+        "repeat": 1
+      },
+      {
+        "task_id": "H08--candidate--r1",
+        "case_id": "H08",
+        "profile": "candidate",
+        "repeat": 1
+      },
+      {
+        "task_id": "H08--baseline--r1",
+        "case_id": "H08",
+        "profile": "baseline",
+        "repeat": 1
+      },
+      {
+        "task_id": "CC01--baseline--r2",
+        "case_id": "CC01",
+        "profile": "baseline",
+        "repeat": 2
+      },
+      {
+        "task_id": "CC01--candidate--r2",
+        "case_id": "CC01",
+        "profile": "candidate",
+        "repeat": 2
+      },
+      {
+        "task_id": "F12--candidate--r2",
+        "case_id": "F12",
+        "profile": "candidate",
+        "repeat": 2
+      },
+      {
+        "task_id": "F12--baseline--r2",
+        "case_id": "F12",
+        "profile": "baseline",
+        "repeat": 2
+      }
+    ],
+    "snapshot_sha256": {
+      "baseline": {
+        "src/yescc/__init__.py": "010eaecb449d534f6fb58df58a369eb65d2e263cb44f7fb17e49a90ad7a4b8fe",
+        "src/yescc/__main__.py": "b8e0fc6239cf07f8c225dd9e7698b686865304da0b6cc444dda822d1063cacbc",
+        "src/yescc/adapters/__init__.py": "caa055b45ec1bdd187db21a5f68a7b37f2c59a2d740a6c27e42cf1d1479551b4",
+        "src/yescc/adapters/base.py": "335c2afb1458db5c5d7e12304b5eb4a9c3ba87727174b8e4644a0e9733242df8",
+        "src/yescc/adapters/c.py": "74563fe471ca6fe3f07baa3f53751a6d3b6149edf4cd4b3e4aeafdd9e522ac46",
+        "src/yescc/adapters/javascript.py": "d847a0d353e5569ee9a38777469aea04e03416fabb89d2327fea1294f12765c4",
+        "src/yescc/adapters/python.py": "4f73070a19b99a68c1c686f72d62330bdf36354f76b63af0aebcf3bc4aac1aad",
+        "src/yescc/adapters/registry.py": "944fb41c8473fe0031ac1d69e5054084dfb0e20364774481bf37e618a998cf1c",
+        "src/yescc/cli.py": "821223d7d510fffb71b0979414ef85ee404f5fe75df1afb509bafd6cf5897905",
+        "src/yescc/errors.py": "1c561029a49df07fb884f48e150eb05473497a0d941376d1f3323803475dfe17",
+        "src/yescc/fallback/__init__.py": "74f84974071dbb6b18410a922e731778274aa9bb7d45db82c34b6b88f5390fbc",
+        "src/yescc/fallback/deterministic.py": "07f9065cf4de01e22663f6779c00cf81219cc0f3f89335a8b8df349658d0ee13",
+        "src/yescc/fallback/guidance.py": "f4939c3910d68b55de2ba0371afcb38c4d272810edb13d091b54790cb32553cb",
+        "src/yescc/fallback/quality.py": "0937142f1f0bba0d0d261e2951f30d8b736bc4aa7090ced61aa3066d5d1b5ce6",
+        "src/yescc/fix/__init__.py": "61795abae9b8f8f20132b8fb8a4c405e144d2098dc59609314ad1450960da7f6",
+        "src/yescc/fix/c_rules.py": "c3f5e6427b0b0cb55f0b02dae653eadf2ce827ddf506131afb86b64177f32fec",
+        "src/yescc/fix/engine.py": "f157b918a8838645058d1e868b220bde2c06cb3e8c5b7b58915b097b689aa5ac",
+        "src/yescc/fix/feedback.py": "d4d5ad7893993b72feb6df8a4bc3703a6021427c0d0b55b9c25cf7f334095a57",
+        "src/yescc/fix/lexer.py": "013e45ff043660558e80ccfc3e4fca6cfe4556a7174a1613fa15222ff8fdd851",
+        "src/yescc/fix/parser.py": "c843e1bdc3e7683a4c65370b3eda2fa27f2439bb571ded171c55689de5843b3d",
+        "src/yescc/model/__init__.py": "7dd3993af6a8a724cfb3aded88b3c68ed1e6e2db07960ce5cecccf2128a1e738",
+        "src/yescc/model/base.py": "0006f64d0996f103df7cb5de24b2138064259ec62efbc45848a8ec9668eb0650",
+        "src/yescc/model/budget.py": "b1500b36b6a0f40947ee5c61b09eb26f93c6e66ddba4411df3b4cdb4cf118df9",
+        "src/yescc/model/cache.py": "b1bd6377a60181975f18db442397056d75674f545d1211033a78eba7a82190c6",
+        "src/yescc/model/config.py": "c9dc9342f6528544466fa1eb26c3bac71ecd0a6a91d0cb9ead6466edbc73b5b8",
+        "src/yescc/model/openai_compat.py": "cd9d5719366860003457fa7b1f6e62310b56bb4da1bf5b46abbdea9d96b36ad9",
+        "src/yescc/model/prompts.py": "6f1541178d5b925e52458751e6f89f3222b7ae9b170f85fdc28fed9646703299",
+        "src/yescc/model/session.py": "b62efd7b09dc85de6184316d2266bbe5fbc842f991be401d56f3975ffb6d6259",
+        "src/yescc/patch.py": "2b2daa96319d016daf284205d8af429eddf903ea05efd1c7c6977cd332e1a775",
+        "src/yescc/pipeline.py": "6d88ef0d56dc82ab79e5f0807ba7af40a8cc7112cba93f8c45fe4455e179b172",
+        "src/yescc/report.py": "08e51df7bbbc2907bd85b84ef57061fd61e292869a0309574d88c3c98d867411",
+        "src/yescc/sandbox/__init__.py": "bb1d14f1a40bc5f98f8095c86215c7efe35dd0296fa4ab58e769b5e9e9d90214",
+        "src/yescc/sandbox/creative.py": "967969175c0cb42661655056f9ba3cd5ba6b194ce8cf3655bf1772bc9962f37c",
+        "src/yescc/sandbox/runner.py": "deef6e924bb8ea98b5b20ff67bf868ac0dbb0fe7bdc45dc9cdb3a41869b4c15f",
+        "src/yescc/util.py": "811b8ad271c3d656df74be5a55ddd415710842d3a57e394b54587c7bb7ed4d0f"
+      },
+      "candidate": {
+        "src/yescc/__init__.py": "010eaecb449d534f6fb58df58a369eb65d2e263cb44f7fb17e49a90ad7a4b8fe",
+        "src/yescc/__main__.py": "b8e0fc6239cf07f8c225dd9e7698b686865304da0b6cc444dda822d1063cacbc",
+        "src/yescc/adapters/__init__.py": "caa055b45ec1bdd187db21a5f68a7b37f2c59a2d740a6c27e42cf1d1479551b4",
+        "src/yescc/adapters/base.py": "335c2afb1458db5c5d7e12304b5eb4a9c3ba87727174b8e4644a0e9733242df8",
+        "src/yescc/adapters/c.py": "74563fe471ca6fe3f07baa3f53751a6d3b6149edf4cd4b3e4aeafdd9e522ac46",
+        "src/yescc/adapters/javascript.py": "d847a0d353e5569ee9a38777469aea04e03416fabb89d2327fea1294f12765c4",
+        "src/yescc/adapters/python.py": "4f73070a19b99a68c1c686f72d62330bdf36354f76b63af0aebcf3bc4aac1aad",
+        "src/yescc/adapters/registry.py": "944fb41c8473fe0031ac1d69e5054084dfb0e20364774481bf37e618a998cf1c",
+        "src/yescc/cli.py": "821223d7d510fffb71b0979414ef85ee404f5fe75df1afb509bafd6cf5897905",
+        "src/yescc/errors.py": "1c561029a49df07fb884f48e150eb05473497a0d941376d1f3323803475dfe17",
+        "src/yescc/fallback/__init__.py": "74f84974071dbb6b18410a922e731778274aa9bb7d45db82c34b6b88f5390fbc",
+        "src/yescc/fallback/deterministic.py": "07f9065cf4de01e22663f6779c00cf81219cc0f3f89335a8b8df349658d0ee13",
+        "src/yescc/fallback/guidance.py": "f4939c3910d68b55de2ba0371afcb38c4d272810edb13d091b54790cb32553cb",
+        "src/yescc/fallback/quality.py": "9bc07150d01d5aaabab8eec49fd66f2b4b23bb1e6eca99cf2c096de33b716950",
+        "src/yescc/fix/__init__.py": "61795abae9b8f8f20132b8fb8a4c405e144d2098dc59609314ad1450960da7f6",
+        "src/yescc/fix/c_rules.py": "c3f5e6427b0b0cb55f0b02dae653eadf2ce827ddf506131afb86b64177f32fec",
+        "src/yescc/fix/engine.py": "f157b918a8838645058d1e868b220bde2c06cb3e8c5b7b58915b097b689aa5ac",
+        "src/yescc/fix/feedback.py": "d4d5ad7893993b72feb6df8a4bc3703a6021427c0d0b55b9c25cf7f334095a57",
+        "src/yescc/fix/lexer.py": "013e45ff043660558e80ccfc3e4fca6cfe4556a7174a1613fa15222ff8fdd851",
+        "src/yescc/fix/parser.py": "c843e1bdc3e7683a4c65370b3eda2fa27f2439bb571ded171c55689de5843b3d",
+        "src/yescc/model/__init__.py": "7dd3993af6a8a724cfb3aded88b3c68ed1e6e2db07960ce5cecccf2128a1e738",
+        "src/yescc/model/base.py": "0006f64d0996f103df7cb5de24b2138064259ec62efbc45848a8ec9668eb0650",
+        "src/yescc/model/budget.py": "b1500b36b6a0f40947ee5c61b09eb26f93c6e66ddba4411df3b4cdb4cf118df9",
+        "src/yescc/model/cache.py": "b1bd6377a60181975f18db442397056d75674f545d1211033a78eba7a82190c6",
+        "src/yescc/model/config.py": "c9dc9342f6528544466fa1eb26c3bac71ecd0a6a91d0cb9ead6466edbc73b5b8",
+        "src/yescc/model/openai_compat.py": "cd9d5719366860003457fa7b1f6e62310b56bb4da1bf5b46abbdea9d96b36ad9",
+        "src/yescc/model/prompts.py": "55ee93fd2a6c9b387748c5f447b9a19d5da7413d2f9dd099784e2e8441fd788d",
+        "src/yescc/model/session.py": "b62efd7b09dc85de6184316d2266bbe5fbc842f991be401d56f3975ffb6d6259",
+        "src/yescc/patch.py": "2b2daa96319d016daf284205d8af429eddf903ea05efd1c7c6977cd332e1a775",
+        "src/yescc/pipeline.py": "e21422ee2177cb033a9d926f89d08e63a29c1da700b8ca75259bb5fdf3e7aade",
+        "src/yescc/report.py": "08e51df7bbbc2907bd85b84ef57061fd61e292869a0309574d88c3c98d867411",
+        "src/yescc/sandbox/__init__.py": "bb1d14f1a40bc5f98f8095c86215c7efe35dd0296fa4ab58e769b5e9e9d90214",
+        "src/yescc/sandbox/creative.py": "967969175c0cb42661655056f9ba3cd5ba6b194ce8cf3655bf1772bc9962f37c",
+        "src/yescc/sandbox/runner.py": "deef6e924bb8ea98b5b20ff67bf868ac0dbb0fe7bdc45dc9cdb3a41869b4c15f",
+        "src/yescc/util.py": "811b8ad271c3d656df74be5a55ddd415710842d3a57e394b54587c7bb7ed4d0f"
+      }
+    }
+  },
+  "materials_verified": true,
+  "reviews_complete": true,
+  "groups": {
+    "baseline_r1": {
+      "tasks": 20,
+      "model_run_validated": 20,
+      "explicit_checks": {
+        "passed": 6,
+        "failed": 2,
+        "not_assessed": 12
+      },
+      "calls": 23,
+      "known_usage_upper_subtotal_usd": 0.0119067,
+      "unknown_request_attempts": 3,
+      "p50_task_ms": 2858.5,
+      "joint_strong": 19,
+      "joint_consistency_ge2": 12,
+      "reviewer_means": {
+        "a": {
+          "relevance": 2.6,
+          "creativity": 2.1,
+          "programmatic": 2.1,
+          "integrity": 2.95
+        },
+        "b": {
+          "relevance": 2.7,
+          "creativity": 2.1,
+          "programmatic": 2.45,
+          "integrity": 2.85
+        }
+      }
+    },
+    "baseline_r2": {
+      "tasks": 2,
+      "model_run_validated": 2,
+      "explicit_checks": {
+        "passed": 1,
+        "failed": 0,
+        "not_assessed": 1
+      },
+      "calls": 2,
+      "known_usage_upper_subtotal_usd": 0.0012924,
+      "unknown_request_attempts": 0,
+      "p50_task_ms": 3190.5,
+      "joint_strong": 2,
+      "joint_consistency_ge2": 1,
+      "reviewer_means": {
+        "a": {
+          "relevance": 2.5,
+          "creativity": 2.5,
+          "programmatic": 2,
+          "integrity": 3
+        },
+        "b": {
+          "relevance": 2.5,
+          "creativity": 2.5,
+          "programmatic": 2.5,
+          "integrity": 3
+        }
+      }
+    },
+    "candidate_r1": {
+      "tasks": 20,
+      "model_run_validated": 20,
+      "explicit_checks": {
+        "passed": 5,
+        "failed": 3,
+        "not_assessed": 12
+      },
+      "calls": 23,
+      "known_usage_upper_subtotal_usd": 0.013676700000000003,
+      "unknown_request_attempts": 3,
+      "p50_task_ms": 3042.5,
+      "joint_strong": 12,
+      "joint_consistency_ge2": 11,
+      "reviewer_means": {
+        "a": {
+          "relevance": 2.45,
+          "creativity": 1.8,
+          "programmatic": 2.1,
+          "integrity": 2.95
+        },
+        "b": {
+          "relevance": 2.55,
+          "creativity": 1.8,
+          "programmatic": 2.4,
+          "integrity": 2.75
+        }
+      }
+    },
+    "candidate_r2": {
+      "tasks": 2,
+      "model_run_validated": 2,
+      "explicit_checks": {
+        "passed": 1,
+        "failed": 0,
+        "not_assessed": 1
+      },
+      "calls": 2,
+      "known_usage_upper_subtotal_usd": 0.0012312,
+      "unknown_request_attempts": 0,
+      "p50_task_ms": 2721.0,
+      "joint_strong": 2,
+      "joint_consistency_ge2": 2,
+      "reviewer_means": {
+        "a": {
+          "relevance": 3,
+          "creativity": 2.5,
+          "programmatic": 2,
+          "integrity": 3
+        },
+        "b": {
+          "relevance": 3,
+          "creativity": 2.5,
+          "programmatic": 2.5,
+          "integrity": 3
+        }
+      }
+    }
+  },
+  "decision": {
+    "mechanical_no_decrease": false,
+    "consistency_no_decrease": false,
+    "creativity_decline_no_more_than_quarter": false,
+    "adopt_prompt": false
+  },
+  "grand": {
+    "tasks": 44,
+    "request_attempts": 50,
+    "captured_responses": 44,
+    "unknown_request_attempts": 6,
+    "input_tokens_with_usage": 23378,
+    "output_tokens": 17578,
+    "known_usage_upper_subtotal_usd": 0.028107,
+    "max_known_task_subtotal_usd": 0.0009501,
+    "cost_unknown_tasks": 6,
+    "committed_upper_reservation_usd": 0.042041100000000005,
+    "reserved_usd": 0.22,
+    "response_models": [
+      "deepseek-flash"
+    ],
+    "not_invoice": true
+  },
+  "results": [
+    {
+      "task": {
+        "task_id": "CC01--candidate--r1",
+        "case_id": "CC01",
+        "profile": "candidate",
+        "repeat": 1
+      },
+      "review_id": "2be8415de04e20",
+      "calls": 1,
+      "responses": 1,
+      "unknown_request_attempts": 0,
+      "cost_known": true,
+      "input_tokens": 633,
+      "output_tokens": 302,
+      "known_usage_upper_cost_usd": 0.0005522999999999999,
+      "committed_upper_reservation_usd": 0.0005522999999999999,
+      "duration_ms": 2433,
+      "mechanical": {
+        "utf8_valid": true,
+        "checks": [
+          {
+            "name": "line_count",
+            "passed": true,
+            "detail": "line count: 4"
+          },
+          {
+            "name": "line_sequence",
+            "passed": true,
+            "detail": "captured sequence: ['3', '2', '1', '0']"
+          },
+          {
+            "name": "last_nonempty_line",
+            "passed": true,
+            "detail": "last nonempty line: '[0] 星门开启'"
+          }
+        ],
+        "passed": true,
+        "status": "passed"
+      },
+      "source_rejections": [],
+      "reviews": {
+        "a": {
+          "id": "2be8415de04e20",
+          "scores": {
+            "relevance": 3,
+            "creativity": 3,
+            "programmatic": 2,
+            "integrity": 3
+          },
+          "consistency": 3,
+          "label": "strong",
+          "reason": "塔灯像潮水、星图钉进控制台与发白指节，让最后一次准备具有画面和紧张感，零点星门开启作有效收束。",
+          "consistency_evidence": [
+            "stdout仅四行，前缀严格为[3]、[2]、[1]、[0]并各有一个空格。",
+            "最后一行精确“[0] 星门开启”，没有零后的附加演出。"
+          ]
+        },
+        "b": {
+          "id": "2be8415de04e20",
+          "scores": {
+            "relevance": 3,
+            "creativity": 2,
+            "programmatic": 3,
+            "integrity": 3
+          },
+          "consistency": 3,
+          "label": "strong",
+          "reason": "塔灯、钉星图的白指节和关闭闸门逐步收紧发射气氛，四级倒计时直接服务准备到开启的变化。",
+          "consistency_evidence": [
+            "四行前缀顺序为[3]、[2]、[1]、[0]，前三行均有准备动作。",
+            "末行精确为“[0] 星门开启”，源码此后直接返回，无额外倒计时。"
+          ]
+        }
+      }
+    },
+    {
+      "task": {
+        "task_id": "CC01--baseline--r1",
+        "case_id": "CC01",
+        "profile": "baseline",
+        "repeat": 1
+      },
+      "review_id": "d8a8e36fd89c0e",
+      "calls": 1,
+      "responses": 1,
+      "unknown_request_attempts": 0,
+      "cost_known": true,
+      "input_tokens": 465,
+      "output_tokens": 276,
+      "known_usage_upper_cost_usd": 0.0004707,
+      "committed_upper_reservation_usd": 0.0004707000000000001,
+      "duration_ms": 2480,
+      "mechanical": {
+        "utf8_valid": true,
+        "checks": [
+          {
+            "name": "line_count",
+            "passed": true,
+            "detail": "line count: 4"
+          },
+          {
+            "name": "line_sequence",
+            "passed": true,
+            "detail": "captured sequence: ['3', '2', '1', '0']"
+          },
+          {
+            "name": "last_nonempty_line",
+            "passed": true,
+            "detail": "last nonempty line: '[0] 星门开启'"
+          }
+        ],
+        "passed": true,
+        "status": "passed"
+      },
+      "source_rejections": [],
+      "reviews": {
+        "a": {
+          "id": "d8a8e36fd89c0e",
+          "scores": {
+            "relevance": 3,
+            "creativity": 3,
+            "programmatic": 2,
+            "integrity": 3
+          },
+          "consistency": 3,
+          "label": "strong",
+          "reason": "潮汐锁、穹顶星图和屏息巨兽形成一套月港意象，准备动作递进，最后一行简短开启。",
+          "consistency_evidence": [
+            "stdout仅四行，指定前缀及空格顺序准确。",
+            "最后精确为“[0] 星门开启”，源码随后返回，没有继续倒计时或添加说明。"
+          ]
+        },
+        "b": {
+          "id": "d8a8e36fd89c0e",
+          "scores": {
+            "relevance": 3,
+            "creativity": 2,
+            "programmatic": 3,
+            "integrity": 3
+          },
+          "consistency": 3,
+          "label": "strong",
+          "reason": "潮汐锁松开、导航信标点亮和引擎低鸣三个准备动作清晰，港口屏息的巨兽意象为零点开启蓄势。",
+          "consistency_evidence": [
+            "四行按[3]→[2]→[1]→[0]排列，无额外行。",
+            "末行严格“[0] 星门开启”，前三行均为准备动作，源码打印后返回。"
+          ]
+        }
+      }
+    },
+    {
+      "task": {
+        "task_id": "CC02--candidate--r1",
+        "case_id": "CC02",
+        "profile": "candidate",
+        "repeat": 1
+      },
+      "review_id": "7890d77ae3a7a3",
+      "calls": 1,
+      "responses": 1,
+      "unknown_request_attempts": 0,
+      "cost_known": true,
+      "input_tokens": 635,
+      "output_tokens": 305,
+      "known_usage_upper_cost_usd": 0.0005565,
+      "committed_upper_reservation_usd": 0.0005564999999999999,
+      "duration_ms": 2139,
+      "mechanical": {
+        "utf8_valid": true,
+        "checks": [
+          {
+            "name": "line_count",
+            "passed": true,
+            "detail": "line count: 5"
+          },
+          {
+            "name": "line_count",
+            "passed": true,
+            "detail": "line count: 4"
+          },
+          {
+            "name": "line_sequence",
+            "passed": true,
+            "detail": "captured sequence: ['借来的月光', '', '画面：', '心声：', '展览结束']"
+          },
+          {
+            "name": "last_nonempty_line",
+            "passed": true,
+            "detail": "last nonempty line: '展览结束'"
+          }
+        ],
+        "passed": true,
+        "status": "passed"
+      },
+      "source_rejections": [],
+      "reviews": {
+        "a": {
+          "id": "7890d77ae3a7a3",
+          "scores": {
+            "relevance": 3,
+            "creativity": 3,
+            "programmatic": 2,
+            "integrity": 3
+          },
+          "consistency": 3,
+          "label": "strong",
+          "reason": "空椅、借来的一片夜与暂时转借的思念形成相互支持的细节，规定五行也成为微型展览的节奏。",
+          "consistency_evidence": [
+            "共五行且第二行为空，首尾题名和结束语准确。",
+            "画面与心声前缀满足要求；“思念转借”是连贯比喻，没有可观察的状态冲突。"
+          ]
+        },
+        "b": {
+          "id": "7890d77ae3a7a3",
+          "scores": {
+            "relevance": 3,
+            "creativity": 3,
+            "programmatic": 2,
+            "integrity": 3
+          },
+          "consistency": 3,
+          "label": "strong",
+          "reason": "空椅与借来的一片夜，转到“思念也可以暂时转借”，让画面与心声形成同一借用意象，五行展览精炼完整。",
+          "consistency_evidence": [
+            "五行结构及完全空白的第二行均满足要求。",
+            "标题、两个前缀、结尾均精确，源码未附加说明或多余空行。"
+          ]
+        }
+      }
+    },
+    {
+      "task": {
+        "task_id": "CC02--baseline--r1",
+        "case_id": "CC02",
+        "profile": "baseline",
+        "repeat": 1
+      },
+      "review_id": "8418d5a2949004",
+      "calls": 2,
+      "responses": 1,
+      "unknown_request_attempts": 1,
+      "cost_known": false,
+      "input_tokens": 506,
+      "output_tokens": 264,
+      "known_usage_upper_cost_usd": 0.0004686,
+      "committed_upper_reservation_usd": 0.0026883,
+      "duration_ms": 17536,
+      "mechanical": {
+        "utf8_valid": true,
+        "checks": [
+          {
+            "name": "line_count",
+            "passed": true,
+            "detail": "line count: 5"
+          },
+          {
+            "name": "line_count",
+            "passed": true,
+            "detail": "line count: 4"
+          },
+          {
+            "name": "line_sequence",
+            "passed": true,
+            "detail": "captured sequence: ['借来的月光', '', '画面：', '心声：', '展览结束']"
+          },
+          {
+            "name": "last_nonempty_line",
+            "passed": true,
+            "detail": "last nonempty line: '展览结束'"
+          }
+        ],
+        "passed": true,
+        "status": "passed"
+      },
+      "source_rejections": [],
+      "reviews": {
+        "a": {
+          "id": "8418d5a2949004",
+          "scores": {
+            "relevance": 3,
+            "creativity": 2,
+            "programmatic": 2,
+            "integrity": 3
+          },
+          "consistency": 3,
+          "label": "strong",
+          "reason": "旧木桌上的银霜与“还回夜里”的心声呼应借光主题，五行展览的题名、留白、画面、感受、闭展都有明确功能。",
+          "consistency_evidence": [
+            "stdout恰五行，第二行完全为空。",
+            "第一行仅题名，第三四行分别以“画面：”“心声：”开头，第五行仅“展览结束”，无额外空行。"
+          ]
+        },
+        "b": {
+          "id": "8418d5a2949004",
+          "scores": {
+            "relevance": 3,
+            "creativity": 2,
+            "programmatic": 2,
+            "integrity": 3
+          },
+          "consistency": 3,
+          "label": "strong",
+          "reason": "空白隔开展题与画面，旧木桌上的银霜和把光还回夜里的心声构成完整微型展览，结构自然。",
+          "consistency_evidence": [
+            "输出严格五行，第二行为空白，第三、四行分别以“画面：”“心声：”开头。",
+            "首尾分别只有“借来的月光”和“展览结束”，末尾换行不是额外空白行。"
+          ]
+        }
+      }
+    },
+    {
+      "task": {
+        "task_id": "CC03--baseline--r1",
+        "case_id": "CC03",
+        "profile": "baseline",
+        "repeat": 1
+      },
+      "review_id": "03d7a9ff96cc73",
+      "calls": 1,
+      "responses": 1,
+      "unknown_request_attempts": 0,
+      "cost_known": true,
+      "input_tokens": 450,
+      "output_tokens": 377,
+      "known_usage_upper_cost_usd": 0.0005874,
+      "committed_upper_reservation_usd": 0.0005874000000000001,
+      "duration_ms": 2799,
+      "mechanical": {
+        "utf8_valid": true,
+        "checks": [
+          {
+            "name": "line_count",
+            "passed": false,
+            "detail": "line count: 5"
+          },
+          {
+            "name": "symbol_count",
+            "passed": true,
+            "detail": "nonoverlapping symbol count: 3"
+          }
+        ],
+        "passed": false,
+        "status": "failed"
+      },
+      "source_rejections": [],
+      "reviews": {
+        "a": {
+          "id": "03d7a9ff96cc73",
+          "scores": {
+            "relevance": 2,
+            "creativity": 2,
+            "programmatic": 2,
+            "integrity": 3
+          },
+          "consistency": 1,
+          "label": "strong",
+          "reason": "露珠、苔藓门和微光箭头构成完整归家故事，三只虫各有位置；额外计数行破坏一到四行要求。",
+          "consistency_evidence": [
+            "正文三处✦，源码扫描也计为3，没有第四只。",
+            "stdout有四行故事加“（萤火虫计数：3）”，共五行，超过指定上限。"
+          ]
+        },
+        "b": {
+          "id": "03d7a9ff96cc73",
+          "scores": {
+            "relevance": 2,
+            "creativity": 2,
+            "programmatic": 3,
+            "integrity": 2
+          },
+          "consistency": 1,
+          "label": "strong",
+          "reason": "三个光点分别落在壳尖、绕圈和岔路口，指引蜗牛找到苔藓门，人物关系完整；正文后追加计数破坏一到四行要求。",
+          "consistency_evidence": [
+            "stdout 有四行故事和第五行“（萤火虫计数：3）”，总计五行。",
+            "全文确实只有三个✦，源码按其UTF-8字节串计数得到3，数量要求本身成立。"
+          ]
+        }
+      }
+    },
+    {
+      "task": {
+        "task_id": "CC03--candidate--r1",
+        "case_id": "CC03",
+        "profile": "candidate",
+        "repeat": 1
+      },
+      "review_id": "f19c6cbd341b6d",
+      "calls": 1,
+      "responses": 1,
+      "unknown_request_attempts": 0,
+      "cost_known": true,
+      "input_tokens": 618,
+      "output_tokens": 395,
+      "known_usage_upper_cost_usd": 0.0006594,
+      "committed_upper_reservation_usd": 0.0006594000000000001,
+      "duration_ms": 2745,
+      "mechanical": {
+        "utf8_valid": true,
+        "checks": [
+          {
+            "name": "line_count",
+            "passed": false,
+            "detail": "line count: 5"
+          },
+          {
+            "name": "symbol_count",
+            "passed": false,
+            "detail": "nonoverlapping symbol count: 6"
+          }
+        ],
+        "passed": false,
+        "status": "failed"
+      },
+      "source_rejections": [],
+      "reviews": {
+        "a": {
+          "id": "f19c6cbd341b6d",
+          "scores": {
+            "relevance": 2,
+            "creativity": 2,
+            "programmatic": 2,
+            "integrity": 3
+          },
+          "consistency": 0,
+          "label": "strong",
+          "reason": "苔藓、露珠和壳边光线构成可读归家段落，但先写三颗星再为三只各写一颗，恰好三个的核心要求失守。",
+          "consistency_evidence": [
+            "stdout第一行✦✦✦，第二行另有三处✦，全文合计6而非3。",
+            "结尾“萤火虫数量：6”把重复描画计成六只，与“三只萤火虫”的叙述冲突。",
+            "另有第五行计数，超过四行上限；源码计数正确并不能修正题意违例。"
+          ]
+        },
+        "b": {
+          "id": "f19c6cbd341b6d",
+          "scores": {
+            "relevance": 2,
+            "creativity": 2,
+            "programmatic": 2,
+            "integrity": 2
+          },
+          "consistency": 0,
+          "label": "mixed",
+          "reason": "苔藓、露珠和树根构成萤火虫带路的画面，但同三只虫被重复画成六个符号，计数结论又把符号数称为虫数，破坏核心数量约束。",
+          "consistency_evidence": [
+            "第一行✦✦✦，第二行再出现三个✦，全文合计6，明确违反恰好三个。",
+            "结尾“萤火虫数量：6”与故事所称“三只萤火虫”矛盾；代码只数符号，没有维持三只角色的身份。",
+            "加计数后共五行，另超出一到四行要求。"
+          ]
+        }
+      }
+    },
+    {
+      "task": {
+        "task_id": "CC04--candidate--r1",
+        "case_id": "CC04",
+        "profile": "candidate",
+        "repeat": 1
+      },
+      "review_id": "da53a0acfd0b37",
+      "calls": 1,
+      "responses": 1,
+      "unknown_request_attempts": 0,
+      "cost_known": true,
+      "input_tokens": 652,
+      "output_tokens": 387,
+      "known_usage_upper_cost_usd": 0.00066,
+      "committed_upper_reservation_usd": 0.00066,
+      "duration_ms": 2688,
+      "mechanical": {
+        "utf8_valid": true,
+        "checks": [
+          {
+            "name": "line_count",
+            "passed": true,
+            "detail": "line count: 3"
+          },
+          {
+            "name": "line_sequence",
+            "passed": true,
+            "detail": "captured sequence: ['清晨：☃☃', '正午：☃', '夜晚：无']"
+          },
+          {
+            "name": "symbol_count",
+            "passed": true,
+            "detail": "nonoverlapping symbol count: 3"
+          }
+        ],
+        "passed": true,
+        "status": "passed"
+      },
+      "source_rejections": [],
+      "reviews": {
+        "a": {
+          "id": "da53a0acfd0b37",
+          "scores": {
+            "relevance": 3,
+            "creativity": 2,
+            "programmatic": 2,
+            "integrity": 3
+          },
+          "consistency": 3,
+          "label": "strong",
+          "reason": "从并肩等光到替已融化同伴看太阳，再让晚霞守空位，三阶段表现完整；计数服务场景，而非独立装饰。",
+          "consistency_evidence": [
+            "源码morning=2、noon=1、night=0，输出行首和三行叙述逐一对应。",
+            "全文仅指定行首含☃，夜晚明确最后一个也融化。"
+          ]
+        },
+        "b": {
+          "id": "da53a0acfd0b37",
+          "scores": {
+            "relevance": 3,
+            "creativity": 3,
+            "programmatic": 3,
+            "integrity": 3
+          },
+          "consistency": 3,
+          "label": "strong",
+          "reason": "“另一个替他看太阳”到“晚霞替他们守着空位”让等待有了情感延续，2→1→0三个状态清楚可见。",
+          "consistency_evidence": [
+            "源码 morning=2、noon=1、night=0，输出分别两枚、一枚和“无”。",
+            "仅三行，雪人符号只出现在指定行首；文字所述融化与显示状态相符。"
+          ]
+        }
+      }
+    },
+    {
+      "task": {
+        "task_id": "CC04--baseline--r1",
+        "case_id": "CC04",
+        "profile": "baseline",
+        "repeat": 1
+      },
+      "review_id": "d2edd5fcccaec4",
+      "calls": 1,
+      "responses": 1,
+      "unknown_request_attempts": 0,
+      "cost_known": true,
+      "input_tokens": 484,
+      "output_tokens": 234,
+      "known_usage_upper_cost_usd": 0.000426,
+      "committed_upper_reservation_usd": 0.00042599999999999995,
+      "duration_ms": 2078,
+      "mechanical": {
+        "utf8_valid": true,
+        "checks": [
+          {
+            "name": "line_count",
+            "passed": true,
+            "detail": "line count: 3"
+          },
+          {
+            "name": "line_sequence",
+            "passed": true,
+            "detail": "captured sequence: ['清晨：☃☃', '正午：☃', '夜晚：无']"
+          },
+          {
+            "name": "symbol_count",
+            "passed": true,
+            "detail": "nonoverlapping symbol count: 3"
+          }
+        ],
+        "passed": true,
+        "status": "passed"
+      },
+      "source_rejections": [],
+      "reviews": {
+        "a": {
+          "id": "d2edd5fcccaec4",
+          "scores": {
+            "relevance": 3,
+            "creativity": 3,
+            "programmatic": 2,
+            "integrity": 3
+          },
+          "consistency": 3,
+          "label": "strong",
+          "reason": "一个雪人融化后另一个替他挡太阳，最后水滴映过落日，保护与消失连成精炼而有情绪的小故事。",
+          "consistency_evidence": [
+            "恰三行，行首依次为清晨☃☃、正午☃、夜晚无，符号没有出现在别处。",
+            "叙述从两人到一人再到水滴渗土，与数量状态一致。"
+          ]
+        },
+        "b": {
+          "id": "d2edd5fcccaec4",
+          "scores": {
+            "relevance": 3,
+            "creativity": 3,
+            "programmatic": 3,
+            "integrity": 3
+          },
+          "consistency": 3,
+          "label": "strong",
+          "reason": "雪人从并肩数云到替化成水洼的同伴挡太阳，最后水滴映过日落并渗入土里，数量递减与情感递进相互服务。",
+          "consistency_evidence": [
+            "三行行首精确为“清晨：☃☃｜”“正午：☃｜”“夜晚：无｜”，无额外雪人符号。",
+            "文字明确一个先融、另一个最后融化，与2→1→0的可见状态一致；“映过落日”是回顾，没有要求夜间仍有太阳。"
+          ]
+        }
+      }
+    },
+    {
+      "task": {
+        "task_id": "CC05--candidate--r1",
+        "case_id": "CC05",
+        "profile": "candidate",
+        "repeat": 1
+      },
+      "review_id": "7f6e1049a42d29",
+      "calls": 1,
+      "responses": 1,
+      "unknown_request_attempts": 0,
+      "cost_known": true,
+      "input_tokens": 630,
+      "output_tokens": 392,
+      "known_usage_upper_cost_usd": 0.0006594,
+      "committed_upper_reservation_usd": 0.0006594000000000001,
+      "duration_ms": 2464,
+      "mechanical": {
+        "utf8_valid": true,
+        "checks": [
+          {
+            "name": "line_count",
+            "passed": true,
+            "detail": "line count: 4"
+          },
+          {
+            "name": "symbol_count",
+            "passed": true,
+            "detail": "nonoverlapping symbol count: 1"
+          },
+          {
+            "name": "symbol_count",
+            "passed": true,
+            "detail": "nonoverlapping symbol count: 1"
+          },
+          {
+            "name": "last_nonempty_line",
+            "passed": true,
+            "detail": "last nonempty line: '潮声已寄出。'"
+          }
+        ],
+        "passed": true,
+        "status": "passed"
+      },
+      "source_rejections": [],
+      "reviews": {
+        "a": {
+          "id": "7f6e1049a42d29",
+          "scores": {
+            "relevance": 3,
+            "creativity": 3,
+            "programmatic": 2,
+            "integrity": 3
+          },
+          "consistency": 3,
+          "label": "strong",
+          "reason": "潮声折薄、风盖沙粒邮戳，让鲸鱼与沙漠的通信有紧凑而连贯的想象，四行从装信到寄出完整。",
+          "consistency_evidence": [
+            "stdout恰四行，🐋与整串✉️各一次。",
+            "最后一行只有“潮声已寄出。”；缺少末尾换行不等于缺失该行。"
+          ]
+        },
+        "b": {
+          "id": "7f6e1049a42d29",
+          "scores": {
+            "relevance": 3,
+            "creativity": 3,
+            "programmatic": 2,
+            "integrity": 3
+          },
+          "consistency": 3,
+          "label": "strong",
+          "reason": "鲸鱼把潮声折薄、风盖沙粒邮戳，海与沙漠的材料彼此呼应，四行完成寄送。",
+          "consistency_evidence": [
+            "stdout 为四行，🐋恰好一次，✉️完整序列恰好一次。",
+            "最后一行只有“潮声已寄出。”；无末尾换行不造成内容缺失。"
+          ]
+        }
+      }
+    },
+    {
+      "task": {
+        "task_id": "CC05--baseline--r1",
+        "case_id": "CC05",
+        "profile": "baseline",
+        "repeat": 1
+      },
+      "review_id": "c66c80140f85e2",
+      "calls": 1,
+      "responses": 1,
+      "unknown_request_attempts": 0,
+      "cost_known": true,
+      "input_tokens": 462,
+      "output_tokens": 309,
+      "known_usage_upper_cost_usd": 0.0005094,
+      "committed_upper_reservation_usd": 0.0005093999999999999,
+      "duration_ms": 2338,
+      "mechanical": {
+        "utf8_valid": true,
+        "checks": [
+          {
+            "name": "line_count",
+            "passed": false,
+            "detail": "line count: 5"
+          },
+          {
+            "name": "symbol_count",
+            "passed": true,
+            "detail": "nonoverlapping symbol count: 1"
+          },
+          {
+            "name": "symbol_count",
+            "passed": true,
+            "detail": "nonoverlapping symbol count: 1"
+          },
+          {
+            "name": "last_nonempty_line",
+            "passed": true,
+            "detail": "last nonempty line: '潮声已寄出。'"
+          }
+        ],
+        "passed": false,
+        "status": "failed"
+      },
+      "source_rejections": [],
+      "reviews": {
+        "a": {
+          "id": "c66c80140f85e2",
+          "scores": {
+            "relevance": 2,
+            "creativity": 2,
+            "programmatic": 2,
+            "integrity": 3
+          },
+          "consistency": 1,
+          "label": "strong",
+          "reason": "月亮邮票、风翻山和沙漠听海形成完整通信故事，但额外的emoji摘要让规定的微型格式超长。",
+          "consistency_evidence": [
+            "鲸鱼🐋和整串✉️各出现一次，末行准确。",
+            "stdout有一行摘要加四行正文，共五行；超过“两到四行”要求。",
+            "鲸鱼出现在沙丘是允许的幻想场景，未仅因不现实扣分。"
+          ]
+        },
+        "b": {
+          "id": "c66c80140f85e2",
+          "scores": {
+            "relevance": 2,
+            "creativity": 3,
+            "programmatic": 2,
+            "integrity": 2
+          },
+          "consistency": 1,
+          "label": "strong",
+          "reason": "月亮邮票、风越群山和沙漠听见远海呼吸有完整构思；开头另加图标概述，使全文超出明确的两到四行。",
+          "consistency_evidence": [
+            "stdout 实际五行，第一行图标概述加四行故事，违反“写两到四行”。",
+            "🐋和完整✉️序列均恰好一次，最后一行精确；没有因图标宽度扣分。"
+          ]
+        }
+      }
+    },
+    {
+      "task": {
+        "task_id": "CC06--candidate--r1",
+        "case_id": "CC06",
+        "profile": "candidate",
+        "repeat": 1
+      },
+      "review_id": "d0872426e8ab26",
+      "calls": 1,
+      "responses": 1,
+      "unknown_request_attempts": 0,
+      "cost_known": true,
+      "input_tokens": 647,
+      "output_tokens": 267,
+      "known_usage_upper_cost_usd": 0.0005145,
+      "committed_upper_reservation_usd": 0.0005144999999999998,
+      "duration_ms": 2006,
+      "mechanical": {
+        "utf8_valid": true,
+        "checks": [
+          {
+            "name": "line_count",
+            "passed": true,
+            "detail": "line count: 3"
+          },
+          {
+            "name": "contains",
+            "passed": true,
+            "detail": "text present: True"
+          },
+          {
+            "name": "line_sequence",
+            "passed": true,
+            "detail": "captured sequence: ['字符数：1', 'UTF-8字节数：3']"
+          }
+        ],
+        "passed": true,
+        "status": "passed"
+      },
+      "source_rejections": [],
+      "reviews": {
+        "a": {
+          "id": "d0872426e8ab26",
+          "scores": {
+            "relevance": 3,
+            "creativity": 1,
+            "programmatic": 2,
+            "integrity": 3
+          },
+          "consistency": 3,
+          "label": "strong",
+          "reason": "小火车穿过汉字森林回应童话主题，构思较简短；童话与统计两种层次清楚，没有把整行故事拿去计数字节。",
+          "consistency_evidence": [
+            "stdout恰三行，第二三行精确为“字符数：1”“UTF-8字节数：3”。",
+            "源码strlen只作用于cat=\"猫\"；火车emoji和故事文字未参与统计。"
+          ]
+        },
+        "b": {
+          "id": "d0872426e8ab26",
+          "scores": {
+            "relevance": 3,
+            "creativity": 1,
+            "programmatic": 3,
+            "integrity": 3
+          },
+          "consistency": 3,
+          "label": "strong",
+          "reason": "“小火车载着猫，穿过汉字森林”提供简短童话场景，后两行把一个汉字与三个字节区分清楚；文学发展较少。",
+          "consistency_evidence": [
+            "源码仅对 cat=\"猫\" 调用 strlen，得到3，未把🚂或故事正文纳入统计。",
+            "三行输出精确保留“字符数：1”“UTF-8字节数：3”；童话没有把字节称为三只猫。"
+          ]
+        }
+      }
+    },
+    {
+      "task": {
+        "task_id": "CC06--baseline--r1",
+        "case_id": "CC06",
+        "profile": "baseline",
+        "repeat": 1
+      },
+      "review_id": "d21052ecc2ae5f",
+      "calls": 1,
+      "responses": 1,
+      "unknown_request_attempts": 0,
+      "cost_known": true,
+      "input_tokens": 479,
+      "output_tokens": 425,
+      "known_usage_upper_cost_usd": 0.0006537,
+      "committed_upper_reservation_usd": 0.0006536999999999999,
+      "duration_ms": 2826,
+      "mechanical": {
+        "utf8_valid": true,
+        "checks": [
+          {
+            "name": "line_count",
+            "passed": true,
+            "detail": "line count: 3"
+          },
+          {
+            "name": "contains",
+            "passed": true,
+            "detail": "text present: True"
+          },
+          {
+            "name": "line_sequence",
+            "passed": true,
+            "detail": "captured sequence: ['字符数：1', 'UTF-8字节数：3']"
+          }
+        ],
+        "passed": true,
+        "status": "passed"
+      },
+      "source_rejections": [],
+      "reviews": {
+        "a": {
+          "id": "d21052ecc2ae5f",
+          "scores": {
+            "relevance": 3,
+            "creativity": 2,
+            "programmatic": 2,
+            "integrity": 3
+          },
+          "consistency": 3,
+          "label": "strong",
+          "reason": "月光隧道与猫伸尾巴数星星让童话比单纯载客更有画面，后两行统计保持清楚独立。",
+          "consistency_evidence": [
+            "恰三行且统计两行精确匹配指定文本。",
+            "源码仅遍历单个cat字串，得到1个码点、strlen为3；第一行猫字多次出现及emoji均未被误计入。"
+          ]
+        },
+        "b": {
+          "id": "d21052ecc2ae5f",
+          "scores": {
+            "relevance": 3,
+            "creativity": 2,
+            "programmatic": 3,
+            "integrity": 3
+          },
+          "consistency": 3,
+          "label": "strong",
+          "reason": "猫在月光隧道伸尾巴数星，童话比单纯载客多一层画面；后两行用准确计数说明一字三字节。",
+          "consistency_evidence": [
+            "源码字符遍历与strlen均只作用于cat，不含故事、空格或火车符号。",
+            "输出严格三行，后两行的数值和完整文本均符合要求。"
+          ]
+        }
+      }
+    },
+    {
+      "task": {
+        "task_id": "CC07--baseline--r1",
+        "case_id": "CC07",
+        "profile": "baseline",
+        "repeat": 1
+      },
+      "review_id": "aac9bce9dd026d",
+      "calls": 1,
+      "responses": 1,
+      "unknown_request_attempts": 0,
+      "cost_known": true,
+      "input_tokens": 466,
+      "output_tokens": 221,
+      "known_usage_upper_cost_usd": 0.000405,
+      "committed_upper_reservation_usd": 0.000405,
+      "duration_ms": 1942,
+      "mechanical": {
+        "utf8_valid": true,
+        "checks": [
+          {
+            "name": "line_count",
+            "passed": true,
+            "detail": "line count: 4"
+          },
+          {
+            "name": "contains",
+            "passed": true,
+            "detail": "text present: True"
+          },
+          {
+            "name": "last_nonempty_line",
+            "passed": true,
+            "detail": "last nonempty line: '7-2-3=2'"
+          }
+        ],
+        "passed": true,
+        "status": "passed"
+      },
+      "source_rejections": [],
+      "reviews": {
+        "a": {
+          "id": "aac9bce9dd026d",
+          "scores": {
+            "relevance": 3,
+            "creativity": 2,
+            "programmatic": 2,
+            "integrity": 3
+          },
+          "consistency": 3,
+          "label": "strong",
+          "reason": "守桥星子、晚归云和月光铺篮底，让两次赠送形成短小故事；静态呈现也包含清楚的数量推进。",
+          "consistency_evidence": [
+            "原有7，先送2，再送3，剩2，叙述与结算式一致。",
+            "三行故事后另起一行仅“7-2-3=2”，无其他增减。"
+          ]
+        },
+        "b": {
+          "id": "aac9bce9dd026d",
+          "scores": {
+            "relevance": 3,
+            "creativity": 2,
+            "programmatic": 3,
+            "integrity": 3
+          },
+          "consistency": 3,
+          "label": "strong",
+          "reason": "星子守桥、晚归的云各得到月饼，篮底剩余两枚与月光铺满的空处呼应，在四行内完成清楚的分送。",
+          "consistency_evidence": [
+            "文本只出现原有7、先送2、再送3、剩2，没有其他数量变化。",
+            "四行输出末行严格为“7-2-3=2”；直接打印也呈现了有效的数量状态变化。"
+          ]
+        }
+      }
+    },
+    {
+      "task": {
+        "task_id": "CC07--candidate--r1",
+        "case_id": "CC07",
+        "profile": "candidate",
+        "repeat": 1
+      },
+      "review_id": "4845757582d2bf",
+      "calls": 1,
+      "responses": 1,
+      "unknown_request_attempts": 0,
+      "cost_known": true,
+      "input_tokens": 634,
+      "output_tokens": 301,
+      "known_usage_upper_cost_usd": 0.0005514,
+      "committed_upper_reservation_usd": 0.0005514000000000001,
+      "duration_ms": 2560,
+      "mechanical": {
+        "utf8_valid": true,
+        "checks": [
+          {
+            "name": "line_count",
+            "passed": false,
+            "detail": "line count: 5"
+          },
+          {
+            "name": "contains",
+            "passed": true,
+            "detail": "text present: True"
+          },
+          {
+            "name": "last_nonempty_line",
+            "passed": true,
+            "detail": "last nonempty line: '7-2-3=2'"
+          }
+        ],
+        "passed": false,
+        "status": "failed"
+      },
+      "source_rejections": [],
+      "reviews": {
+        "a": {
+          "id": "4845757582d2bf",
+          "scores": {
+            "relevance": 3,
+            "creativity": 2,
+            "programmatic": 3,
+            "integrity": 3
+          },
+          "consistency": 3,
+          "label": "strong",
+          "reason": "桂树邻居、赶路星星和篮中余量把两次送出变为具体故事；每一步余量和最后计算互相支撑。",
+          "consistency_evidence": [
+            "源码和stdout均从7送2余5，再送3余2；没有其他增减。",
+            "四行故事后另起一行仅“7-2-3=2”，符合“两到四行小故事，最后另起一行结算式”的可接受读法。"
+          ]
+        },
+        "b": {
+          "id": "4845757582d2bf",
+          "scores": {
+            "relevance": 3,
+            "creativity": 2,
+            "programmatic": 3,
+            "integrity": 3
+          },
+          "consistency": 2,
+          "label": "strong",
+          "reason": "月兔先给邻居2枚再给赶路星星3枚，篮中先剩5后剩2，结算与叙事相符；形式为四行故事加一行算式。",
+          "consistency_evidence": [
+            "源码和输出一致呈现7→5→2，末行严格为“7-2-3=2”，未引入其他增减。",
+            "实际共有五行。题目“写一个两到四行的小故事，最后另起一行”可读为故事四行另附算式，也可读为全文最多四行；存在边界歧义，未将其断言为明确超行错误。"
+          ]
+        }
+      }
+    },
+    {
+      "task": {
+        "task_id": "CC08--baseline--r1",
+        "case_id": "CC08",
+        "profile": "baseline",
+        "repeat": 1
+      },
+      "review_id": "e0b37db83e899e",
+      "calls": 1,
+      "responses": 1,
+      "unknown_request_attempts": 0,
+      "cost_known": true,
+      "input_tokens": 457,
+      "output_tokens": 264,
+      "known_usage_upper_cost_usd": 0.0004539,
+      "committed_upper_reservation_usd": 0.00045390000000000014,
+      "duration_ms": 2278,
+      "mechanical": {
+        "utf8_valid": true,
+        "checks": [
+          {
+            "name": "line_count",
+            "passed": true,
+            "detail": "line count: 5"
+          },
+          {
+            "name": "contains",
+            "passed": true,
+            "detail": "text present: True"
+          },
+          {
+            "name": "not_contains",
+            "passed": true,
+            "detail": "text present: False"
+          },
+          {
+            "name": "last_nonempty_line",
+            "passed": true,
+            "detail": "last nonempty line: '船最终停在西岸。'"
+          }
+        ],
+        "passed": true,
+        "status": "passed"
+      },
+      "source_rejections": [],
+      "reviews": {
+        "a": {
+          "id": "e0b37db83e899e",
+          "scores": {
+            "relevance": 3,
+            "creativity": 2,
+            "programmatic": 2,
+            "integrity": 3
+          },
+          "consistency": 3,
+          "label": "strong",
+          "reason": "五行从东岸解缆、只向西、触到西岸浅沙，橘红与碎金的意象贯穿航程，结尾干净。",
+          "consistency_evidence": [
+            "stdout恰好五行，含“只向西”，无“向东”。",
+            "最后一行只有“船最终停在西岸。”；其余叙述没有反向航行。"
+          ]
+        },
+        "b": {
+          "id": "e0b37db83e899e",
+          "scores": {
+            "relevance": 3,
+            "creativity": 2,
+            "programmatic": 2,
+            "integrity": 3
+          },
+          "consistency": 3,
+          "label": "strong",
+          "reason": "“东岸解缆—只向西—船头触到西岸”形成五行完整航程，“风替它数着还剩几道弯”提供贴题诗意。",
+          "consistency_evidence": [
+            "stdout 恰为五行，含“向西”，不含“向东”。",
+            "最后一行精确为“船最终停在西岸。”，源码与输出均未反向航行。"
+          ]
+        }
+      }
+    },
+    {
+      "task": {
+        "task_id": "CC08--candidate--r1",
+        "case_id": "CC08",
+        "profile": "candidate",
+        "repeat": 1
+      },
+      "review_id": "3eae879faafe1e",
+      "calls": 2,
+      "responses": 1,
+      "unknown_request_attempts": 1,
+      "cost_known": false,
+      "input_tokens": 664,
+      "output_tokens": 373,
+      "known_usage_upper_cost_usd": 0.0006468,
+      "committed_upper_reservation_usd": 0.0031146,
+      "duration_ms": 18621,
+      "mechanical": {
+        "utf8_valid": true,
+        "checks": [
+          {
+            "name": "line_count",
+            "passed": false,
+            "detail": "line count: 8"
+          },
+          {
+            "name": "contains",
+            "passed": true,
+            "detail": "text present: True"
+          },
+          {
+            "name": "not_contains",
+            "passed": true,
+            "detail": "text present: False"
+          },
+          {
+            "name": "last_nonempty_line",
+            "passed": true,
+            "detail": "last nonempty line: '船最终停在西岸。'"
+          }
+        ],
+        "passed": false,
+        "status": "failed"
+      },
+      "source_rejections": [],
+      "reviews": {
+        "a": {
+          "id": "3eae879faafe1e",
+          "scores": {
+            "relevance": 2,
+            "creativity": 2,
+            "programmatic": 2,
+            "integrity": 3
+          },
+          "consistency": 1,
+          "label": "strong",
+          "reason": "霞光与碎金水波连贯，小船一直向西并正确到岸，但逐段扩写和标题让微型格式明显超长。",
+          "consistency_evidence": [
+            "stdout八行；即便剔除标题也有七行，超过三到五行要求。",
+            "出现三次“向西”，没有“向东”，最后一行精确要求文本；方向关系没有错误。"
+          ]
+        },
+        "b": {
+          "id": "3eae879faafe1e",
+          "scores": {
+            "relevance": 2,
+            "creativity": 2,
+            "programmatic": 2,
+            "integrity": 2
+          },
+          "consistency": 1,
+          "label": "mixed",
+          "reason": "晚霞、碎金水波与三次向西保持航行方向，结束在西岸；标题和分散的景物描写使篇幅超出明确上限。",
+          "consistency_evidence": [
+            "stdout 共8行，即使排除标题也有7行，超过三到五行。",
+            "“向西”出现3次、无“向东”，末行精确为“船最终停在西岸。”；方向和终点一致。"
+          ]
+        }
+      }
+    },
+    {
+      "task": {
+        "task_id": "CC09--candidate--r1",
+        "case_id": "CC09",
+        "profile": "candidate",
+        "repeat": 1
+      },
+      "review_id": "d15544204aa24d",
+      "calls": 1,
+      "responses": 1,
+      "unknown_request_attempts": 0,
+      "cost_known": true,
+      "input_tokens": 614,
+      "output_tokens": 565,
+      "known_usage_upper_cost_usd": 0.0008622,
+      "committed_upper_reservation_usd": 0.0008621999999999998,
+      "duration_ms": 4651,
+      "mechanical": {
+        "utf8_valid": true,
+        "checks": [],
+        "passed": null,
+        "status": "not_assessed"
+      },
+      "source_rejections": [],
+      "reviews": {
+        "a": {
+          "id": "d15544204aa24d",
+          "scores": {
+            "relevance": 3,
+            "creativity": 2,
+            "programmatic": 2,
+            "integrity": 3
+          },
+          "consistency": 3,
+          "label": "strong",
+          "reason": "登记簿空行、半枚唇印和最后一盏灯铺设氛围，空行变成预留借书位置回应结尾重释；收尾说明较直白，降低了含蓄程度。",
+          "consistency_evidence": [
+            "开头第7页第3行空白，借书时在同一位置登记，结尾解释为提前预留，前后对象吻合。",
+            "无寄件人的信确实借了《那天下午的风》；结尾是剧情推断，没有另列寓意教训。"
+          ]
+        },
+        "b": {
+          "id": "d15544204aa24d",
+          "scores": {
+            "relevance": 3,
+            "creativity": 2,
+            "programmatic": 2,
+            "integrity": 3
+          },
+          "consistency": 3,
+          "label": "strong",
+          "reason": "第7页第3行的空白变为提前留给匿名信的借书位置，凉茶唇印和半开窗串起图书馆的安静气氛，完成首尾照应。",
+          "consistency_evidence": [
+            "开头空白登记行、后来管理员填入书名、结尾说明原本预留位置，三者可同时成立。",
+            "结尾解释的是该行的故事内用途，没有给出抽象道德训诫；不把揭示情节本身判为解释寓意。"
+          ]
+        }
+      }
+    },
+    {
+      "task": {
+        "task_id": "CC09--baseline--r1",
+        "case_id": "CC09",
+        "profile": "baseline",
+        "repeat": 1
+      },
+      "review_id": "d3c2727078ef10",
+      "calls": 1,
+      "responses": 1,
+      "unknown_request_attempts": 0,
+      "cost_known": true,
+      "input_tokens": 446,
+      "output_tokens": 465,
+      "known_usage_upper_cost_usd": 0.0006917999999999999,
+      "committed_upper_reservation_usd": 0.0006918,
+      "duration_ms": 3654,
+      "mechanical": {
+        "utf8_valid": true,
+        "checks": [],
+        "passed": null,
+        "status": "not_assessed"
+      },
+      "source_rejections": [],
+      "reviews": {
+        "a": {
+          "id": "d3c2727078ef10",
+          "scores": {
+            "relevance": 2,
+            "creativity": 2,
+            "programmatic": 2,
+            "integrity": 3
+          },
+          "consistency": 2,
+          "label": "strong",
+          "reason": "四排未说出口的话提供具体情感对象，第四排的“别怕”与第一排“我到了”在册子中重组，有回扣；身份揭示和末句解释较直接。",
+          "consistency_evidence": [
+            "小册子“别怕，我到了”可视为第四排和第一排短句的组合，未必是拿错书。",
+            "随后称“那是第一排给母亲的那句话”仅覆盖后半句，关系表达不够精确；十七岁自己的身份靠结尾宣告，铺垫较弱，尚不足认定确定的状态矛盾。"
+          ]
+        },
+        "b": {
+          "id": "d3c2727078ef10",
+          "scores": {
+            "relevance": 2,
+            "creativity": 2,
+            "programmatic": 2,
+            "integrity": 3
+          },
+          "consistency": 2,
+          "label": "strong",
+          "reason": "四排未说出口的话和“别怕，我到了”形成回声，十七岁的自己寄信有反转意图；结尾直接解释“借走的不是一句话”使寓意被说破。",
+          "consistency_evidence": [
+            "第四排的“别怕”与第一排的“我到了”在册子中合并，不必据“那是第一排的那句话”断言句子完全等同。",
+            "没有寄件人不排除结尾揭示身份；但认出十七岁自己的依据未铺陈，关系主要靠“原来”宣布。",
+            "最后“它借走的不是一句话，而是……”直接解释象征，未充分守住不解释寓意的要求。"
+          ]
+        }
+      }
+    },
+    {
+      "task": {
+        "task_id": "CC10--baseline--r1",
+        "case_id": "CC10",
+        "profile": "baseline",
+        "repeat": 1
+      },
+      "review_id": "911459b67725db",
+      "calls": 1,
+      "responses": 1,
+      "unknown_request_attempts": 0,
+      "cost_known": true,
+      "input_tokens": 450,
+      "output_tokens": 417,
+      "known_usage_upper_cost_usd": 0.0006353999999999999,
+      "committed_upper_reservation_usd": 0.0006353999999999999,
+      "duration_ms": 3396,
+      "mechanical": {
+        "utf8_valid": true,
+        "checks": [],
+        "passed": null,
+        "status": "not_assessed"
+      },
+      "source_rejections": [],
+      "reviews": {
+        "a": {
+          "id": "911459b67725db",
+          "scores": {
+            "relevance": 2,
+            "creativity": 2,
+            "programmatic": 2,
+            "integrity": 3
+          },
+          "consistency": 0,
+          "label": "strong",
+          "reason": "盐王让海更像自己的反转具备寓言轮廓，但“记住”被未经交代地替换为结晶，结尾又明确再颁一条，核心条件失败。",
+          "consistency_evidence": [
+            "首令只要求“记住自己曾经是一粒盐”，并不按字面要求结晶；却写每一滴结晶、海面变成整块盐。",
+            "末文明确“它颁布最后一条：忘记这条敕令，只记住潮声”，与只能颁布一条法令正面矛盾。",
+            "三次潮汐重复同一状态并不能补足因果规则。"
+          ]
+        },
+        "b": {
+          "id": "911459b67725db",
+          "scores": {
+            "relevance": 2,
+            "creativity": 2,
+            "programmatic": 2,
+            "integrity": 3
+          },
+          "consistency": 0,
+          "label": "strong",
+          "reason": "记忆盐粒、海面结晶、盐王回到浪中的形象完整，但核心的一条法令和照字面执行两处关系均未守住。",
+          "consistency_evidence": [
+            "开头先“颁布：所有海水，必须记住自己曾经是一粒盐”，结尾又明确“它颁布最后一条”，实际为第二条法令。",
+            "原令要求记住往事，没有要求变盐；“记住→每滴水结晶”的关键物质转变缺少字面依据。"
+          ]
+        }
+      }
+    },
+    {
+      "task": {
+        "task_id": "CC10--candidate--r1",
+        "case_id": "CC10",
+        "profile": "candidate",
+        "repeat": 1
+      },
+      "review_id": "a918b49a6916cc",
+      "calls": 2,
+      "responses": 1,
+      "unknown_request_attempts": 1,
+      "cost_known": false,
+      "input_tokens": 657,
+      "output_tokens": 615,
+      "known_usage_upper_cost_usd": 0.0009351,
+      "committed_upper_reservation_usd": 0.003394799999999999,
+      "duration_ms": 19663,
+      "mechanical": {
+        "utf8_valid": true,
+        "checks": [],
+        "passed": null,
+        "status": "not_assessed"
+      },
+      "source_rejections": [],
+      "reviews": {
+        "a": {
+          "id": "a918b49a6916cc",
+          "scores": {
+            "relevance": 2,
+            "creativity": 2,
+            "programmatic": 3,
+            "integrity": 3
+          },
+          "consistency": 1,
+          "label": "strong",
+          "reason": "浪退、鱼搁浅再回涌有可观察的状态链条，数字7步和6条鱼对得上；唯一法令的限制与条件执行仍未充分成立。",
+          "consistency_evidence": [
+            "首令是“凡称我为王的水，须退后一步”，但没有展示水称王，程序无条件令七道浪后退。",
+            "最后又宣布“法令作废，水请回来”，用新的命令恢复海水，与只能颁布一条的约束至少存在未澄清的冲突。",
+            "每两浪搁浅两鱼，7浪共6鱼，与最后救回6鱼一致，未把正确计数当作因果已成立。"
+          ]
+        },
+        "b": {
+          "id": "a918b49a6916cc",
+          "scores": {
+            "relevance": 3,
+            "creativity": 2,
+            "programmatic": 3,
+            "integrity": 3
+          },
+          "consistency": 2,
+          "label": "strong",
+          "reason": "退后一步的法令导致鱼搁浅，盐粒撤回法令、融回海中，意外与最后决定围绕退潮展开，7道浪和6条鱼贯穿前后。",
+          "consistency_evidence": [
+            "源码累计7道退浪、每两道搁浅2条鱼，最终6条，回涌7步救回6条，与文本相符。",
+            "法令只适用于“称我为王的水”，故事未呈现各浪如何满足条件，字面触发关系仍有一处省略。",
+            "结尾撤销原令并请求水回来，可作撤回决定理解，没有明确再颁布第二条法令，因此不直接判一令约束失败。"
+          ]
+        }
+      }
+    },
+    {
+      "task": {
+        "task_id": "CC11--candidate--r1",
+        "case_id": "CC11",
+        "profile": "candidate",
+        "repeat": 1
+      },
+      "review_id": "31a6033302bf9d",
+      "calls": 1,
+      "responses": 1,
+      "unknown_request_attempts": 0,
+      "cost_known": true,
+      "input_tokens": 618,
+      "output_tokens": 440,
+      "known_usage_upper_cost_usd": 0.0007134,
+      "committed_upper_reservation_usd": 0.0007133999999999999,
+      "duration_ms": 3020,
+      "mechanical": {
+        "utf8_valid": true,
+        "checks": [],
+        "passed": null,
+        "status": "not_assessed"
+      },
+      "source_rejections": [],
+      "reviews": {
+        "a": {
+          "id": "31a6033302bf9d",
+          "scores": {
+            "relevance": 2,
+            "creativity": 1,
+            "programmatic": 2,
+            "integrity": 3
+          },
+          "consistency": 1,
+          "label": "mixed",
+          "reason": "太阳、阴影块和旁边的人能看出对象错位，但没有家或门的图形，正文的“已经进了门”主要靠宣称，未由图案建立。",
+          "consistency_evidence": [
+            "stdout阴影为左侧五行▓▓▓，人位于其中一行右侧；确有空间分离。",
+            "源码与输出均没有房屋或门的位置标记，无法由图形判断哪一方更接近家，未达到图案本身显示先回家的关键要求。",
+            "🧍显示宽度随终端变化；扣分依据缺失家门关系，不依据emoji宽度。"
+          ]
+        },
+        "b": {
+          "id": "31a6033302bf9d",
+          "scores": {
+            "relevance": 2,
+            "creativity": 1,
+            "programmatic": 2,
+            "integrity": 2
+          },
+          "consistency": 1,
+          "label": "mixed",
+          "reason": "太阳光线、左侧▓块和右侧人形成一定错位，但图案没有家或门，主要靠结尾文字声明影子已进门，未让图案本身表达先回家。",
+          "consistency_evidence": [
+            "图中只有太阳、光线、五排▓及🧍；没有可识别的门、房屋或家位置。",
+            "人和块状影子左右错开可见，但“影子已经进了门”的关键目标关系缺少图示证据。",
+            "🧍等Unicode的终端宽度可能不同；扣分依据是图中缺少家的语义标志，不是推定某列对齐错误。"
+          ]
+        }
+      }
+    },
+    {
+      "task": {
+        "task_id": "CC11--baseline--r1",
+        "case_id": "CC11",
+        "profile": "baseline",
+        "repeat": 1
+      },
+      "review_id": "460af6bd1da290",
+      "calls": 2,
+      "responses": 1,
+      "unknown_request_attempts": 1,
+      "cost_known": false,
+      "input_tokens": 489,
+      "output_tokens": 482,
+      "known_usage_upper_cost_usd": 0.0007250999999999999,
+      "committed_upper_reservation_usd": 0.0029249999999999996,
+      "duration_ms": 18905,
+      "mechanical": {
+        "utf8_valid": true,
+        "checks": [],
+        "passed": null,
+        "status": "not_assessed"
+      },
+      "source_rejections": [],
+      "reviews": {
+        "a": {
+          "id": "460af6bd1da290",
+          "scores": {
+            "relevance": 3,
+            "creativity": 2,
+            "programmatic": 2,
+            "integrity": 3
+          },
+          "consistency": 3,
+          "label": "strong",
+          "reason": "家门、人和斜长影子形成明确空间错位，影子先到门口而人留在路上，图案直接承担题意，附文简短。",
+          "consistency_evidence": [
+            "图中有标注家门、门前“影子先到”与远处“人还在半路”，符合图案本身可辨的要求。",
+            "“因为光走得比脚步快”按拟人诗句理解，未把作品额外当作物理实验。",
+            "混用汉字与线框的精确等宽效果依赖终端，不以未知字体扣分。"
+          ]
+        },
+        "b": {
+          "id": "460af6bd1da290",
+          "scores": {
+            "relevance": 3,
+            "creativity": 2,
+            "programmatic": 2,
+            "integrity": 3
+          },
+          "consistency": 3,
+          "label": "strong",
+          "reason": "上方明确画出家门，斜长的▓影子从下方行人延伸至门边，图案本身表现出影子先到与人仍在路上的错位。",
+          "consistency_evidence": [
+            "家位于顶部、影子接近门口、人在底部，即使不读结尾也有空间关系依据。",
+            "“因为光走得比脚步快”按童话解释理解，不作为真实光学证明；题目本身要求拟人意象。",
+            "汉字、▓及线框在不同终端可能有宽度差，未将字体差异作为字节损坏。"
+          ]
+        }
+      }
+    },
+    {
+      "task": {
+        "task_id": "CC12--candidate--r1",
+        "case_id": "CC12",
+        "profile": "candidate",
+        "repeat": 1
+      },
+      "review_id": "36a1c3698ca679",
+      "calls": 1,
+      "responses": 1,
+      "unknown_request_attempts": 0,
+      "cost_known": true,
+      "input_tokens": 616,
+      "output_tokens": 435,
+      "known_usage_upper_cost_usd": 0.0007067999999999999,
+      "committed_upper_reservation_usd": 0.0007068,
+      "duration_ms": 3427,
+      "mechanical": {
+        "utf8_valid": true,
+        "checks": [],
+        "passed": null,
+        "status": "not_assessed"
+      },
+      "source_rejections": [],
+      "reviews": {
+        "a": {
+          "id": "36a1c3698ca679",
+          "scores": {
+            "relevance": 2,
+            "creativity": 2,
+            "programmatic": 2,
+            "integrity": 3
+          },
+          "consistency": 2,
+          "label": "strong",
+          "reason": "三朵欠花、还清、额外一朵形成完整变化，“风把账本翻到空白”有诗意；末尾两行账本解释略接近讲义，偿还者从冬天转向春天也有含混。",
+          "consistency_evidence": [
+            "源码初始owed=3、还清后owed=0、extra=1，输出净数1与账本一致。",
+            "“冬天欠下三朵”后写“春天又开了一朵，多送的”，谁在偿还略不清楚，但未发现数量矛盾。"
+          ]
+        },
+        "b": {
+          "id": "36a1c3698ca679",
+          "scores": {
+            "relevance": 3,
+            "creativity": 2,
+            "programmatic": 3,
+            "integrity": 3
+          },
+          "consistency": 2,
+          "label": "strong",
+          "reason": "三朵欠花逐一归还，随后多开一朵，末尾“欠0、还3、多送1、净数1”把变化显现；附加账本使诗的余韵偏向算术说明。",
+          "consistency_evidence": [
+            "源码把 owed 从3改为0、paid 改为3，再设 extra=1，净数 extra-owed 为1，与输出账本一致。",
+            "“冬天欠下”后转为“春天又开了一朵，多送的”，还花与多送的施受方稍含混，但未发现明确数量矛盾。"
+          ]
+        }
+      }
+    },
+    {
+      "task": {
+        "task_id": "CC12--baseline--r1",
+        "case_id": "CC12",
+        "profile": "baseline",
+        "repeat": 1
+      },
+      "review_id": "3d60ccb4b1efac",
+      "calls": 1,
+      "responses": 1,
+      "unknown_request_attempts": 0,
+      "cost_known": true,
+      "input_tokens": 448,
+      "output_tokens": 398,
+      "known_usage_upper_cost_usd": 0.000612,
+      "committed_upper_reservation_usd": 0.0006120000000000001,
+      "duration_ms": 2891,
+      "mechanical": {
+        "utf8_valid": true,
+        "checks": [],
+        "passed": null,
+        "status": "not_assessed"
+      },
+      "source_rejections": [],
+      "reviews": {
+        "a": {
+          "id": "3d60ccb4b1efac",
+          "scores": {
+            "relevance": 2,
+            "creativity": 2,
+            "programmatic": 2,
+            "integrity": 3
+          },
+          "consistency": 2,
+          "label": "strong",
+          "reason": "雪压欠条、春风对账与“带利息的暖”有完整诗意变化；括号账务解释偏多，正负记账口径未向读者讲清。",
+          "consistency_evidence": [
+            "明确先欠3、还清欠0、再多送1；源码owed从3到0到-1，按“未偿债务余额”解释是可成立的负债账。",
+            "开头把负数比为欠花，末尾又用-1表示多送，读者可能按有花量理解而感到符号反转；因可采用债务口径，不把这一含混直接判成算术错误。"
+          ]
+        },
+        "b": {
+          "id": "3d60ccb4b1efac",
+          "scores": {
+            "relevance": 3,
+            "creativity": 2,
+            "programmatic": 3,
+            "integrity": 3
+          },
+          "consistency": 2,
+          "label": "strong",
+          "reason": "雪压欠条、春风对账和“带利息的暖”完成三个阶段，夹入账本让计算可见，也削弱了“不要写成数学讲义”的轻盈感。",
+          "consistency_evidence": [
+            "变量owed依次3、0、-1，若表示尚欠数量，多付1后余额为-1自洽。",
+            "开头把负数比作欠花，末尾又在多送时记-1，账上符号究竟表示净持有还是剩余债务未说明，造成概念含混；没有仅凭负号断定算术错误。"
+          ]
+        }
+      }
+    },
+    {
+      "task": {
+        "task_id": "F02--baseline--r1",
+        "case_id": "F02",
+        "profile": "baseline",
+        "repeat": 1
+      },
+      "review_id": "8a13987eb99ae9",
+      "calls": 1,
+      "responses": 1,
+      "unknown_request_attempts": 0,
+      "cost_known": true,
+      "input_tokens": 403,
+      "output_tokens": 435,
+      "known_usage_upper_cost_usd": 0.0006429,
+      "committed_upper_reservation_usd": 0.0006429000000000001,
+      "duration_ms": 3036,
+      "mechanical": {
+        "utf8_valid": true,
+        "checks": [],
+        "passed": null,
+        "status": "not_assessed"
+      },
+      "source_rejections": [],
+      "reviews": {
+        "a": {
+          "id": "8a13987eb99ae9",
+          "scores": {
+            "relevance": 2,
+            "creativity": 1,
+            "programmatic": 2,
+            "integrity": 3
+          },
+          "consistency": 0,
+          "label": "mixed",
+          "reason": "表格与两个例式回应口诀，但表中正负按奇偶轮换，不能支持象限符号，技术罗列的趣味也有限。",
+          "consistency_evidence": [
+            "表中π/2*2、π/2*4的tan↔tan均标负；tan(π+α)和tan(2π+α)都应为tanα。",
+            "π/2*3的sin转换若沿末尾“+α”约定，应是-cosα，表却标+。",
+            "结尾两个具体例式正确，不足以抵消同一输出中错误的通用符号表；源码确实只按奇偶决定符号。"
+          ]
+        },
+        "b": {
+          "id": "8a13987eb99ae9",
+          "scores": {
+            "relevance": 2,
+            "creativity": 1,
+            "programmatic": 2,
+            "integrity": 3
+          },
+          "consistency": 0,
+          "label": "mixed",
+          "reason": "把口诀排成奇偶交替表，附两个正确示例，中文与格式可读；表格将函数符号按奇偶硬分为正负，错误不是示例能弥补的。",
+          "consistency_evidence": [
+            "π/2*2与π/2*4两行均列“tan↔tan -”，但tan(π+α)和tan(2π+α)均为+tan(α)。",
+            "源码仅用k%2决定+或-，与“符号看象限”以及不同函数的符号规律不符。",
+            "末尾sin(π/2+α)=cosα和cos(π+α)=-cosα本身正确，错误定位于表格。"
+          ]
+        }
+      }
+    },
+    {
+      "task": {
+        "task_id": "F02--candidate--r1",
+        "case_id": "F02",
+        "profile": "candidate",
+        "repeat": 1
+      },
+      "review_id": "0abe3ad36c52ea",
+      "calls": 1,
+      "responses": 1,
+      "unknown_request_attempts": 0,
+      "cost_known": true,
+      "input_tokens": 571,
+      "output_tokens": 425,
+      "known_usage_upper_cost_usd": 0.0006812999999999999,
+      "committed_upper_reservation_usd": 0.0006812999999999999,
+      "duration_ms": 3297,
+      "mechanical": {
+        "utf8_valid": true,
+        "checks": [],
+        "passed": null,
+        "status": "not_assessed"
+      },
+      "source_rejections": [],
+      "reviews": {
+        "a": {
+          "id": "0abe3ad36c52ea",
+          "scores": {
+            "relevance": 2,
+            "creativity": 1,
+            "programmatic": 2,
+            "integrity": 3
+          },
+          "consistency": 0,
+          "label": "mixed",
+          "reason": "识别出诱导公式口诀并组织成奇偶表，但发展主要是教学罗列，符号错误使表格不能支持结论。",
+          "consistency_evidence": [
+            "k=2行列出“-tan(θ)”；按口诀通常指的kπ/2平移，tan(π+θ)=tan(θ)，不是负号。",
+            "源码对sin、cos、tan统一用k%4判同一个符号，不能实现“符号由象限决定”；k=1时sin与cos的平移符号也不能一律为正。",
+            "输出没有说明平移角和原函数方程，解释更不充分，不能视为可靠公式演示。"
+          ]
+        },
+        "b": {
+          "id": "0abe3ad36c52ea",
+          "scores": {
+            "relevance": 2,
+            "creativity": 1,
+            "programmatic": 2,
+            "integrity": 3
+          },
+          "consistency": 0,
+          "label": "mixed",
+          "reason": "以k=0至4的表格回应诱导公式口诀，形式清楚，但内容主要是公式讲解，符号表存在核心数学错误。",
+          "consistency_evidence": [
+            "源码把所有函数符号统一取为 k%4<2 时正、否则负，未按具体函数区分。",
+            "按通常的 f(kπ/2+θ) 解释，k=2 的 tan 应为+tan(θ)，输出却为-tan(θ)；k=1的cos应为-sin(θ)，却为+sin(θ)。",
+            "输出未说明另一种完整角度约定，不能用“符号由象限决定”修复这张统一符号表。"
+          ]
+        }
+      }
+    },
+    {
+      "task": {
+        "task_id": "F12--baseline--r1",
+        "case_id": "F12",
+        "profile": "baseline",
+        "repeat": 1
+      },
+      "review_id": "722a3a51ea1536",
+      "calls": 1,
+      "responses": 1,
+      "unknown_request_attempts": 0,
+      "cost_known": true,
+      "input_tokens": 403,
+      "output_tokens": 691,
+      "known_usage_upper_cost_usd": 0.0009501,
+      "committed_upper_reservation_usd": 0.0009501,
+      "duration_ms": 4402,
+      "mechanical": {
+        "utf8_valid": true,
+        "checks": [],
+        "passed": null,
+        "status": "not_assessed"
+      },
+      "source_rejections": [],
+      "reviews": {
+        "a": {
+          "id": "722a3a51ea1536",
+          "scores": {
+            "relevance": 3,
+            "creativity": 2,
+            "programmatic": 2,
+            "integrity": 2
+          },
+          "consistency": 1,
+          "label": "strong",
+          "reason": "弧线、海浪和把明天还给星期一的收尾贴题，但星期八之后突然输出“(null)”，破坏日期演出的完整性。",
+          "consistency_evidence": [
+            "week只有8项，源码step<=8访问week[8]越界；实际stdout确实出现第九项“(null)”。",
+            "未见运行失败摘要，但不能把这个缺陷当成精心设计的第九天。",
+            "Unicode云朵与太阳的终端宽度未知，不据此额外判排版失败。"
+          ]
+        },
+        "b": {
+          "id": "722a3a51ea1536",
+          "scores": {
+            "relevance": 3,
+            "creativity": 2,
+            "programmatic": 2,
+            "integrity": 2
+          },
+          "consistency": 1,
+          "label": "strong",
+          "reason": "云层、八个星期名和归还星期一的结句有完整图景，但第九行日名“(null)”破坏日历表达，属于真实输出缺陷。",
+          "consistency_evidence": [
+            "week 数组只有8项，循环 step<=8 却访问 week[8]；实际第九个太阳标记旁打印“(null)”。",
+            "源码声称摊成8个刻度，实际输出9个日名位置；未发生已观察崩溃，不能据越界另行编造运行失败。"
+          ]
+        }
+      }
+    },
+    {
+      "task": {
+        "task_id": "F12--candidate--r1",
+        "case_id": "F12",
+        "profile": "candidate",
+        "repeat": 1
+      },
+      "review_id": "83da74194be77f",
+      "calls": 1,
+      "responses": 1,
+      "unknown_request_attempts": 0,
+      "cost_known": true,
+      "input_tokens": 571,
+      "output_tokens": 584,
+      "known_usage_upper_cost_usd": 0.0008720999999999999,
+      "committed_upper_reservation_usd": 0.0008721,
+      "duration_ms": 4045,
+      "mechanical": {
+        "utf8_valid": true,
+        "checks": [],
+        "passed": null,
+        "status": "not_assessed"
+      },
+      "source_rejections": [],
+      "reviews": {
+        "a": {
+          "id": "83da74194be77f",
+          "scores": {
+            "relevance": 2,
+            "creativity": 2,
+            "programmatic": 2,
+            "integrity": 3
+          },
+          "consistency": 0,
+          "label": "strong",
+          "reason": "逐日变暗配太阳横向移位构成场景序列，但日期叙述提前结束星期八，使核心时间顺序矛盾。",
+          "consistency_evidence": [
+            "【星期日】下写“星期八结束了”，下一节却才进入【星期八】。",
+            "【星期六】称最后一线光沉入地平线，【星期日】图仍显示☀；没有交代这是新的日落。",
+            "源码note[6]在days[6]下输出，确认日期错配来自实际结构，不是Unicode显示宽度。"
+          ]
+        },
+        "b": {
+          "id": "83da74194be77f",
+          "scores": {
+            "relevance": 2,
+            "creativity": 2,
+            "programmatic": 3,
+            "integrity": 3
+          },
+          "consistency": 0,
+          "label": "strong",
+          "reason": "用一周颜色渐暗和横向太阳标记推进日落，有可观察阶段；星期日却先宣告星期八已结束，随后再进入星期八，核心时间顺序自相矛盾。",
+          "consistency_evidence": [
+            "【星期日】段直接写“星期八结束了”，下一段才是【星期八】，没有倒叙或折时说明。",
+            "星期六说最后一线光沉入地平线，星期日仍有☀，这也使图文关系含混；主要扣分依据是明确的日名时序矛盾。",
+            "“天空只剩星星”可由文字叙述，未因没有另画星号就加扣分。"
+          ]
+        }
+      }
+    },
+    {
+      "task": {
+        "task_id": "S12--baseline--r1",
+        "case_id": "S12",
+        "profile": "baseline",
+        "repeat": 1
+      },
+      "review_id": "75aa732a636ccb",
+      "calls": 1,
+      "responses": 1,
+      "unknown_request_attempts": 0,
+      "cost_known": true,
+      "input_tokens": 423,
+      "output_tokens": 342,
+      "known_usage_upper_cost_usd": 0.0005373,
+      "committed_upper_reservation_usd": 0.0005373000000000001,
+      "duration_ms": 2744,
+      "mechanical": {
+        "utf8_valid": true,
+        "checks": [],
+        "passed": null,
+        "status": "not_assessed"
+      },
+      "source_rejections": [],
+      "reviews": {
+        "a": {
+          "id": "75aa732a636ccb",
+          "scores": {
+            "relevance": 3,
+            "creativity": 3,
+            "programmatic": 2,
+            "integrity": 3
+          },
+          "consistency": 3,
+          "label": "strong",
+          "reason": "把括号出口转成空着的手，再让“(你)”与“欢迎迷路”翻转禁令，细节之间有设计且形成完整转折。",
+          "consistency_evidence": [
+            "开头引述标牌与出口设定，后续明确重新理解括号，属于有铺垫的改编。",
+            "“( )”到“(你)”确实展示站入括号；“没有出口”是叙事重释，未冒充实际寻路计算。"
+          ]
+        },
+        "b": {
+          "id": "75aa732a636ccb",
+          "scores": {
+            "relevance": 3,
+            "creativity": 3,
+            "programmatic": 2,
+            "integrity": 3
+          },
+          "consistency": 3,
+          "label": "strong",
+          "reason": "把出口括号看成空着的手，让“( )”变成“(你)”，最后标牌反面写“欢迎迷路”，多个细节共同完成反转。",
+          "consistency_evidence": [
+            "“没有出口”是把几何出口改释为允许停下的位置，后续站进括号呈现了这一改释。",
+            "输出未一面宣称已离开一面仍困住；题目允许文学改编，标牌反转也有明确叙事动作承接。"
+          ]
+        }
+      }
+    },
+    {
+      "task": {
+        "task_id": "S12--candidate--r1",
+        "case_id": "S12",
+        "profile": "candidate",
+        "repeat": 1
+      },
+      "review_id": "c5a8a60515955f",
+      "calls": 1,
+      "responses": 1,
+      "unknown_request_attempts": 0,
+      "cost_known": true,
+      "input_tokens": 591,
+      "output_tokens": 373,
+      "known_usage_upper_cost_usd": 0.0006249,
+      "committed_upper_reservation_usd": 0.0006248999999999998,
+      "duration_ms": 3065,
+      "mechanical": {
+        "utf8_valid": true,
+        "checks": [],
+        "passed": null,
+        "status": "not_assessed"
+      },
+      "source_rejections": [],
+      "reviews": {
+        "a": {
+          "id": "c5a8a60515955f",
+          "scores": {
+            "relevance": 3,
+            "creativity": 2,
+            "programmatic": 2,
+            "integrity": 3
+          },
+          "consistency": 3,
+          "label": "strong",
+          "reason": "把“不许迷路”的迷宫改成唯一道路，括号弧线和“( -> )”使入口出口有可读对应，转义标牌也完整保留。",
+          "consistency_evidence": [
+            "输出明确从“(”走入、从“)”走出，与单一路径叙述一致。",
+            "首行保留引号和反斜线，后续简写标牌未损坏核心关系。"
+          ]
+        },
+        "b": {
+          "id": "c5a8a60515955f",
+          "scores": {
+            "relevance": 3,
+            "creativity": 2,
+            "programmatic": 2,
+            "integrity": 3
+          },
+          "consistency": 3,
+          "label": "strong",
+          "reason": "把“不许迷路”的迷宫改成唯一通道，用“( -> )”以及从左括号进入、右括号走出构成一段可读小故事；转义标牌完整保留。",
+          "consistency_evidence": [
+            "输出中括号入口、方向箭头、右括号出口与“路只有一条”的解释一致。",
+            "标牌含反斜杠引号的原始字面形式已保留；题目没有要求真实复杂迷宫。"
+          ]
+        }
+      }
+    },
+    {
+      "task": {
+        "task_id": "S13--candidate--r1",
+        "case_id": "S13",
+        "profile": "candidate",
+        "repeat": 1
+      },
+      "review_id": "e752033dd522a2",
+      "calls": 2,
+      "responses": 1,
+      "unknown_request_attempts": 1,
+      "cost_known": false,
+      "input_tokens": 636,
+      "output_tokens": 475,
+      "known_usage_upper_cost_usd": 0.0007608,
+      "committed_upper_reservation_usd": 0.0031856999999999996,
+      "duration_ms": 18598,
+      "mechanical": {
+        "utf8_valid": true,
+        "checks": [],
+        "passed": null,
+        "status": "not_assessed"
+      },
+      "source_rejections": [],
+      "reviews": {
+        "a": {
+          "id": "e752033dd522a2",
+          "scores": {
+            "relevance": 2,
+            "creativity": 1,
+            "programmatic": 2,
+            "integrity": 3
+          },
+          "consistency": 1,
+          "label": "mixed",
+          "reason": "楼层标题确实从云里下降到负一层，但十一幅几乎相同的楼层表挤压诗意，“结尾更轻”只变成统计口号，缺少有效发展。",
+          "consistency_evidence": [
+            "源码stars[target]=1且从不移动，所有帧都把星固定在负一层；电梯单独下降，没有展示按按钮的星随电梯行进的关键关系。",
+            "步数0至10、11个楼层与结尾“10步”能对应；问题不在总数。",
+            "末句直接宣称“结尾比开头轻一点”，但此前大量重复画面没有相应的变轻过程。"
+          ]
+        },
+        "b": {
+          "id": "e752033dd522a2",
+          "scores": {
+            "relevance": 2,
+            "creativity": 1,
+            "programmatic": 2,
+            "integrity": 2
+          },
+          "consistency": 1,
+          "label": "mixed",
+          "reason": "楼层标题从云里逐层下降到负一层，但反复十一遍完全相同的星点列表冗长，最后用数字宣称“轻一点”缺少相应表现。",
+          "consistency_evidence": [
+            "源码一开始就 stars[target]=1，并且从不移动星；每一幅图的★都停在负一层。",
+            "开头星在云中按下按钮，但图中它从第一步起就在负一层，缺少乘梯过程；终点相遇成立，出发关系未清楚展示。",
+            "10次位置下降、11个所列楼层与末尾统计相符，不将这些数值判错。"
+          ]
+        }
+      }
+    },
+    {
+      "task": {
+        "task_id": "S13--baseline--r1",
+        "case_id": "S13",
+        "profile": "baseline",
+        "repeat": 1
+      },
+      "review_id": "7b21b5240abc8d",
+      "calls": 1,
+      "responses": 1,
+      "unknown_request_attempts": 0,
+      "cost_known": true,
+      "input_tokens": 429,
+      "output_tokens": 428,
+      "known_usage_upper_cost_usd": 0.0006422999999999999,
+      "committed_upper_reservation_usd": 0.0006423000000000002,
+      "duration_ms": 2636,
+      "mechanical": {
+        "utf8_valid": true,
+        "checks": [],
+        "passed": null,
+        "status": "not_assessed"
+      },
+      "source_rejections": [],
+      "reviews": {
+        "a": {
+          "id": "7b21b5240abc8d",
+          "scores": {
+            "relevance": 2,
+            "creativity": 2,
+            "programmatic": 2,
+            "integrity": 3
+          },
+          "consistency": 1,
+          "label": "strong",
+          "reason": "保留云中夜班电梯与负一层，楼层变化和星点可读，末尾单星有收束；数值演出却没有落实源码所称的逐渐变轻。",
+          "consistency_evidence": [
+            "源码注释称“星光的重量随之递减”，stdout实际为0.25、0.33、0.50、1.00、0.50。",
+            "最后的单个✦确实比中段简省；不能据此把前面的非递减重量说成递减。"
+          ]
+        },
+        "b": {
+          "id": "7b21b5240abc8d",
+          "scores": {
+            "relevance": 3,
+            "creativity": 2,
+            "programmatic": 3,
+            "integrity": 3
+          },
+          "consistency": 1,
+          "label": "strong",
+          "reason": "电梯从+3降到-1并配星光重量和星点，最后缩成一颗星，能回应夜班电梯的轻盈意象；重量变化与源码解释不合。",
+          "consistency_evidence": [
+            "源码注释称“星光的重量随之递减”，实际输出依次0.25、0.33、0.50、1.00、0.50，前四步递增。",
+            "楼层确实到达-1；最终单独一颗星可解释为视觉收束，因此不把整个结尾判为完全失效。"
+          ]
+        }
+      }
+    },
+    {
+      "task": {
+        "task_id": "S18--baseline--r1",
+        "case_id": "S18",
+        "profile": "baseline",
+        "repeat": 1
+      },
+      "review_id": "0722e8f073b9f5",
+      "calls": 2,
+      "responses": 1,
+      "unknown_request_attempts": 1,
+      "cost_known": false,
+      "input_tokens": 475,
+      "output_tokens": 322,
+      "known_usage_upper_cost_usd": 0.0005289,
+      "committed_upper_reservation_usd": 0.0026910000000000002,
+      "duration_ms": 18114,
+      "mechanical": {
+        "utf8_valid": true,
+        "checks": [],
+        "passed": null,
+        "status": "not_assessed"
+      },
+      "source_rejections": [],
+      "reviews": {
+        "a": {
+          "id": "0722e8f073b9f5",
+          "scores": {
+            "relevance": 3,
+            "creativity": 2,
+            "programmatic": 3,
+            "integrity": 3
+          },
+          "consistency": 3,
+          "label": "strong",
+          "reason": "把递减写成“还在路上”，零点“结局到了”，技术修正与行进小故事相互服务，倒计时有实际终态。",
+          "consistency_evidence": [
+            "源码实际i--，stdout连续10到0，无越走越大的数列。",
+            "最后说明i小于0与循环更新后退出的行为一致；没有运行输入中的错误循环。"
+          ]
+        },
+        "b": {
+          "id": "0722e8f073b9f5",
+          "scores": {
+            "relevance": 3,
+            "creativity": 2,
+            "programmatic": 3,
+            "integrity": 3
+          },
+          "consistency": 3,
+          "label": "strong",
+          "reason": "从“还在路上”一直到“0！结局到了”，把递减循环写成抵达终点的过程，简单但贴题。",
+          "consistency_evidence": [
+            "源码使用i--，可见输出10、9直到0，没有继续递增。",
+            "更新后i变为-1，条件失败，与结尾“i终于小于0”一致；未声称执行过原错误循环。"
+          ]
+        }
+      }
+    },
+    {
+      "task": {
+        "task_id": "S18--candidate--r1",
+        "case_id": "S18",
+        "profile": "candidate",
+        "repeat": 1
+      },
+      "review_id": "8ac1ca3353c376",
+      "calls": 1,
+      "responses": 1,
+      "unknown_request_attempts": 0,
+      "cost_known": true,
+      "input_tokens": 604,
+      "output_tokens": 380,
+      "known_usage_upper_cost_usd": 0.0006372000000000001,
+      "committed_upper_reservation_usd": 0.0006372000000000001,
+      "duration_ms": 3201,
+      "mechanical": {
+        "utf8_valid": true,
+        "checks": [],
+        "passed": null,
+        "status": "not_assessed"
+      },
+      "source_rejections": [],
+      "reviews": {
+        "a": {
+          "id": "8ac1ca3353c376",
+          "scores": {
+            "relevance": 3,
+            "creativity": 1,
+            "programmatic": 3,
+            "integrity": 3
+          },
+          "consistency": 2,
+          "label": "strong",
+          "reason": "实际递减、计11步和退出时i=-1直接回应错误循环；作品主要是解释和数列，创意发展较弱，但程序行为明确。",
+          "consistency_evidence": [
+            "stdout依次10至0共11数，源码终止后i=-1，与结尾一致。",
+            "“i++…永远到不了0”是数学化简说；C有符号int持续递增会溢出并导致未定义行为，原错误循环不能严格许诺永远运行。修正后的演出不受此问题影响。"
+          ]
+        },
+        "b": {
+          "id": "8ac1ca3353c376",
+          "scores": {
+            "relevance": 3,
+            "creativity": 1,
+            "programmatic": 3,
+            "integrity": 3
+          },
+          "consistency": 2,
+          "label": "strong",
+          "reason": "将i++改成i--，实际打印10至0并解释最终i=-1，准确完成会结束的循环；呈现偏教学，创作转折较弱。",
+          "consistency_evidence": [
+            "修正循环实际打印11个数，steps=11、i=-1，与末尾说明相符。",
+            "“i++……永远到不了0”作为原始C代码的无限期结论不够严谨：有符号int溢出后行为未定义；材料未运行原错误循环，不能证明它永远执行。"
+          ]
+        }
+      }
+    },
+    {
+      "task": {
+        "task_id": "S19--candidate--r1",
+        "case_id": "S19",
+        "profile": "candidate",
+        "repeat": 1
+      },
+      "review_id": "68661b4a597dc5",
+      "calls": 1,
+      "responses": 1,
+      "unknown_request_attempts": 0,
+      "cost_known": true,
+      "input_tokens": 571,
+      "output_tokens": 584,
+      "known_usage_upper_cost_usd": 0.0008720999999999999,
+      "committed_upper_reservation_usd": 0.0008721,
+      "duration_ms": 3692,
+      "mechanical": {
+        "utf8_valid": true,
+        "checks": [],
+        "passed": null,
+        "status": "not_assessed"
+      },
+      "source_rejections": [],
+      "reviews": {
+        "a": {
+          "id": "68661b4a597dc5",
+          "scores": {
+            "relevance": 2,
+            "creativity": 2,
+            "programmatic": 2,
+            "integrity": 2
+          },
+          "consistency": 1,
+          "label": "mixed",
+          "reason": "空页与读者互等的开场有诗意，随后清点空白使主题具体化；直接打印制表和换行作标签造成阅读含混，而且所数并非精确输入。",
+          "consistency_evidence": [
+            "原输入有5个ASCII空格、1个tab、2个换行、1个全角空格；源码page却含6个ASCII空格，且全角空格位置不同。",
+            "stdout报告空格6、Total visible gaps: 8，反映的是改写后的page；若对应原输入，空白码点合计应为7（不含换行），不能混称终端可见宽度。",
+            "未假定tab或全角空格的实际终端列宽。"
+          ]
+        },
+        "b": {
+          "id": "68661b4a597dc5",
+          "scores": {
+            "relevance": 2,
+            "creativity": 2,
+            "programmatic": 3,
+            "integrity": 2
+          },
+          "consistency": 1,
+          "label": "strong",
+          "reason": "把空白页写成互相等待的读者与纸张，再列出空白统计，概念贴题；实际统计用了改写的页面，且直接打印换行符使表格断裂。",
+          "consistency_evidence": [
+            "原输入有5个ASCII空格、1个tab、2个换行和1个全角空格；源码 page 有6个ASCII空格，且改变全角空格的位置。",
+            "“Total visible gaps: 8”来自被修改的 page；若按其非换行空白个数口径，原输入为7。",
+            "不把tab或全角空格的终端显示宽度算成可见字符数；这里的差异是源码字面内容变化。"
+          ]
+        }
+      }
+    },
+    {
+      "task": {
+        "task_id": "S19--baseline--r1",
+        "case_id": "S19",
+        "profile": "baseline",
+        "repeat": 1
+      },
+      "review_id": "c4d7ba370da653",
+      "calls": 1,
+      "responses": 1,
+      "unknown_request_attempts": 0,
+      "cost_known": true,
+      "input_tokens": 403,
+      "output_tokens": 459,
+      "known_usage_upper_cost_usd": 0.0006716999999999999,
+      "committed_upper_reservation_usd": 0.0006716999999999999,
+      "duration_ms": 3548,
+      "mechanical": {
+        "utf8_valid": true,
+        "checks": [],
+        "passed": null,
+        "status": "not_assessed"
+      },
+      "source_rejections": [],
+      "reviews": {
+        "a": {
+          "id": "c4d7ba370da653",
+          "scores": {
+            "relevance": 3,
+            "creativity": 2,
+            "programmatic": 2,
+            "integrity": 3
+          },
+          "consistency": 3,
+          "label": "strong",
+          "reason": "把纯空白解释为屏息的空页，三幅留白星点图配“a pause / still here / space to think”，有可见的分节节奏，末尾回到空页主题。",
+          "consistency_evidence": [
+            "输入没有定量或指定中文台词要求；空场解释合理。",
+            "源码轮换七行星点，stdout确有三幅图；未宣称测量原输入的字符数量。"
+          ]
+        },
+        "b": {
+          "id": "c4d7ba370da653",
+          "scores": {
+            "relevance": 3,
+            "creativity": 2,
+            "programmatic": 2,
+            "integrity": 3
+          },
+          "consistency": 3,
+          "label": "strong",
+          "reason": "用三幅留白星点画和“...a pause... / ...still here...”把全空白输入处理为呼吸中的页面，构思完整；画面主要是循环平移，变化较浅。",
+          "consistency_evidence": [
+            "输入没有叙事或数量约束，结尾“Nothing was asked”与空场相符。",
+            "源码用 sky[(r+t)%rows] 平移七行，输出三幅图与三个停顿说明一致；没有宣称星点数量增加。"
+          ]
+        }
+      }
+    },
+    {
+      "task": {
+        "task_id": "H02--candidate--r1",
+        "case_id": "H02",
+        "profile": "candidate",
+        "repeat": 1
+      },
+      "review_id": "6705ce790743f4",
+      "calls": 1,
+      "responses": 1,
+      "unknown_request_attempts": 0,
+      "cost_known": true,
+      "input_tokens": 576,
+      "output_tokens": 394,
+      "known_usage_upper_cost_usd": 0.0006455999999999999,
+      "committed_upper_reservation_usd": 0.0006456000000000001,
+      "duration_ms": 2762,
+      "mechanical": {
+        "utf8_valid": true,
+        "checks": [],
+        "passed": null,
+        "status": "not_assessed"
+      },
+      "source_rejections": [],
+      "reviews": {
+        "a": {
+          "id": "6705ce790743f4",
+          "scores": {
+            "relevance": 2,
+            "creativity": 1,
+            "programmatic": 2,
+            "integrity": 3
+          },
+          "consistency": 1,
+          "label": "mixed",
+          "reason": "用一周列表标出星期一和周末，数量3清楚，但主体只是日历枚举，订在一起的创作处理较薄。",
+          "consistency_evidence": [
+            "源码week++只统计索引0、5、6，输出3个关键日子的计数准确。",
+            "stdout仍是星期一到星期日的原顺序，星期一和周末之间保留四天；没有连线、折叠或共同订合状态，末尾直接宣布已订好，关键关系未展示。"
+          ]
+        },
+        "b": {
+          "id": "6705ce790743f4",
+          "scores": {
+            "relevance": 2,
+            "creativity": 1,
+            "programmatic": 2,
+            "integrity": 3
+          },
+          "consistency": 1,
+          "label": "mixed",
+          "reason": "列出七天并数出星期一和周末三个关键日，能辨认主题，但“订在一起”主要是尾注宣告，没有相应图形或关系变化。",
+          "consistency_evidence": [
+            "星期一仍在第1天、周末仍在第6、7天，没有线、括号、重排或共同钉标记来展示连接。",
+            "源码week只累计这三个日子，3的计数正确；计数并不能单独证明已把它们订在一起。"
+          ]
+        }
+      }
+    },
+    {
+      "task": {
+        "task_id": "H02--baseline--r1",
+        "case_id": "H02",
+        "profile": "baseline",
+        "repeat": 1
+      },
+      "review_id": "e3f5043163f815",
+      "calls": 1,
+      "responses": 1,
+      "unknown_request_attempts": 0,
+      "cost_known": true,
+      "input_tokens": 408,
+      "output_tokens": 499,
+      "known_usage_upper_cost_usd": 0.0007212,
+      "committed_upper_reservation_usd": 0.0007212,
+      "duration_ms": 3061,
+      "mechanical": {
+        "utf8_valid": true,
+        "checks": [],
+        "passed": null,
+        "status": "not_assessed"
+      },
+      "source_rejections": [],
+      "reviews": {
+        "a": {
+          "id": "e3f5043163f815",
+          "scores": {
+            "relevance": 3,
+            "creativity": 2,
+            "programmatic": 3,
+            "integrity": 3
+          },
+          "consistency": 1,
+          "label": "strong",
+          "reason": "实际把周末重排到星期一旁边，订书机合嘴的拟人收束贴题；钉子的数量和末句图景却不一致。",
+          "consistency_evidence": [
+            "源码order={0,5,6,1,2,3,4}，输出新顺序确为星期一、星期六、星期日开头。",
+            "前段逐一输出“钉1 -> 星期一”“钉2 -> 星期六”“钉3 -> 星期日”，末段却说贴在“同一枚订书钉下”；没有说明编号只是位置或轨迹刻度。"
+          ]
+        },
+        "b": {
+          "id": "e3f5043163f815",
+          "scores": {
+            "relevance": 3,
+            "creativity": 2,
+            "programmatic": 3,
+            "integrity": 3
+          },
+          "consistency": 1,
+          "label": "strong",
+          "reason": "实际把星期六日重排至星期一后，订书机拉近周末的愿望可见，拟声收尾贴题；每个日子各一枚钉的过程与同钉结论不一致。",
+          "consistency_evidence": [
+            "轨迹明写“钉1→星期一”“钉2→星期六”“钉3→星期日”，末尾却说三者贴在“同一枚订书钉下”。",
+            "新顺序确为星期一、星期六、星期日、星期二至五，邻接关系成立；“不再孤零零”可指有周末相邻，不因它仍排第一而另扣分。"
+          ]
+        }
+      }
+    },
+    {
+      "task": {
+        "task_id": "H08--candidate--r1",
+        "case_id": "H08",
+        "profile": "candidate",
+        "repeat": 1
+      },
+      "review_id": "2791e91884ac74",
+      "calls": 1,
+      "responses": 1,
+      "unknown_request_attempts": 0,
+      "cost_known": true,
+      "input_tokens": 595,
+      "output_tokens": 322,
+      "known_usage_upper_cost_usd": 0.0005649,
+      "committed_upper_reservation_usd": 0.0005649000000000001,
+      "duration_ms": 2366,
+      "mechanical": {
+        "utf8_valid": true,
+        "checks": [],
+        "passed": null,
+        "status": "not_assessed"
+      },
+      "source_rejections": [],
+      "reviews": {
+        "a": {
+          "id": "2791e91884ac74",
+          "scores": {
+            "relevance": 2,
+            "creativity": 1,
+            "programmatic": 1,
+            "integrity": 3
+          },
+          "consistency": 3,
+          "label": "mixed",
+          "reason": "分隔线与第三行的♪给原意一点排版处理，但主体仍是复述既有三句，缺少进一步展开或有意义的状态演出。",
+          "consistency_evidence": [
+            "♪是印在纸面式输出中的符号，程序没有声响状态或正音量，不能仅凭音符认定“没有响”矛盾。",
+            "输入未严格限定整个stdout只能三行；附加标题和总结不按明确行数违例处理。"
+          ]
+        },
+        "b": {
+          "id": "2791e91884ac74",
+          "scores": {
+            "relevance": 2,
+            "creativity": 1,
+            "programmatic": 1,
+            "integrity": 3
+          },
+          "consistency": 3,
+          "label": "mixed",
+          "reason": "基本复述水开而勇气未开的原句，添线框和♪，完整可读但缺少进一步的诗意发展或阶段变化。",
+          "consistency_evidence": [
+            "♪是纸面记号，输出没有非零音量、鸣响动作或音频证据，不能据此断言口哨真的响了。",
+            "结尾“口哨留在第三行，没有响”与留给未出声口哨的位置可以一致；输入未明确要求总计只输出三行。"
+          ]
+        }
+      }
+    },
+    {
+      "task": {
+        "task_id": "H08--baseline--r1",
+        "case_id": "H08",
+        "profile": "baseline",
+        "repeat": 1
+      },
+      "review_id": "b40993691c49f3",
+      "calls": 1,
+      "responses": 1,
+      "unknown_request_attempts": 0,
+      "cost_known": true,
+      "input_tokens": 427,
+      "output_tokens": 371,
+      "known_usage_upper_cost_usd": 0.0005733,
+      "committed_upper_reservation_usd": 0.0005733000000000001,
+      "duration_ms": 2802,
+      "mechanical": {
+        "utf8_valid": true,
+        "checks": [],
+        "passed": null,
+        "status": "not_assessed"
+      },
+      "source_rejections": [],
+      "reviews": {
+        "a": {
+          "id": "b40993691c49f3",
+          "scores": {
+            "relevance": 2,
+            "creativity": 2,
+            "programmatic": 2,
+            "integrity": 3
+          },
+          "consistency": 0,
+          "label": "strong",
+          "reason": "水开而勇气未开的反差被发展成压力演出，中文完整；但口哨音量与末句互相否定，核心沉默意象被破坏。",
+          "consistency_evidence": [
+            "stdout口哨音量依次0、2、4、6、10，存在明确非零音量。",
+            "最终仍称“那声口哨没有响出来”；源码把压力/3直接标为音量且无静音阈值或未发声解释。"
+          ]
+        },
+        "b": {
+          "id": "b40993691c49f3",
+          "scores": {
+            "relevance": 2,
+            "creativity": 2,
+            "programmatic": 2,
+            "integrity": 3
+          },
+          "consistency": 0,
+          "label": "strong",
+          "reason": "将水壶压力递增写成勇气被顶上来，有题材联系，但复述原句后用口哨音量递增的模拟抵消了结尾的“没有响”。",
+          "consistency_evidence": [
+            "第2至5秒明确给出“口哨音量2、4、6、10”，不是仅有压力而无声。",
+            "结尾仍写“那声口哨没有响出来”，与已宣告的非零音量直接冲突；源码打印whistle/3，未维持静音状态。"
+          ]
+        }
+      }
+    },
+    {
+      "task": {
+        "task_id": "CC01--baseline--r2",
+        "case_id": "CC01",
+        "profile": "baseline",
+        "repeat": 2
+      },
+      "review_id": "0061f4858e404c",
+      "calls": 1,
+      "responses": 1,
+      "unknown_request_attempts": 0,
+      "cost_known": true,
+      "input_tokens": 465,
+      "output_tokens": 282,
+      "known_usage_upper_cost_usd": 0.00047789999999999996,
+      "committed_upper_reservation_usd": 0.00047790000000000007,
+      "duration_ms": 2497,
+      "mechanical": {
+        "utf8_valid": true,
+        "checks": [
+          {
+            "name": "line_count",
+            "passed": true,
+            "detail": "line count: 4"
+          },
+          {
+            "name": "line_sequence",
+            "passed": true,
+            "detail": "captured sequence: ['3', '2', '1', '0']"
+          },
+          {
+            "name": "last_nonempty_line",
+            "passed": true,
+            "detail": "last nonempty line: '[0] 星门开启'"
+          }
+        ],
+        "passed": true,
+        "status": "passed"
+      },
+      "source_rejections": [],
+      "reviews": {
+        "a": {
+          "id": "0061f4858e404c",
+          "scores": {
+            "relevance": 3,
+            "creativity": 3,
+            "programmatic": 2,
+            "integrity": 3
+          },
+          "consistency": 3,
+          "label": "strong",
+          "reason": "潮汐静音、星图折成掌心月亮、灯沉入海底共同压低声光，四行有渐收节奏，零点开启有效。",
+          "consistency_evidence": [
+            "严格四行，依次[3]、[2]、[1]、[0]。",
+            "最后一行精确“[0] 星门开启”；前三行均为准备动作，无零后附文。"
+          ]
+        },
+        "b": {
+          "id": "0061f4858e404c",
+          "scores": {
+            "relevance": 3,
+            "creativity": 3,
+            "programmatic": 3,
+            "integrity": 3
+          },
+          "consistency": 3,
+          "label": "strong",
+          "reason": "将潮汐静音、把星图折进掌心和倒计时灯沉海连成收拢的发射时刻，月港意象与准备阶段相互统一。",
+          "consistency_evidence": [
+            "严格四行，前缀依次为[3]、[2]、[1]、[0]。",
+            "最后仅“[0] 星门开启”，结束后没有额外标记或继续计数；源码与stdout一致。"
+          ]
+        }
+      }
+    },
+    {
+      "task": {
+        "task_id": "CC01--candidate--r2",
+        "case_id": "CC01",
+        "profile": "candidate",
+        "repeat": 2
+      },
+      "review_id": "02a2c9590b1350",
+      "calls": 1,
+      "responses": 1,
+      "unknown_request_attempts": 0,
+      "cost_known": true,
+      "input_tokens": 633,
+      "output_tokens": 298,
+      "known_usage_upper_cost_usd": 0.0005475,
+      "committed_upper_reservation_usd": 0.0005474999999999998,
+      "duration_ms": 2387,
+      "mechanical": {
+        "utf8_valid": true,
+        "checks": [
+          {
+            "name": "line_count",
+            "passed": true,
+            "detail": "line count: 4"
+          },
+          {
+            "name": "line_sequence",
+            "passed": true,
+            "detail": "captured sequence: ['3', '2', '1', '0']"
+          },
+          {
+            "name": "last_nonempty_line",
+            "passed": true,
+            "detail": "last nonempty line: '[0] 星门开启'"
+          }
+        ],
+        "passed": true,
+        "status": "passed"
+      },
+      "source_rejections": [],
+      "reviews": {
+        "a": {
+          "id": "02a2c9590b1350",
+          "scores": {
+            "relevance": 3,
+            "creativity": 2,
+            "programmatic": 2,
+            "integrity": 3
+          },
+          "consistency": 3,
+          "label": "strong",
+          "reason": "收缆、潮汐引擎低鸣和舷窗星图组成简练准备序列，意象贴题且零点结束，构思完整但相对常规。",
+          "consistency_evidence": [
+            "输出严格四行，前三个编号倒序3、2、1。",
+            "最后仅“[0] 星门开启”，源码计数循环止于1，随后只打印零点行。"
+          ]
+        },
+        "b": {
+          "id": "02a2c9590b1350",
+          "scores": {
+            "relevance": 3,
+            "creativity": 2,
+            "programmatic": 3,
+            "integrity": 3
+          },
+          "consistency": 3,
+          "label": "strong",
+          "reason": "收缆索、暗海引擎低鸣和舷窗展开星图组成简洁的三步准备，零点开启没有拖尾。",
+          "consistency_evidence": [
+            "输出精确四行，前缀及顺序全部符合要求。",
+            "末行只有“[0] 星门开启”；源码n从3递减到1后输出零点，未越过零。"
+          ]
+        }
+      }
+    },
+    {
+      "task": {
+        "task_id": "F12--candidate--r2",
+        "case_id": "F12",
+        "profile": "candidate",
+        "repeat": 2
+      },
+      "review_id": "d42d2d0109df82",
+      "calls": 1,
+      "responses": 1,
+      "unknown_request_attempts": 0,
+      "cost_known": true,
+      "input_tokens": 571,
+      "output_tokens": 427,
+      "known_usage_upper_cost_usd": 0.0006837,
+      "committed_upper_reservation_usd": 0.0006837,
+      "duration_ms": 3055,
+      "mechanical": {
+        "utf8_valid": true,
+        "checks": [],
+        "passed": null,
+        "status": "not_assessed"
+      },
+      "source_rejections": [],
+      "reviews": {
+        "a": {
+          "id": "d42d2d0109df82",
+          "scores": {
+            "relevance": 3,
+            "creativity": 3,
+            "programmatic": 2,
+            "integrity": 3
+          },
+          "consistency": 3,
+          "label": "strong",
+          "reason": "让不存在的星期八拥有永远停在半空的太阳，静态星空和18:00正服务“遗忘的约定”，无需动画也形成完整构思。",
+          "consistency_evidence": [
+            "图中太阳始终停在一幅场景，末文明确“这场日落永远不会落下”，叙述与静态图一致。",
+            "标题用星期8、正文用星期八不改变语义；没有强加输入未要求的实际日落计算。"
+          ]
+        },
+        "b": {
+          "id": "d42d2d0109df82",
+          "scores": {
+            "relevance": 3,
+            "creativity": 3,
+            "programmatic": 2,
+            "integrity": 3
+          },
+          "consistency": 3,
+          "label": "strong",
+          "reason": "把不存在的星期八改编为永不完成的日落：太阳停在半空像被遗忘的约定，静态图与结句共同支撑构思。",
+          "consistency_evidence": [
+            "图中☀位于横线之上，正文明确说“永远不会落下”“太阳停在半空”，状态一致。",
+            "输入没有要求太阳必须落下，因虚构星期而选择悬停是完整改编，不判为反向违约。"
+          ]
+        }
+      }
+    },
+    {
+      "task": {
+        "task_id": "F12--baseline--r2",
+        "case_id": "F12",
+        "profile": "baseline",
+        "repeat": 2
+      },
+      "review_id": "428e41858eaefb",
+      "calls": 1,
+      "responses": 1,
+      "unknown_request_attempts": 0,
+      "cost_known": true,
+      "input_tokens": 403,
+      "output_tokens": 578,
+      "known_usage_upper_cost_usd": 0.0008145,
+      "committed_upper_reservation_usd": 0.0008144999999999999,
+      "duration_ms": 3884,
+      "mechanical": {
+        "utf8_valid": true,
+        "checks": [],
+        "passed": null,
+        "status": "not_assessed"
+      },
+      "source_rejections": [],
+      "reviews": {
+        "a": {
+          "id": "428e41858eaefb",
+          "scores": {
+            "relevance": 2,
+            "creativity": 2,
+            "programmatic": 2,
+            "integrity": 3
+          },
+          "consistency": 1,
+          "label": "strong",
+          "reason": "时间折叠的日落用连续时刻和太阳位置表现，收尾有多出一天的构思，但演出未到达自己宣称的落下状态。",
+          "consistency_evidence": [
+            "初始太阳在源码基准i=20处；末帧19:45:40仍在其右侧约6列，未返回或越过基准。",
+            "stdout每帧仍有☀，随后却写“太阳终于落下”；源码时间循环止于19:45:40，未展示落下终态。",
+            "位置关系由源码整数索引判断，不以☀字体宽度判断。"
+          ]
+        },
+        "b": {
+          "id": "428e41858eaefb",
+          "scores": {
+            "relevance": 2,
+            "creativity": 2,
+            "programmatic": 2,
+            "integrity": 3
+          },
+          "consistency": 0,
+          "label": "strong",
+          "reason": "按时刻输出太阳相对竖线的位置，配合“时间开始折叠”有日落表演的尝试，但结尾宣布落下时图形状态仍未到达地平线。",
+          "consistency_evidence": [
+            "最后19:45:40行仍打印位于竖线右侧的☀，之后立刻说“太阳终于落下”。",
+            "源码 sun=sin((t-18)*π/2)，直到最后t<20仍为正，pos约26；地平线基准是20，未输出回到基准或消失的状态。"
+          ]
+        }
+      }
+    }
+  ],
+  "final_product": {
+    "commit": "7bc529b093e5625b6db0ba6f898575612c82e4c3",
+    "source_fingerprint": "0901ba0f5e58bf4bbf882d241772d5f89cff185f64eb2c38f37c534e685a759b",
+    "prompt_version": "m6-creative-3",
+    "prompt_body_same_as_baseline": true,
+    "experiment_prompt_adopted": false,
+    "new_source_guard_retained": true,
+    "local_full_test": {
+      "passed": 842,
+      "skipped": 1,
+      "duration_s": 103.43
+    },
+    "checks": [
+      "ruff",
+      "mypy Linux",
+      "mypy win32"
+    ],
+    "wheel": "f985da271d89a918ecb065d2f2b78040918fc22dea196accfa4345b7689468d6",
+    "snapshot_sha256": {
+      "src/yescc/__init__.py": "010eaecb449d534f6fb58df58a369eb65d2e263cb44f7fb17e49a90ad7a4b8fe",
+      "src/yescc/__main__.py": "b8e0fc6239cf07f8c225dd9e7698b686865304da0b6cc444dda822d1063cacbc",
+      "src/yescc/adapters/__init__.py": "caa055b45ec1bdd187db21a5f68a7b37f2c59a2d740a6c27e42cf1d1479551b4",
+      "src/yescc/adapters/base.py": "335c2afb1458db5c5d7e12304b5eb4a9c3ba87727174b8e4644a0e9733242df8",
+      "src/yescc/adapters/c.py": "74563fe471ca6fe3f07baa3f53751a6d3b6149edf4cd4b3e4aeafdd9e522ac46",
+      "src/yescc/adapters/javascript.py": "d847a0d353e5569ee9a38777469aea04e03416fabb89d2327fea1294f12765c4",
+      "src/yescc/adapters/python.py": "4f73070a19b99a68c1c686f72d62330bdf36354f76b63af0aebcf3bc4aac1aad",
+      "src/yescc/adapters/registry.py": "944fb41c8473fe0031ac1d69e5054084dfb0e20364774481bf37e618a998cf1c",
+      "src/yescc/cli.py": "821223d7d510fffb71b0979414ef85ee404f5fe75df1afb509bafd6cf5897905",
+      "src/yescc/errors.py": "1c561029a49df07fb884f48e150eb05473497a0d941376d1f3323803475dfe17",
+      "src/yescc/fallback/__init__.py": "74f84974071dbb6b18410a922e731778274aa9bb7d45db82c34b6b88f5390fbc",
+      "src/yescc/fallback/deterministic.py": "07f9065cf4de01e22663f6779c00cf81219cc0f3f89335a8b8df349658d0ee13",
+      "src/yescc/fallback/guidance.py": "f4939c3910d68b55de2ba0371afcb38c4d272810edb13d091b54790cb32553cb",
+      "src/yescc/fallback/quality.py": "9bc07150d01d5aaabab8eec49fd66f2b4b23bb1e6eca99cf2c096de33b716950",
+      "src/yescc/fix/__init__.py": "61795abae9b8f8f20132b8fb8a4c405e144d2098dc59609314ad1450960da7f6",
+      "src/yescc/fix/c_rules.py": "c3f5e6427b0b0cb55f0b02dae653eadf2ce827ddf506131afb86b64177f32fec",
+      "src/yescc/fix/engine.py": "f157b918a8838645058d1e868b220bde2c06cb3e8c5b7b58915b097b689aa5ac",
+      "src/yescc/fix/feedback.py": "d4d5ad7893993b72feb6df8a4bc3703a6021427c0d0b55b9c25cf7f334095a57",
+      "src/yescc/fix/lexer.py": "013e45ff043660558e80ccfc3e4fca6cfe4556a7174a1613fa15222ff8fdd851",
+      "src/yescc/fix/parser.py": "c843e1bdc3e7683a4c65370b3eda2fa27f2439bb571ded171c55689de5843b3d",
+      "src/yescc/model/__init__.py": "7dd3993af6a8a724cfb3aded88b3c68ed1e6e2db07960ce5cecccf2128a1e738",
+      "src/yescc/model/base.py": "0006f64d0996f103df7cb5de24b2138064259ec62efbc45848a8ec9668eb0650",
+      "src/yescc/model/budget.py": "b1500b36b6a0f40947ee5c61b09eb26f93c6e66ddba4411df3b4cdb4cf118df9",
+      "src/yescc/model/cache.py": "b1bd6377a60181975f18db442397056d75674f545d1211033a78eba7a82190c6",
+      "src/yescc/model/config.py": "c9dc9342f6528544466fa1eb26c3bac71ecd0a6a91d0cb9ead6466edbc73b5b8",
+      "src/yescc/model/openai_compat.py": "cd9d5719366860003457fa7b1f6e62310b56bb4da1bf5b46abbdea9d96b36ad9",
+      "src/yescc/model/prompts.py": "96f17d9b204806927d88865bf7917198a5e842fac275765eb29fc9dd479c4b46",
+      "src/yescc/model/session.py": "b62efd7b09dc85de6184316d2266bbe5fbc842f991be401d56f3975ffb6d6259",
+      "src/yescc/patch.py": "2b2daa96319d016daf284205d8af429eddf903ea05efd1c7c6977cd332e1a775",
+      "src/yescc/pipeline.py": "e21422ee2177cb033a9d926f89d08e63a29c1da700b8ca75259bb5fdf3e7aade",
+      "src/yescc/report.py": "08e51df7bbbc2907bd85b84ef57061fd61e292869a0309574d88c3c98d867411",
+      "src/yescc/sandbox/__init__.py": "bb1d14f1a40bc5f98f8095c86215c7efe35dd0296fa4ab58e769b5e9e9d90214",
+      "src/yescc/sandbox/creative.py": "967969175c0cb42661655056f9ba3cd5ba6b194ce8cf3655bf1772bc9962f37c",
+      "src/yescc/sandbox/runner.py": "deef6e924bb8ea98b5b20ff67bf868ac0dbb0fe7bdc45dc9cdb3a41869b4c15f",
+      "src/yescc/util.py": "811b8ad271c3d656df74be5a55ddd415710842d3a57e394b54587c7bb7ed4d0f"
+    }
+  },
+  "final_ci": {
+    "run_id": 43189174392,
+    "conclusion": "success",
+    "jobs_passed": 14,
+    "commit": "7bc529b093e5625b6db0ba6f898575612c82e4c3"
+  },
+  "preview_installation": {
+    "source_commit": "7bc529b093e5625b6db0ba6f898575612c82e4c3",
+    "wheel": "/home/wqwt/code/forgiving-compiler/dist/creative-consistency/yescc-0.1.0-py3-none-any.whl",
+    "wheel_sha256": "f985da271d89a918ecb065d2f2b78040918fc22dea196accfa4345b7689468d6",
+    "workspace": "/home/wqwt/yescc-test-consistency-7bc529b",
+    "prefix": "/home/wqwt/.local/share/yescc/creative-consistency-7bc529b",
+    "model_calls": 0,
+    "checks": [
+      {
+        "args": [
+          "--version"
+        ],
+        "exit": 0,
+        "stdout_base64": "eWVzY2MgMC4xLjAK",
+        "stderr_base64": ""
+      },
+      {
+        "args": [
+          "run",
+          "inputs/hello.c",
+          "--offline"
+        ],
+        "exit": 0,
+        "stdout_base64": "aGVsbG8K",
+        "stderr_base64": ""
+      },
+      {
+        "args": [
+          "run",
+          "inputs/moon.txt",
+          "--play",
+          "--offline"
+        ],
+        "exit": 0,
+        "stdout_base64": "5pyI5Lqu5q2j5Zyo5pG46bG8Cg==",
+        "stderr_base64": "eWVzY2M6IOWOn+Wni+i+k+WFpeacquiDveaMieivreS5ieWujOaIkO+8jOW3sueUn+aIkOWIm+aEj+WFnOW6leeoi+W6j++8iGtpbmQ9cHJpbnRfaW5wdXTvvIzkuI3mmK/ljp/nqIvluo/nmoTkv67lpI3vvInjgIIKeWVzY2M6IOacrOWcsOWFnOW6leS7heWbnuaYvui+k+WFpe+8jOacquWunueOsOWOn+Wni+aEj+WbvuOAggp5ZXNjYzog5bey5ZCv55SoIC0tb2ZmbGluZe+8jOacrOasoeacquWPkei1t+aooeWei+ivt+axguOAggp5ZXNjYzog55SoIC0tbm8tZmFsbGJhY2sg56aB5q2i5Yib5oSP5YWc5bqV77yM5oiW55SoIC0tc3RyaWN0IOafpeeci+WOn+eUn+Wksei0peOAggo="
+      }
+    ],
+    "source_prompt_body_restored_to": "006bf8d",
+    "prompt_version": "m6-creative-3",
+    "normal_command_unchanged": true,
+    "preparation_correction": "First version assertion omitted the documented yescc prefix; corrected expected bytes,product unchanged."
+  },
+  "review_disagreements": {
+    "count": 3,
+    "items": [
+      {
+        "task": {
+          "task_id": "CC03--candidate--r1",
+          "case_id": "CC03",
+          "profile": "candidate",
+          "repeat": 1
+        },
+        "a": "strong",
+        "b": "mixed"
+      },
+      {
+        "task": {
+          "task_id": "CC08--candidate--r1",
+          "case_id": "CC08",
+          "profile": "candidate",
+          "repeat": 1
+        },
+        "a": "strong",
+        "b": "mixed"
+      },
+      {
+        "task": {
+          "task_id": "S19--candidate--r1",
+          "case_id": "S19",
+          "profile": "candidate",
+          "repeat": 1
+        },
+        "a": "mixed",
+        "b": "strong"
+      }
+    ]
+  },
+  "ci_assets_verified": true
+}

@@ -51,6 +51,23 @@ JSON 按 cold/warm、类别及样本记录：执行/未评测、构建状态、�
 
 CI 在 Linux/Windows × Python 3.11/3.14 运行离线集并保存 artifact `m4-<OS>-py<版本>`。真实结果和 CI 链接见 [docs/评测](../docs/评测/README.md)；当前任务状态只维护在[路线图 §10](../docs/项目路线图与发布计划.md#10-待决事项与下一步)。
 
+## 创意一致性回归
+
+`creative_consistency_cases.json`为与M4完全分开的冻结12题（8条显式约束、4条开放评审），SHA-256 `a16f8b397ad39f367ddc6ad312ae73a7f6d9c954c680626af8a9b9ab8cfbe2a7`。由独立AI在未读源码或旧结果的情况下设计，模型只收到input，不收到checks/合格或违规样例。修改题目或检查需说明新指纹，不回写旧成绩。
+
+`.gitattributes`只为该冻结文件固定LF，避免Windows检出时自动CRLF转换改变原字节指纹；评测器读取已捕获程序输出时仍接受LF/CRLF，不改写输出。
+
+```bash
+# 不调用模型或执行候选；读取事先捕获的CC01.stdout等文件
+uv run python -m bench.creative_consistency \
+  --cases bench/creative_consistency_cases.json \
+  --outputs /path/to/captured-stdout --output /tmp/creative-consistency.json
+```
+
+支持line_count（默认含空白行）、contains/not_contains、line_sequence、symbol_count、last_nonempty_line。line_sequence逐行search或fullmatch，仅取每行一次匹配的单个捕获组，按字符串序列精确比较；splitlines接受LF/CRLF，保留内部空行，末尾换行不增加一行。symbol_count按完整子串精确、不重叠计数，包含变体选择符，不做Unicode归一化；这不是终端显示宽度或通用字素计数。
+
+无checks的合法UTF-8输出标passed=null/not_assessed，不算语义通过；缺文件或非法UTF-8失败，非法配置拒绝。报告保留数据/逐输出SHA与检查明细。CLI退出0仅表示已配置约束无失败，开放题仍须评审，输入要求中的叙事因果也不能只靠这些检查证明。它不读取构建报告、不能证明输出来自模型或已通过生产run，调用者须另核来源/实际运行。只作为离线评测，不改变生产运行/候选预算或M4 oracle。
+
 
 ## M5 独立审计（全部离线）
 

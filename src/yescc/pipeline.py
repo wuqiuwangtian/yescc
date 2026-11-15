@@ -574,11 +574,19 @@ def _model_generate(
                 source_checks = {"performed": True, "passed": not issues, "reasons": issues}
                 attempt["source_checks"] = source_checks
                 if issues:
-                    feedback = (
-                        "Creative output mixes wide and narrow stdout functions. "
-                        "Use UTF-8 byte strings with printf/puts only; mixing wprintf "
-                        "and printf/puts can silently lose output."
-                    )
+                    guidance = {
+                        "mixed_stdout_orientation": (
+                            "Creative output mixes wide and narrow stdout functions. "
+                            "Use UTF-8 byte strings with printf/puts only; mixing wprintf "
+                            "and printf/puts can silently lose output."
+                        ),
+                        "non_ascii_character_literal": (
+                            "An ordinary C character constant contains a non-ASCII symbol. "
+                            "Use a double-quoted UTF-8 string and print it with printf/puts; "
+                            "use an array of complete strings when repeating symbols."
+                        ),
+                    }
+                    feedback = " ".join(guidance[issue] for issue in issues)
                     session.stats.errors.append("creative source rejected: " + ", ".join(issues))
                     session.discard_response()
                     continue
