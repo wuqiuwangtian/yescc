@@ -1,0 +1,57 @@
+{
+  "schema": "yescc-native-refresh-evidence-v1",
+  "archive": "native-candidate-refresh-2026-11-15.json.gz",
+  "archive_sha256": "3c3701894cd86133af12cbaca53d1864f03a9ecab213236064d96d7998844bdd",
+  "archived_files": 486,
+  "archive_bytes": 3413736,
+  "excluded_selected_files": 34,
+  "fresh_directory_record_replay_matches": true,
+  "source_commit": "9b4cedff363bf9e2594bc866030f53b96d7a608d",
+  "observations": {
+    "real_model_api_calls": 0,
+    "release_performed": false,
+    "installed_runtime_reexecuted": false,
+    "initial_trial": {
+      "cli_calls": 24,
+      "fake_http_requests": 8,
+      "assertions": 45,
+      "passed": 43,
+      "failed": 2
+    },
+    "followup_trial": {
+      "cli_calls": 6,
+      "fake_http_requests": 2,
+      "assertions": 29,
+      "passed": 27,
+      "failed": 2
+    },
+    "initial_asset_audit": {
+      "passed": 2265,
+      "total": 2267
+    },
+    "final_asset_audit": {
+      "passed": 2320,
+      "total": 2320
+    },
+    "source_tests": {
+      "passed": 1337,
+      "skipped": 1
+    },
+    "old_collector_new_cases_failed": 4,
+    "official_artifact_digest_receipts": 14,
+    "final_asset_hashes": {
+      "yescc-0.1.0-py3-none-any.whl": "daf4e00823d38ef75d08acfa8c771af63f6537e68b231b651d342d01f1f80d54",
+      "yescc-0.1.0.tar.gz": "40983eb82572db5084593844a769a766869f84f2ee0e1435d118c04eb3ecd3e2",
+      "yescc-0.1.0-linux-x86_64.tar.gz": "40111ab717c02eda35684ad6a865c9c038811a97d274ae9428124e1b1aebdf75",
+      "yescc-0.1.0-windows-x86_64.zip": "77502c2f12f729e2681cf466ad2067cf70b2b7ede5fa9fa9a3b265b0a09a4554"
+    }
+  },
+  "limits": [
+    "AI testing is not human acceptance or real-model creative-quality evaluation.",
+    "Two UX findings remain open, initial/followup failures are retained.",
+    "Original candidate origin failure and analyst/tester false positives are retained.",
+    "Replay validates saved JSON/XML/ZIP/source/notices/hash receipts, not a new native installation, product/C execution or regenerated binary source proof.",
+    "Original agent verify.py scripts depend on original paths and omitted binaries; use root replay.py for restored records.",
+    "No real keys, paid model API, holdout, global-install update, merge or formal publication in this stage. Host-agent costs unknown."
+  ]
+}

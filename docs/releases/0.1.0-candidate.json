@@ -1,0 +1,99 @@
+{
+  "schema": "yescc-release-candidate-v1",
+  "version": "0.1.0",
+  "source_commit": "9b4cedff363bf9e2594bc866030f53b96d7a608d",
+  "production_source_tree": "52d64e41aeb47c5e5b27d6c86d915b66c7df2ae2",
+  "production_unchanged_from_main": "e403901db398a02121819fd5a5dfa3c06b5b8e05",
+  "merged": false,
+  "published": false,
+  "formal_release_authorized": false,
+  "pull_request": "https://github.com/wuqiuwangtian/yescc/pull/15",
+  "assets": {
+    "yescc-0.1.0-py3-none-any.whl": "daf4e00823d38ef75d08acfa8c771af63f6537e68b231b651d342d01f1f80d54",
+    "yescc-0.1.0.tar.gz": "40983eb82572db5084593844a769a766869f84f2ee0e1435d118c04eb3ecd3e2",
+    "yescc-0.1.0-linux-x86_64.tar.gz": "40111ab717c02eda35684ad6a865c9c038811a97d274ae9428124e1b1aebdf75",
+    "yescc-0.1.0-windows-x86_64.zip": "77502c2f12f729e2681cf466ad2067cf70b2b7ede5fa9fa9a3b265b0a09a4554"
+  },
+  "candidate_workflow": {
+    "id": 43688155608,
+    "url": "https://github.com/wuqiuwangtian/yescc/actions/runs/43688155608",
+    "successful_jobs": 7
+  },
+  "source_ci": {
+    "id": 43688211265,
+    "url": "https://github.com/wuqiuwangtian/yescc/actions/runs/43688211265",
+    "successful_jobs": 14
+  },
+  "artifact_expires_at": "2027-02-13T07:02:49Z",
+  "validation": {
+    "local_source_tests": {
+      "passed": 1337,
+      "skipped": 1
+    },
+    "native_smoke": {
+      "Linux": {
+        "passed": 22,
+        "total": 22
+      },
+      "Windows": {
+        "passed": 22,
+        "total": 22
+      }
+    },
+    "wheel_smoke": {
+      "passed": 18,
+      "total": 18
+    },
+    "local_wheel_public_range_rehearsal": {
+      "matrix": [
+        "Linux py3.11",
+        "Linux py3.14",
+        "Windows py3.11",
+        "Windows py3.14"
+      ],
+      "passed_per_matrix": 6,
+      "total_per_matrix": 6
+    },
+    "independent_asset_audit": {
+      "passed": 2320,
+      "total": 2320
+    },
+    "independent_ai_trial": {
+      "cli": 24,
+      "fake_http": 8,
+      "assertions": 45,
+      "passed": 43,
+      "failed": 2,
+      "tested_initial_candidate": true
+    },
+    "same_ai_final_candidate_followup": {
+      "cli": 6,
+      "fake_http": 2,
+      "assertions": 29,
+      "passed": 27,
+      "failed": 2,
+      "new_independent_tester": false
+    }
+  },
+  "license_unresolved": [],
+  "license_scope": "Actual bundle/TOC/source/notice bindings; not legal opinion or reproducible-build proof. Initial e403 Linux origin collision retained as failed evidence.",
+  "source_wheel_caveat": "Windows native builder wheel was not retained; its manifest digest differs from Linux wheel. Both actual frozen product source inventories bind 35 modules exactly to Git. Auxiliary Windows CI wheel is a separate artifact, not that native builder wheel.",
+  "known_nonblocking_ux_findings": [
+    {
+      "id": "UX-1",
+      "status": "open",
+      "description": "Optional-check rejection is recorded in report but terminal fallback does not directly explain rejection."
+    },
+    {
+      "id": "UX-2",
+      "status": "open",
+      "description": "Missing GCC strict build JSON fails with 102 but lacks a locatable missing-tool reason."
+    }
+  ],
+  "public_pypi_root_install": "pending publication; local-wheel rehearsal only",
+  "g6": "pending",
+  "daily_install_updated": false,
+  "real_model_api_calls_this_stage": 0,
+  "host_agent_cost_known": false,
+  "next_step": "Improve the two diagnostic messages before formal publication; then freeze a new source, rebuild/review changed assets and confirm main integration/publication separately."
+}
