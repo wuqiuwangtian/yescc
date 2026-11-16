@@ -46,6 +46,14 @@ def test_summary_does_not_present_unknown_cost_as_free() -> None:
     assert "$0" not in summary
 
 
+def test_failure_summary_uses_recorded_message_and_does_not_guess_for_old_reports() -> None:
+    old = {"result": {"status": "failed"}}
+    assert "失败原因" not in summarize(old)
+    current = {"result": {"status": "failed", "failure_message": "未找到 gcc。请安装 GCC。"}}
+    assert "失败原因：未找到 gcc。请安装 GCC。" in summarize(current)
+    assert "失败原因" not in summarize({"result": {"failure_message": None}})
+
+
 def test_optional_check_summary_distinguishes_scope_and_execution() -> None:
     from yescc.report import summarize
 

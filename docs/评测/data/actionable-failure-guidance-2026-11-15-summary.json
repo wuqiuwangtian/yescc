@@ -1,0 +1,52 @@
+{
+  "schema": "yescc-actionable-failure-evidence-v1",
+  "archive": "actionable-failure-guidance-2026-11-15.json.gz",
+  "archive_sha256": "996ccfa31db9beaaa725b825f801632823f9a0413dbf2d7551452a373e701942",
+  "archived_files": 485,
+  "archive_bytes": 3847049,
+  "excluded_selected_files": 17,
+  "fresh_directory_record_replay_matches": true,
+  "source_commit": "e40086fc4ada36b613db73303b30e5ba92c09ce0",
+  "observations": {
+    "real_model_api_calls": 0,
+    "native_reexecuted": false,
+    "formal_release_done": false,
+    "production_source_and_linux_elf_identical_across_test_only_fix": true,
+    "asset_audit": {
+      "initial_passed": 2451,
+      "initial_total": 2453,
+      "final_passed": 2556,
+      "final_total": 2556
+    },
+    "independent_user_trial": {
+      "tested_product_commit": "0fd506196f9e40497f2a4aa85f801316934fd00b",
+      "cli": 16,
+      "fake_http": 4,
+      "assertions": 43,
+      "passed": 43,
+      "final_archive_new_independent_trial": false
+    },
+    "artifact_download_digests": 14,
+    "final_source_commit": "e40086fc4ada36b613db73303b30e5ba92c09ce0",
+    "local_full_tests_before_test_only_fix": {
+      "passed": 1359,
+      "skipped": 1
+    },
+    "corrected_targeted_tests": 13,
+    "final_asset_hashes": {
+      "yescc-0.1.0-py3-none-any.whl": "ea5e323cd49f52672e8e2eacf6ef820de225ffb5993cf4f4daa65fd15abcd1ce",
+      "yescc-0.1.0.tar.gz": "5a6786622e297e2973489d2358968db29f930bf65042e89af0f19c68e75baa12",
+      "yescc-0.1.0-linux-x86_64.tar.gz": "0c6f495bd6fa40e39b46a97e96aba5ac14b0c4a89db90b69841ab7f41cef6f90",
+      "yescc-0.1.0-windows-x86_64.zip": "386a9af15728d2bd3245135f0a15248171f016bd38599eae3ebecfe41d733a72"
+    }
+  },
+  "limits": [
+    "Independent AI trial, not human acceptance or real model creative-quality evaluation.",
+    "User trial ran the first 0fd package; final product source and Linux ELF are identical across a test-only fix, with final native smoke/audit separate.",
+    "Initial two failed Windows e2e CIs and strict diagnostic newline assumption, old test, original red baselines and all analysis corrections are retained.",
+    "Compiler failure diagnostic text allows CRLF/LF only; native program stream assertions remain raw bytes.",
+    "Only saved-record/ZIP/XML/source/notice/hash replay. No product/compiler/C/tester execution, keys, network or holdout on replay.",
+    "Full native/sdist/artifact archives and runtime trees excluded; four assets are preserved separately with GitHub artifact digest/expiry receipts. Original audit scripts need original paths/binaries; restored archives use root replay.py.",
+    "No new main merge, formal tag/Release/PyPI or daily install update; host-agent cost unknown."
+  ]
+}

@@ -144,7 +144,7 @@ class _Harness:
         self,
         name: str,
         operation: Callable[[dict[str, Any], Path], None],
-        expected_calls: int = 0,
+        expected_calls: int | None = 0,
     ) -> None:
         cwd = self.directory / name
         cwd.mkdir()
@@ -157,7 +157,10 @@ class _Harness:
         finally:
             calls = len(self.server.requests) - before
             row["model_calls_received"] = calls
-            _expect(row, "model_request_count", calls == expected_calls)
+            required_calls = row.get("expected_model_calls", 0) if expected_calls is None else (
+                expected_calls
+            )
+            _expect(row, "model_request_count", calls == required_calls)
             _expect(row, "dummy_key_not_exposed", DUMMY_KEY not in json.dumps(row))
             row["passed"] = "error" not in row and all(row["checks"].values())
             self.rows.append(row)
@@ -326,6 +329,171 @@ class _Harness:
         _expect(row, "source_unchanged", _sha(file) == before_source)
         _expect(row, "no_fallback_source", not (report_path.parent / "fallback.c").exists())
 
+    def missing_toolchain(self, row: dict[str, Any], cwd: Path, language: str) -> None:
+        sources = {
+            "c": (".c", "int main(void){return 0;}\n", "gcc"),
+            "python": (".py", 'print("external Python required")\n', "python"),
+            "javascript": (".js", 'console.log("external Node required");\n', "node"),
+        }
+        suffix, source, expected_tool = sources[language]
+        file = cwd / ("input" + suffix)
+        file.write_text(source, encoding="utf-8")
+        before_source = _sha(file)
+        empty_path = cwd / "empty-path"
+        empty_path.mkdir()
+        env = {**self.env, "PATH": str(empty_path)}
+        row["toolchain_path_override"] = str(empty_path)
+        result = self.call(row, [file.name, "--strict", "--json", "--offline"], cwd, env)
+        report = self.report(row, cwd, "input")
+        message = report["result"].get("failure_message")
+        has_message = isinstance(message, str) and expected_tool in message.lower()
+        _expect(row, "failed_with_102", result["exit_code"] == 102)
+        _expect(row, "single_build_report", json.loads(result["stdout"]) == report)
+        _expect(row, "not_command_error", "report_kind" not in report)
+        _expect(row, "json_stderr_empty", not result["stderr"])
+        _expect(row, "missing_tool_cause_saved", has_message)
+        _expect(row, "no_invented_attempt", report["attempts"] == [])
+        _expect(row, "no_invented_diagnostic", report["diagnostics"] == [])
+        _expect(
+            row,
+            "no_invented_tool_command_or_version",
+            not report["toolchain"]["command"] and not report["toolchain"]["version"],
+        )
+        _expect(row, "no_artifact", report["result"]["artifact"] is None)
+        _expect(row, "no_model", report["model"] is None and not report["privacy"]["cloud_used"])
+        saved_report = cwd / ".yescc/input/report.json"
+        before_report = _sha(saved_report)
+        explained_json = self.call(
+            row, [file.name, "--explain", "--json", "--offline"], cwd, env
+        )
+        explained_text = self.call(row, [file.name, "--explain", "--offline"], cwd, env)
+        _expect(
+            row,
+            "explain_json_uses_saved_report",
+            explained_json["exit_code"] == 0
+            and not explained_json["stderr"]
+            and json.loads(explained_json["stdout"]) == report,
+        )
+        _expect(
+            row,
+            "explain_text_has_missing_tool_cause",
+            explained_text["exit_code"] == 0
+            and has_message
+            and message in explained_text["stdout"],
+        )
+        _expect(row, "explain_preserves_report", _sha(saved_report) == before_report)
+        plain = self.call(row, [file.name, "--strict", "--offline"], cwd, env)
+        _expect(
+            row,
+            "plain_missing_tool_cause",
+            plain["exit_code"] == 102
+            and not plain["stdout"]
+            and expected_tool in plain["stderr"].lower(),
+        )
+        row["source_sha256_before"] = before_source
+        row["source_sha256_after"] = _sha(file)
+        _expect(row, "source_unchanged", _sha(file) == before_source)
+        _expect(row, "toolchain_path_stayed_empty", not list(empty_path.iterdir()))
+
+    def creative_rejection(self, row: dict[str, Any], cwd: Path, checked: bool) -> None:
+        file = cwd / "input.txt"
+        text = "a stone begins to tell jokes\n"
+        file.write_text(text, encoding="utf-8")
+        before_source = _sha(file)
+        marker = "FAILED-CANDIDATE-MUST-STAY-HIDDEN"
+        if checked:
+            source = (
+                '#include <stdio.h>\n#include <limits.h>\nint main(void){\n'
+                f'puts("{marker}"); fflush(stdout);\n'
+                "volatile int upper=INT_MAX, one=1;\n"
+                "volatile int sum=upper+one; (void)sum; return 0;\n}\n"
+            )
+        else:
+            source = f'#include <stdio.h>\nint main(void){{puts("{marker}");return 7;}}\n'
+        row["fake_model_source"] = source
+        row["fake_model_endpoint"] = self.server.base_url
+        self.server.responses.append({"source": source})
+        args = ["run", file.name, "--play", "--no-cache", "--max-rounds", "1"]
+        if checked:
+            args.append("--check-undefined")
+        actual = self.call(row, args, cwd)
+        raw = json.loads((cwd / ".yescc/input/report.json").read_text("utf-8"))
+        profile = raw.get("undefined_behavior_check")
+        if checked and isinstance(profile, dict) and profile.get("available") is False:
+            # This is a supported failure response, not evidence that a candidate ran.
+            row["expected_model_calls"] = 0
+            row["optional_check_coverage"] = "unavailable; candidate not requested or run"
+            report = self.report(row, cwd, "input")
+            message = report["result"].get("failure_message")
+            _expect(row, "unavailable_fails_with_102", actual["exit_code"] == 102)
+            _expect(row, "unavailable_report_status", report["result"]["status"] == "failed")
+            _expect(row, "unavailable_not_performed", profile.get("performed") is False)
+            _expect(row, "unavailable_probes_recorded", bool(profile.get("probes")))
+            _expect(row, "unavailable_not_fallback", report["result"]["fallback"] is None)
+            _expect(row, "unavailable_no_model_attempt", report["attempts"] == [])
+            _expect(row, "unavailable_not_model_generation", report["result"]["generated"] is None)
+            _expect(
+                row,
+                "unavailable_cause_is_visible",
+                isinstance(message, str) and "不可用" in message and "不可用" in actual["stderr"],
+            )
+            _expect(row, "unavailable_no_candidate_output", not actual["stdout"])
+        else:
+            attempts = [item for item in raw["attempts"] if item["kind"] == "model"]
+            assert len(attempts) == 1, "expected one generated candidate attempt"
+            attempt = attempts[0]
+            validation = attempt.get("validation")
+            assert isinstance(validation, dict) and validation.get("performed") is True
+            if checked:
+                check = attempt.get("undefined_behavior_check")
+                assert isinstance(check, dict) and check.get("performed") is True
+                assert check.get("mode") in {"runtime", "trap"}
+                row["optional_check_coverage"] = "candidate rejection verified"
+                row["optional_check_mode"] = check["mode"]
+                _expect(row, "reported_check_does_not_certify_ub", check.get("ub_detected") is None)
+                _expect(row, "candidate_compile_has_check_flags", all(
+                    flag in attempt["command"] for flag in check["flags"]
+                ))
+            row["expected_model_calls"] = 1
+            report = self.report(row, cwd, "input")
+            fallback = report["result"]["fallback"]
+            guidance = fallback.get("guidance") if isinstance(fallback, dict) else None
+            hints = "\n".join(str(hint) for hint in guidance) if isinstance(guidance, list) else ""
+            _expect(row, "generated_candidate_compiled", attempt["exit_code"] == 0)
+            _expect(row, "candidate_actual_run_failed", validation.get("passed") is False)
+            _expect(row, "candidate_nonzero_exit", "exit_nonzero" in validation.get("reasons", []))
+            _expect(row, "fallback_is_input_echo", isinstance(fallback, dict)
+                    and fallback.get("kind") == "print_input")
+            _expect(row, "failed_candidate_is_not_adopted", report["result"]["generated"] is None)
+            _expect(row, "fallback_stdout_only", actual["stdout"] == text)
+            _expect(row, "fallback_exit", actual["exit_code"] == 0)
+            _expect(row, "rejection_reason_saved", "运行验证" in hints and "拒绝" in hints
+                    and f"退出码 {validation.get('exit_code')}" in hints)
+            _expect(row, "rejection_reason_on_stderr", bool(guidance) and all(
+                str(hint) in actual["stderr"] for hint in guidance
+            ))
+            reason = report["budget"]["blocked_reason"]
+            _expect(row, "original_attempt_stop_reason_preserved", bool(reason) and reason in hints)
+            _expect(row, "original_attempt_limit", report["budget"]["attempts"] == 1)
+            if checked:
+                _expect(row, "actual_check_mode_visible", row["optional_check_mode"] in hints)
+            before_report = _sha(cwd / ".yescc/input/report.json")
+            explained = self.call(row, [file.name, "--explain", "--offline"], cwd)
+            _expect(
+                row,
+                "explain_includes_saved_guidance",
+                explained["exit_code"] == 0 and bool(guidance)
+                and all(str(hint) in explained["stdout"] for hint in guidance),
+            )
+            _expect(row, "explain_preserves_report",
+                    _sha(cwd / ".yescc/input/report.json") == before_report)
+        _expect(row, "failed_candidate_output_hidden", all(
+            marker not in actual[field] for field in ("stdout", "stderr")
+        ))
+        row["source_sha256_before"] = before_source
+        row["source_sha256_after"] = _sha(file)
+        _expect(row, "source_unchanged", _sha(file) == before_source)
+
 
 def verify(binary: Path, expected_version: str) -> dict[str, Any]:
     """验收实际 ELF/PE 产物，返回包含失败在内的全部证据；不安装或导入被测包。"""
@@ -364,6 +532,10 @@ def verify(binary: Path, expected_version: str) -> dict[str, Any]:
             for language in ("c", "python", "javascript"):
                 harness.check(
                     "native_" + language, lambda r, p, lang=language: harness.native(r, p, lang)
+                )
+                harness.check(
+                    "missing_toolchain_" + language,
+                    lambda r, p, lang=language: harness.missing_toolchain(r, p, lang),
                 )
             harness.check(
                 "rule_c",
@@ -451,6 +623,16 @@ def verify(binary: Path, expected_version: str) -> dict[str, Any]:
                     },
                 ),
                 expected_calls=1,
+            )
+            harness.check(
+                "creative_rejection_guidance",
+                lambda r, p: harness.creative_rejection(r, p, False),
+                expected_calls=1,
+            )
+            harness.check(
+                "checked_creative_rejection_guidance",
+                lambda r, p: harness.creative_rejection(r, p, True),
+                expected_calls=None,
             )
 
             def normal_json(row: dict[str, Any], cwd: Path) -> None:
