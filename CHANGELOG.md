@@ -26,6 +26,8 @@
 
 ### Fixed
 
+- `--explain`核对报告输入身份，同stem跨后缀/子目录碰撞或身份缺损时明确返回100，JSON沿用command_error；保持报告目录和历史同文件读取，不回放另一文件报告。
+
 - Python 包使用面向 PyPI 的稳定说明，避免正式版本页面仍引导安装旧 alpha/TestPyPI；仓库 README 继续保存实际开发/发布状态。
 
 - 失败构建报告保留实际`result.failure_message`，缺工具的JSON/explain可定位原因；模型创意运行拒绝后的回显说明保留真实退出/输出/检查模式，不只显示次数耗尽。

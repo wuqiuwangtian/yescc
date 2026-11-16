@@ -91,7 +91,15 @@
       "resolution": "Actual failure cause persists in result.failure_message and explain; missing tools do not fabricate compiler attempts or diagnostics."
     }
   ],
-  "open_product_findings_in_this_trial": [],
+  "open_product_findings_in_this_trial": [
+    {
+      "id": "U1",
+      "source_commit": "8f1c273c2711f4f3c11dcc95c4d700eb3389ad4c",
+      "finding": "Same-stem explain may return another input report",
+      "status": "fix ready; new built candidate verification pending",
+      "source_fix_changes_default_report_directory": false
+    }
+  ],
   "license_unresolved": [],
   "license_scope": "Actual bundle/TOC/source/notice binding, not legal advice or reproducible-build proof. Linux executable/package origin collision remains corrected.",
   "actual_native_builder_wheels_retained": true,
@@ -110,12 +118,12 @@
   "daily_install_updated": false,
   "real_model_api_calls_this_stage": 0,
   "host_agent_cost_known": false,
-  "next_step": "Rebuild all four assets with stable package documentation, verify actual metadata/docs/provenance/install results, then replace this superseded publication proposal; no publication authorized.",
+  "next_step": "Verify U1 source identity guard and new native cases; rebuild and audit all four assets; replace superseded proposal, then seek explicit publication confirmation.",
   "main_integration_commit": "d4b2753249d7d923242cd5b1a22205f1348d9b0c",
   "reviewed_head": "a42c8efd3f4e296da6c61dc27d838f5eec016c66",
   "main_tree_matches_reviewed_head": true,
   "publication_proposal": {
-    "status": "superseded_before_publication_documentation_rebuild_required",
+    "status": "superseded_before_publication_source_fix_and_rebuild_required",
     "tag": "v0.1.0",
     "tag_target": "e40086fc4ada36b613db73303b30e5ba92c09ce0",
     "tag_target_basis": "Exact already-built source, preserved as main ancestor; later verification tooling/docs are not claimed as bundled.",
@@ -139,6 +147,6 @@
       "accepted": false
     },
     "runbook": "docs/releases/0.1.0.md#维护者发布步骤提案尚未执行",
-    "superseded_reason": "Original wheel embeds the alpha/TestPyPI repository README; native README/START-HERE also imply unpublished candidates. Prepare stable user documentation and rebuild all assets before confirming publication."
+    "superseded_reason": "Stable package docs candidate 8f1 passed metadata/provenance checks, but independent wheel/native trial found U1: explain returns another same-stem input report. Apply identity guard and rebuild before publication."
   }
 }

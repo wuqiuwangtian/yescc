@@ -7,6 +7,7 @@ import json
 import re
 import sys
 import time
+from contextlib import suppress
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Literal
@@ -1070,6 +1071,17 @@ def explain(source: Path | None, as_json: bool) -> int:
     payload = load_report(report_file)
     if payload is None:
         raise UsageError(f"没有找到报告：{report_file}。先运行一次构建再查看。")
+    identity = payload.get("input")
+    recorded_path = identity.get("path") if isinstance(identity, dict) else None
+    matches = False
+    if isinstance(recorded_path, str) and recorded_path:
+        with suppress(OSError, RuntimeError, ValueError):
+            matches = Path(recorded_path).resolve() == source.resolve()
+    if not matches:
+        raise UsageError(
+            f"报告的输入身份与请求文件不符或无法核对，可能已被同名文件覆盖：{report_file}。"
+            f"请对 {source} 重新构建后再查看。"
+        )
     if as_json:
         print(json.dumps(payload, ensure_ascii=False, indent=2))
     else:

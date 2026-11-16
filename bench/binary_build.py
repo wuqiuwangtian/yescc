@@ -141,7 +141,11 @@ def build(output: Path) -> dict:
         "Keep the entire extracted directory, including _internal and licenses.\n"
         "The CLI bundles its Python runtime; user programs need external toolchains:\n"
         "C: GCC; JavaScript: Node.js; Python: Python 3 on PATH.\n"
-        "Examples: ./yescc --version; ./yescc run examples/hello.c --offline\n"
+        "Examples:\n"
+        "  ./yescc --version\n"
+        "  ./yescc run examples/hello.c --offline\n"
+        "  ./yescc run examples/broken.c --offline\n"
+        "  ./yescc run examples/idea.txt --offline\n"
         "Windows: use .\\yescc.exe in place of ./yescc.\n"
         "Read README.md for AI, privacy and best-effort isolation limits.\n"
         "Release status and checksums: https://github.com/wuqiuwangtian/yescc/releases\n",
