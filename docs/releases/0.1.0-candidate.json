@@ -110,8 +110,34 @@
   "daily_install_updated": false,
   "real_model_api_calls_this_stage": 0,
   "host_agent_cost_known": false,
-  "next_step": "Main integration complete. Confirm exact tag/Release/PyPI publication separately, then verify public-index root installation and observation window; G6 remains pending.",
+  "next_step": "Review the exact publication proposal, merge the CI-verified verification changes, then publish only after explicit confirmation; G6 still needs real public installs and observation.",
   "main_integration_commit": "d4b2753249d7d923242cd5b1a22205f1348d9b0c",
   "reviewed_head": "a42c8efd3f4e296da6c61dc27d838f5eec016c66",
-  "main_tree_matches_reviewed_head": true
+  "main_tree_matches_reviewed_head": true,
+  "publication_proposal": {
+    "status": "prepared_pending_maintainer_confirmation",
+    "tag": "v0.1.0",
+    "tag_target": "e40086fc4ada36b613db73303b30e5ba92c09ce0",
+    "tag_target_basis": "Exact already-built source, preserved as main ancestor; later verification tooling/docs are not claimed as bundled.",
+    "github_repository": "wuqiuwangtian/yescc",
+    "github_release_kind": "public non-prerelease, initially staged as draft",
+    "github_assets": "The four assets above plus the existing SHA256SUMS; no rebuild.",
+    "pypi_repository": "https://upload.pypi.org/legacy/",
+    "pypi_assets": [
+      "yescc-0.1.0-py3-none-any.whl",
+      "yescc-0.1.0.tar.gz"
+    ],
+    "authentication": "Existing local ~/.pypirc [pypi] token, repository target checked; remote permission not verified.",
+    "release_notes_local_path": "dist/release-0.1.0-publication/RELEASE-NOTES.md",
+    "release_notes_sha256": "58fea44639d64467093bff19ad6b937ea1fc396037bf9a1f4a9f09892821c82d",
+    "verification_branch": "feat/g6-published-binary-verification",
+    "verification_requires_merge_and_ci": true,
+    "post_publish_verification": "published-install.yml on main: four public PyPI matrices and two actual Release archive installs, checksum/proposal/source binding.",
+    "observation_window_proposal": {
+      "hours": 24,
+      "starts_after": "All public distribution install checks pass",
+      "accepted": false
+    },
+    "runbook": "docs/releases/0.1.0.md#维护者发布步骤提案尚未执行"
+  }
 }

@@ -1,0 +1,3903 @@
+{
+  "schema": "yescc-publication-preflight-v1",
+  "observed_at_utc": "2026-11-16T14:37:25.395755+00:00",
+  "baseline_main": "72244999c121a631f7ff98781152dfdf9b6914d3",
+  "baseline_main_ci": {
+    "run": 43854168189,
+    "conclusion": "success",
+    "passed": 14,
+    "total": 14
+  },
+  "source_commit": "e40086fc4ada36b613db73303b30e5ba92c09ce0",
+  "source_is_main_ancestor": true,
+  "runtime_and_native_build_inputs_unchanged": true,
+  "validation_inputs_sha256": {
+    "bench/binary_archive_smoke.py": "679f88a924663512ca975e4bf3c863804dee229aafc151f4a7e852752409fa2a",
+    "tests/test_binary_archive.py": "98f9ea1b5f522798cbe86d0ab0678492cadf0f4ff6825a4662fa5125cc0ed2bf",
+    ".github/workflows/published-install.yml": "13b9c576d5e3766d80fe43a12cadf40984cec61ba3a425a0f89055cd14ddd82e"
+  },
+  "assets": [
+    {
+      "name": "yescc-0.1.0-py3-none-any.whl",
+      "bytes": 84116,
+      "sha256": "ea5e323cd49f52672e8e2eacf6ef820de225ffb5993cf4f4daa65fd15abcd1ce",
+      "matches_reviewed_asset": true
+    },
+    {
+      "name": "yescc-0.1.0.tar.gz",
+      "bytes": 19439126,
+      "sha256": "5a6786622e297e2973489d2358968db29f930bf65042e89af0f19c68e75baa12",
+      "matches_reviewed_asset": true
+    },
+    {
+      "name": "yescc-0.1.0-linux-x86_64.tar.gz",
+      "bytes": 10944325,
+      "sha256": "0c6f495bd6fa40e39b46a97e96aba5ac14b0c4a89db90b69841ab7f41cef6f90",
+      "matches_reviewed_asset": true
+    },
+    {
+      "name": "yescc-0.1.0-windows-x86_64.zip",
+      "bytes": 11980354,
+      "sha256": "386a9af15728d2bd3245135f0a15248171f016bd38599eae3ebecfe41d733a72",
+      "matches_reviewed_asset": true
+    }
+  ],
+  "twine_check": {
+    "strict": true,
+    "wheel": "passed",
+    "sdist": "passed"
+  },
+  "metadata_provenance": {
+    "python_packages_version": "0.1.0",
+    "requires_python": ">=3.11",
+    "both_native_code_commits_match": true,
+    "both_native_source_dirty": false,
+    "both_native_licenses_complete": true
+  },
+  "local_checks": {
+    "ruff": "passed",
+    "mypy": "36 source files passed",
+    "pytest": {
+      "passed": 1369,
+      "skipped": 1,
+      "seconds": 144.12,
+      "skip": "Windows native CTRL_BREAK only",
+      "scope": "Before test-only fixture portability correction: use yescc.exe on Windows, yescc on POSIX. Linux behavior unchanged; 12 focused tests passed again afterward. Cross-platform CI is separate."
+    },
+    "archive_targeted": {
+      "passed": 12,
+      "added_cases": 10
+    },
+    "actionlint": {
+      "version": "1.7.12",
+      "source": "https://github.com/rhysd/actionlint/releases/tag/v1.7.12",
+      "archive_sha256": "8aca8db96f1b94770f1b0d72b6dddcb1ebb8123cb3712530b08cc387b349a3d8",
+      "result": "passed",
+      "shellcheck": false,
+      "pyflakes": false
+    }
+  },
+  "local_binary_rehearsal": {
+    "schema_version": "1",
+    "classification": "developer_binary_smoke",
+    "version": "0.1.0",
+    "platform": "Linux",
+    "machine": "x86_64",
+    "binary": "yescc",
+    "binary_sha256": "55eaabf8ac5849ce901ab0c844c26424c1a8d89b573888bb2fc09f27606b0808",
+    "outside_repository": true,
+    "tested_without_repository_or_venv_on_path": true,
+    "external_toolchains_required": [
+      "gcc",
+      "python3/python",
+      "node"
+    ],
+    "inherited_python_environment_removed": true,
+    "model_mode": "local_fake_only",
+    "paid_model_calls": 0,
+    "model_requests_received": 5,
+    "total": 27,
+    "passed": 27,
+    "rows": [
+      {
+        "id": "version",
+        "checks": {
+          "no_timeout_1": true,
+          "version": true,
+          "exit_code": true,
+          "stderr_empty": true,
+          "model_request_count": true,
+          "dummy_key_not_exposed": true
+        },
+        "invocations": [
+          {
+            "command": [
+              "/tmp/yescc-native-install-n0ribw3y/yescc-0.1.0-linux-x86_64/yescc",
+              "--version",
+              "--offline"
+            ],
+            "cwd": "/tmp/yescc-binary-fdhe1ivj/version",
+            "exit_code": 0,
+            "stdout": "yescc 0.1.0\n",
+            "stderr": "",
+            "stdout_sha256": "73f623d40f96a1ee68dbe724c7ddbf49576aa4a0ed20d0d426986e443f64281e",
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false,
+            "duration_ms": 130
+          }
+        ],
+        "model_calls_received": 0,
+        "passed": true
+      },
+      {
+        "id": "version_without_toolchain_path",
+        "checks": {
+          "no_timeout_1": true,
+          "version": true,
+          "exit_code": true,
+          "stderr_empty": true,
+          "model_request_count": true,
+          "dummy_key_not_exposed": true
+        },
+        "invocations": [
+          {
+            "command": [
+              "/tmp/yescc-native-install-n0ribw3y/yescc-0.1.0-linux-x86_64/yescc",
+              "--version",
+              "--offline"
+            ],
+            "cwd": "/tmp/yescc-binary-fdhe1ivj/version_without_toolchain_path",
+            "exit_code": 0,
+            "stdout": "yescc 0.1.0\n",
+            "stderr": "",
+            "stdout_sha256": "73f623d40f96a1ee68dbe724c7ddbf49576aa4a0ed20d0d426986e443f64281e",
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false,
+            "duration_ms": 134
+          }
+        ],
+        "model_calls_received": 0,
+        "passed": true
+      },
+      {
+        "id": "help",
+        "checks": {
+          "no_timeout_1": true,
+          "exit_code": true,
+          "help": true,
+          "model_request_count": true,
+          "dummy_key_not_exposed": true
+        },
+        "invocations": [
+          {
+            "command": [
+              "/tmp/yescc-native-install-n0ribw3y/yescc-0.1.0-linux-x86_64/yescc",
+              "--help",
+              "--offline"
+            ],
+            "cwd": "/tmp/yescc-binary-fdhe1ivj/help",
+            "exit_code": 0,
+            "stdout": "YesCC（Yes Compiler Collection）\n\n用法：\n  yescc <文件> [工具链参数...]        构建（类似 gcc）\n  yescc run <文件> [-- 程序参数...]    构建后运行\n  yescc <文件> --explain              查看最近一次报告\n\n选项：\n      --lang <语言>   指定语言：python | c | javascript\n      --strict        原生模式：关闭修复与兜底，显示原始诊断\n      --json          输出单一 JSON（构建/解释报告或可预期命令错误）\n      --check-undefined  仅模型创意 run 可选检查未定义行为（默认关闭）\n      --no-fallback   不生成创意兜底；保留用法/输入/构建/预算等失败码\n      --play          强制创意解释（跳过原生与规则）\n      --offline       不发模型请求，模型路径降级\n      --budget <USD>  单任务模型费用上限（默认 0.05）\n      --max-rounds N  候选尝试（含缓存）与请求次数上限（默认 2）\n      --provider NAME 覆盖模型供应商（deepseek/openai/ollama/...）\n      --model NAME    覆盖模型名\n      --reasoning-effort LEVEL  推理等级（auto/none/minimal/low/medium/high/xhigh/max）\n      --thinking MODE 模型思考开关（auto/enabled/disabled，按供应商支持）\n      --max-output-tokens N  模型输出额度上限（1–16384，仍受费用预算限制）\n      --emit-source   输出修复/生成后的完整源码\n      --trace         输出每层尝试与模型调用摘要\n      --unsafe-run    AI 产物在真实 cwd 运行（默认临时目录沙箱）\n      --no-cache      禁用模型缓存\n  -h, --help          显示帮助\n      --version       显示版本\n\n说明：\n  * 合法输入原样交给真实工具链，不修改源码、不调用模型。\n  * 报告保存于 .yescc/<文件名>/report.json。\n  * 退出码：0 成功；100 用法；101 不支持；102 构建失败；103 预算/超时；104 内部错误。\n\n",
+            "stderr": "",
+            "stdout_sha256": "984fed975692c6d9920254a7944377e2d8ab6a72771e5e120f71d59be8349881",
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false,
+            "duration_ms": 120
+          }
+        ],
+        "model_calls_received": 0,
+        "passed": true
+      },
+      {
+        "id": "native_c",
+        "checks": {
+          "no_timeout_1": true,
+          "source_unchanged": true,
+          "schema_v1": true,
+          "report_version": true,
+          "reported_model_calls": true,
+          "external_toolchain": true,
+          "native_build": true,
+          "native_stdout_sha256": true,
+          "native_stderr_sha256": true,
+          "native_exit_code": true,
+          "native_expected_exit": true,
+          "status": true,
+          "model_request_count": true,
+          "dummy_key_not_exposed": true
+        },
+        "invocations": [
+          {
+            "command": [
+              "/tmp/yescc-native-install-n0ribw3y/yescc-0.1.0-linux-x86_64/yescc",
+              "run",
+              "input.c",
+              "--offline",
+              "--",
+              "参数"
+            ],
+            "cwd": "/tmp/yescc-binary-fdhe1ivj/native_c",
+            "exit_code": 7,
+            "stdout": "native:参数\n",
+            "stderr": "native stderr\n",
+            "stdout_sha256": "45533019f9ad624cd623dcda3d47a74d32442507d5bcd210911341a7fc60ff37",
+            "stderr_sha256": "8794de3c2d8ce7c76f9b86ba6f6ab6f72b5ffc2a5c9cf781d3374009fbebbbf9",
+            "timed_out": false,
+            "duration_ms": 243
+          }
+        ],
+        "source_sha256_before": "6eae9bbfa30d9488121241d0497dba89c153424308309627b4c6c92ac0c1b733",
+        "source_sha256_after": "6eae9bbfa30d9488121241d0497dba89c153424308309627b4c6c92ac0c1b733",
+        "report": {
+          "schema_version": "1",
+          "tool": {
+            "name": "yescc",
+            "version": "0.1.0"
+          },
+          "invocation": {
+            "argv": [
+              "run",
+              "input.c",
+              "--offline",
+              "--",
+              "参数"
+            ],
+            "mode": "run",
+            "lang": "c",
+            "strict": false,
+            "play": false,
+            "offline": true
+          },
+          "input": {
+            "path": "input.c",
+            "sha256": "6eae9bbfa30d9488121241d0497dba89c153424308309627b4c6c92ac0c1b733",
+            "bytes": 123,
+            "encoding": "utf-8"
+          },
+          "toolchain": {
+            "adapter": "c",
+            "command": "/usr/sbin/gcc",
+            "version": "16.2.1"
+          },
+          "diagnostics": [],
+          "syntax_errors": [],
+          "attempts": [
+            {
+              "kind": "native",
+              "round": 1,
+              "command": [
+                "/usr/sbin/gcc",
+                "input.c"
+              ],
+              "exit_code": 0,
+              "duration_ms": 121,
+              "stdout": "",
+              "stderr": ""
+            }
+          ],
+          "model": null,
+          "result": {
+            "status": "native_ok",
+            "artifact": "a.out",
+            "program_exit": 7,
+            "repair": null,
+            "generated": null,
+            "fallback": null,
+            "timed_out": false,
+            "emitted_source": null
+          },
+          "timings": {
+            "total_ms": 128,
+            "toolchain_ms": 121,
+            "model_ms": 0
+          },
+          "privacy": {
+            "cloud_used": false,
+            "uploaded_bytes": 0
+          },
+          "budget": {
+            "limit_usd": 0.05,
+            "committed_usd": 0.0,
+            "attempts": 0,
+            "blocked_reason": null
+          },
+          "limits": {
+            "sandboxed": false,
+            "network_isolated": false,
+            "timeout_s": null,
+            "environment_filtered": false,
+            "process_tree_cleanup": "none",
+            "resource_limits": "none",
+            "filesystem_isolated": false,
+            "output_limited": false
+          }
+        },
+        "report_sha256": "86943beaade6c4b33e7990ed0e1fd205159e1eaa8f3461e1a70177bbac0cd114",
+        "status": "native_ok",
+        "native_build": {
+          "command": [
+            "/usr/sbin/gcc",
+            "input.c",
+            "-o",
+            "/tmp/yescc-binary-fdhe1ivj/native_c/native"
+          ],
+          "cwd": "/tmp/yescc-binary-fdhe1ivj/native_c",
+          "exit_code": 0,
+          "stdout": "",
+          "stderr": "",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "timed_out": false,
+          "duration_ms": 24
+        },
+        "native_comparison": {
+          "command": [
+            "/tmp/yescc-binary-fdhe1ivj/native_c/native",
+            "参数"
+          ],
+          "cwd": "/tmp/yescc-binary-fdhe1ivj/native_c",
+          "exit_code": 7,
+          "stdout": "native:参数\n",
+          "stderr": "native stderr\n",
+          "stdout_sha256": "45533019f9ad624cd623dcda3d47a74d32442507d5bcd210911341a7fc60ff37",
+          "stderr_sha256": "8794de3c2d8ce7c76f9b86ba6f6ab6f72b5ffc2a5c9cf781d3374009fbebbbf9",
+          "timed_out": false,
+          "duration_ms": 1
+        },
+        "exit_code": 7,
+        "model_calls_received": 0,
+        "passed": true
+      },
+      {
+        "id": "missing_toolchain_c",
+        "checks": {
+          "no_timeout_1": true,
+          "schema_v1": true,
+          "report_version": true,
+          "reported_model_calls": true,
+          "failed_with_102": true,
+          "single_build_report": true,
+          "not_command_error": true,
+          "json_stderr_empty": true,
+          "missing_tool_cause_saved": true,
+          "no_invented_attempt": true,
+          "no_invented_diagnostic": true,
+          "no_invented_tool_command_or_version": true,
+          "no_artifact": true,
+          "no_model": true,
+          "no_timeout_2": true,
+          "no_timeout_3": true,
+          "explain_json_uses_saved_report": true,
+          "explain_text_has_missing_tool_cause": true,
+          "explain_preserves_report": true,
+          "no_timeout_4": true,
+          "plain_missing_tool_cause": true,
+          "source_unchanged": true,
+          "toolchain_path_stayed_empty": true,
+          "model_request_count": true,
+          "dummy_key_not_exposed": true
+        },
+        "invocations": [
+          {
+            "command": [
+              "/tmp/yescc-native-install-n0ribw3y/yescc-0.1.0-linux-x86_64/yescc",
+              "input.c",
+              "--strict",
+              "--json",
+              "--offline"
+            ],
+            "cwd": "/tmp/yescc-binary-fdhe1ivj/missing_toolchain_c",
+            "exit_code": 102,
+            "stdout": "{\n  \"schema_version\": \"1\",\n  \"tool\": {\n    \"name\": \"yescc\",\n    \"version\": \"0.1.0\"\n  },\n  \"invocation\": {\n    \"argv\": [\n      \"input.c\",\n      \"--strict\",\n      \"--json\",\n      \"--offline\"\n    ],\n    \"mode\": \"build\",\n    \"lang\": \"c\",\n    \"strict\": true,\n    \"play\": false,\n    \"offline\": true\n  },\n  \"input\": {\n    \"path\": \"input.c\",\n    \"sha256\": \"86004d65c4f387c95467c6cee92bc1f1f8cb04d6650be09fbd1e359834a56766\",\n    \"bytes\": 26,\n    \"encoding\": \"utf-8\"\n  },\n  \"toolchain\": {\n    \"adapter\": \"unknown\",\n    \"command\": \"\",\n    \"version\": \"\"\n  },\n  \"diagnostics\": [],\n  \"syntax_errors\": [],\n  \"attempts\": [],\n  \"model\": null,\n  \"result\": {\n    \"status\": \"failed\",\n    \"artifact\": null,\n    \"program_exit\": null,\n    \"repair\": null,\n    \"generated\": null,\n    \"fallback\": null,\n    \"timed_out\": false,\n    \"emitted_source\": null,\n    \"failure_message\": \"构建失败（环境问题）：未找到 gcc。请安装 GCC（Linux: 发行版包管理器；Windows: MSYS2/MinGW-w64）后重试。\"\n  },\n  \"timings\": {\n    \"total_ms\": 0,\n    \"toolchain_ms\": 0,\n    \"model_ms\": 0\n  },\n  \"privacy\": {\n    \"cloud_used\": false,\n    \"uploaded_bytes\": 0\n  },\n  \"budget\": {\n    \"limit_usd\": 0.05,\n    \"committed_usd\": 0.0,\n    \"attempts\": 0,\n    \"blocked_reason\": null\n  },\n  \"limits\": {\n    \"sandboxed\": false,\n    \"network_isolated\": false,\n    \"timeout_s\": null,\n    \"environment_filtered\": false,\n    \"process_tree_cleanup\": \"none\",\n    \"resource_limits\": \"none\",\n    \"filesystem_isolated\": false,\n    \"output_limited\": false\n  }\n}\n",
+            "stderr": "",
+            "stdout_sha256": "ee9dd3bacddf2602390ee052768c97f0b7a5d69fd7d372354a4daad70bb238dd",
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false,
+            "duration_ms": 121
+          },
+          {
+            "command": [
+              "/tmp/yescc-native-install-n0ribw3y/yescc-0.1.0-linux-x86_64/yescc",
+              "input.c",
+              "--explain",
+              "--json",
+              "--offline"
+            ],
+            "cwd": "/tmp/yescc-binary-fdhe1ivj/missing_toolchain_c",
+            "exit_code": 0,
+            "stdout": "{\n  \"schema_version\": \"1\",\n  \"tool\": {\n    \"name\": \"yescc\",\n    \"version\": \"0.1.0\"\n  },\n  \"invocation\": {\n    \"argv\": [\n      \"input.c\",\n      \"--strict\",\n      \"--json\",\n      \"--offline\"\n    ],\n    \"mode\": \"build\",\n    \"lang\": \"c\",\n    \"strict\": true,\n    \"play\": false,\n    \"offline\": true\n  },\n  \"input\": {\n    \"path\": \"input.c\",\n    \"sha256\": \"86004d65c4f387c95467c6cee92bc1f1f8cb04d6650be09fbd1e359834a56766\",\n    \"bytes\": 26,\n    \"encoding\": \"utf-8\"\n  },\n  \"toolchain\": {\n    \"adapter\": \"unknown\",\n    \"command\": \"\",\n    \"version\": \"\"\n  },\n  \"diagnostics\": [],\n  \"syntax_errors\": [],\n  \"attempts\": [],\n  \"model\": null,\n  \"result\": {\n    \"status\": \"failed\",\n    \"artifact\": null,\n    \"program_exit\": null,\n    \"repair\": null,\n    \"generated\": null,\n    \"fallback\": null,\n    \"timed_out\": false,\n    \"emitted_source\": null,\n    \"failure_message\": \"构建失败（环境问题）：未找到 gcc。请安装 GCC（Linux: 发行版包管理器；Windows: MSYS2/MinGW-w64）后重试。\"\n  },\n  \"timings\": {\n    \"total_ms\": 0,\n    \"toolchain_ms\": 0,\n    \"model_ms\": 0\n  },\n  \"privacy\": {\n    \"cloud_used\": false,\n    \"uploaded_bytes\": 0\n  },\n  \"budget\": {\n    \"limit_usd\": 0.05,\n    \"committed_usd\": 0.0,\n    \"attempts\": 0,\n    \"blocked_reason\": null\n  },\n  \"limits\": {\n    \"sandboxed\": false,\n    \"network_isolated\": false,\n    \"timeout_s\": null,\n    \"environment_filtered\": false,\n    \"process_tree_cleanup\": \"none\",\n    \"resource_limits\": \"none\",\n    \"filesystem_isolated\": false,\n    \"output_limited\": false\n  }\n}\n",
+            "stderr": "",
+            "stdout_sha256": "ee9dd3bacddf2602390ee052768c97f0b7a5d69fd7d372354a4daad70bb238dd",
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false,
+            "duration_ms": 123
+          },
+          {
+            "command": [
+              "/tmp/yescc-native-install-n0ribw3y/yescc-0.1.0-linux-x86_64/yescc",
+              "input.c",
+              "--explain",
+              "--offline"
+            ],
+            "cwd": "/tmp/yescc-binary-fdhe1ivj/missing_toolchain_c",
+            "exit_code": 0,
+            "stdout": "状态：failed\n语言：c（ ）\n耗时：0 ms（工具链 0 ms）\n失败原因：构建失败（环境问题）：未找到 gcc。请安装 GCC（Linux: 发行版包管理器；Windows: MSYS2/MinGW-w64）后重试。\n",
+            "stderr": "",
+            "stdout_sha256": "2c797160d54b3ffded8ca4c2210fe63c6b647a5633fd3e7f06e86437bf66be32",
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false,
+            "duration_ms": 125
+          },
+          {
+            "command": [
+              "/tmp/yescc-native-install-n0ribw3y/yescc-0.1.0-linux-x86_64/yescc",
+              "input.c",
+              "--strict",
+              "--offline"
+            ],
+            "cwd": "/tmp/yescc-binary-fdhe1ivj/missing_toolchain_c",
+            "exit_code": 102,
+            "stdout": "",
+            "stderr": "构建失败（环境问题）：未找到 gcc。请安装 GCC（Linux: 发行版包管理器；Windows: MSYS2/MinGW-w64）后重试。\n诊断已保存：/tmp/yescc-binary-fdhe1ivj/missing_toolchain_c/.yescc/input/report.json；使用 --strict 查看原始输出。\n",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stderr_sha256": "4b2e9d7759757de51afdc29659e57ee54fa8faa8593127b7a9d432545b7a8f39",
+            "timed_out": false,
+            "duration_ms": 118
+          }
+        ],
+        "toolchain_path_override": "/tmp/yescc-binary-fdhe1ivj/missing_toolchain_c/empty-path",
+        "report": {
+          "schema_version": "1",
+          "tool": {
+            "name": "yescc",
+            "version": "0.1.0"
+          },
+          "invocation": {
+            "argv": [
+              "input.c",
+              "--strict",
+              "--json",
+              "--offline"
+            ],
+            "mode": "build",
+            "lang": "c",
+            "strict": true,
+            "play": false,
+            "offline": true
+          },
+          "input": {
+            "path": "input.c",
+            "sha256": "86004d65c4f387c95467c6cee92bc1f1f8cb04d6650be09fbd1e359834a56766",
+            "bytes": 26,
+            "encoding": "utf-8"
+          },
+          "toolchain": {
+            "adapter": "unknown",
+            "command": "",
+            "version": ""
+          },
+          "diagnostics": [],
+          "syntax_errors": [],
+          "attempts": [],
+          "model": null,
+          "result": {
+            "status": "failed",
+            "artifact": null,
+            "program_exit": null,
+            "repair": null,
+            "generated": null,
+            "fallback": null,
+            "timed_out": false,
+            "emitted_source": null,
+            "failure_message": "构建失败（环境问题）：未找到 gcc。请安装 GCC（Linux: 发行版包管理器；Windows: MSYS2/MinGW-w64）后重试。"
+          },
+          "timings": {
+            "total_ms": 0,
+            "toolchain_ms": 0,
+            "model_ms": 0
+          },
+          "privacy": {
+            "cloud_used": false,
+            "uploaded_bytes": 0
+          },
+          "budget": {
+            "limit_usd": 0.05,
+            "committed_usd": 0.0,
+            "attempts": 0,
+            "blocked_reason": null
+          },
+          "limits": {
+            "sandboxed": false,
+            "network_isolated": false,
+            "timeout_s": null,
+            "environment_filtered": false,
+            "process_tree_cleanup": "none",
+            "resource_limits": "none",
+            "filesystem_isolated": false,
+            "output_limited": false
+          }
+        },
+        "report_sha256": "ee9dd3bacddf2602390ee052768c97f0b7a5d69fd7d372354a4daad70bb238dd",
+        "status": "failed",
+        "source_sha256_before": "86004d65c4f387c95467c6cee92bc1f1f8cb04d6650be09fbd1e359834a56766",
+        "source_sha256_after": "86004d65c4f387c95467c6cee92bc1f1f8cb04d6650be09fbd1e359834a56766",
+        "model_calls_received": 0,
+        "passed": true
+      },
+      {
+        "id": "native_python",
+        "checks": {
+          "no_timeout_1": true,
+          "source_unchanged": true,
+          "schema_v1": true,
+          "report_version": true,
+          "reported_model_calls": true,
+          "external_toolchain": true,
+          "native_stdout_sha256": true,
+          "native_stderr_sha256": true,
+          "native_exit_code": true,
+          "native_expected_exit": true,
+          "status": true,
+          "model_request_count": true,
+          "dummy_key_not_exposed": true
+        },
+        "invocations": [
+          {
+            "command": [
+              "/tmp/yescc-native-install-n0ribw3y/yescc-0.1.0-linux-x86_64/yescc",
+              "run",
+              "input.py",
+              "--offline",
+              "--",
+              "参数"
+            ],
+            "cwd": "/tmp/yescc-binary-fdhe1ivj/native_python",
+            "exit_code": 7,
+            "stdout": "native:参数\n",
+            "stderr": "native stderr\n",
+            "stdout_sha256": "45533019f9ad624cd623dcda3d47a74d32442507d5bcd210911341a7fc60ff37",
+            "stderr_sha256": "8794de3c2d8ce7c76f9b86ba6f6ab6f72b5ffc2a5c9cf781d3374009fbebbbf9",
+            "timed_out": false,
+            "duration_ms": 215
+          }
+        ],
+        "source_sha256_before": "17deab9de693eecec98b3f0ecde361e271df85705cca6f9916cd2fc15ea4bdd4",
+        "source_sha256_after": "17deab9de693eecec98b3f0ecde361e271df85705cca6f9916cd2fc15ea4bdd4",
+        "report": {
+          "schema_version": "1",
+          "tool": {
+            "name": "yescc",
+            "version": "0.1.0"
+          },
+          "invocation": {
+            "argv": [
+              "run",
+              "input.py",
+              "--offline",
+              "--",
+              "参数"
+            ],
+            "mode": "run",
+            "lang": "python",
+            "strict": false,
+            "play": false,
+            "offline": true
+          },
+          "input": {
+            "path": "input.py",
+            "sha256": "17deab9de693eecec98b3f0ecde361e271df85705cca6f9916cd2fc15ea4bdd4",
+            "bytes": 99,
+            "encoding": "utf-8"
+          },
+          "toolchain": {
+            "adapter": "python",
+            "command": "/usr/sbin/python3",
+            "version": "3.14.10"
+          },
+          "diagnostics": [],
+          "syntax_errors": [],
+          "attempts": [
+            {
+              "kind": "native",
+              "round": 1,
+              "command": [
+                "/usr/sbin/python3",
+                "-m",
+                "py_compile",
+                "input.py"
+              ],
+              "exit_code": 0,
+              "duration_ms": 57,
+              "stdout": "",
+              "stderr": ""
+            }
+          ],
+          "model": null,
+          "result": {
+            "status": "native_ok",
+            "artifact": "__pycache__/input.cpython-314.pyc",
+            "program_exit": 7,
+            "repair": null,
+            "generated": null,
+            "fallback": null,
+            "timed_out": false,
+            "emitted_source": null
+          },
+          "timings": {
+            "total_ms": 94,
+            "toolchain_ms": 57,
+            "model_ms": 0
+          },
+          "privacy": {
+            "cloud_used": false,
+            "uploaded_bytes": 0
+          },
+          "budget": {
+            "limit_usd": 0.05,
+            "committed_usd": 0.0,
+            "attempts": 0,
+            "blocked_reason": null
+          },
+          "limits": {
+            "sandboxed": false,
+            "network_isolated": false,
+            "timeout_s": null,
+            "environment_filtered": false,
+            "process_tree_cleanup": "none",
+            "resource_limits": "none",
+            "filesystem_isolated": false,
+            "output_limited": false
+          }
+        },
+        "report_sha256": "6ccc9c5026f16fc753d3bf1483d8510bb3c42a79fcdf4c6548d632317f78a8ff",
+        "status": "native_ok",
+        "native_comparison": {
+          "command": [
+            "/usr/sbin/python3",
+            "input.py",
+            "参数"
+          ],
+          "cwd": "/tmp/yescc-binary-fdhe1ivj/native_python",
+          "exit_code": 7,
+          "stdout": "native:参数\n",
+          "stderr": "native stderr\n",
+          "stdout_sha256": "45533019f9ad624cd623dcda3d47a74d32442507d5bcd210911341a7fc60ff37",
+          "stderr_sha256": "8794de3c2d8ce7c76f9b86ba6f6ab6f72b5ffc2a5c9cf781d3374009fbebbbf9",
+          "timed_out": false,
+          "duration_ms": 8
+        },
+        "exit_code": 7,
+        "model_calls_received": 0,
+        "passed": true
+      },
+      {
+        "id": "missing_toolchain_python",
+        "checks": {
+          "no_timeout_1": true,
+          "schema_v1": true,
+          "report_version": true,
+          "reported_model_calls": true,
+          "failed_with_102": true,
+          "single_build_report": true,
+          "not_command_error": true,
+          "json_stderr_empty": true,
+          "missing_tool_cause_saved": true,
+          "no_invented_attempt": true,
+          "no_invented_diagnostic": true,
+          "no_invented_tool_command_or_version": true,
+          "no_artifact": true,
+          "no_model": true,
+          "no_timeout_2": true,
+          "no_timeout_3": true,
+          "explain_json_uses_saved_report": true,
+          "explain_text_has_missing_tool_cause": true,
+          "explain_preserves_report": true,
+          "no_timeout_4": true,
+          "plain_missing_tool_cause": true,
+          "source_unchanged": true,
+          "toolchain_path_stayed_empty": true,
+          "model_request_count": true,
+          "dummy_key_not_exposed": true
+        },
+        "invocations": [
+          {
+            "command": [
+              "/tmp/yescc-native-install-n0ribw3y/yescc-0.1.0-linux-x86_64/yescc",
+              "input.py",
+              "--strict",
+              "--json",
+              "--offline"
+            ],
+            "cwd": "/tmp/yescc-binary-fdhe1ivj/missing_toolchain_python",
+            "exit_code": 102,
+            "stdout": "{\n  \"schema_version\": \"1\",\n  \"tool\": {\n    \"name\": \"yescc\",\n    \"version\": \"0.1.0\"\n  },\n  \"invocation\": {\n    \"argv\": [\n      \"input.py\",\n      \"--strict\",\n      \"--json\",\n      \"--offline\"\n    ],\n    \"mode\": \"build\",\n    \"lang\": \"python\",\n    \"strict\": true,\n    \"play\": false,\n    \"offline\": true\n  },\n  \"input\": {\n    \"path\": \"input.py\",\n    \"sha256\": \"85491fac72105562a290996355a536ae62166da4bf04d2358cf8c478bc523b53\",\n    \"bytes\": 34,\n    \"encoding\": \"utf-8\"\n  },\n  \"toolchain\": {\n    \"adapter\": \"unknown\",\n    \"command\": \"\",\n    \"version\": \"\"\n  },\n  \"diagnostics\": [],\n  \"syntax_errors\": [],\n  \"attempts\": [],\n  \"model\": null,\n  \"result\": {\n    \"status\": \"failed\",\n    \"artifact\": null,\n    \"program_exit\": null,\n    \"repair\": null,\n    \"generated\": null,\n    \"fallback\": null,\n    \"timed_out\": false,\n    \"emitted_source\": null,\n    \"failure_message\": \"构建失败（环境问题）：未找到可运行的 Python 3。独立二进制的 Python 原生直通需要 PATH 中的 python3/python。\"\n  },\n  \"timings\": {\n    \"total_ms\": 0,\n    \"toolchain_ms\": 0,\n    \"model_ms\": 0\n  },\n  \"privacy\": {\n    \"cloud_used\": false,\n    \"uploaded_bytes\": 0\n  },\n  \"budget\": {\n    \"limit_usd\": 0.05,\n    \"committed_usd\": 0.0,\n    \"attempts\": 0,\n    \"blocked_reason\": null\n  },\n  \"limits\": {\n    \"sandboxed\": false,\n    \"network_isolated\": false,\n    \"timeout_s\": null,\n    \"environment_filtered\": false,\n    \"process_tree_cleanup\": \"none\",\n    \"resource_limits\": \"none\",\n    \"filesystem_isolated\": false,\n    \"output_limited\": false\n  }\n}\n",
+            "stderr": "",
+            "stdout_sha256": "0b484e52d746065b9e23e4fdd240c81e0a37b846081d0159cbb5ecd4624fa60a",
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false,
+            "duration_ms": 115
+          },
+          {
+            "command": [
+              "/tmp/yescc-native-install-n0ribw3y/yescc-0.1.0-linux-x86_64/yescc",
+              "input.py",
+              "--explain",
+              "--json",
+              "--offline"
+            ],
+            "cwd": "/tmp/yescc-binary-fdhe1ivj/missing_toolchain_python",
+            "exit_code": 0,
+            "stdout": "{\n  \"schema_version\": \"1\",\n  \"tool\": {\n    \"name\": \"yescc\",\n    \"version\": \"0.1.0\"\n  },\n  \"invocation\": {\n    \"argv\": [\n      \"input.py\",\n      \"--strict\",\n      \"--json\",\n      \"--offline\"\n    ],\n    \"mode\": \"build\",\n    \"lang\": \"python\",\n    \"strict\": true,\n    \"play\": false,\n    \"offline\": true\n  },\n  \"input\": {\n    \"path\": \"input.py\",\n    \"sha256\": \"85491fac72105562a290996355a536ae62166da4bf04d2358cf8c478bc523b53\",\n    \"bytes\": 34,\n    \"encoding\": \"utf-8\"\n  },\n  \"toolchain\": {\n    \"adapter\": \"unknown\",\n    \"command\": \"\",\n    \"version\": \"\"\n  },\n  \"diagnostics\": [],\n  \"syntax_errors\": [],\n  \"attempts\": [],\n  \"model\": null,\n  \"result\": {\n    \"status\": \"failed\",\n    \"artifact\": null,\n    \"program_exit\": null,\n    \"repair\": null,\n    \"generated\": null,\n    \"fallback\": null,\n    \"timed_out\": false,\n    \"emitted_source\": null,\n    \"failure_message\": \"构建失败（环境问题）：未找到可运行的 Python 3。独立二进制的 Python 原生直通需要 PATH 中的 python3/python。\"\n  },\n  \"timings\": {\n    \"total_ms\": 0,\n    \"toolchain_ms\": 0,\n    \"model_ms\": 0\n  },\n  \"privacy\": {\n    \"cloud_used\": false,\n    \"uploaded_bytes\": 0\n  },\n  \"budget\": {\n    \"limit_usd\": 0.05,\n    \"committed_usd\": 0.0,\n    \"attempts\": 0,\n    \"blocked_reason\": null\n  },\n  \"limits\": {\n    \"sandboxed\": false,\n    \"network_isolated\": false,\n    \"timeout_s\": null,\n    \"environment_filtered\": false,\n    \"process_tree_cleanup\": \"none\",\n    \"resource_limits\": \"none\",\n    \"filesystem_isolated\": false,\n    \"output_limited\": false\n  }\n}\n",
+            "stderr": "",
+            "stdout_sha256": "0b484e52d746065b9e23e4fdd240c81e0a37b846081d0159cbb5ecd4624fa60a",
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false,
+            "duration_ms": 120
+          },
+          {
+            "command": [
+              "/tmp/yescc-native-install-n0ribw3y/yescc-0.1.0-linux-x86_64/yescc",
+              "input.py",
+              "--explain",
+              "--offline"
+            ],
+            "cwd": "/tmp/yescc-binary-fdhe1ivj/missing_toolchain_python",
+            "exit_code": 0,
+            "stdout": "状态：failed\n语言：python（ ）\n耗时：0 ms（工具链 0 ms）\n失败原因：构建失败（环境问题）：未找到可运行的 Python 3。独立二进制的 Python 原生直通需要 PATH 中的 python3/python。\n",
+            "stderr": "",
+            "stdout_sha256": "db3c736081dddaa294415b5bf579c81cc27092b8abbd87c95392fa77ddcca7a9",
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false,
+            "duration_ms": 120
+          },
+          {
+            "command": [
+              "/tmp/yescc-native-install-n0ribw3y/yescc-0.1.0-linux-x86_64/yescc",
+              "input.py",
+              "--strict",
+              "--offline"
+            ],
+            "cwd": "/tmp/yescc-binary-fdhe1ivj/missing_toolchain_python",
+            "exit_code": 102,
+            "stdout": "",
+            "stderr": "构建失败（环境问题）：未找到可运行的 Python 3。独立二进制的 Python 原生直通需要 PATH 中的 python3/python。\n诊断已保存：/tmp/yescc-binary-fdhe1ivj/missing_toolchain_python/.yescc/input/report.json；使用 --strict 查看原始输出。\n",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stderr_sha256": "b8d18e2709abb3b24be84a2e19a353782070b796cd0cd45b946ba009e380f937",
+            "timed_out": false,
+            "duration_ms": 119
+          }
+        ],
+        "toolchain_path_override": "/tmp/yescc-binary-fdhe1ivj/missing_toolchain_python/empty-path",
+        "report": {
+          "schema_version": "1",
+          "tool": {
+            "name": "yescc",
+            "version": "0.1.0"
+          },
+          "invocation": {
+            "argv": [
+              "input.py",
+              "--strict",
+              "--json",
+              "--offline"
+            ],
+            "mode": "build",
+            "lang": "python",
+            "strict": true,
+            "play": false,
+            "offline": true
+          },
+          "input": {
+            "path": "input.py",
+            "sha256": "85491fac72105562a290996355a536ae62166da4bf04d2358cf8c478bc523b53",
+            "bytes": 34,
+            "encoding": "utf-8"
+          },
+          "toolchain": {
+            "adapter": "unknown",
+            "command": "",
+            "version": ""
+          },
+          "diagnostics": [],
+          "syntax_errors": [],
+          "attempts": [],
+          "model": null,
+          "result": {
+            "status": "failed",
+            "artifact": null,
+            "program_exit": null,
+            "repair": null,
+            "generated": null,
+            "fallback": null,
+            "timed_out": false,
+            "emitted_source": null,
+            "failure_message": "构建失败（环境问题）：未找到可运行的 Python 3。独立二进制的 Python 原生直通需要 PATH 中的 python3/python。"
+          },
+          "timings": {
+            "total_ms": 0,
+            "toolchain_ms": 0,
+            "model_ms": 0
+          },
+          "privacy": {
+            "cloud_used": false,
+            "uploaded_bytes": 0
+          },
+          "budget": {
+            "limit_usd": 0.05,
+            "committed_usd": 0.0,
+            "attempts": 0,
+            "blocked_reason": null
+          },
+          "limits": {
+            "sandboxed": false,
+            "network_isolated": false,
+            "timeout_s": null,
+            "environment_filtered": false,
+            "process_tree_cleanup": "none",
+            "resource_limits": "none",
+            "filesystem_isolated": false,
+            "output_limited": false
+          }
+        },
+        "report_sha256": "0b484e52d746065b9e23e4fdd240c81e0a37b846081d0159cbb5ecd4624fa60a",
+        "status": "failed",
+        "source_sha256_before": "85491fac72105562a290996355a536ae62166da4bf04d2358cf8c478bc523b53",
+        "source_sha256_after": "85491fac72105562a290996355a536ae62166da4bf04d2358cf8c478bc523b53",
+        "model_calls_received": 0,
+        "passed": true
+      },
+      {
+        "id": "native_javascript",
+        "checks": {
+          "no_timeout_1": true,
+          "source_unchanged": true,
+          "schema_v1": true,
+          "report_version": true,
+          "reported_model_calls": true,
+          "external_toolchain": true,
+          "native_stdout_sha256": true,
+          "native_stderr_sha256": true,
+          "native_exit_code": true,
+          "native_expected_exit": true,
+          "status": true,
+          "model_request_count": true,
+          "dummy_key_not_exposed": true
+        },
+        "invocations": [
+          {
+            "command": [
+              "/tmp/yescc-native-install-n0ribw3y/yescc-0.1.0-linux-x86_64/yescc",
+              "run",
+              "input.js",
+              "--offline",
+              "--",
+              "参数"
+            ],
+            "cwd": "/tmp/yescc-binary-fdhe1ivj/native_javascript",
+            "exit_code": 7,
+            "stdout": "native:参数\n",
+            "stderr": "native stderr\n",
+            "stdout_sha256": "45533019f9ad624cd623dcda3d47a74d32442507d5bcd210911341a7fc60ff37",
+            "stderr_sha256": "8794de3c2d8ce7c76f9b86ba6f6ab6f72b5ffc2a5c9cf781d3374009fbebbbf9",
+            "timed_out": false,
+            "duration_ms": 165
+          }
+        ],
+        "source_sha256_before": "13a2856bab7deafaafddec4227c3938c003b0ae86fa50c3ab678353a67bd6bfa",
+        "source_sha256_after": "13a2856bab7deafaafddec4227c3938c003b0ae86fa50c3ab678353a67bd6bfa",
+        "report": {
+          "schema_version": "1",
+          "tool": {
+            "name": "yescc",
+            "version": "0.1.0"
+          },
+          "invocation": {
+            "argv": [
+              "run",
+              "input.js",
+              "--offline",
+              "--",
+              "参数"
+            ],
+            "mode": "run",
+            "lang": "javascript",
+            "strict": false,
+            "play": false,
+            "offline": true
+          },
+          "input": {
+            "path": "input.js",
+            "sha256": "13a2856bab7deafaafddec4227c3938c003b0ae86fa50c3ab678353a67bd6bfa",
+            "bytes": 87,
+            "encoding": "utf-8"
+          },
+          "toolchain": {
+            "adapter": "javascript",
+            "command": "/home/wqwt/.local/bin/node",
+            "version": "v26.3.0"
+          },
+          "diagnostics": [],
+          "syntax_errors": [],
+          "attempts": [
+            {
+              "kind": "native",
+              "round": 1,
+              "command": [
+                "/home/wqwt/.local/bin/node",
+                "--check",
+                "input.js"
+              ],
+              "exit_code": 0,
+              "duration_ms": 20,
+              "stdout": "",
+              "stderr": ""
+            }
+          ],
+          "model": null,
+          "result": {
+            "status": "native_ok",
+            "artifact": null,
+            "program_exit": 7,
+            "repair": null,
+            "generated": null,
+            "fallback": null,
+            "timed_out": false,
+            "emitted_source": null
+          },
+          "timings": {
+            "total_ms": 46,
+            "toolchain_ms": 20,
+            "model_ms": 0
+          },
+          "privacy": {
+            "cloud_used": false,
+            "uploaded_bytes": 0
+          },
+          "budget": {
+            "limit_usd": 0.05,
+            "committed_usd": 0.0,
+            "attempts": 0,
+            "blocked_reason": null
+          },
+          "limits": {
+            "sandboxed": false,
+            "network_isolated": false,
+            "timeout_s": null,
+            "environment_filtered": false,
+            "process_tree_cleanup": "none",
+            "resource_limits": "none",
+            "filesystem_isolated": false,
+            "output_limited": false
+          }
+        },
+        "report_sha256": "8523a22e058f8950d914b7a01ba1415e951e594e7916787bb9726ddf7e0e2a6a",
+        "status": "native_ok",
+        "native_comparison": {
+          "command": [
+            "/home/wqwt/.local/bin/node",
+            "input.js",
+            "参数"
+          ],
+          "cwd": "/tmp/yescc-binary-fdhe1ivj/native_javascript",
+          "exit_code": 7,
+          "stdout": "native:参数\n",
+          "stderr": "native stderr\n",
+          "stdout_sha256": "45533019f9ad624cd623dcda3d47a74d32442507d5bcd210911341a7fc60ff37",
+          "stderr_sha256": "8794de3c2d8ce7c76f9b86ba6f6ab6f72b5ffc2a5c9cf781d3374009fbebbbf9",
+          "timed_out": false,
+          "duration_ms": 20
+        },
+        "exit_code": 7,
+        "model_calls_received": 0,
+        "passed": true
+      },
+      {
+        "id": "missing_toolchain_javascript",
+        "checks": {
+          "no_timeout_1": true,
+          "schema_v1": true,
+          "report_version": true,
+          "reported_model_calls": true,
+          "failed_with_102": true,
+          "single_build_report": true,
+          "not_command_error": true,
+          "json_stderr_empty": true,
+          "missing_tool_cause_saved": true,
+          "no_invented_attempt": true,
+          "no_invented_diagnostic": true,
+          "no_invented_tool_command_or_version": true,
+          "no_artifact": true,
+          "no_model": true,
+          "no_timeout_2": true,
+          "no_timeout_3": true,
+          "explain_json_uses_saved_report": true,
+          "explain_text_has_missing_tool_cause": true,
+          "explain_preserves_report": true,
+          "no_timeout_4": true,
+          "plain_missing_tool_cause": true,
+          "source_unchanged": true,
+          "toolchain_path_stayed_empty": true,
+          "model_request_count": true,
+          "dummy_key_not_exposed": true
+        },
+        "invocations": [
+          {
+            "command": [
+              "/tmp/yescc-native-install-n0ribw3y/yescc-0.1.0-linux-x86_64/yescc",
+              "input.js",
+              "--strict",
+              "--json",
+              "--offline"
+            ],
+            "cwd": "/tmp/yescc-binary-fdhe1ivj/missing_toolchain_javascript",
+            "exit_code": 102,
+            "stdout": "{\n  \"schema_version\": \"1\",\n  \"tool\": {\n    \"name\": \"yescc\",\n    \"version\": \"0.1.0\"\n  },\n  \"invocation\": {\n    \"argv\": [\n      \"input.js\",\n      \"--strict\",\n      \"--json\",\n      \"--offline\"\n    ],\n    \"mode\": \"build\",\n    \"lang\": \"javascript\",\n    \"strict\": true,\n    \"play\": false,\n    \"offline\": true\n  },\n  \"input\": {\n    \"path\": \"input.js\",\n    \"sha256\": \"0f56b3e390bcf048608521bb3b517cb503a31203e98fb5fcf11a6583ddba6fa2\",\n    \"bytes\": 39,\n    \"encoding\": \"utf-8\"\n  },\n  \"toolchain\": {\n    \"adapter\": \"unknown\",\n    \"command\": \"\",\n    \"version\": \"\"\n  },\n  \"diagnostics\": [],\n  \"syntax_errors\": [],\n  \"attempts\": [],\n  \"model\": null,\n  \"result\": {\n    \"status\": \"failed\",\n    \"artifact\": null,\n    \"program_exit\": null,\n    \"repair\": null,\n    \"generated\": null,\n    \"fallback\": null,\n    \"timed_out\": false,\n    \"emitted_source\": null,\n    \"failure_message\": \"构建失败（环境问题）：未找到 Node.js。请安装 Node.js 后重试。\"\n  },\n  \"timings\": {\n    \"total_ms\": 0,\n    \"toolchain_ms\": 0,\n    \"model_ms\": 0\n  },\n  \"privacy\": {\n    \"cloud_used\": false,\n    \"uploaded_bytes\": 0\n  },\n  \"budget\": {\n    \"limit_usd\": 0.05,\n    \"committed_usd\": 0.0,\n    \"attempts\": 0,\n    \"blocked_reason\": null\n  },\n  \"limits\": {\n    \"sandboxed\": false,\n    \"network_isolated\": false,\n    \"timeout_s\": null,\n    \"environment_filtered\": false,\n    \"process_tree_cleanup\": \"none\",\n    \"resource_limits\": \"none\",\n    \"filesystem_isolated\": false,\n    \"output_limited\": false\n  }\n}\n",
+            "stderr": "",
+            "stdout_sha256": "4edb704188b26b86b08a3459df5c4d5139033c38aa6bd7a36ccca1006a01e856",
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false,
+            "duration_ms": 115
+          },
+          {
+            "command": [
+              "/tmp/yescc-native-install-n0ribw3y/yescc-0.1.0-linux-x86_64/yescc",
+              "input.js",
+              "--explain",
+              "--json",
+              "--offline"
+            ],
+            "cwd": "/tmp/yescc-binary-fdhe1ivj/missing_toolchain_javascript",
+            "exit_code": 0,
+            "stdout": "{\n  \"schema_version\": \"1\",\n  \"tool\": {\n    \"name\": \"yescc\",\n    \"version\": \"0.1.0\"\n  },\n  \"invocation\": {\n    \"argv\": [\n      \"input.js\",\n      \"--strict\",\n      \"--json\",\n      \"--offline\"\n    ],\n    \"mode\": \"build\",\n    \"lang\": \"javascript\",\n    \"strict\": true,\n    \"play\": false,\n    \"offline\": true\n  },\n  \"input\": {\n    \"path\": \"input.js\",\n    \"sha256\": \"0f56b3e390bcf048608521bb3b517cb503a31203e98fb5fcf11a6583ddba6fa2\",\n    \"bytes\": 39,\n    \"encoding\": \"utf-8\"\n  },\n  \"toolchain\": {\n    \"adapter\": \"unknown\",\n    \"command\": \"\",\n    \"version\": \"\"\n  },\n  \"diagnostics\": [],\n  \"syntax_errors\": [],\n  \"attempts\": [],\n  \"model\": null,\n  \"result\": {\n    \"status\": \"failed\",\n    \"artifact\": null,\n    \"program_exit\": null,\n    \"repair\": null,\n    \"generated\": null,\n    \"fallback\": null,\n    \"timed_out\": false,\n    \"emitted_source\": null,\n    \"failure_message\": \"构建失败（环境问题）：未找到 Node.js。请安装 Node.js 后重试。\"\n  },\n  \"timings\": {\n    \"total_ms\": 0,\n    \"toolchain_ms\": 0,\n    \"model_ms\": 0\n  },\n  \"privacy\": {\n    \"cloud_used\": false,\n    \"uploaded_bytes\": 0\n  },\n  \"budget\": {\n    \"limit_usd\": 0.05,\n    \"committed_usd\": 0.0,\n    \"attempts\": 0,\n    \"blocked_reason\": null\n  },\n  \"limits\": {\n    \"sandboxed\": false,\n    \"network_isolated\": false,\n    \"timeout_s\": null,\n    \"environment_filtered\": false,\n    \"process_tree_cleanup\": \"none\",\n    \"resource_limits\": \"none\",\n    \"filesystem_isolated\": false,\n    \"output_limited\": false\n  }\n}\n",
+            "stderr": "",
+            "stdout_sha256": "4edb704188b26b86b08a3459df5c4d5139033c38aa6bd7a36ccca1006a01e856",
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false,
+            "duration_ms": 122
+          },
+          {
+            "command": [
+              "/tmp/yescc-native-install-n0ribw3y/yescc-0.1.0-linux-x86_64/yescc",
+              "input.js",
+              "--explain",
+              "--offline"
+            ],
+            "cwd": "/tmp/yescc-binary-fdhe1ivj/missing_toolchain_javascript",
+            "exit_code": 0,
+            "stdout": "状态：failed\n语言：javascript（ ）\n耗时：0 ms（工具链 0 ms）\n失败原因：构建失败（环境问题）：未找到 Node.js。请安装 Node.js 后重试。\n",
+            "stderr": "",
+            "stdout_sha256": "a16940f92cf83ecaa07768d939f64662387a9e7b6228e2310d132dad85796f29",
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false,
+            "duration_ms": 123
+          },
+          {
+            "command": [
+              "/tmp/yescc-native-install-n0ribw3y/yescc-0.1.0-linux-x86_64/yescc",
+              "input.js",
+              "--strict",
+              "--offline"
+            ],
+            "cwd": "/tmp/yescc-binary-fdhe1ivj/missing_toolchain_javascript",
+            "exit_code": 102,
+            "stdout": "",
+            "stderr": "构建失败（环境问题）：未找到 Node.js。请安装 Node.js 后重试。\n诊断已保存：/tmp/yescc-binary-fdhe1ivj/missing_toolchain_javascript/.yescc/input/report.json；使用 --strict 查看原始输出。\n",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stderr_sha256": "d21bbb4e4024b5fe71e152899737b8bc750c16769ebc89b3c22de2a1024f0fff",
+            "timed_out": false,
+            "duration_ms": 122
+          }
+        ],
+        "toolchain_path_override": "/tmp/yescc-binary-fdhe1ivj/missing_toolchain_javascript/empty-path",
+        "report": {
+          "schema_version": "1",
+          "tool": {
+            "name": "yescc",
+            "version": "0.1.0"
+          },
+          "invocation": {
+            "argv": [
+              "input.js",
+              "--strict",
+              "--json",
+              "--offline"
+            ],
+            "mode": "build",
+            "lang": "javascript",
+            "strict": true,
+            "play": false,
+            "offline": true
+          },
+          "input": {
+            "path": "input.js",
+            "sha256": "0f56b3e390bcf048608521bb3b517cb503a31203e98fb5fcf11a6583ddba6fa2",
+            "bytes": 39,
+            "encoding": "utf-8"
+          },
+          "toolchain": {
+            "adapter": "unknown",
+            "command": "",
+            "version": ""
+          },
+          "diagnostics": [],
+          "syntax_errors": [],
+          "attempts": [],
+          "model": null,
+          "result": {
+            "status": "failed",
+            "artifact": null,
+            "program_exit": null,
+            "repair": null,
+            "generated": null,
+            "fallback": null,
+            "timed_out": false,
+            "emitted_source": null,
+            "failure_message": "构建失败（环境问题）：未找到 Node.js。请安装 Node.js 后重试。"
+          },
+          "timings": {
+            "total_ms": 0,
+            "toolchain_ms": 0,
+            "model_ms": 0
+          },
+          "privacy": {
+            "cloud_used": false,
+            "uploaded_bytes": 0
+          },
+          "budget": {
+            "limit_usd": 0.05,
+            "committed_usd": 0.0,
+            "attempts": 0,
+            "blocked_reason": null
+          },
+          "limits": {
+            "sandboxed": false,
+            "network_isolated": false,
+            "timeout_s": null,
+            "environment_filtered": false,
+            "process_tree_cleanup": "none",
+            "resource_limits": "none",
+            "filesystem_isolated": false,
+            "output_limited": false
+          }
+        },
+        "report_sha256": "4edb704188b26b86b08a3459df5c4d5139033c38aa6bd7a36ccca1006a01e856",
+        "status": "failed",
+        "source_sha256_before": "0f56b3e390bcf048608521bb3b517cb503a31203e98fb5fcf11a6583ddba6fa2",
+        "source_sha256_after": "0f56b3e390bcf048608521bb3b517cb503a31203e98fb5fcf11a6583ddba6fa2",
+        "model_calls_received": 0,
+        "passed": true
+      },
+      {
+        "id": "rule_c",
+        "checks": {
+          "no_timeout_1": true,
+          "source_unchanged": true,
+          "schema_v1": true,
+          "report_version": true,
+          "reported_model_calls": true,
+          "status": true,
+          "exit_code": true,
+          "stdout": true,
+          "model_request_count": true,
+          "dummy_key_not_exposed": true
+        },
+        "invocations": [
+          {
+            "command": [
+              "/tmp/yescc-native-install-n0ribw3y/yescc-0.1.0-linux-x86_64/yescc",
+              "run",
+              "input.c",
+              "--offline"
+            ],
+            "cwd": "/tmp/yescc-binary-fdhe1ivj/rule_c",
+            "exit_code": 0,
+            "stdout": "rule\n",
+            "stderr": "",
+            "stdout_sha256": "6b79867175a1f0160044a8adb8b1b4f7a7e6f3ef76efeeaa633191f1f6c83d7d",
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false,
+            "duration_ms": 176
+          }
+        ],
+        "source_sha256_before": "7dd110d2e2e09f09760090c64e82489a242379b1bb1b600ae502cd9952468fbc",
+        "expected_model_calls": 0,
+        "source_sha256_after": "7dd110d2e2e09f09760090c64e82489a242379b1bb1b600ae502cd9952468fbc",
+        "report": {
+          "schema_version": "1",
+          "tool": {
+            "name": "yescc",
+            "version": "0.1.0"
+          },
+          "invocation": {
+            "argv": [
+              "run",
+              "input.c",
+              "--offline"
+            ],
+            "mode": "run",
+            "lang": "c",
+            "strict": false,
+            "play": false,
+            "offline": true
+          },
+          "input": {
+            "path": "input.c",
+            "sha256": "7dd110d2e2e09f09760090c64e82489a242379b1bb1b600ae502cd9952468fbc",
+            "bytes": 60,
+            "encoding": "utf-8"
+          },
+          "toolchain": {
+            "adapter": "c",
+            "command": "/usr/sbin/gcc",
+            "version": "16.2.1"
+          },
+          "diagnostics": [
+            {
+              "path": "input.c",
+              "line": 2,
+              "column": 36,
+              "severity": "error",
+              "message": "invalid suffix ‘；’ on integer constant"
+            },
+            {
+              "path": "input.c",
+              "line": 2,
+              "column": 39,
+              "severity": "error",
+              "message": "expected ‘;’ before ‘}’ token"
+            }
+          ],
+          "syntax_errors": [
+            {
+              "start": 47,
+              "end": 56
+            },
+            {
+              "start": 55,
+              "end": 56
+            }
+          ],
+          "attempts": [
+            {
+              "kind": "native",
+              "round": 1,
+              "command": [
+                "/usr/sbin/gcc",
+                "input.c"
+              ],
+              "exit_code": 1,
+              "duration_ms": 18,
+              "stdout": "",
+              "stderr": "input.c: In function ‘main’:\ninput.c:2:36: error: invalid suffix ‘；’ on integer constant\n    2 | int main(void){puts(\"rule\");return 0；}\n      |                                    ^~~\ninput.c:2:39: error: expected ‘;’ before ‘}’ token\n    2 | int main(void){puts(\"rule\");return 0；}\n      |                                       ^\n      |                                       ;\n"
+            },
+            {
+              "kind": "rule",
+              "round": 2,
+              "command": [
+                "/usr/sbin/gcc",
+                "/tmp/yescc-binary-fdhe1ivj/tmp/yescc-build-uy_f0dhc/input.c",
+                "-fdiagnostics-parseable-fixits",
+                "-iquote",
+                "/tmp/yescc-binary-fdhe1ivj/rule_c"
+              ],
+              "exit_code": 0,
+              "duration_ms": 27,
+              "stdout": "",
+              "stderr": ""
+            }
+          ],
+          "model": null,
+          "result": {
+            "status": "repaired",
+            "artifact": "a.out",
+            "program_exit": 0,
+            "repair": {
+              "rules": [
+                "fullwidth"
+              ],
+              "changed": 1,
+              "candidate_count": 1,
+              "patched_source": ".yescc/input/input.c",
+              "patch": ".yescc/input/patch.diff",
+              "assumptions": []
+            },
+            "generated": null,
+            "fallback": null,
+            "timed_out": false,
+            "emitted_source": null
+          },
+          "timings": {
+            "total_ms": 53,
+            "toolchain_ms": 45,
+            "model_ms": 0
+          },
+          "privacy": {
+            "cloud_used": false,
+            "uploaded_bytes": 0
+          },
+          "budget": {
+            "limit_usd": 0.05,
+            "committed_usd": 0.0,
+            "attempts": 0,
+            "blocked_reason": null
+          },
+          "limits": {
+            "sandboxed": true,
+            "network_isolated": false,
+            "timeout_s": 10.0,
+            "environment_filtered": true,
+            "process_tree_cleanup": "posix_group",
+            "resource_limits": "posix_best_effort",
+            "filesystem_isolated": false,
+            "output_limited": false
+          }
+        },
+        "report_sha256": "76b27add5bdad3ef7ec0eca153d933ef9be35b02cfdcb231288b23a03d703dfd",
+        "status": "repaired",
+        "exit_code": 0,
+        "model_calls_received": 0,
+        "passed": true
+      },
+      {
+        "id": "multi_error",
+        "checks": {
+          "no_timeout_1": true,
+          "source_unchanged": true,
+          "schema_v1": true,
+          "report_version": true,
+          "reported_model_calls": true,
+          "status": true,
+          "exit_code": true,
+          "stdout": true,
+          "model_request_count": true,
+          "dummy_key_not_exposed": true
+        },
+        "invocations": [
+          {
+            "command": [
+              "/tmp/yescc-native-install-n0ribw3y/yescc-0.1.0-linux-x86_64/yescc",
+              "run",
+              "input.c",
+              "--offline",
+              "--no-fallback"
+            ],
+            "cwd": "/tmp/yescc-binary-fdhe1ivj/multi_error",
+            "exit_code": 0,
+            "stdout": "value=7\n",
+            "stderr": "",
+            "stdout_sha256": "3f488c38714942bc14ef6295f1893c89f2c00036dd1f3538782bdba5ba074a7b",
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false,
+            "duration_ms": 165
+          }
+        ],
+        "source_sha256_before": "aa2276a8dfa41b1caffc3d4f9911c5f7c8aee723188ddf9b16a04c718b969b29",
+        "expected_model_calls": 0,
+        "source_sha256_after": "aa2276a8dfa41b1caffc3d4f9911c5f7c8aee723188ddf9b16a04c718b969b29",
+        "report": {
+          "schema_version": "1",
+          "tool": {
+            "name": "yescc",
+            "version": "0.1.0"
+          },
+          "invocation": {
+            "argv": [
+              "run",
+              "input.c",
+              "--offline",
+              "--no-fallback"
+            ],
+            "mode": "run",
+            "lang": "c",
+            "strict": false,
+            "play": false,
+            "offline": true
+          },
+          "input": {
+            "path": "input.c",
+            "sha256": "aa2276a8dfa41b1caffc3d4f9911c5f7c8aee723188ddf9b16a04c718b969b29",
+            "bytes": 95,
+            "encoding": "utf-8"
+          },
+          "toolchain": {
+            "adapter": "c",
+            "command": "/usr/sbin/gcc",
+            "version": "16.2.1"
+          },
+          "diagnostics": [
+            {
+              "path": "input.c",
+              "line": 1,
+              "column": 9,
+              "severity": "error",
+              "message": "expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘<’ token"
+            },
+            {
+              "path": "input.c",
+              "line": 4,
+              "column": 13,
+              "severity": "error",
+              "message": "invalid suffix ‘；’ on integer constant"
+            }
+          ],
+          "syntax_errors": [
+            {
+              "start": 0,
+              "end": 92
+            },
+            {
+              "start": 19,
+              "end": 22
+            },
+            {
+              "start": 48,
+              "end": 88
+            },
+            {
+              "start": 49,
+              "end": 50
+            }
+          ],
+          "attempts": [
+            {
+              "kind": "native",
+              "round": 1,
+              "command": [
+                "/usr/sbin/gcc",
+                "input.c"
+              ],
+              "exit_code": 1,
+              "duration_ms": 7,
+              "stdout": "",
+              "stderr": "input.c:1:9: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘<’ token\n    1 | include <stdio.h>\n      |         ^\ninput.c:4:13: error: invalid suffix ‘；’ on integer constant\n    4 |     int n = 7；\n      |             ^~~\n"
+            },
+            {
+              "kind": "rule",
+              "round": 2,
+              "command": [
+                "/usr/sbin/gcc",
+                "/tmp/yescc-binary-fdhe1ivj/tmp/yescc-build-im_urg2z/input.c",
+                "-fdiagnostics-parseable-fixits",
+                "-iquote",
+                "/tmp/yescc-binary-fdhe1ivj/multi_error"
+              ],
+              "exit_code": 0,
+              "duration_ms": 24,
+              "stdout": "",
+              "stderr": ""
+            }
+          ],
+          "model": null,
+          "result": {
+            "status": "repaired",
+            "artifact": "a.out",
+            "program_exit": 0,
+            "repair": {
+              "rules": [
+                "fullwidth",
+                "typo",
+                "include_hash",
+                "semicolon_ast"
+              ],
+              "changed": 87,
+              "candidate_count": 1,
+              "patched_source": ".yescc/input/input.c",
+              "patch": ".yescc/input/patch.diff",
+              "assumptions": []
+            },
+            "generated": null,
+            "fallback": null,
+            "timed_out": false,
+            "emitted_source": null
+          },
+          "timings": {
+            "total_ms": 44,
+            "toolchain_ms": 31,
+            "model_ms": 0
+          },
+          "privacy": {
+            "cloud_used": false,
+            "uploaded_bytes": 0
+          },
+          "budget": {
+            "limit_usd": 0.05,
+            "committed_usd": 0.0,
+            "attempts": 0,
+            "blocked_reason": null
+          },
+          "limits": {
+            "sandboxed": true,
+            "network_isolated": false,
+            "timeout_s": 10.0,
+            "environment_filtered": true,
+            "process_tree_cleanup": "posix_group",
+            "resource_limits": "posix_best_effort",
+            "filesystem_isolated": false,
+            "output_limited": false
+          }
+        },
+        "report_sha256": "d8b533b7dcf64b334aa666190c581a6817f12ecf795c0b0720756a0c7f20cfa9",
+        "status": "repaired",
+        "exit_code": 0,
+        "model_calls_received": 0,
+        "passed": true
+      },
+      {
+        "id": "offline_fallback",
+        "checks": {
+          "no_timeout_1": true,
+          "source_unchanged": true,
+          "schema_v1": true,
+          "report_version": true,
+          "reported_model_calls": true,
+          "status": true,
+          "exit_code": true,
+          "stdout": true,
+          "fallback_marked": true,
+          "guidance": true,
+          "print_input": true,
+          "model_request_count": true,
+          "dummy_key_not_exposed": true
+        },
+        "invocations": [
+          {
+            "command": [
+              "/tmp/yescc-native-install-n0ribw3y/yescc-0.1.0-linux-x86_64/yescc",
+              "run",
+              "input.xyz",
+              "--offline"
+            ],
+            "cwd": "/tmp/yescc-binary-fdhe1ivj/offline_fallback",
+            "exit_code": 0,
+            "stdout": "a stone begins to tell jokes\n",
+            "stderr": "yescc: 原始输入未能按语义完成，已生成创意兜底程序（kind=print_input，不是原程序的修复）。\nyescc: 本地兜底仅回显输入，未实现原始意图。\nyescc: 已启用 --offline，本次未发起模型请求。\nyescc: 若启用了 --play，请先去掉它；再用 --no-fallback 禁止创意兜底，或用 --strict 查看原生失败。\n",
+            "stdout_sha256": "d88c17da0d9eaf28efd7ce45081ed1707ef954b4d8ec02fe1e7c6b06261f4e9c",
+            "stderr_sha256": "8e9d23cc9d185455c0b587f5286e59a5c10fb7c5d2a8184b7ec7f656c65e3049",
+            "timed_out": false,
+            "duration_ms": 164
+          }
+        ],
+        "source_sha256_before": "d88c17da0d9eaf28efd7ce45081ed1707ef954b4d8ec02fe1e7c6b06261f4e9c",
+        "expected_model_calls": 0,
+        "source_sha256_after": "d88c17da0d9eaf28efd7ce45081ed1707ef954b4d8ec02fe1e7c6b06261f4e9c",
+        "report": {
+          "schema_version": "1",
+          "tool": {
+            "name": "yescc",
+            "version": "0.1.0"
+          },
+          "invocation": {
+            "argv": [
+              "run",
+              "input.xyz",
+              "--offline"
+            ],
+            "mode": "run",
+            "lang": "unknown",
+            "strict": false,
+            "play": false,
+            "offline": true
+          },
+          "input": {
+            "path": "input.xyz",
+            "sha256": "d88c17da0d9eaf28efd7ce45081ed1707ef954b4d8ec02fe1e7c6b06261f4e9c",
+            "bytes": 29,
+            "encoding": "utf-8"
+          },
+          "toolchain": {
+            "adapter": "c",
+            "command": "/usr/sbin/gcc",
+            "version": "16.2.1"
+          },
+          "diagnostics": [],
+          "syntax_errors": [],
+          "attempts": [
+            {
+              "kind": "fallback",
+              "round": 1,
+              "command": [
+                "/usr/sbin/gcc",
+                "/tmp/yescc-binary-fdhe1ivj/tmp/yescc-build-7jqpur2t/fallback.c",
+                "-iquote",
+                "/tmp/yescc-binary-fdhe1ivj/offline_fallback"
+              ],
+              "exit_code": 0,
+              "duration_ms": 22,
+              "stdout": "",
+              "stderr": ""
+            }
+          ],
+          "model": null,
+          "result": {
+            "status": "creative_fallback",
+            "artifact": "a.out",
+            "program_exit": 0,
+            "repair": null,
+            "generated": null,
+            "fallback": {
+              "kind": "print_input",
+              "guidance": [
+                "本地兜底仅回显输入，未实现原始意图。",
+                "已启用 --offline，本次未发起模型请求。",
+                "若启用了 --play，请先去掉它；再用 --no-fallback 禁止创意兜底，或用 --strict 查看原生失败。"
+              ],
+              "reason": "未识别的输入类型",
+              "source": ".yescc/input/fallback.c"
+            },
+            "timed_out": false,
+            "emitted_source": null
+          },
+          "timings": {
+            "total_ms": 29,
+            "toolchain_ms": 22,
+            "model_ms": 0
+          },
+          "privacy": {
+            "cloud_used": false,
+            "uploaded_bytes": 0
+          },
+          "budget": {
+            "limit_usd": 0.05,
+            "committed_usd": 0.0,
+            "attempts": 0,
+            "blocked_reason": null
+          },
+          "limits": {
+            "sandboxed": true,
+            "network_isolated": false,
+            "timeout_s": 10.0,
+            "environment_filtered": true,
+            "process_tree_cleanup": "posix_group",
+            "resource_limits": "posix_best_effort",
+            "filesystem_isolated": false,
+            "output_limited": false
+          }
+        },
+        "report_sha256": "65f9d4c33cb10e2a1992d77c71902133e86e6e366307dc07bbfb1a4567f6d7c6",
+        "status": "creative_fallback",
+        "exit_code": 0,
+        "model_calls_received": 0,
+        "passed": true
+      },
+      {
+        "id": "strict",
+        "checks": {
+          "no_timeout_1": true,
+          "source_unchanged": true,
+          "schema_v1": true,
+          "report_version": true,
+          "reported_model_calls": true,
+          "status": true,
+          "exit_code": true,
+          "stdout": true,
+          "model_request_count": true,
+          "dummy_key_not_exposed": true
+        },
+        "invocations": [
+          {
+            "command": [
+              "/tmp/yescc-native-install-n0ribw3y/yescc-0.1.0-linux-x86_64/yescc",
+              "run",
+              "input.c",
+              "--strict",
+              "--offline"
+            ],
+            "cwd": "/tmp/yescc-binary-fdhe1ivj/strict",
+            "exit_code": 102,
+            "stdout": "",
+            "stderr": "input.c: In function ‘main’:\ninput.c:1:23: error: ‘missing_binary_symbol’ undeclared (first use in this function)\n    1 | int main(void){return missing_binary_symbol;}\n      |                       ^~~~~~~~~~~~~~~~~~~~~\ninput.c:1:23: note: each undeclared identifier is reported only once for each function it appears in\n",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stderr_sha256": "acd79ea0cf3fcfc4bc87d713758541a08658bd996b8056d3ca95a55b7e9f9afb",
+            "timed_out": false,
+            "duration_ms": 128
+          }
+        ],
+        "source_sha256_before": "47af6ac807fc8026e231368b6d76b1c5eb1ef50ce8d998916af1878a5c5071c7",
+        "expected_model_calls": 0,
+        "source_sha256_after": "47af6ac807fc8026e231368b6d76b1c5eb1ef50ce8d998916af1878a5c5071c7",
+        "report": {
+          "schema_version": "1",
+          "tool": {
+            "name": "yescc",
+            "version": "0.1.0"
+          },
+          "invocation": {
+            "argv": [
+              "run",
+              "input.c",
+              "--strict",
+              "--offline"
+            ],
+            "mode": "run",
+            "lang": "c",
+            "strict": true,
+            "play": false,
+            "offline": true
+          },
+          "input": {
+            "path": "input.c",
+            "sha256": "47af6ac807fc8026e231368b6d76b1c5eb1ef50ce8d998916af1878a5c5071c7",
+            "bytes": 46,
+            "encoding": "utf-8"
+          },
+          "toolchain": {
+            "adapter": "c",
+            "command": "/usr/sbin/gcc",
+            "version": "16.2.1"
+          },
+          "diagnostics": [
+            {
+              "path": "input.c",
+              "line": 1,
+              "column": 23,
+              "severity": "error",
+              "message": "‘missing_binary_symbol’ undeclared (first use in this function)"
+            },
+            {
+              "path": "input.c",
+              "line": 1,
+              "column": 23,
+              "severity": "note",
+              "message": "each undeclared identifier is reported only once for each function it appears in"
+            }
+          ],
+          "syntax_errors": [],
+          "attempts": [
+            {
+              "kind": "native",
+              "round": 1,
+              "command": [
+                "/usr/sbin/gcc",
+                "input.c"
+              ],
+              "exit_code": 1,
+              "duration_ms": 5,
+              "stdout": "",
+              "stderr": "input.c: In function ‘main’:\ninput.c:1:23: error: ‘missing_binary_symbol’ undeclared (first use in this function)\n    1 | int main(void){return missing_binary_symbol;}\n      |                       ^~~~~~~~~~~~~~~~~~~~~\ninput.c:1:23: note: each undeclared identifier is reported only once for each function it appears in\n"
+            }
+          ],
+          "model": null,
+          "result": {
+            "status": "native_failed",
+            "artifact": null,
+            "program_exit": null,
+            "repair": null,
+            "generated": null,
+            "fallback": null,
+            "timed_out": false,
+            "emitted_source": null,
+            "failure_message": "构建未完成。"
+          },
+          "timings": {
+            "total_ms": 6,
+            "toolchain_ms": 5,
+            "model_ms": 0
+          },
+          "privacy": {
+            "cloud_used": false,
+            "uploaded_bytes": 0
+          },
+          "budget": {
+            "limit_usd": 0.05,
+            "committed_usd": 0.0,
+            "attempts": 0,
+            "blocked_reason": null
+          },
+          "limits": {
+            "sandboxed": false,
+            "network_isolated": false,
+            "timeout_s": null,
+            "environment_filtered": false,
+            "process_tree_cleanup": "none",
+            "resource_limits": "none",
+            "filesystem_isolated": false,
+            "output_limited": false
+          }
+        },
+        "report_sha256": "172f4a54d171ef2c381d54f9b4b434b97606bc90bc18f353a39db44ea322a362",
+        "status": "native_failed",
+        "exit_code": 102,
+        "model_calls_received": 0,
+        "passed": true
+      },
+      {
+        "id": "model_repair",
+        "checks": {
+          "no_timeout_1": true,
+          "source_unchanged": true,
+          "schema_v1": true,
+          "report_version": true,
+          "reported_model_calls": true,
+          "status": true,
+          "exit_code": true,
+          "stdout": true,
+          "model_request_count": true,
+          "dummy_key_not_exposed": true
+        },
+        "invocations": [
+          {
+            "command": [
+              "/tmp/yescc-native-install-n0ribw3y/yescc-0.1.0-linux-x86_64/yescc",
+              "run",
+              "input.c",
+              "--no-cache",
+              "--no-fallback"
+            ],
+            "cwd": "/tmp/yescc-binary-fdhe1ivj/model_repair",
+            "exit_code": 0,
+            "stdout": "model\n",
+            "stderr": "",
+            "stdout_sha256": "98ad61a25e3683b6adf2474b01bbe1c27de6aad2ce3a80ff4140fe473c14e691",
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false,
+            "duration_ms": 213
+          }
+        ],
+        "source_sha256_before": "327aff61084c830f277bf73e3f32c5fd0dc92a0fa2ebccb607c07fbc53f9a520",
+        "expected_model_calls": 1,
+        "source_sha256_after": "327aff61084c830f277bf73e3f32c5fd0dc92a0fa2ebccb607c07fbc53f9a520",
+        "report": {
+          "schema_version": "1",
+          "tool": {
+            "name": "yescc",
+            "version": "0.1.0"
+          },
+          "invocation": {
+            "argv": [
+              "run",
+              "input.c",
+              "--no-cache",
+              "--no-fallback"
+            ],
+            "mode": "run",
+            "lang": "c",
+            "strict": false,
+            "play": false,
+            "offline": false
+          },
+          "input": {
+            "path": "input.c",
+            "sha256": "327aff61084c830f277bf73e3f32c5fd0dc92a0fa2ebccb607c07fbc53f9a520",
+            "bytes": 82,
+            "encoding": "utf-8"
+          },
+          "toolchain": {
+            "adapter": "c",
+            "command": "/usr/sbin/gcc",
+            "version": "16.2.1"
+          },
+          "diagnostics": [
+            {
+              "path": "input.c",
+              "line": 4,
+              "column": 8,
+              "severity": "error",
+              "message": "‘missing_binary_symbol’ undeclared (first use in this function)"
+            },
+            {
+              "path": "input.c",
+              "line": 4,
+              "column": 8,
+              "severity": "note",
+              "message": "each undeclared identifier is reported only once for each function it appears in"
+            }
+          ],
+          "syntax_errors": [],
+          "attempts": [
+            {
+              "kind": "native",
+              "round": 1,
+              "command": [
+                "/usr/sbin/gcc",
+                "input.c"
+              ],
+              "exit_code": 1,
+              "duration_ms": 8,
+              "stdout": "",
+              "stderr": "input.c: In function ‘main’:\ninput.c:4:8: error: ‘missing_binary_symbol’ undeclared (first use in this function)\n    4 | return missing_binary_symbol;\n      |        ^~~~~~~~~~~~~~~~~~~~~\ninput.c:4:8: note: each undeclared identifier is reported only once for each function it appears in\n"
+            },
+            {
+              "kind": "model",
+              "round": 1,
+              "command": [
+                "/usr/sbin/gcc",
+                "/tmp/yescc-binary-fdhe1ivj/tmp/yescc-build-6gjg8lrd/input.c",
+                "-iquote",
+                "/tmp/yescc-binary-fdhe1ivj/model_repair"
+              ],
+              "exit_code": 0,
+              "duration_ms": 23,
+              "stdout": "",
+              "stderr": ""
+            }
+          ],
+          "model": {
+            "provider": "openai-compatible",
+            "tier": "l2",
+            "name": "binary-local-fake",
+            "calls": 1,
+            "prompt_tokens": 10,
+            "completion_tokens": 5,
+            "cost_usd": 1.5e-05,
+            "cache_hits": 0,
+            "duration_ms": 47,
+            "errors": [],
+            "cost_known": true,
+            "requested_model": "binary-local-fake",
+            "served_model": null,
+            "finish_reason": null,
+            "reasoning_tokens": null,
+            "response_source": "http",
+            "request_settings": {
+              "max_tokens": 1024,
+              "temperature": 0.0
+            },
+            "configured_settings": {
+              "max_tokens": 1024,
+              "temperature": 0.0
+            },
+            "responses": [
+              {
+                "provider": "openai-compatible",
+                "requested_model": "binary-local-fake",
+                "served_model": null,
+                "finish_reason": null,
+                "reasoning_tokens": null,
+                "prompt_tokens": 10,
+                "completion_tokens": 5,
+                "usage_known": true,
+                "configured_settings": {
+                  "max_tokens": 1024,
+                  "temperature": 0.0
+                },
+                "request_settings": {
+                  "max_tokens": 1024,
+                  "temperature": 0.0
+                }
+              }
+            ]
+          },
+          "result": {
+            "status": "repaired",
+            "artifact": "a.out",
+            "program_exit": 0,
+            "repair": {
+              "rules": [
+                "model"
+              ],
+              "changed": 25,
+              "candidate_count": 1,
+              "patched_source": ".yescc/input/input.c",
+              "patch": ".yescc/input/patch.diff",
+              "assumptions": [],
+              "patch_normalizations": [],
+              "raw_diff": "@@ -1,5 +1,5 @@\n #include <stdio.h>\n int main(void){\n puts(\"model\");\n-return missing_binary_symbol;\n+return 0;\n }\n"
+            },
+            "generated": null,
+            "fallback": null,
+            "timed_out": false,
+            "emitted_source": null
+          },
+          "timings": {
+            "total_ms": 88,
+            "toolchain_ms": 31,
+            "model_ms": 47
+          },
+          "privacy": {
+            "cloud_used": false,
+            "uploaded_bytes": 0
+          },
+          "budget": {
+            "limit_usd": 0.05,
+            "committed_usd": 1.4999999999999823e-05,
+            "attempts": 1,
+            "blocked_reason": null
+          },
+          "limits": {
+            "sandboxed": true,
+            "network_isolated": false,
+            "timeout_s": 10.0,
+            "environment_filtered": true,
+            "process_tree_cleanup": "posix_group",
+            "resource_limits": "posix_best_effort",
+            "filesystem_isolated": false,
+            "output_limited": false
+          }
+        },
+        "report_sha256": "b6f29857a2205877df84ed4eca07999374c8487a74ce60de7f7e37b2d3ee7e62",
+        "status": "repaired",
+        "exit_code": 0,
+        "model_calls_received": 1,
+        "passed": true
+      },
+      {
+        "id": "model_generated",
+        "checks": {
+          "no_timeout_1": true,
+          "source_unchanged": true,
+          "schema_v1": true,
+          "report_version": true,
+          "reported_model_calls": true,
+          "status": true,
+          "exit_code": true,
+          "stdout": true,
+          "model_request_count": true,
+          "dummy_key_not_exposed": true
+        },
+        "invocations": [
+          {
+            "command": [
+              "/tmp/yescc-native-install-n0ribw3y/yescc-0.1.0-linux-x86_64/yescc",
+              "run",
+              "input.txt",
+              "--no-cache"
+            ],
+            "cwd": "/tmp/yescc-binary-fdhe1ivj/model_generated",
+            "exit_code": 0,
+            "stdout": "generated\n",
+            "stderr": "",
+            "stdout_sha256": "9f5936ff15d3a2ba7d3d8f21858338a6c1e2adc9fe34c685c7de5b4a00caa29a",
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false,
+            "duration_ms": 212
+          }
+        ],
+        "source_sha256_before": "6539f4dc994ef2abf94a8de0dbd79ddddd3a15dfc4386ae1eff6766473a9e34b",
+        "expected_model_calls": 1,
+        "source_sha256_after": "6539f4dc994ef2abf94a8de0dbd79ddddd3a15dfc4386ae1eff6766473a9e34b",
+        "report": {
+          "schema_version": "1",
+          "tool": {
+            "name": "yescc",
+            "version": "0.1.0"
+          },
+          "invocation": {
+            "argv": [
+              "run",
+              "input.txt",
+              "--no-cache"
+            ],
+            "mode": "run",
+            "lang": "unknown",
+            "strict": false,
+            "play": false,
+            "offline": false
+          },
+          "input": {
+            "path": "input.txt",
+            "sha256": "6539f4dc994ef2abf94a8de0dbd79ddddd3a15dfc4386ae1eff6766473a9e34b",
+            "bytes": 32,
+            "encoding": "utf-8"
+          },
+          "toolchain": {
+            "adapter": "c",
+            "command": "/usr/sbin/gcc",
+            "version": "16.2.1"
+          },
+          "diagnostics": [],
+          "syntax_errors": [],
+          "attempts": [
+            {
+              "kind": "model",
+              "round": 1,
+              "command": [
+                "/usr/sbin/gcc",
+                "/tmp/yescc-binary-fdhe1ivj/tmp/yescc-build-jz_wj81s/generated.c",
+                "-iquote",
+                "/tmp/yescc-binary-fdhe1ivj/model_generated",
+                "-lm"
+              ],
+              "exit_code": 0,
+              "duration_ms": 28,
+              "stdout": "",
+              "stderr": ""
+            }
+          ],
+          "model": {
+            "provider": "openai-compatible",
+            "tier": "l3",
+            "name": "binary-local-fake",
+            "calls": 1,
+            "prompt_tokens": 10,
+            "completion_tokens": 5,
+            "cost_usd": 1.5e-05,
+            "cache_hits": 0,
+            "duration_ms": 50,
+            "errors": [],
+            "cost_known": true,
+            "requested_model": "binary-local-fake",
+            "served_model": null,
+            "finish_reason": null,
+            "reasoning_tokens": null,
+            "response_source": "http",
+            "request_settings": {
+              "max_tokens": 1024,
+              "temperature": 0.0
+            },
+            "configured_settings": {
+              "max_tokens": 1024,
+              "temperature": 0.0
+            },
+            "responses": [
+              {
+                "provider": "openai-compatible",
+                "requested_model": "binary-local-fake",
+                "served_model": null,
+                "finish_reason": null,
+                "reasoning_tokens": null,
+                "prompt_tokens": 10,
+                "completion_tokens": 5,
+                "usage_known": true,
+                "configured_settings": {
+                  "max_tokens": 1024,
+                  "temperature": 0.0
+                },
+                "request_settings": {
+                  "max_tokens": 1024,
+                  "temperature": 0.0
+                }
+              }
+            ]
+          },
+          "result": {
+            "status": "generated",
+            "artifact": "a.out",
+            "program_exit": 0,
+            "repair": null,
+            "generated": {
+              "source": ".yescc/input/generated.c",
+              "creative": false,
+              "io_contract": "",
+              "assumptions": []
+            },
+            "fallback": null,
+            "timed_out": false,
+            "emitted_source": null
+          },
+          "timings": {
+            "total_ms": 85,
+            "toolchain_ms": 28,
+            "model_ms": 50
+          },
+          "privacy": {
+            "cloud_used": false,
+            "uploaded_bytes": 0
+          },
+          "budget": {
+            "limit_usd": 0.05,
+            "committed_usd": 1.4999999999999823e-05,
+            "attempts": 1,
+            "blocked_reason": null
+          },
+          "limits": {
+            "sandboxed": true,
+            "network_isolated": false,
+            "timeout_s": 10.0,
+            "environment_filtered": true,
+            "process_tree_cleanup": "posix_group",
+            "resource_limits": "posix_best_effort",
+            "filesystem_isolated": false,
+            "output_limited": false
+          }
+        },
+        "report_sha256": "55ac1d741dc436dbe27709f0d3d18fd37a6585cfa6c3f797cd1c94d01aabf9f9",
+        "status": "generated",
+        "exit_code": 0,
+        "model_calls_received": 1,
+        "passed": true
+      },
+      {
+        "id": "model_creative",
+        "checks": {
+          "no_timeout_1": true,
+          "source_unchanged": true,
+          "schema_v1": true,
+          "report_version": true,
+          "reported_model_calls": true,
+          "status": true,
+          "exit_code": true,
+          "stdout": true,
+          "fallback_marked": true,
+          "model_request_count": true,
+          "dummy_key_not_exposed": true
+        },
+        "invocations": [
+          {
+            "command": [
+              "/tmp/yescc-native-install-n0ribw3y/yescc-0.1.0-linux-x86_64/yescc",
+              "run",
+              "input.txt",
+              "--play",
+              "--no-cache"
+            ],
+            "cwd": "/tmp/yescc-binary-fdhe1ivj/model_creative",
+            "exit_code": 0,
+            "stdout": "creative\n",
+            "stderr": "yescc: 原始输入未能按语义完成，已生成创意兜底程序（kind=model_creative，不是原程序的修复）。\n",
+            "stdout_sha256": "dbc8efc578dee4dc82777f19b9e2be71cd15628c37f9ec3b8bd0a388d9173971",
+            "stderr_sha256": "c4980818638bc6444b65b89b62b20d66e6305a9eff42fb9969e62ed3247fb7bb",
+            "timed_out": false,
+            "duration_ms": 205
+          }
+        ],
+        "source_sha256_before": "d88c17da0d9eaf28efd7ce45081ed1707ef954b4d8ec02fe1e7c6b06261f4e9c",
+        "expected_model_calls": 1,
+        "source_sha256_after": "d88c17da0d9eaf28efd7ce45081ed1707ef954b4d8ec02fe1e7c6b06261f4e9c",
+        "report": {
+          "schema_version": "1",
+          "tool": {
+            "name": "yescc",
+            "version": "0.1.0"
+          },
+          "invocation": {
+            "argv": [
+              "run",
+              "input.txt",
+              "--play",
+              "--no-cache"
+            ],
+            "mode": "run",
+            "lang": "unknown",
+            "strict": false,
+            "play": true,
+            "offline": false
+          },
+          "input": {
+            "path": "input.txt",
+            "sha256": "d88c17da0d9eaf28efd7ce45081ed1707ef954b4d8ec02fe1e7c6b06261f4e9c",
+            "bytes": 29,
+            "encoding": "utf-8"
+          },
+          "toolchain": {
+            "adapter": "c",
+            "command": "/usr/sbin/gcc",
+            "version": "16.2.1"
+          },
+          "diagnostics": [],
+          "syntax_errors": [],
+          "attempts": [
+            {
+              "kind": "model",
+              "round": 1,
+              "command": [
+                "/usr/sbin/gcc",
+                "/tmp/yescc-binary-fdhe1ivj/tmp/yescc-build-xk4cj0fv/generated.c",
+                "-iquote",
+                "/tmp/yescc-binary-fdhe1ivj/model_creative",
+                "-lm"
+              ],
+              "exit_code": 0,
+              "duration_ms": 27,
+              "stdout": "",
+              "stderr": "",
+              "source_checks": {
+                "performed": true,
+                "passed": true,
+                "reasons": []
+              },
+              "validation": {
+                "performed": true,
+                "passed": true,
+                "reasons": [],
+                "exit_code": 0,
+                "stdout_bytes": 9,
+                "stderr_bytes": 0,
+                "stdout_complete": true,
+                "stderr_complete": true,
+                "utf8_valid": true,
+                "stdout_nonempty": true,
+                "output_limited": false,
+                "timed_out": false,
+                "max_output_bytes": 65536
+              },
+              "validation_limits": {
+                "sandboxed": true,
+                "network_isolated": false,
+                "timeout_s": 10.0,
+                "environment_filtered": true,
+                "process_tree_cleanup": "posix_group",
+                "resource_limits": "posix_best_effort",
+                "output_limited": false
+              }
+            }
+          ],
+          "model": {
+            "provider": "openai-compatible",
+            "tier": "l3",
+            "name": "binary-local-fake",
+            "calls": 1,
+            "prompt_tokens": 10,
+            "completion_tokens": 5,
+            "cost_usd": 1.5e-05,
+            "cache_hits": 0,
+            "duration_ms": 49,
+            "errors": [],
+            "cost_known": true,
+            "requested_model": "binary-local-fake",
+            "served_model": null,
+            "finish_reason": null,
+            "reasoning_tokens": null,
+            "response_source": "http",
+            "request_settings": {
+              "max_tokens": 1024,
+              "temperature": 0.4
+            },
+            "configured_settings": {
+              "max_tokens": 1024,
+              "temperature": 0.4
+            },
+            "responses": [
+              {
+                "provider": "openai-compatible",
+                "requested_model": "binary-local-fake",
+                "served_model": null,
+                "finish_reason": null,
+                "reasoning_tokens": null,
+                "prompt_tokens": 10,
+                "completion_tokens": 5,
+                "usage_known": true,
+                "configured_settings": {
+                  "max_tokens": 1024,
+                  "temperature": 0.4
+                },
+                "request_settings": {
+                  "max_tokens": 1024,
+                  "temperature": 0.4
+                }
+              }
+            ]
+          },
+          "result": {
+            "status": "creative_fallback",
+            "artifact": "a.out",
+            "program_exit": 0,
+            "repair": null,
+            "generated": {
+              "source": ".yescc/input/fallback.c",
+              "creative": true,
+              "io_contract": "",
+              "assumptions": [],
+              "source_checks": {
+                "performed": true,
+                "passed": true,
+                "reasons": []
+              },
+              "validation": {
+                "performed": true,
+                "passed": true,
+                "reasons": [],
+                "exit_code": 0,
+                "stdout_bytes": 9,
+                "stderr_bytes": 0,
+                "stdout_complete": true,
+                "stderr_complete": true,
+                "utf8_valid": true,
+                "stdout_nonempty": true,
+                "output_limited": false,
+                "timed_out": false,
+                "max_output_bytes": 65536
+              }
+            },
+            "fallback": {
+              "kind": "model_creative",
+              "reason": "用户请求 --play",
+              "source": ".yescc/input/fallback.c"
+            },
+            "timed_out": false,
+            "emitted_source": null
+          },
+          "timings": {
+            "total_ms": 83,
+            "toolchain_ms": 27,
+            "model_ms": 49
+          },
+          "privacy": {
+            "cloud_used": false,
+            "uploaded_bytes": 0
+          },
+          "budget": {
+            "limit_usd": 0.05,
+            "committed_usd": 1.5000000000000256e-05,
+            "attempts": 1,
+            "blocked_reason": null
+          },
+          "limits": {
+            "sandboxed": true,
+            "network_isolated": false,
+            "timeout_s": 10.0,
+            "environment_filtered": true,
+            "process_tree_cleanup": "posix_group",
+            "resource_limits": "posix_best_effort",
+            "filesystem_isolated": false,
+            "output_limited": false
+          }
+        },
+        "report_sha256": "caddaa92c2eababa90f4cf0b65bdb0c162c5352cb85523eef64465fc586274d3",
+        "status": "creative_fallback",
+        "exit_code": 0,
+        "model_calls_received": 1,
+        "passed": true
+      },
+      {
+        "id": "creative_rejection_guidance",
+        "checks": {
+          "no_timeout_1": true,
+          "schema_v1": true,
+          "report_version": true,
+          "reported_model_calls": true,
+          "generated_candidate_compiled": true,
+          "candidate_actual_run_failed": true,
+          "candidate_nonzero_exit": true,
+          "fallback_is_input_echo": true,
+          "failed_candidate_is_not_adopted": true,
+          "fallback_stdout_only": true,
+          "fallback_exit": true,
+          "rejection_reason_saved": true,
+          "rejection_reason_on_stderr": true,
+          "original_attempt_stop_reason_preserved": true,
+          "original_attempt_limit": true,
+          "no_timeout_2": true,
+          "explain_includes_saved_guidance": true,
+          "explain_preserves_report": true,
+          "failed_candidate_output_hidden": true,
+          "source_unchanged": true,
+          "model_request_count": true,
+          "dummy_key_not_exposed": true
+        },
+        "invocations": [
+          {
+            "command": [
+              "/tmp/yescc-native-install-n0ribw3y/yescc-0.1.0-linux-x86_64/yescc",
+              "run",
+              "input.txt",
+              "--play",
+              "--no-cache",
+              "--max-rounds",
+              "1"
+            ],
+            "cwd": "/tmp/yescc-binary-fdhe1ivj/creative_rejection_guidance",
+            "exit_code": 0,
+            "stdout": "a stone begins to tell jokes\n",
+            "stderr": "yescc: 原始输入未能按语义完成，已生成创意兜底程序（kind=print_input，不是原程序的修复）。\nyescc: 本地兜底仅回显输入，未实现原始意图。\nyescc: 模型创意候选曾被实际运行验证拒绝；最近一次拒绝原因：非零退出（退出码 7）。详细诊断见报告或 --explain。\nyescc: 模型处理停止：已达到最大候选尝试次数 1。\nyescc: 若启用了 --play，请先去掉它；再用 --no-fallback 禁止创意兜底，或用 --strict 查看原生失败。\n",
+            "stdout_sha256": "d88c17da0d9eaf28efd7ce45081ed1707ef954b4d8ec02fe1e7c6b06261f4e9c",
+            "stderr_sha256": "d88a2952abd1c5be4845ebe7264b7bf4a761d14ac4e10f85d4d3f477501b97e7",
+            "timed_out": false,
+            "duration_ms": 231
+          },
+          {
+            "command": [
+              "/tmp/yescc-native-install-n0ribw3y/yescc-0.1.0-linux-x86_64/yescc",
+              "input.txt",
+              "--explain",
+              "--offline"
+            ],
+            "cwd": "/tmp/yescc-binary-fdhe1ivj/creative_rejection_guidance",
+            "exit_code": 0,
+            "stdout": "状态：creative_fallback\n语言：unknown（/usr/sbin/gcc 16.2.1）\n耗时：111 ms（工具链 47 ms）\n产物：a.out\n程序退出码：0\n兜底类型：print_input\n兜底原因：用户请求 --play\n本地兜底仅回显输入，未实现原始意图。\n模型创意候选曾被实际运行验证拒绝；最近一次拒绝原因：非零退出（退出码 7）。详细诊断见报告或 --explain。\n模型处理停止：已达到最大候选尝试次数 1。\n若启用了 --play，请先去掉它；再用 --no-fallback 禁止创意兜底，或用 --strict 查看原生失败。\n兜底源码：.yescc/input/fallback.c\n模型：openai-compatible/binary-local-fake（l3，1 次，10+5 tokens，$1.5e-05）\n",
+            "stderr": "",
+            "stdout_sha256": "96c0cea7f3f7a6b9914b5392aae093534ad4a8ecdf73af5a32eec2d894cda1f6",
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false,
+            "duration_ms": 109
+          }
+        ],
+        "fake_model_source": "#include <stdio.h>\nint main(void){puts(\"FAILED-CANDIDATE-MUST-STAY-HIDDEN\");return 7;}\n",
+        "fake_model_endpoint": "http://127.0.0.1:45321/v1",
+        "expected_model_calls": 1,
+        "report": {
+          "schema_version": "1",
+          "tool": {
+            "name": "yescc",
+            "version": "0.1.0"
+          },
+          "invocation": {
+            "argv": [
+              "run",
+              "input.txt",
+              "--play",
+              "--no-cache",
+              "--max-rounds",
+              "1"
+            ],
+            "mode": "run",
+            "lang": "unknown",
+            "strict": false,
+            "play": true,
+            "offline": false
+          },
+          "input": {
+            "path": "input.txt",
+            "sha256": "d88c17da0d9eaf28efd7ce45081ed1707ef954b4d8ec02fe1e7c6b06261f4e9c",
+            "bytes": 29,
+            "encoding": "utf-8"
+          },
+          "toolchain": {
+            "adapter": "c",
+            "command": "/usr/sbin/gcc",
+            "version": "16.2.1"
+          },
+          "diagnostics": [],
+          "syntax_errors": [],
+          "attempts": [
+            {
+              "kind": "model",
+              "round": 1,
+              "command": [
+                "/usr/sbin/gcc",
+                "/tmp/yescc-binary-fdhe1ivj/tmp/yescc-build-jpnsal2p/generated.c",
+                "-iquote",
+                "/tmp/yescc-binary-fdhe1ivj/creative_rejection_guidance",
+                "-lm"
+              ],
+              "exit_code": 0,
+              "duration_ms": 25,
+              "stdout": "",
+              "stderr": "",
+              "source_checks": {
+                "performed": true,
+                "passed": true,
+                "reasons": []
+              },
+              "validation": {
+                "performed": true,
+                "passed": false,
+                "reasons": [
+                  "exit_nonzero"
+                ],
+                "exit_code": 7,
+                "stdout_bytes": 34,
+                "stderr_bytes": 0,
+                "stdout_complete": true,
+                "stderr_complete": true,
+                "utf8_valid": true,
+                "stdout_nonempty": true,
+                "output_limited": false,
+                "timed_out": false,
+                "max_output_bytes": 65536
+              },
+              "validation_limits": {
+                "sandboxed": true,
+                "network_isolated": false,
+                "timeout_s": 10.0,
+                "environment_filtered": true,
+                "process_tree_cleanup": "posix_group",
+                "resource_limits": "posix_best_effort",
+                "output_limited": false
+              }
+            },
+            {
+              "kind": "fallback",
+              "round": 1,
+              "command": [
+                "/usr/sbin/gcc",
+                "/tmp/yescc-binary-fdhe1ivj/tmp/yescc-build-u55gsc4x/fallback.c",
+                "-iquote",
+                "/tmp/yescc-binary-fdhe1ivj/creative_rejection_guidance"
+              ],
+              "exit_code": 0,
+              "duration_ms": 22,
+              "stdout": "",
+              "stderr": ""
+            }
+          ],
+          "model": {
+            "provider": "openai-compatible",
+            "tier": "l3",
+            "name": "binary-local-fake",
+            "calls": 1,
+            "prompt_tokens": 10,
+            "completion_tokens": 5,
+            "cost_usd": 1.5e-05,
+            "cache_hits": 0,
+            "duration_ms": 51,
+            "errors": [
+              "creative run rejected: ['exit_nonzero']"
+            ],
+            "cost_known": true,
+            "requested_model": "binary-local-fake",
+            "served_model": null,
+            "finish_reason": null,
+            "reasoning_tokens": null,
+            "response_source": "http",
+            "request_settings": {
+              "max_tokens": 1024,
+              "temperature": 0.4
+            },
+            "configured_settings": {
+              "max_tokens": 1024,
+              "temperature": 0.4
+            },
+            "responses": [
+              {
+                "provider": "openai-compatible",
+                "requested_model": "binary-local-fake",
+                "served_model": null,
+                "finish_reason": null,
+                "reasoning_tokens": null,
+                "prompt_tokens": 10,
+                "completion_tokens": 5,
+                "usage_known": true,
+                "configured_settings": {
+                  "max_tokens": 1024,
+                  "temperature": 0.4
+                },
+                "request_settings": {
+                  "max_tokens": 1024,
+                  "temperature": 0.4
+                }
+              }
+            ]
+          },
+          "result": {
+            "status": "creative_fallback",
+            "artifact": "a.out",
+            "program_exit": 0,
+            "repair": null,
+            "generated": null,
+            "fallback": {
+              "kind": "print_input",
+              "guidance": [
+                "本地兜底仅回显输入，未实现原始意图。",
+                "模型创意候选曾被实际运行验证拒绝；最近一次拒绝原因：非零退出（退出码 7）。详细诊断见报告或 --explain。",
+                "模型处理停止：已达到最大候选尝试次数 1。",
+                "若启用了 --play，请先去掉它；再用 --no-fallback 禁止创意兜底，或用 --strict 查看原生失败。"
+              ],
+              "reason": "用户请求 --play",
+              "source": ".yescc/input/fallback.c"
+            },
+            "timed_out": false,
+            "emitted_source": null
+          },
+          "timings": {
+            "total_ms": 111,
+            "toolchain_ms": 47,
+            "model_ms": 51
+          },
+          "privacy": {
+            "cloud_used": false,
+            "uploaded_bytes": 0
+          },
+          "budget": {
+            "limit_usd": 0.05,
+            "committed_usd": 1.5000000000000256e-05,
+            "attempts": 1,
+            "blocked_reason": "已达到最大候选尝试次数 1"
+          },
+          "limits": {
+            "sandboxed": true,
+            "network_isolated": false,
+            "timeout_s": 10.0,
+            "environment_filtered": true,
+            "process_tree_cleanup": "posix_group",
+            "resource_limits": "posix_best_effort",
+            "filesystem_isolated": false,
+            "output_limited": false
+          }
+        },
+        "report_sha256": "b214101d4f14c27a800f0638477bf248f2907e8c963cf7e19b4a06077b8180bb",
+        "status": "creative_fallback",
+        "source_sha256_before": "d88c17da0d9eaf28efd7ce45081ed1707ef954b4d8ec02fe1e7c6b06261f4e9c",
+        "source_sha256_after": "d88c17da0d9eaf28efd7ce45081ed1707ef954b4d8ec02fe1e7c6b06261f4e9c",
+        "model_calls_received": 1,
+        "passed": true
+      },
+      {
+        "id": "checked_creative_rejection_guidance",
+        "checks": {
+          "no_timeout_1": true,
+          "reported_check_does_not_certify_ub": true,
+          "candidate_compile_has_check_flags": true,
+          "schema_v1": true,
+          "report_version": true,
+          "reported_model_calls": true,
+          "generated_candidate_compiled": true,
+          "candidate_actual_run_failed": true,
+          "candidate_nonzero_exit": true,
+          "fallback_is_input_echo": true,
+          "failed_candidate_is_not_adopted": true,
+          "fallback_stdout_only": true,
+          "fallback_exit": true,
+          "rejection_reason_saved": true,
+          "rejection_reason_on_stderr": true,
+          "original_attempt_stop_reason_preserved": true,
+          "original_attempt_limit": true,
+          "actual_check_mode_visible": true,
+          "no_timeout_2": true,
+          "explain_includes_saved_guidance": true,
+          "explain_preserves_report": true,
+          "failed_candidate_output_hidden": true,
+          "source_unchanged": true,
+          "model_request_count": true,
+          "dummy_key_not_exposed": true
+        },
+        "invocations": [
+          {
+            "command": [
+              "/tmp/yescc-native-install-n0ribw3y/yescc-0.1.0-linux-x86_64/yescc",
+              "run",
+              "input.txt",
+              "--play",
+              "--no-cache",
+              "--max-rounds",
+              "1",
+              "--check-undefined"
+            ],
+            "cwd": "/tmp/yescc-binary-fdhe1ivj/checked_creative_rejection_guidance",
+            "exit_code": 0,
+            "stdout": "a stone begins to tell jokes\n",
+            "stderr": "yescc: 原始输入未能按语义完成，已生成创意兜底程序（kind=print_input，不是原程序的修复）。\nyescc: 本地兜底仅回显输入，未实现原始意图。\nyescc: 启用 runtime 可选检查的模型创意候选曾被实际运行验证拒绝；最近一次拒绝原因：非零退出（退出码 1）。详细诊断见报告或 --explain。\nyescc: 模型处理停止：已达到最大候选尝试次数 1。\nyescc: 若启用了 --play，请先去掉它；再用 --no-fallback 禁止创意兜底，或用 --strict 查看原生失败。\n",
+            "stdout_sha256": "d88c17da0d9eaf28efd7ce45081ed1707ef954b4d8ec02fe1e7c6b06261f4e9c",
+            "stderr_sha256": "4e4f78106bf056e05e12753602df4fa57b05df5007196f6303bfd0e0c6660509",
+            "timed_out": false,
+            "duration_ms": 338
+          },
+          {
+            "command": [
+              "/tmp/yescc-native-install-n0ribw3y/yescc-0.1.0-linux-x86_64/yescc",
+              "input.txt",
+              "--explain",
+              "--offline"
+            ],
+            "cwd": "/tmp/yescc-binary-fdhe1ivj/checked_creative_rejection_guidance",
+            "exit_code": 0,
+            "stdout": "状态：creative_fallback\n语言：unknown（/usr/sbin/gcc 16.2.1）\n耗时：219 ms（工具链 62 ms）\n产物：a.out\n程序退出码：0\n创意候选检查：runtime（已执行，不证明无UB或语义正确）\n兜底类型：print_input\n兜底原因：用户请求 --play\n本地兜底仅回显输入，未实现原始意图。\n启用 runtime 可选检查的模型创意候选曾被实际运行验证拒绝；最近一次拒绝原因：非零退出（退出码 1）。详细诊断见报告或 --explain。\n模型处理停止：已达到最大候选尝试次数 1。\n若启用了 --play，请先去掉它；再用 --no-fallback 禁止创意兜底，或用 --strict 查看原生失败。\n兜底源码：.yescc/input/fallback.c\n模型：openai-compatible/binary-local-fake（l3，1 次，10+5 tokens，$1.5e-05）\n",
+            "stderr": "",
+            "stdout_sha256": "e91c278be6f66b77d19b0969fe8e6f85afd6ca95158fc772bf45597f5f0d53db",
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false,
+            "duration_ms": 117
+          }
+        ],
+        "fake_model_source": "#include <stdio.h>\n#include <limits.h>\nint main(void){\nputs(\"FAILED-CANDIDATE-MUST-STAY-HIDDEN\"); fflush(stdout);\nvolatile int upper=INT_MAX, one=1;\nvolatile int sum=upper+one; (void)sum; return 0;\n}\n",
+        "fake_model_endpoint": "http://127.0.0.1:45321/v1",
+        "optional_check_coverage": "candidate rejection verified",
+        "optional_check_mode": "runtime",
+        "expected_model_calls": 1,
+        "report": {
+          "schema_version": "1",
+          "tool": {
+            "name": "yescc",
+            "version": "0.1.0"
+          },
+          "invocation": {
+            "argv": [
+              "run",
+              "input.txt",
+              "--play",
+              "--no-cache",
+              "--max-rounds",
+              "1",
+              "--check-undefined"
+            ],
+            "mode": "run",
+            "lang": "unknown",
+            "strict": false,
+            "play": true,
+            "offline": false
+          },
+          "input": {
+            "path": "input.txt",
+            "sha256": "d88c17da0d9eaf28efd7ce45081ed1707ef954b4d8ec02fe1e7c6b06261f4e9c",
+            "bytes": 29,
+            "encoding": "utf-8"
+          },
+          "toolchain": {
+            "adapter": "c",
+            "command": "/usr/sbin/gcc",
+            "version": "16.2.1"
+          },
+          "diagnostics": [],
+          "syntax_errors": [],
+          "attempts": [
+            {
+              "kind": "model",
+              "round": 1,
+              "command": [
+                "/usr/sbin/gcc",
+                "/tmp/yescc-binary-fdhe1ivj/tmp/yescc-build-obhx3f0p/generated.c",
+                "-iquote",
+                "/tmp/yescc-binary-fdhe1ivj/checked_creative_rejection_guidance",
+                "-lm",
+                "-fsanitize=undefined",
+                "-fno-sanitize-recover=undefined"
+              ],
+              "exit_code": 0,
+              "duration_ms": 41,
+              "stdout": "",
+              "stderr": "",
+              "undefined_behavior_check": {
+                "requested": true,
+                "scope": "model_creative",
+                "available": true,
+                "mode": "runtime",
+                "flags": [
+                  "-fsanitize=undefined",
+                  "-fno-sanitize-recover=undefined"
+                ],
+                "performed": true,
+                "reason": "executed",
+                "compile_timeout_s": 20.0,
+                "diagnostic_observed": true,
+                "stderr": "/tmp/yescc-binary-fdhe1ivj/tmp/yescc-build-obhx3f0p/generated.c:6:23: runtime error: signed integer overflow: 2147483647 + 1 cannot be represented in type 'int'\n",
+                "ub_detected": null
+              },
+              "source_checks": {
+                "performed": true,
+                "passed": true,
+                "reasons": []
+              },
+              "validation": {
+                "performed": true,
+                "passed": false,
+                "reasons": [
+                  "exit_nonzero"
+                ],
+                "exit_code": 1,
+                "stdout_bytes": 34,
+                "stderr_bytes": 161,
+                "stdout_complete": true,
+                "stderr_complete": true,
+                "utf8_valid": true,
+                "stdout_nonempty": true,
+                "output_limited": false,
+                "timed_out": false,
+                "max_output_bytes": 65536
+              },
+              "validation_limits": {
+                "sandboxed": true,
+                "network_isolated": false,
+                "timeout_s": 10.0,
+                "environment_filtered": true,
+                "process_tree_cleanup": "posix_group",
+                "resource_limits": "posix_best_effort",
+                "output_limited": false
+              }
+            },
+            {
+              "kind": "fallback",
+              "round": 1,
+              "command": [
+                "/usr/sbin/gcc",
+                "/tmp/yescc-binary-fdhe1ivj/tmp/yescc-build-n5elvl2g/fallback.c",
+                "-iquote",
+                "/tmp/yescc-binary-fdhe1ivj/checked_creative_rejection_guidance"
+              ],
+              "exit_code": 0,
+              "duration_ms": 21,
+              "stdout": "",
+              "stderr": ""
+            }
+          ],
+          "model": {
+            "provider": "openai-compatible",
+            "tier": "l3",
+            "name": "binary-local-fake",
+            "calls": 1,
+            "prompt_tokens": 10,
+            "completion_tokens": 5,
+            "cost_usd": 1.5e-05,
+            "cache_hits": 0,
+            "duration_ms": 45,
+            "errors": [
+              "creative run rejected: ['exit_nonzero']"
+            ],
+            "cost_known": true,
+            "requested_model": "binary-local-fake",
+            "served_model": null,
+            "finish_reason": null,
+            "reasoning_tokens": null,
+            "response_source": "http",
+            "request_settings": {
+              "max_tokens": 1024,
+              "temperature": 0.4
+            },
+            "configured_settings": {
+              "max_tokens": 1024,
+              "temperature": 0.4
+            },
+            "responses": [
+              {
+                "provider": "openai-compatible",
+                "requested_model": "binary-local-fake",
+                "served_model": null,
+                "finish_reason": null,
+                "reasoning_tokens": null,
+                "prompt_tokens": 10,
+                "completion_tokens": 5,
+                "usage_known": true,
+                "configured_settings": {
+                  "max_tokens": 1024,
+                  "temperature": 0.4
+                },
+                "request_settings": {
+                  "max_tokens": 1024,
+                  "temperature": 0.4
+                }
+              }
+            ]
+          },
+          "result": {
+            "status": "creative_fallback",
+            "artifact": "a.out",
+            "program_exit": 0,
+            "repair": null,
+            "generated": null,
+            "fallback": {
+              "kind": "print_input",
+              "guidance": [
+                "本地兜底仅回显输入，未实现原始意图。",
+                "启用 runtime 可选检查的模型创意候选曾被实际运行验证拒绝；最近一次拒绝原因：非零退出（退出码 1）。详细诊断见报告或 --explain。",
+                "模型处理停止：已达到最大候选尝试次数 1。",
+                "若启用了 --play，请先去掉它；再用 --no-fallback 禁止创意兜底，或用 --strict 查看原生失败。"
+              ],
+              "reason": "用户请求 --play",
+              "source": ".yescc/input/fallback.c"
+            },
+            "timed_out": false,
+            "emitted_source": null
+          },
+          "timings": {
+            "total_ms": 219,
+            "toolchain_ms": 62,
+            "model_ms": 45
+          },
+          "privacy": {
+            "cloud_used": false,
+            "uploaded_bytes": 0
+          },
+          "budget": {
+            "limit_usd": 0.05,
+            "committed_usd": 1.5000000000000256e-05,
+            "attempts": 1,
+            "blocked_reason": "已达到最大候选尝试次数 1"
+          },
+          "limits": {
+            "sandboxed": true,
+            "network_isolated": false,
+            "timeout_s": 10.0,
+            "environment_filtered": true,
+            "process_tree_cleanup": "posix_group",
+            "resource_limits": "posix_best_effort",
+            "filesystem_isolated": false,
+            "output_limited": false
+          },
+          "undefined_behavior_check": {
+            "available": true,
+            "mode": "runtime",
+            "flags": [
+              "-fsanitize=undefined",
+              "-fno-sanitize-recover=undefined"
+            ],
+            "reason": "candidate_executed",
+            "compiler_version": "16.2.1",
+            "arguments": [],
+            "probes": [
+              {
+                "mode": "runtime",
+                "flags": [
+                  "-fsanitize=undefined",
+                  "-fno-sanitize-recover=undefined"
+                ],
+                "passed": true,
+                "normal": {
+                  "compile": {
+                    "command": [
+                      "/usr/sbin/gcc",
+                      "/tmp/yescc-binary-fdhe1ivj/tmp/yescc-undefined-t3bhhxiz/runtime_normal.c",
+                      "-fsanitize=undefined",
+                      "-fno-sanitize-recover=undefined",
+                      "-o",
+                      "/tmp/yescc-binary-fdhe1ivj/tmp/yescc-undefined-t3bhhxiz/runtime_normal.exe"
+                    ],
+                    "returncode": 0,
+                    "stdout": "",
+                    "stderr": "",
+                    "artifact": "/tmp/yescc-binary-fdhe1ivj/tmp/yescc-undefined-t3bhhxiz/runtime_normal.exe",
+                    "duration_ms": 44,
+                    "environment_filtered": true,
+                    "timeout_s": 19.999844673991902,
+                    "max_output_bytes": 65536,
+                    "process_tree_cleanup": "posix_group"
+                  },
+                  "run": {
+                    "passed_execution": true,
+                    "command": [
+                      "/tmp/yescc-binary-fdhe1ivj/tmp/yescc-undefined-t3bhhxiz/runtime_normal.exe"
+                    ],
+                    "stdout": "yescc-undefined-control-ok\n",
+                    "stderr": "",
+                    "sandbox": {
+                      "exit_code": 0,
+                      "timed_out": false,
+                      "sandboxed": true,
+                      "network_isolated": false,
+                      "timeout_s": 3.0,
+                      "environment_filtered": true,
+                      "process_tree_cleanup": "posix_group",
+                      "resource_limits": "posix_best_effort",
+                      "output_limited": false
+                    },
+                    "validation": {
+                      "performed": true,
+                      "passed": true,
+                      "reasons": [],
+                      "exit_code": 0,
+                      "stdout_bytes": 27,
+                      "stderr_bytes": 0,
+                      "stdout_complete": true,
+                      "stderr_complete": true,
+                      "utf8_valid": true,
+                      "stdout_nonempty": true,
+                      "output_limited": false,
+                      "timed_out": false,
+                      "max_output_bytes": 65536
+                    },
+                    "exit_code": 0,
+                    "elapsed_ms": 3,
+                    "timeout_s": 3.0
+                  }
+                },
+                "overflow": {
+                  "compile": {
+                    "command": [
+                      "/usr/sbin/gcc",
+                      "/tmp/yescc-binary-fdhe1ivj/tmp/yescc-undefined-t3bhhxiz/runtime_overflow.c",
+                      "-fsanitize=undefined",
+                      "-fno-sanitize-recover=undefined",
+                      "-o",
+                      "/tmp/yescc-binary-fdhe1ivj/tmp/yescc-undefined-t3bhhxiz/runtime_overflow.exe"
+                    ],
+                    "returncode": 0,
+                    "stdout": "",
+                    "stderr": "",
+                    "artifact": "/tmp/yescc-binary-fdhe1ivj/tmp/yescc-undefined-t3bhhxiz/runtime_overflow.exe",
+                    "duration_ms": 41,
+                    "environment_filtered": true,
+                    "timeout_s": 19.950523147999775,
+                    "max_output_bytes": 65536,
+                    "process_tree_cleanup": "posix_group"
+                  },
+                  "run": {
+                    "passed_execution": true,
+                    "command": [
+                      "/tmp/yescc-binary-fdhe1ivj/tmp/yescc-undefined-t3bhhxiz/runtime_overflow.exe"
+                    ],
+                    "stdout": "",
+                    "stderr": "/tmp/yescc-binary-fdhe1ivj/tmp/yescc-undefined-t3bhhxiz/runtime_overflow.c:2:83: runtime error: signed integer overflow: 2147483647 + 1 cannot be represented in type 'int'\n",
+                    "sandbox": {
+                      "exit_code": 1,
+                      "timed_out": false,
+                      "sandboxed": true,
+                      "network_isolated": false,
+                      "timeout_s": 3.0,
+                      "environment_filtered": true,
+                      "process_tree_cleanup": "posix_group",
+                      "resource_limits": "posix_best_effort",
+                      "output_limited": false
+                    },
+                    "validation": {
+                      "performed": true,
+                      "passed": false,
+                      "reasons": [
+                        "exit_nonzero",
+                        "stdout_empty"
+                      ],
+                      "exit_code": 1,
+                      "stdout_bytes": 0,
+                      "stderr_bytes": 172,
+                      "stdout_complete": true,
+                      "stderr_complete": true,
+                      "utf8_valid": true,
+                      "stdout_nonempty": false,
+                      "output_limited": false,
+                      "timed_out": false,
+                      "max_output_bytes": 65536
+                    },
+                    "exit_code": 1,
+                    "elapsed_ms": 6,
+                    "timeout_s": 3.0
+                  }
+                },
+                "reason": "controls_passed"
+              }
+            ],
+            "timeout_s": 20.0,
+            "elapsed_ms": 97,
+            "requested": true,
+            "scope": "model_creative",
+            "performed": true,
+            "ub_detected": null,
+            "capability_reason": "controls_passed"
+          }
+        },
+        "report_sha256": "845733e8e4a12243212fdcee4db27e53b87b1779e9d09d7d85e7224843368ad3",
+        "status": "creative_fallback",
+        "source_sha256_before": "d88c17da0d9eaf28efd7ce45081ed1707ef954b4d8ec02fe1e7c6b06261f4e9c",
+        "source_sha256_after": "d88c17da0d9eaf28efd7ce45081ed1707ef954b4d8ec02fe1e7c6b06261f4e9c",
+        "model_calls_received": 1,
+        "passed": true
+      },
+      {
+        "id": "normal_json",
+        "checks": {
+          "no_timeout_1": true,
+          "schema_v1": true,
+          "report_version": true,
+          "reported_model_calls": true,
+          "exit_code": true,
+          "single_json": true,
+          "no_error_envelope": true,
+          "source_unchanged": true,
+          "model_request_count": true,
+          "dummy_key_not_exposed": true
+        },
+        "invocations": [
+          {
+            "command": [
+              "/tmp/yescc-native-install-n0ribw3y/yescc-0.1.0-linux-x86_64/yescc",
+              "ok.c",
+              "--json",
+              "--offline"
+            ],
+            "cwd": "/tmp/yescc-binary-fdhe1ivj/normal_json",
+            "exit_code": 0,
+            "stdout": "{\n  \"schema_version\": \"1\",\n  \"tool\": {\n    \"name\": \"yescc\",\n    \"version\": \"0.1.0\"\n  },\n  \"invocation\": {\n    \"argv\": [\n      \"ok.c\",\n      \"--json\",\n      \"--offline\"\n    ],\n    \"mode\": \"build\",\n    \"lang\": \"c\",\n    \"strict\": false,\n    \"play\": false,\n    \"offline\": true\n  },\n  \"input\": {\n    \"path\": \"ok.c\",\n    \"sha256\": \"86004d65c4f387c95467c6cee92bc1f1f8cb04d6650be09fbd1e359834a56766\",\n    \"bytes\": 26,\n    \"encoding\": \"utf-8\"\n  },\n  \"toolchain\": {\n    \"adapter\": \"c\",\n    \"command\": \"/usr/sbin/gcc\",\n    \"version\": \"16.2.1\"\n  },\n  \"diagnostics\": [],\n  \"syntax_errors\": [],\n  \"attempts\": [\n    {\n      \"kind\": \"native\",\n      \"round\": 1,\n      \"command\": [\n        \"/usr/sbin/gcc\",\n        \"ok.c\"\n      ],\n      \"exit_code\": 0,\n      \"duration_ms\": 19,\n      \"stdout\": \"\",\n      \"stderr\": \"\"\n    }\n  ],\n  \"model\": null,\n  \"result\": {\n    \"status\": \"native_ok\",\n    \"artifact\": \"a.out\",\n    \"program_exit\": null,\n    \"repair\": null,\n    \"generated\": null,\n    \"fallback\": null,\n    \"timed_out\": false,\n    \"emitted_source\": null\n  },\n  \"timings\": {\n    \"total_ms\": 20,\n    \"toolchain_ms\": 19,\n    \"model_ms\": 0\n  },\n  \"privacy\": {\n    \"cloud_used\": false,\n    \"uploaded_bytes\": 0\n  },\n  \"budget\": {\n    \"limit_usd\": 0.05,\n    \"committed_usd\": 0.0,\n    \"attempts\": 0,\n    \"blocked_reason\": null\n  },\n  \"limits\": {\n    \"sandboxed\": false,\n    \"network_isolated\": false,\n    \"timeout_s\": null,\n    \"environment_filtered\": false,\n    \"process_tree_cleanup\": \"none\",\n    \"resource_limits\": \"none\",\n    \"filesystem_isolated\": false,\n    \"output_limited\": false\n  }\n}\n",
+            "stderr": "",
+            "stdout_sha256": "5a28c0bde802d536402d5be5dccf928f814933eae73f82193539a582e230dbcd",
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false,
+            "duration_ms": 139
+          }
+        ],
+        "source_sha256_before": "86004d65c4f387c95467c6cee92bc1f1f8cb04d6650be09fbd1e359834a56766",
+        "source_sha256_after": "86004d65c4f387c95467c6cee92bc1f1f8cb04d6650be09fbd1e359834a56766",
+        "report": {
+          "schema_version": "1",
+          "tool": {
+            "name": "yescc",
+            "version": "0.1.0"
+          },
+          "invocation": {
+            "argv": [
+              "ok.c",
+              "--json",
+              "--offline"
+            ],
+            "mode": "build",
+            "lang": "c",
+            "strict": false,
+            "play": false,
+            "offline": true
+          },
+          "input": {
+            "path": "ok.c",
+            "sha256": "86004d65c4f387c95467c6cee92bc1f1f8cb04d6650be09fbd1e359834a56766",
+            "bytes": 26,
+            "encoding": "utf-8"
+          },
+          "toolchain": {
+            "adapter": "c",
+            "command": "/usr/sbin/gcc",
+            "version": "16.2.1"
+          },
+          "diagnostics": [],
+          "syntax_errors": [],
+          "attempts": [
+            {
+              "kind": "native",
+              "round": 1,
+              "command": [
+                "/usr/sbin/gcc",
+                "ok.c"
+              ],
+              "exit_code": 0,
+              "duration_ms": 19,
+              "stdout": "",
+              "stderr": ""
+            }
+          ],
+          "model": null,
+          "result": {
+            "status": "native_ok",
+            "artifact": "a.out",
+            "program_exit": null,
+            "repair": null,
+            "generated": null,
+            "fallback": null,
+            "timed_out": false,
+            "emitted_source": null
+          },
+          "timings": {
+            "total_ms": 20,
+            "toolchain_ms": 19,
+            "model_ms": 0
+          },
+          "privacy": {
+            "cloud_used": false,
+            "uploaded_bytes": 0
+          },
+          "budget": {
+            "limit_usd": 0.05,
+            "committed_usd": 0.0,
+            "attempts": 0,
+            "blocked_reason": null
+          },
+          "limits": {
+            "sandboxed": false,
+            "network_isolated": false,
+            "timeout_s": null,
+            "environment_filtered": false,
+            "process_tree_cleanup": "none",
+            "resource_limits": "none",
+            "filesystem_isolated": false,
+            "output_limited": false
+          }
+        },
+        "report_sha256": "5a28c0bde802d536402d5be5dccf928f814933eae73f82193539a582e230dbcd",
+        "status": "native_ok",
+        "model_calls_received": 0,
+        "passed": true
+      },
+      {
+        "id": "json_missing",
+        "checks": {
+          "no_timeout_1": true,
+          "source_unchanged": true,
+          "exit_code": true,
+          "command_error": true,
+          "matching_error_code": true,
+          "version": true,
+          "stderr_empty": true,
+          "no_report_written": true,
+          "model_request_count": true,
+          "dummy_key_not_exposed": true
+        },
+        "invocations": [
+          {
+            "command": [
+              "/tmp/yescc-native-install-n0ribw3y/yescc-0.1.0-linux-x86_64/yescc",
+              "missing.c",
+              "--json",
+              "--offline"
+            ],
+            "cwd": "/tmp/yescc-binary-fdhe1ivj/json_missing",
+            "exit_code": 100,
+            "stdout": "{\n  \"schema_version\": \"1\",\n  \"report_kind\": \"command_error\",\n  \"tool\": {\n    \"name\": \"yescc\",\n    \"version\": \"0.1.0\"\n  },\n  \"invocation\": {\n    \"argv\": [\n      \"missing.c\",\n      \"--json\",\n      \"--offline\"\n    ]\n  },\n  \"error\": {\n    \"type\": \"UsageError\",\n    \"exit_code\": 100,\n    \"message\": \"输入文件不存在：missing.c\",\n    \"phase\": \"execute\"\n  }\n}\n",
+            "stderr": "",
+            "stdout_sha256": "d05fcf625e6f3194185c86d2884fa2dc4d038631c729b0bd49d3e0a47ff91fa7",
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false,
+            "duration_ms": 119
+          }
+        ],
+        "source_sha256_before": null,
+        "source_sha256_after": null,
+        "status": "command_error",
+        "exit_code": 100,
+        "model_calls_received": 0,
+        "passed": true
+      },
+      {
+        "id": "json_budget",
+        "checks": {
+          "no_timeout_1": true,
+          "source_unchanged": true,
+          "exit_code": true,
+          "command_error": true,
+          "matching_error_code": true,
+          "version": true,
+          "stderr_empty": true,
+          "no_report_written": true,
+          "model_request_count": true,
+          "dummy_key_not_exposed": true
+        },
+        "invocations": [
+          {
+            "command": [
+              "/tmp/yescc-native-install-n0ribw3y/yescc-0.1.0-linux-x86_64/yescc",
+              "ok.c",
+              "--budget",
+              "-1",
+              "--json",
+              "--offline"
+            ],
+            "cwd": "/tmp/yescc-binary-fdhe1ivj/json_budget",
+            "exit_code": 100,
+            "stdout": "{\n  \"schema_version\": \"1\",\n  \"report_kind\": \"command_error\",\n  \"tool\": {\n    \"name\": \"yescc\",\n    \"version\": \"0.1.0\"\n  },\n  \"invocation\": {\n    \"argv\": [\n      \"ok.c\",\n      \"--budget\",\n      \"-1\",\n      \"--json\",\n      \"--offline\"\n    ]\n  },\n  \"error\": {\n    \"type\": \"UsageError\",\n    \"exit_code\": 100,\n    \"message\": \"--budget 必须大于 0。\",\n    \"phase\": \"parse\"\n  }\n}\n",
+            "stderr": "",
+            "stdout_sha256": "548f6369b1380f2b1c89a01a2e16a47b8f58a092140d5ef7db62699468724518",
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false,
+            "duration_ms": 130
+          }
+        ],
+        "source_sha256_before": "86004d65c4f387c95467c6cee92bc1f1f8cb04d6650be09fbd1e359834a56766",
+        "source_sha256_after": "86004d65c4f387c95467c6cee92bc1f1f8cb04d6650be09fbd1e359834a56766",
+        "status": "command_error",
+        "exit_code": 100,
+        "model_calls_received": 0,
+        "passed": true
+      },
+      {
+        "id": "json_unsupported",
+        "checks": {
+          "no_timeout_1": true,
+          "source_unchanged": true,
+          "exit_code": true,
+          "command_error": true,
+          "matching_error_code": true,
+          "version": true,
+          "stderr_empty": true,
+          "no_report_written": true,
+          "model_request_count": true,
+          "dummy_key_not_exposed": true
+        },
+        "invocations": [
+          {
+            "command": [
+              "/tmp/yescc-native-install-n0ribw3y/yescc-0.1.0-linux-x86_64/yescc",
+              "unknown.xyz",
+              "--strict",
+              "--json",
+              "--offline"
+            ],
+            "cwd": "/tmp/yescc-binary-fdhe1ivj/json_unsupported",
+            "exit_code": 101,
+            "stdout": "{\n  \"schema_version\": \"1\",\n  \"report_kind\": \"command_error\",\n  \"tool\": {\n    \"name\": \"yescc\",\n    \"version\": \"0.1.0\"\n  },\n  \"invocation\": {\n    \"argv\": [\n      \"unknown.xyz\",\n      \"--strict\",\n      \"--json\",\n      \"--offline\"\n    ]\n  },\n  \"error\": {\n    \"type\": \"UnsupportedInput\",\n    \"exit_code\": 101,\n    \"message\": \"无法从扩展名识别 unknown.xyz 的语言；请用 --lang 指定（当前支持：c、javascript、python）。\",\n    \"phase\": \"execute\"\n  }\n}\n",
+            "stderr": "",
+            "stdout_sha256": "25eab2641c382c5f4671e8140f92f60d4316f05a4d6952726ac301a604390cea",
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false,
+            "duration_ms": 116
+          }
+        ],
+        "source_sha256_before": "5891b5b522d5df086d0ff0b110fbd9d21bb4fc7163af34d08286a2e846f6be03",
+        "source_sha256_after": "5891b5b522d5df086d0ff0b110fbd9d21bb4fc7163af34d08286a2e846f6be03",
+        "status": "command_error",
+        "exit_code": 101,
+        "model_calls_received": 0,
+        "passed": true
+      },
+      {
+        "id": "json_no_fallback",
+        "checks": {
+          "no_timeout_1": true,
+          "source_unchanged": true,
+          "exit_code": true,
+          "command_error": true,
+          "matching_error_code": true,
+          "version": true,
+          "stderr_empty": true,
+          "no_report_written": true,
+          "model_request_count": true,
+          "dummy_key_not_exposed": true
+        },
+        "invocations": [
+          {
+            "command": [
+              "/tmp/yescc-native-install-n0ribw3y/yescc-0.1.0-linux-x86_64/yescc",
+              "unknown.txt",
+              "--no-fallback",
+              "--json",
+              "--offline"
+            ],
+            "cwd": "/tmp/yescc-binary-fdhe1ivj/json_no_fallback",
+            "exit_code": 101,
+            "stdout": "{\n  \"schema_version\": \"1\",\n  \"report_kind\": \"command_error\",\n  \"tool\": {\n    \"name\": \"yescc\",\n    \"version\": \"0.1.0\"\n  },\n  \"invocation\": {\n    \"argv\": [\n      \"unknown.txt\",\n      \"--no-fallback\",\n      \"--json\",\n      \"--offline\"\n    ]\n  },\n  \"error\": {\n    \"type\": \"UnsupportedInput\",\n    \"exit_code\": 101,\n    \"message\": \"无法从扩展名识别 unknown.txt 的语言；请用 --lang 指定（当前支持：c、javascript、python）。\",\n    \"phase\": \"execute\"\n  }\n}\n",
+            "stderr": "",
+            "stdout_sha256": "e36354cfca71df7ef82ff3991b2e30ffc7eb40f0726ae20c18c41305014d5eb2",
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false,
+            "duration_ms": 129
+          }
+        ],
+        "source_sha256_before": "d0f08d5cfaa98c7fd88bb1f106f2cf892b5d7c6bc75ee17ac81f839da675c099",
+        "source_sha256_after": "d0f08d5cfaa98c7fd88bb1f106f2cf892b5d7c6bc75ee17ac81f839da675c099",
+        "status": "command_error",
+        "exit_code": 101,
+        "model_calls_received": 0,
+        "passed": true
+      },
+      {
+        "id": "invalid_lang_preserves_report",
+        "checks": {
+          "no_timeout_1": true,
+          "schema_v1": true,
+          "report_version": true,
+          "reported_model_calls": true,
+          "successful_baseline": true,
+          "native_baseline": true,
+          "no_timeout_2": true,
+          "exit_code": true,
+          "command_error": true,
+          "matching_error_code": true,
+          "stderr_empty": true,
+          "report_unchanged": true,
+          "source_unchanged": true,
+          "no_fallback_source": true,
+          "model_request_count": true,
+          "dummy_key_not_exposed": true
+        },
+        "invocations": [
+          {
+            "command": [
+              "/tmp/yescc-native-install-n0ribw3y/yescc-0.1.0-linux-x86_64/yescc",
+              "ok.c",
+              "--json",
+              "--offline"
+            ],
+            "cwd": "/tmp/yescc-binary-fdhe1ivj/invalid_lang_preserves_report",
+            "exit_code": 0,
+            "stdout": "{\n  \"schema_version\": \"1\",\n  \"tool\": {\n    \"name\": \"yescc\",\n    \"version\": \"0.1.0\"\n  },\n  \"invocation\": {\n    \"argv\": [\n      \"ok.c\",\n      \"--json\",\n      \"--offline\"\n    ],\n    \"mode\": \"build\",\n    \"lang\": \"c\",\n    \"strict\": false,\n    \"play\": false,\n    \"offline\": true\n  },\n  \"input\": {\n    \"path\": \"ok.c\",\n    \"sha256\": \"86004d65c4f387c95467c6cee92bc1f1f8cb04d6650be09fbd1e359834a56766\",\n    \"bytes\": 26,\n    \"encoding\": \"utf-8\"\n  },\n  \"toolchain\": {\n    \"adapter\": \"c\",\n    \"command\": \"/usr/sbin/gcc\",\n    \"version\": \"16.2.1\"\n  },\n  \"diagnostics\": [],\n  \"syntax_errors\": [],\n  \"attempts\": [\n    {\n      \"kind\": \"native\",\n      \"round\": 1,\n      \"command\": [\n        \"/usr/sbin/gcc\",\n        \"ok.c\"\n      ],\n      \"exit_code\": 0,\n      \"duration_ms\": 20,\n      \"stdout\": \"\",\n      \"stderr\": \"\"\n    }\n  ],\n  \"model\": null,\n  \"result\": {\n    \"status\": \"native_ok\",\n    \"artifact\": \"a.out\",\n    \"program_exit\": null,\n    \"repair\": null,\n    \"generated\": null,\n    \"fallback\": null,\n    \"timed_out\": false,\n    \"emitted_source\": null\n  },\n  \"timings\": {\n    \"total_ms\": 21,\n    \"toolchain_ms\": 20,\n    \"model_ms\": 0\n  },\n  \"privacy\": {\n    \"cloud_used\": false,\n    \"uploaded_bytes\": 0\n  },\n  \"budget\": {\n    \"limit_usd\": 0.05,\n    \"committed_usd\": 0.0,\n    \"attempts\": 0,\n    \"blocked_reason\": null\n  },\n  \"limits\": {\n    \"sandboxed\": false,\n    \"network_isolated\": false,\n    \"timeout_s\": null,\n    \"environment_filtered\": false,\n    \"process_tree_cleanup\": \"none\",\n    \"resource_limits\": \"none\",\n    \"filesystem_isolated\": false,\n    \"output_limited\": false\n  }\n}\n",
+            "stderr": "",
+            "stdout_sha256": "4c62e5c746d02294ab86f6ad2205f24aa1d4e93f11a548de4f7f037053f56d3a",
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false,
+            "duration_ms": 137
+          },
+          {
+            "command": [
+              "/tmp/yescc-native-install-n0ribw3y/yescc-0.1.0-linux-x86_64/yescc",
+              "ok.c",
+              "--lang",
+              "nonesuch",
+              "--json",
+              "--offline"
+            ],
+            "cwd": "/tmp/yescc-binary-fdhe1ivj/invalid_lang_preserves_report",
+            "exit_code": 101,
+            "stdout": "{\n  \"schema_version\": \"1\",\n  \"report_kind\": \"command_error\",\n  \"tool\": {\n    \"name\": \"yescc\",\n    \"version\": \"0.1.0\"\n  },\n  \"invocation\": {\n    \"argv\": [\n      \"ok.c\",\n      \"--lang\",\n      \"nonesuch\",\n      \"--json\",\n      \"--offline\"\n    ]\n  },\n  \"error\": {\n    \"type\": \"UnsupportedInput\",\n    \"exit_code\": 101,\n    \"message\": \"不支持的语言：nonesuch（当前支持：c、javascript、python）\",\n    \"phase\": \"execute\"\n  }\n}\n",
+            "stderr": "",
+            "stdout_sha256": "cee2e4f9dfcfe5a1fe2d00392ecbf78982d8d961e655976478eb30f96e41cbb2",
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false,
+            "duration_ms": 132
+          }
+        ],
+        "report": {
+          "schema_version": "1",
+          "tool": {
+            "name": "yescc",
+            "version": "0.1.0"
+          },
+          "invocation": {
+            "argv": [
+              "ok.c",
+              "--json",
+              "--offline"
+            ],
+            "mode": "build",
+            "lang": "c",
+            "strict": false,
+            "play": false,
+            "offline": true
+          },
+          "input": {
+            "path": "ok.c",
+            "sha256": "86004d65c4f387c95467c6cee92bc1f1f8cb04d6650be09fbd1e359834a56766",
+            "bytes": 26,
+            "encoding": "utf-8"
+          },
+          "toolchain": {
+            "adapter": "c",
+            "command": "/usr/sbin/gcc",
+            "version": "16.2.1"
+          },
+          "diagnostics": [],
+          "syntax_errors": [],
+          "attempts": [
+            {
+              "kind": "native",
+              "round": 1,
+              "command": [
+                "/usr/sbin/gcc",
+                "ok.c"
+              ],
+              "exit_code": 0,
+              "duration_ms": 20,
+              "stdout": "",
+              "stderr": ""
+            }
+          ],
+          "model": null,
+          "result": {
+            "status": "native_ok",
+            "artifact": "a.out",
+            "program_exit": null,
+            "repair": null,
+            "generated": null,
+            "fallback": null,
+            "timed_out": false,
+            "emitted_source": null
+          },
+          "timings": {
+            "total_ms": 21,
+            "toolchain_ms": 20,
+            "model_ms": 0
+          },
+          "privacy": {
+            "cloud_used": false,
+            "uploaded_bytes": 0
+          },
+          "budget": {
+            "limit_usd": 0.05,
+            "committed_usd": 0.0,
+            "attempts": 0,
+            "blocked_reason": null
+          },
+          "limits": {
+            "sandboxed": false,
+            "network_isolated": false,
+            "timeout_s": null,
+            "environment_filtered": false,
+            "process_tree_cleanup": "none",
+            "resource_limits": "none",
+            "filesystem_isolated": false,
+            "output_limited": false
+          }
+        },
+        "report_sha256": "4c62e5c746d02294ab86f6ad2205f24aa1d4e93f11a548de4f7f037053f56d3a",
+        "status": "command_error",
+        "exit_code": 101,
+        "source_sha256_before": "86004d65c4f387c95467c6cee92bc1f1f8cb04d6650be09fbd1e359834a56766",
+        "source_sha256_after": "86004d65c4f387c95467c6cee92bc1f1f8cb04d6650be09fbd1e359834a56766",
+        "report_sha256_before": "4c62e5c746d02294ab86f6ad2205f24aa1d4e93f11a548de4f7f037053f56d3a",
+        "report_sha256_after": "4c62e5c746d02294ab86f6ad2205f24aa1d4e93f11a548de4f7f037053f56d3a",
+        "model_calls_received": 0,
+        "passed": true
+      },
+      {
+        "id": "invalid_lang_play_preserves_report",
+        "checks": {
+          "no_timeout_1": true,
+          "schema_v1": true,
+          "report_version": true,
+          "reported_model_calls": true,
+          "successful_baseline": true,
+          "native_baseline": true,
+          "no_timeout_2": true,
+          "exit_code": true,
+          "command_error": true,
+          "matching_error_code": true,
+          "stderr_empty": true,
+          "report_unchanged": true,
+          "source_unchanged": true,
+          "no_fallback_source": true,
+          "model_request_count": true,
+          "dummy_key_not_exposed": true
+        },
+        "invocations": [
+          {
+            "command": [
+              "/tmp/yescc-native-install-n0ribw3y/yescc-0.1.0-linux-x86_64/yescc",
+              "ok.c",
+              "--json",
+              "--offline"
+            ],
+            "cwd": "/tmp/yescc-binary-fdhe1ivj/invalid_lang_play_preserves_report",
+            "exit_code": 0,
+            "stdout": "{\n  \"schema_version\": \"1\",\n  \"tool\": {\n    \"name\": \"yescc\",\n    \"version\": \"0.1.0\"\n  },\n  \"invocation\": {\n    \"argv\": [\n      \"ok.c\",\n      \"--json\",\n      \"--offline\"\n    ],\n    \"mode\": \"build\",\n    \"lang\": \"c\",\n    \"strict\": false,\n    \"play\": false,\n    \"offline\": true\n  },\n  \"input\": {\n    \"path\": \"ok.c\",\n    \"sha256\": \"86004d65c4f387c95467c6cee92bc1f1f8cb04d6650be09fbd1e359834a56766\",\n    \"bytes\": 26,\n    \"encoding\": \"utf-8\"\n  },\n  \"toolchain\": {\n    \"adapter\": \"c\",\n    \"command\": \"/usr/sbin/gcc\",\n    \"version\": \"16.2.1\"\n  },\n  \"diagnostics\": [],\n  \"syntax_errors\": [],\n  \"attempts\": [\n    {\n      \"kind\": \"native\",\n      \"round\": 1,\n      \"command\": [\n        \"/usr/sbin/gcc\",\n        \"ok.c\"\n      ],\n      \"exit_code\": 0,\n      \"duration_ms\": 20,\n      \"stdout\": \"\",\n      \"stderr\": \"\"\n    }\n  ],\n  \"model\": null,\n  \"result\": {\n    \"status\": \"native_ok\",\n    \"artifact\": \"a.out\",\n    \"program_exit\": null,\n    \"repair\": null,\n    \"generated\": null,\n    \"fallback\": null,\n    \"timed_out\": false,\n    \"emitted_source\": null\n  },\n  \"timings\": {\n    \"total_ms\": 21,\n    \"toolchain_ms\": 20,\n    \"model_ms\": 0\n  },\n  \"privacy\": {\n    \"cloud_used\": false,\n    \"uploaded_bytes\": 0\n  },\n  \"budget\": {\n    \"limit_usd\": 0.05,\n    \"committed_usd\": 0.0,\n    \"attempts\": 0,\n    \"blocked_reason\": null\n  },\n  \"limits\": {\n    \"sandboxed\": false,\n    \"network_isolated\": false,\n    \"timeout_s\": null,\n    \"environment_filtered\": false,\n    \"process_tree_cleanup\": \"none\",\n    \"resource_limits\": \"none\",\n    \"filesystem_isolated\": false,\n    \"output_limited\": false\n  }\n}\n",
+            "stderr": "",
+            "stdout_sha256": "4c62e5c746d02294ab86f6ad2205f24aa1d4e93f11a548de4f7f037053f56d3a",
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false,
+            "duration_ms": 142
+          },
+          {
+            "command": [
+              "/tmp/yescc-native-install-n0ribw3y/yescc-0.1.0-linux-x86_64/yescc",
+              "ok.c",
+              "--lang",
+              "nonesuch",
+              "--json",
+              "--offline",
+              "--play"
+            ],
+            "cwd": "/tmp/yescc-binary-fdhe1ivj/invalid_lang_play_preserves_report",
+            "exit_code": 101,
+            "stdout": "{\n  \"schema_version\": \"1\",\n  \"report_kind\": \"command_error\",\n  \"tool\": {\n    \"name\": \"yescc\",\n    \"version\": \"0.1.0\"\n  },\n  \"invocation\": {\n    \"argv\": [\n      \"ok.c\",\n      \"--lang\",\n      \"nonesuch\",\n      \"--json\",\n      \"--offline\",\n      \"--play\"\n    ]\n  },\n  \"error\": {\n    \"type\": \"UnsupportedInput\",\n    \"exit_code\": 101,\n    \"message\": \"不支持的语言：nonesuch（当前支持：c、javascript、python）\",\n    \"phase\": \"execute\"\n  }\n}\n",
+            "stderr": "",
+            "stdout_sha256": "eff7d6465ce85a8aba816a95b22281c2a85505875face8fe75e2979437571f5a",
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false,
+            "duration_ms": 131
+          }
+        ],
+        "report": {
+          "schema_version": "1",
+          "tool": {
+            "name": "yescc",
+            "version": "0.1.0"
+          },
+          "invocation": {
+            "argv": [
+              "ok.c",
+              "--json",
+              "--offline"
+            ],
+            "mode": "build",
+            "lang": "c",
+            "strict": false,
+            "play": false,
+            "offline": true
+          },
+          "input": {
+            "path": "ok.c",
+            "sha256": "86004d65c4f387c95467c6cee92bc1f1f8cb04d6650be09fbd1e359834a56766",
+            "bytes": 26,
+            "encoding": "utf-8"
+          },
+          "toolchain": {
+            "adapter": "c",
+            "command": "/usr/sbin/gcc",
+            "version": "16.2.1"
+          },
+          "diagnostics": [],
+          "syntax_errors": [],
+          "attempts": [
+            {
+              "kind": "native",
+              "round": 1,
+              "command": [
+                "/usr/sbin/gcc",
+                "ok.c"
+              ],
+              "exit_code": 0,
+              "duration_ms": 20,
+              "stdout": "",
+              "stderr": ""
+            }
+          ],
+          "model": null,
+          "result": {
+            "status": "native_ok",
+            "artifact": "a.out",
+            "program_exit": null,
+            "repair": null,
+            "generated": null,
+            "fallback": null,
+            "timed_out": false,
+            "emitted_source": null
+          },
+          "timings": {
+            "total_ms": 21,
+            "toolchain_ms": 20,
+            "model_ms": 0
+          },
+          "privacy": {
+            "cloud_used": false,
+            "uploaded_bytes": 0
+          },
+          "budget": {
+            "limit_usd": 0.05,
+            "committed_usd": 0.0,
+            "attempts": 0,
+            "blocked_reason": null
+          },
+          "limits": {
+            "sandboxed": false,
+            "network_isolated": false,
+            "timeout_s": null,
+            "environment_filtered": false,
+            "process_tree_cleanup": "none",
+            "resource_limits": "none",
+            "filesystem_isolated": false,
+            "output_limited": false
+          }
+        },
+        "report_sha256": "4c62e5c746d02294ab86f6ad2205f24aa1d4e93f11a548de4f7f037053f56d3a",
+        "status": "command_error",
+        "exit_code": 101,
+        "source_sha256_before": "86004d65c4f387c95467c6cee92bc1f1f8cb04d6650be09fbd1e359834a56766",
+        "source_sha256_after": "86004d65c4f387c95467c6cee92bc1f1f8cb04d6650be09fbd1e359834a56766",
+        "report_sha256_before": "4c62e5c746d02294ab86f6ad2205f24aa1d4e93f11a548de4f7f037053f56d3a",
+        "report_sha256_after": "4c62e5c746d02294ab86f6ad2205f24aa1d4e93f11a548de4f7f037053f56d3a",
+        "model_calls_received": 0,
+        "passed": true
+      },
+      {
+        "id": "json_is_language_value",
+        "checks": {
+          "no_timeout_1": true,
+          "exit_code": true,
+          "plain_error": true,
+          "no_report": true,
+          "source_unchanged": true,
+          "model_request_count": true,
+          "dummy_key_not_exposed": true
+        },
+        "invocations": [
+          {
+            "command": [
+              "/tmp/yescc-native-install-n0ribw3y/yescc-0.1.0-linux-x86_64/yescc",
+              "ok.c",
+              "--lang",
+              "--json",
+              "--offline"
+            ],
+            "cwd": "/tmp/yescc-binary-fdhe1ivj/json_is_language_value",
+            "exit_code": 101,
+            "stdout": "",
+            "stderr": "yescc: 不支持的语言：--json（当前支持：c、javascript、python）\n",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stderr_sha256": "b4cdb430ce35170ecb9b282672483ae6e882e3a810452af57811136629d13379",
+            "timed_out": false,
+            "duration_ms": 122
+          }
+        ],
+        "source_sha256_before": "86004d65c4f387c95467c6cee92bc1f1f8cb04d6650be09fbd1e359834a56766",
+        "source_sha256_after": "86004d65c4f387c95467c6cee92bc1f1f8cb04d6650be09fbd1e359834a56766",
+        "model_calls_received": 0,
+        "passed": true
+      },
+      {
+        "id": "program_json_argument",
+        "checks": {
+          "no_timeout_1": true,
+          "schema_v1": true,
+          "report_version": true,
+          "reported_model_calls": true,
+          "exit_code": true,
+          "argument": true,
+          "stderr_empty": true,
+          "source_unchanged": true,
+          "model_request_count": true,
+          "dummy_key_not_exposed": true
+        },
+        "invocations": [
+          {
+            "command": [
+              "/tmp/yescc-native-install-n0ribw3y/yescc-0.1.0-linux-x86_64/yescc",
+              "run",
+              "args.py",
+              "--offline",
+              "--",
+              "--json"
+            ],
+            "cwd": "/tmp/yescc-binary-fdhe1ivj/program_json_argument",
+            "exit_code": 0,
+            "stdout": "--json\n",
+            "stderr": "",
+            "stdout_sha256": "2624b791efd4cc89129e481e845b15a287c62c09051c444140e91f8f03eecf22",
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false,
+            "duration_ms": 209
+          }
+        ],
+        "source_sha256_before": "ea4991b34ffbbcdc363d20b2fadc0d0ecc1aedc7c4cb7ae2315c0fc3b6acd4e3",
+        "source_sha256_after": "ea4991b34ffbbcdc363d20b2fadc0d0ecc1aedc7c4cb7ae2315c0fc3b6acd4e3",
+        "report": {
+          "schema_version": "1",
+          "tool": {
+            "name": "yescc",
+            "version": "0.1.0"
+          },
+          "invocation": {
+            "argv": [
+              "run",
+              "args.py",
+              "--offline",
+              "--",
+              "--json"
+            ],
+            "mode": "run",
+            "lang": "python",
+            "strict": false,
+            "play": false,
+            "offline": true
+          },
+          "input": {
+            "path": "args.py",
+            "sha256": "ea4991b34ffbbcdc363d20b2fadc0d0ecc1aedc7c4cb7ae2315c0fc3b6acd4e3",
+            "bytes": 30,
+            "encoding": "utf-8"
+          },
+          "toolchain": {
+            "adapter": "python",
+            "command": "/usr/sbin/python3",
+            "version": "3.14.10"
+          },
+          "diagnostics": [],
+          "syntax_errors": [],
+          "attempts": [
+            {
+              "kind": "native",
+              "round": 1,
+              "command": [
+                "/usr/sbin/python3",
+                "-m",
+                "py_compile",
+                "args.py"
+              ],
+              "exit_code": 0,
+              "duration_ms": 49,
+              "stdout": "",
+              "stderr": ""
+            }
+          ],
+          "model": null,
+          "result": {
+            "status": "native_ok",
+            "artifact": "__pycache__/args.cpython-314.pyc",
+            "program_exit": 0,
+            "repair": null,
+            "generated": null,
+            "fallback": null,
+            "timed_out": false,
+            "emitted_source": null
+          },
+          "timings": {
+            "total_ms": 81,
+            "toolchain_ms": 49,
+            "model_ms": 0
+          },
+          "privacy": {
+            "cloud_used": false,
+            "uploaded_bytes": 0
+          },
+          "budget": {
+            "limit_usd": 0.05,
+            "committed_usd": 0.0,
+            "attempts": 0,
+            "blocked_reason": null
+          },
+          "limits": {
+            "sandboxed": false,
+            "network_isolated": false,
+            "timeout_s": null,
+            "environment_filtered": false,
+            "process_tree_cleanup": "none",
+            "resource_limits": "none",
+            "filesystem_isolated": false,
+            "output_limited": false
+          }
+        },
+        "report_sha256": "c7739e6095c1e54980c652bef6faebb351fc8bf2e2c6c9e5f444b5addc536fae",
+        "status": "native_ok",
+        "model_calls_received": 0,
+        "passed": true
+      }
+    ],
+    "archive": "yescc-0.1.0-linux-x86_64.tar.gz",
+    "archive_sha256": "0c6f495bd6fa40e39b46a97e96aba5ac14b0c4a89db90b69841ab7f41cef6f90",
+    "manifest_verified": true,
+    "release_checksum_verified": true,
+    "reviewed_candidate_verified": true,
+    "source_commit": "e40086fc4ada36b613db73303b30e5ba92c09ce0"
+  },
+  "local_binary_scope": "Existing Linux archive through new hash/source guards. No GitHub Release download, no new Windows native execution, not public-install acceptance.",
+  "read_only_remote_observations": {
+    "tag_v0_1_0_exists": false,
+    "github_releases": [
+      "v0.0.1-alpha"
+    ],
+    "pypi_project_http_status": 404,
+    "pypi_version_http_status": 404,
+    "repository_environments": 0,
+    "repository_actions_secret_names": []
+  },
+  "credential_metadata": {
+    "file": "~/.pypirc",
+    "mode": "0600",
+    "pypi_token_configuration_present": true,
+    "endpoint_matches_official": true,
+    "credential_values_recorded": false,
+    "remote_upload_permission_verified": false
+  },
+  "release_notes_local_path": "dist/release-0.1.0-publication/RELEASE-NOTES.md",
+  "release_notes_sha256": "58fea44639d64467093bff19ad6b937ea1fc396037bf9a1f4a9f09892821c82d",
+  "formal_release_authorized": false,
+  "new_model_api_calls": 0,
+  "actions_performed": {
+    "tag_created": false,
+    "github_release_created": false,
+    "pypi_upload": false,
+    "daily_install_changed": false
+  },
+  "pending": [
+    "Merge verification branch after CI",
+    "Maintainer confirms exact publication proposal including proposed observation window",
+    "Actual public PyPI/Release installs",
+    "Observed window with no known P0"
+  ]
+}
