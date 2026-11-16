@@ -132,18 +132,19 @@ def build(output: Path) -> dict:
     bundle = output / "unpacked" / "yescc"
     binary = bundle / ("yescc.exe" if os.name == "nt" else "yescc")
     subprocess.run([str(binary), "--version"], cwd=output, check=True, timeout=30)
-    for name in ("LICENSE", "THIRD_PARTY_NOTICES.md", "README.md"):
+    for name in ("LICENSE", "THIRD_PARTY_NOTICES.md"):
         shutil.copy2(ROOT / name, bundle / name)
+    shutil.copy2(ROOT / "docs" / "PYPI_README.md", bundle / "README.md")
     shutil.copytree(ROOT / "examples", bundle / "examples", dirs_exist_ok=True)
     (bundle / "START-HERE.txt").write_text(
-        "YesCC " + candidate_version + " candidate (not published)\n"
+        "YesCC " + candidate_version + "\n"
         "Keep the entire extracted directory, including _internal and licenses.\n"
         "The CLI bundles its Python runtime; user programs need external toolchains:\n"
         "C: GCC; JavaScript: Node.js; Python: Python 3 on PATH.\n"
         "Examples: ./yescc --version; ./yescc run examples/hello.c --offline\n"
         "Windows: use .\\yescc.exe in place of ./yescc.\n"
         "Read README.md for AI, privacy and best-effort isolation limits.\n"
-        "This candidate has not been approved for distribution; see licenses inventory.\n",
+        "Release status and checksums: https://github.com/wuqiuwangtian/yescc/releases\n",
         encoding="utf-8",
     )
     from bench.python_provenance import ensure_python_provenance

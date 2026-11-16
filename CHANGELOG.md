@@ -26,6 +26,8 @@
 
 ### Fixed
 
+- Python 包使用面向 PyPI 的稳定说明，避免正式版本页面仍引导安装旧 alpha/TestPyPI；仓库 README 继续保存实际开发/发布状态。
+
 - 失败构建报告保留实际`result.failure_message`，缺工具的JSON/explain可定位原因；模型创意运行拒绝后的回显说明保留真实退出/输出/检查模式，不只显示次数耗尽。
 
 - 原生候选许可采集分别映射物理文件与Python模块，避免Linux入口`yescc`的来源被同名包覆盖，未知原生文件仍保留未解析状态。
