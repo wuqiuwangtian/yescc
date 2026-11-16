@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "source_commit": "e40086fc4ada36b613db73303b30e5ba92c09ce0",
   "production_source_tree": "052a1e187a70047762f033afec0db1a52961085e",
-  "merged": false,
+  "merged": true,
   "published": false,
   "formal_release_authorized": false,
   "pull_requests": [
@@ -110,5 +110,8 @@
   "daily_install_updated": false,
   "real_model_api_calls_this_stage": 0,
   "host_agent_cost_known": false,
-  "next_step": "Review and integrate PR15 then PR16, preserving commits and checking final tree/CI. Confirm tag/Release/PyPI publication separately; then verify actual public-index install and observation window."
+  "next_step": "Main integration complete. Confirm exact tag/Release/PyPI publication separately, then verify public-index root installation and observation window; G6 remains pending.",
+  "main_integration_commit": "d4b2753249d7d923242cd5b1a22205f1348d9b0c",
+  "reviewed_head": "a42c8efd3f4e296da6c61dc27d838f5eec016c66",
+  "main_tree_matches_reviewed_head": true
 }
