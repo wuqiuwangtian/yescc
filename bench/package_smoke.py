@@ -12,6 +12,8 @@ import sys
 import tempfile
 import tomllib
 import zipfile
+from email.parser import BytesParser
+from email.policy import default
 from pathlib import Path
 
 from tests.conftest import FakeModelServer
@@ -76,6 +78,14 @@ def verify(wheel: Path, directory: Path) -> dict[str, object]:
         assert "yescc/py.typed" in names
         assert any(name.endswith(".dist-info/licenses/LICENSE") for name in names)
         assert any(name.endswith(".dist-info/licenses/THIRD_PARTY_NOTICES.md") for name in names)
+        metadata_name = next(name for name in names if name.endswith(".dist-info/METADATA"))
+        package_metadata = BytesParser(policy=default).parsebytes(archive.read(metadata_name))
+        readme_path = tomllib.loads((ROOT / "pyproject.toml").read_text("utf-8"))["project"][
+            "readme"
+        ]
+        description = package_metadata.get_payload(decode=True).decode("utf-8")
+        assert package_metadata["Description-Content-Type"] == "text/markdown"
+        assert description.strip() == (ROOT / readme_path).read_text("utf-8").strip()
     env = {
         key: value for key, value in os.environ.items() if not key.startswith(("YESCC_", "FCOMP_"))
     }
@@ -374,6 +384,7 @@ def verify(wheel: Path, directory: Path) -> dict[str, object]:
         "wheel_sha256": hashlib.sha256(wheel.read_bytes()).hexdigest(),
         "lock_sha256": hashlib.sha256((ROOT / "uv.lock").read_bytes()).hexdigest(),
         "isolated_install": True,
+        "readme_metadata_verified": True,
         "paid_model_calls": 0,
         "total": len(rows),
         "passed": len(rows),

@@ -1,59 +1,81 @@
 {
   "schema": "yescc-release-candidate-v1",
   "version": "0.1.0",
-  "source_commit": "e40086fc4ada36b613db73303b30e5ba92c09ce0",
-  "production_source_tree": "052a1e187a70047762f033afec0db1a52961085e",
-  "merged": true,
+  "source_commit": "88ae078eec30549dbdac4be8a1626879455abc75",
+  "production_source_tree": "9da4852792b92f36d6c776dd83cd42a2aa643195",
+  "baseline_main": "72244999c121a631f7ff98781152dfdf9b6914d3",
+  "merged": false,
   "published": false,
   "formal_release_authorized": false,
   "pull_requests": [
-    "https://github.com/wuqiuwangtian/yescc/pull/15",
-    "https://github.com/wuqiuwangtian/yescc/pull/16"
+    "https://github.com/wuqiuwangtian/yescc/pull/17"
   ],
   "assets": {
-    "yescc-0.1.0-py3-none-any.whl": "ea5e323cd49f52672e8e2eacf6ef820de225ffb5993cf4f4daa65fd15abcd1ce",
-    "yescc-0.1.0.tar.gz": "5a6786622e297e2973489d2358968db29f930bf65042e89af0f19c68e75baa12",
-    "yescc-0.1.0-linux-x86_64.tar.gz": "0c6f495bd6fa40e39b46a97e96aba5ac14b0c4a89db90b69841ab7f41cef6f90",
-    "yescc-0.1.0-windows-x86_64.zip": "386a9af15728d2bd3245135f0a15248171f016bd38599eae3ebecfe41d733a72"
+    "yescc-0.1.0-windows-x86_64.zip": "cc0b294abae8efe88b90e35e97fd2e40349134c986502790ff1d45057e62827e",
+    "yescc-0.1.0-linux-x86_64.tar.gz": "4ad0e3a72d0cab4c2bafa7217dd90b1df2bee18a70150f8b85404072040fe31f",
+    "yescc-0.1.0-py3-none-any.whl": "42bb3960df4bf6dfd0a7aa860b6837a01293e0de7f6fd3ec06e00eea1ee3f03e",
+    "yescc-0.1.0.tar.gz": "833fccf7614ec6f7fae6c25a91cd2c612e13f58ad1bdbe68dae6cd0dbab6f5b9"
   },
   "candidate_workflow": {
-    "id": 43694409633,
-    "url": "https://github.com/wuqiuwangtian/yescc/actions/runs/43694409633",
+    "id": 43893675693,
+    "url": "https://github.com/wuqiuwangtian/yescc/actions/runs/43893675693",
     "successful_jobs": 7
   },
   "source_ci": [
     {
-      "id": 43694408423,
+      "id": 43893602342,
       "successful_jobs": 14
     },
     {
-      "id": 43694414506,
+      "id": 43893952277,
       "successful_jobs": 14
     }
   ],
-  "artifact_expires_at": "2027-02-13T08:25:10Z",
+  "artifact_expires_at": "2027-02-14T15:11:21Z",
   "validation": {
-    "local_full_before_test_only_fix": {
-      "passed": 1359,
+    "local_full": {
+      "source_commit": "88ae078eec30549dbdac4be8a1626879455abc75",
+      "passed": 1384,
       "skipped": 1,
-      "source_commit": "0fd506196f9e40497f2a4aa85f801316934fd00b"
+      "seconds": 147.89,
+      "skip": "Windows native CTRL_BREAK"
     },
-    "corrected_targeted_tests": 13,
+    "report_identity_cli": {
+      "before_source": "8f1c273c2711f4f3c11dcc95c4d700eb3389ad4c",
+      "before_tests": {
+        "passed": 5,
+        "failed": 9,
+        "total": 14
+      },
+      "final_targeted_passed": 15,
+      "report_path_and_schema_unchanged": true
+    },
+    "old_native_new_smoke": {
+      "source_commit": "8f1c273c2711f4f3c11dcc95c4d700eb3389ad4c",
+      "passed": 27,
+      "failed": 2,
+      "total": 29,
+      "failures": [
+        "explain_cross_language_identity",
+        "explain_directory_identity"
+      ]
+    },
     "native_smoke": {
       "Linux": {
-        "passed": 27,
-        "total": 27,
+        "passed": 29,
+        "total": 29,
         "optional_rejection_mode": "runtime"
       },
       "Windows": {
-        "passed": 27,
-        "total": 27,
+        "passed": 29,
+        "total": 29,
         "optional_rejection_mode": "trap"
       }
     },
     "wheel_smoke": {
       "passed": 18,
-      "total": 18
+      "total": 18,
+      "readme_metadata_verified": true
     },
     "local_wheel_public_range_rehearsal": {
       "matrix": [
@@ -66,52 +88,89 @@
       "total_per_matrix": 6
     },
     "independent_asset_audit": {
-      "passed": 2556,
-      "total": 2556
+      "passed": 2788,
+      "total": 2788,
+      "includes": "Official ZIP/member binding, bundle origins/licenses, exact Git sources, actual builder wheels/RECORD, stable docs and actual report-identity evidence",
+      "preparation_failure_preserved": {
+        "passed": 2784,
+        "total": 2788,
+        "reason": "Audit incorrectly expected absolute input paths; actual schema uses cwd-relative paths. Only the path predicate corrected; source/report/expected behavior unchanged."
+      }
     },
-    "independent_ai_trial": {
-      "source_commit": "0fd506196f9e40497f2a4aa85f801316934fd00b",
+    "independent_ai_trial_before_fix": {
+      "source_commit": "8f1c273c2711f4f3c11dcc95c4d700eb3389ad4c",
+      "commands": 56,
+      "passed_checks": 39,
+      "failed_checks": 2,
+      "finding": "U1 independently reproduced on wheel and Linux archive",
+      "preserved": true
+    },
+    "independent_ai_targeted_retest": {
+      "source_commit": "88ae078eec30549dbdac4be8a1626879455abc75",
       "platform": "Linux",
-      "cli": 16,
-      "fake_http": 4,
-      "assertions": 43,
-      "passed": 43,
+      "actual_commands": 50,
+      "wheel_checks_passed": 29,
+      "native_checks_passed": 29,
+      "total_passed": 58,
       "failed": 0,
-      "final_archive_new_independent_trial": false,
-      "bridge": "Final production source and Linux ELF match tested candidate; final native smoke and source audit recorded separately."
+      "new_black_box_first_run": false,
+      "scope": "U1 and positive historical-report cases, original three examples; not human acceptance, Windows, public downloads or model quality."
     }
   },
-  "resolved_ux_findings": [
+  "resolved_findings": [
     {
       "id": "UX-1",
-      "resolution": "Fallback guidance cites actual rejected run and check mode while preserving budget stop reason, without forwarding failed output or certifying UB."
+      "resolution": "Fallback cites actual rejected run and check mode without certifying UB."
     },
     {
       "id": "UX-2",
-      "resolution": "Actual failure cause persists in result.failure_message and explain; missing tools do not fabricate compiler attempts or diagnostics."
+      "resolution": "Actual missing-tool cause persists in build report and explain."
+    },
+    {
+      "id": "DOC-1",
+      "resolution": "Wheel description and native README use stable user documentation; START-HERE has neutral release status and three examples."
+    },
+    {
+      "id": "U1",
+      "resolution": "Explain rejects a different or unverifiable report input with 100; preserves matching historical report reads and report bytes."
     }
   ],
   "open_product_findings_in_this_trial": [],
   "license_unresolved": [],
-  "license_scope": "Actual bundle/TOC/source/notice binding, not legal advice or reproducible-build proof. Linux executable/package origin collision remains corrected.",
+  "license_scope": "Original actual bundle/TOC/source/notice and dependency binding; not legal advice or reproducible-build proof.",
   "actual_native_builder_wheels_retained": true,
-  "builder_wheel_comparison": "Both original input wheels match manifest hashes; product source members match Git. Platform differences in license line endings/RECORD and ZIP metadata are recorded directly.",
-  "historical_ci_failure": {
-    "head": "0fd506196f9e40497f2a4aa85f801316934fd00b",
-    "runs": [
-      43693016124,
-      43693035482
-    ],
-    "reason": "New strict compiler diagnostic test compared LF GCC bytes with CRLF Windows text output. Product output path unchanged; corrected test compares entire diagnostic allowing only CRLF/LF and requires >4000-byte output. Raw program-stream checks remain unchanged.",
-    "preserved": true
-  },
+  "builder_wheel_comparison": "Both actual input wheels match manifest hashes and fixed Git source; package descriptions match Git. Only two license line endings and corresponding RECORD differ across wheel member bodies.",
   "public_pypi_root_install": "pending publication; local-wheel rehearsal only",
   "g6": "pending",
   "daily_install_updated": false,
   "real_model_api_calls_this_stage": 0,
   "host_agent_cost_known": false,
-  "next_step": "Main integration complete. Confirm exact tag/Release/PyPI publication separately, then verify public-index root installation and observation window; G6 remains pending.",
-  "main_integration_commit": "d4b2753249d7d923242cd5b1a22205f1348d9b0c",
-  "reviewed_head": "a42c8efd3f4e296da6c61dc27d838f5eec016c66",
-  "main_tree_matches_reviewed_head": true
+  "publication_proposal": {
+    "status": "prepared_pending_maintainer_confirmation",
+    "tag": "v0.1.0",
+    "tag_target": "88ae078eec30549dbdac4be8a1626879455abc75",
+    "tag_target_basis": "Exact final built source. Merge PR17 first; later documentation commits are not claimed as rebuilt assets.",
+    "github_repository": "wuqiuwangtian/yescc",
+    "github_release_kind": "public non-prerelease, initially staged as draft",
+    "github_assets": "The four assets above plus their SHA256SUMS; no rebuild.",
+    "pypi_repository": "https://upload.pypi.org/legacy/",
+    "pypi_assets": [
+      "yescc-0.1.0-py3-none-any.whl",
+      "yescc-0.1.0.tar.gz"
+    ],
+    "authentication": "Existing local ~/.pypirc [pypi] token, official endpoint checked; remote upload permission not verified.",
+    "asset_directory": "dist/release-0.1.0-candidate-88ae078",
+    "release_notes_local_path": "dist/release-0.1.0-publication/RELEASE-NOTES.md",
+    "release_notes_sha256": "ba1e9633855042980629ad7096242ccd5e8eadf07b915709c42d1e6232fa3103",
+    "verification_branch": "feat/g6-published-binary-verification",
+    "verification_requires_merge_and_ci": true,
+    "post_publish_verification": "published-install.yml on main: four public PyPI matrices and two actual Release downloads, reviewed checksum/source binding, native 29 cases.",
+    "observation_window_proposal": {
+      "hours": 24,
+      "starts_after": "All public distribution install checks pass",
+      "accepted": false
+    },
+    "runbook": "docs/releases/0.1.0.md#维护者发布步骤提案尚未执行"
+  },
+  "next_step": "Confirm the exact publication proposal and observation duration, merge CI-passing PR17, then publish reviewed bytes. Verify actual public installs and observation before G6."
 }

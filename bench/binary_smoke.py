@@ -529,6 +529,66 @@ def verify(binary: Path, expected_version: str) -> dict[str, Any]:
                 _expect(row, "help", all(s in result["stdout"] for s in ("--json", "--lang")))
 
             harness.check("help", help_text)
+
+            def explain_identity(
+                row: dict[str, Any], cwd: Path, cross_language: bool
+            ) -> None:
+                if cross_language:
+                    first, second = cwd / "same.py", cwd / "same.c"
+                    second_text = "int main(void){return 0;}\n"
+                else:
+                    (cwd / "first").mkdir()
+                    (cwd / "second").mkdir()
+                    first, second = cwd / "first/same.py", cwd / "second/same.py"
+                    second_text = 'print("second")\n'
+                first.write_text('print("first")\n', encoding="utf-8")
+                second.write_text(second_text, encoding="utf-8")
+                before_sources = [_sha(first), _sha(second)]
+                initial = harness.call(row, ["run", str(first), "--offline"], cwd)
+                _expect(row, "initial_program", initial["exit_code"] == 0
+                        and initial["stdout"] == "first\n" and not initial["stderr"])
+                built = harness.call(row, [str(second), "--json", "--offline"], cwd)
+                expected = json.loads(built["stdout"])
+                _expect(row, "second_build", built["exit_code"] == 0
+                        and expected["result"]["status"] == "native_ok")
+                report_file = cwd / ".yescc/same/report.json"
+                before_report = _sha(report_file)
+                row["report_sha256_before"] = before_report
+                args = [str(first), "--explain", "--offline"]
+                rejected = harness.call(row, [*args, "--json"], cwd)
+                row["rejected_json"] = json.loads(rejected["stdout"])
+                error = row["rejected_json"].get("error", {})
+                _expect(row, "foreign_report_rejected", rejected["exit_code"] == 100
+                        and not rejected["stderr"]
+                        and row["rejected_json"].get("report_kind") == "command_error"
+                        and error.get("exit_code") == 100 and error.get("phase") == "explain")
+                text = harness.call(row, args, cwd)
+                _expect(row, "text_rejected", text["exit_code"] == 100
+                        and not text["stdout"] and bool(text["stderr"]))
+                matched = harness.call(row, [str(second), "--explain", "--json", "--offline"], cwd)
+                row["matching_json"] = json.loads(matched["stdout"])
+                _expect(row, "matching_report", matched["exit_code"] == 0
+                        and not matched["stderr"] and row["matching_json"] == expected)
+                _expect(row, "source_unchanged", [_sha(first), _sha(second)] == before_sources)
+                second.unlink()
+                historical = harness.call(
+                    row, [str(second), "--explain", "--json", "--offline"], cwd
+                )
+                _expect(row, "deleted_source_history", historical["exit_code"] == 0
+                        and not historical["stderr"]
+                        and json.loads(historical["stdout"]) == expected)
+                row["report_sha256_after"] = _sha(report_file)
+                row["report_preserved"] = row["report_sha256_after"] == before_report
+                row["requested_source"] = str(first.relative_to(cwd))
+                row["stored_source"] = str(second.relative_to(cwd))
+                _expect(row, "report_preserved", row["report_preserved"])
+
+            harness.check(
+                "explain_cross_language_identity", lambda r, p: explain_identity(r, p, True)
+            )
+            harness.check(
+                "explain_directory_identity", lambda r, p: explain_identity(r, p, False)
+            )
             for language in ("c", "python", "javascript"):
                 harness.check(
                     "native_" + language, lambda r, p, lang=language: harness.native(r, p, lang)

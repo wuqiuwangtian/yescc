@@ -1,0 +1,176 @@
+{
+  "schema": "yescc-publication-preparation-summary-v1",
+  "observed_at_utc": "2026-11-16T15:31:12.415823+00:00",
+  "baseline_main": "72244999c121a631f7ff98781152dfdf9b6914d3",
+  "final_asset_source": "88ae078eec30549dbdac4be8a1626879455abc75",
+  "branch": "feat/g6-published-binary-verification",
+  "pull_request": 17,
+  "changes": {
+    "runtime": "Explain input identity guard only (pipeline.py); fixed report directory and schema unchanged.",
+    "packaging": "Stable PyPI/native user documentation and neutral START-HERE with three examples.",
+    "verification": "Reviewed checksum/source binding for actual Release downloads; 10 archive regressions, 15 CLI identity regressions, native cases 27 -> 29."
+  },
+  "validation": {
+    "local_full": {
+      "source_commit": "88ae078eec30549dbdac4be8a1626879455abc75",
+      "passed": 1384,
+      "skipped": 1,
+      "seconds": 147.89,
+      "skip": "Windows native CTRL_BREAK"
+    },
+    "report_identity_cli": {
+      "before_source": "8f1c273c2711f4f3c11dcc95c4d700eb3389ad4c",
+      "before_tests": {
+        "passed": 5,
+        "failed": 9,
+        "total": 14
+      },
+      "final_targeted_passed": 15,
+      "report_path_and_schema_unchanged": true
+    },
+    "old_native_new_smoke": {
+      "source_commit": "8f1c273c2711f4f3c11dcc95c4d700eb3389ad4c",
+      "passed": 27,
+      "failed": 2,
+      "total": 29,
+      "failures": [
+        "explain_cross_language_identity",
+        "explain_directory_identity"
+      ]
+    },
+    "native_smoke": {
+      "Linux": {
+        "passed": 29,
+        "total": 29,
+        "optional_rejection_mode": "runtime"
+      },
+      "Windows": {
+        "passed": 29,
+        "total": 29,
+        "optional_rejection_mode": "trap"
+      }
+    },
+    "wheel_smoke": {
+      "passed": 18,
+      "total": 18,
+      "readme_metadata_verified": true
+    },
+    "local_wheel_public_range_rehearsal": {
+      "matrix": [
+        "Linux py3.11",
+        "Linux py3.14",
+        "Windows py3.11",
+        "Windows py3.14"
+      ],
+      "passed_per_matrix": 6,
+      "total_per_matrix": 6
+    },
+    "independent_asset_audit": {
+      "passed": 2788,
+      "total": 2788,
+      "includes": "Official ZIP/member binding, bundle origins/licenses, exact Git sources, actual builder wheels/RECORD, stable docs and actual report-identity evidence",
+      "preparation_failure_preserved": {
+        "passed": 2784,
+        "total": 2788,
+        "reason": "Audit incorrectly expected absolute input paths; actual schema uses cwd-relative paths. Only the path predicate corrected; source/report/expected behavior unchanged."
+      }
+    },
+    "independent_ai_trial_before_fix": {
+      "source_commit": "8f1c273c2711f4f3c11dcc95c4d700eb3389ad4c",
+      "commands": 56,
+      "passed_checks": 39,
+      "failed_checks": 2,
+      "finding": "U1 independently reproduced on wheel and Linux archive",
+      "preserved": true
+    },
+    "independent_ai_targeted_retest": {
+      "source_commit": "88ae078eec30549dbdac4be8a1626879455abc75",
+      "platform": "Linux",
+      "actual_commands": 50,
+      "wheel_checks_passed": 29,
+      "native_checks_passed": 29,
+      "total_passed": 58,
+      "failed": 0,
+      "new_black_box_first_run": false,
+      "scope": "U1 and positive historical-report cases, original three examples; not human acceptance, Windows, public downloads or model quality."
+    }
+  },
+  "source_ci": [
+    {
+      "id": 43893602342,
+      "successful_jobs": 14
+    },
+    {
+      "id": 43893952277,
+      "successful_jobs": 14
+    }
+  ],
+  "candidate_ci": {
+    "id": 43893675693,
+    "url": "https://github.com/wuqiuwangtian/yescc/actions/runs/43893675693",
+    "successful_jobs": 7
+  },
+  "assets": {
+    "yescc-0.1.0-windows-x86_64.zip": "cc0b294abae8efe88b90e35e97fd2e40349134c986502790ff1d45057e62827e",
+    "yescc-0.1.0-linux-x86_64.tar.gz": "4ad0e3a72d0cab4c2bafa7217dd90b1df2bee18a70150f8b85404072040fe31f",
+    "yescc-0.1.0-py3-none-any.whl": "42bb3960df4bf6dfd0a7aa860b6837a01293e0de7f6fd3ec06e00eea1ee3f03e",
+    "yescc-0.1.0.tar.gz": "833fccf7614ec6f7fae6c25a91cd2c612e13f58ad1bdbe68dae6cd0dbab6f5b9"
+  },
+  "production_source_tree": "9da4852792b92f36d6c776dd83cd42a2aa643195",
+  "audit_history": [
+    {
+      "source": "8f1c273c2711f4f3c11dcc95c4d700eb3389ad4c",
+      "passed": 2718,
+      "total": 2718,
+      "scope": "Static original asset checks only; independent trial later found U1."
+    },
+    {
+      "source": "88ae078eec30549dbdac4be8a1626879455abc75",
+      "passed": 2784,
+      "total": 2788,
+      "reason": "Auditor preparation error: four absolute-path assumptions. Raw report and verifier preserved."
+    },
+    {
+      "source": "88ae078eec30549dbdac4be8a1626879455abc75",
+      "passed": 2788,
+      "total": 2788,
+      "reason": "Only relative display_path predicate corrected; no product/payload/expected behavior change."
+    }
+  ],
+  "archive": {
+    "archive": "/home/wqwt/code/forgiving-compiler/docs/评测/data/publication-preparation-2026-11-16.json.gz",
+    "bytes": 3953376,
+    "sha256": "291bb8072a89fc5a0cdc34bf1be2212f7f0e418eabd7c2f0e15ec1320084ddd0",
+    "files": 926,
+    "omitted_binary_objects": 26,
+    "restored_hash_matches": 926
+  },
+  "archive_scope": "926 saved records/selected original archive members restored with exact hashes. 26 binary archives/wheels omitted with SHA/length. This is not original binary re-execution or full artifact re-audit without those files and fixed Git.",
+  "prepared_release_notes": {
+    "path": "dist/release-0.1.0-publication/RELEASE-NOTES.md",
+    "sha256": "ba1e9633855042980629ad7096242ccd5e8eadf07b915709c42d1e6232fa3103"
+  },
+  "publication": {
+    "merged": false,
+    "tag_created": false,
+    "github_release_created": false,
+    "pypi_uploaded": false,
+    "formal_release_authorized": false,
+    "g6": "pending"
+  },
+  "daily_install": {
+    "path": "/home/wqwt/.local/bin/yescc",
+    "observed_version": "0.1.0rc4",
+    "changed": false
+  },
+  "real_model_api_calls": 0,
+  "host_agent_cost_known": false,
+  "limitations": [
+    "AI trial and targeted retest are not human acceptance.",
+    "Windows native source/build/smoke checks passed in CI, no independent Windows user trial.",
+    "No actual public PyPI/Release download installation before publication.",
+    "No paid model quality re-evaluation or claim of semantic correctness.",
+    "24-hour observation window is proposed, not accepted or completed.",
+    "Credential configuration presence does not verify remote upload permission."
+  ]
+}

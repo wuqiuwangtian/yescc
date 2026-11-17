@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: Existing public PyPI version (this workflow never publishes)
+        description: Existing public PyPI and Release version matching the candidate proposal (never publishes)
         type: string
         required: true
         default: "0.1.0"
@@ -36,3 +36,48 @@ jobs:
         with:
           name: published-install-${{ runner.os }}-${{ matrix.python }}
           path: dist/published-install.json
+
+  native-install:
+    name: Published binary (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-24.04
+            suffix: linux-x86_64.tar.gz
+          - os: windows-latest
+            suffix: windows-x86_64.zip
+    env:
+      EXPECTED_VERSION: ${{ inputs.version }}
+      ARCHIVE_NAME: yescc-${{ inputs.version }}-${{ matrix.suffix }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.3.3
+        with:
+          python-version: "3.11"
+          enable-cache: true
+      - run: uv sync --extra dev --locked
+      - name: Download the published archive and checksum receipt
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: >-
+          gh release download "v$EXPECTED_VERSION" --repo "$GITHUB_REPOSITORY"
+          --pattern "$ARCHIVE_NAME" --pattern SHA256SUMS --dir dist/published-assets
+      - name: Verify reviewed bytes before extracting and running outside the repository
+        shell: bash
+        run: >-
+          uv run python -m bench.binary_archive_smoke
+          --archive "dist/published-assets/$ARCHIVE_NAME"
+          --expected-version "$EXPECTED_VERSION"
+          --release-checksums dist/published-assets/SHA256SUMS
+          --candidate-proposal docs/releases/0.1.0-candidate.json
+          --output dist/published-binary.json
+      - uses: actions/upload-artifact@v7.0.2
+        if: always()
+        with:
+          name: published-binary-${{ runner.os }}
+          path: |
+            dist/published-binary.json
+            dist/published-assets/SHA256SUMS

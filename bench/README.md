@@ -186,6 +186,19 @@ README动图由实际三例输出生成，可选安装Pillow后运行 `python -m
 
 发布后索引验证：`uv run python -m bench.index_smoke --expected-version 0.1.0 --output dist/published-install.json` 从公共PyPI安装根包和依赖；手动工作流 `Published install verification` 在Linux/Windows × Python3.11/3.14执行。发布前可加 `--wheel <候选whl>` 演练同一套检查，根包来自本地、依赖按公开版本范围解析，报告明确为local_wheel_rehearsal，不算实际PyPI发布验收。两种模式均只离线运行产品，不使用真实模型。
 
+同一手动工作流另有双平台`native-install`：从`v<version>`的正式Release下载归档和`SHA256SUMS`，以`docs/releases/0.1.0-candidate.json`中已复核的版本、归档哈希及source_commit作第二重绑定，再在仓库外解包执行当前29项检查（原27项加报告身份的跨后缀/跨目录两项）（只用本地假模型）。版本必须与提案一致，后续版本需先更新提案。发布前可用下面的本地归档预演，但不算Release下载验收：
+
+```bash
+uv run python -m bench.binary_archive_smoke \
+  --archive dist/release-0.1.0-candidate-88ae078/yescc-0.1.0-linux-x86_64.tar.gz \
+  --expected-version 0.1.0 \
+  --release-checksums dist/release-0.1.0-candidate-88ae078/SHA256SUMS \
+  --candidate-proposal docs/releases/0.1.0-candidate.json \
+  --output dist/release-0.1.0-publication/local-binary-rehearsal.json
+```
+
+两个新增校验选项必须同时提供；不提供时保留原候选验收路径。校验和/提案不符在解包前拒绝，来源commit不符在执行CLI前拒绝。原生检查器会调用回环假服务，报告`local_fake_only`；不能称为真实模型质量评测。正式发布操作顺序及待确认事项见[发布说明的维护者步骤](../docs/releases/0.1.0.md#维护者发布步骤提案尚未执行)。
+
 
 ## 运行期未定义行为离线研究
 
