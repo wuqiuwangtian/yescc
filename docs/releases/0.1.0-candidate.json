@@ -4,9 +4,9 @@
   "source_commit": "88ae078eec30549dbdac4be8a1626879455abc75",
   "production_source_tree": "9da4852792b92f36d6c776dd83cd42a2aa643195",
   "baseline_main": "72244999c121a631f7ff98781152dfdf9b6914d3",
-  "merged": false,
-  "published": false,
-  "formal_release_authorized": false,
+  "merged": true,
+  "published": true,
+  "formal_release_authorized": true,
   "pull_requests": [
     "https://github.com/wuqiuwangtian/yescc/pull/17"
   ],
@@ -140,13 +140,13 @@
   "license_scope": "Original actual bundle/TOC/source/notice and dependency binding; not legal advice or reproducible-build proof.",
   "actual_native_builder_wheels_retained": true,
   "builder_wheel_comparison": "Both actual input wheels match manifest hashes and fixed Git source; package descriptions match Git. Only two license line endings and corresponding RECORD differ across wheel member bodies.",
-  "public_pypi_root_install": "pending publication; local-wheel rehearsal only",
-  "g6": "pending",
+  "public_pypi_root_install": "passed actual public PyPI root installation on Linux/Windows x Python 3.11/3.14 (four groups, each 6/6)",
+  "g6": "pending_observation",
   "daily_install_updated": false,
   "real_model_api_calls_this_stage": 0,
   "host_agent_cost_known": false,
   "publication_proposal": {
-    "status": "prepared_pending_maintainer_confirmation",
+    "status": "executed_observation_in_progress",
     "tag": "v0.1.0",
     "tag_target": "88ae078eec30549dbdac4be8a1626879455abc75",
     "tag_target_basis": "Exact final built source. Merge PR17 first; later documentation commits are not claimed as rebuilt assets.",
@@ -158,7 +158,7 @@
       "yescc-0.1.0-py3-none-any.whl",
       "yescc-0.1.0.tar.gz"
     ],
-    "authentication": "Existing local ~/.pypirc [pypi] token, official endpoint checked; remote upload permission not verified.",
+    "authentication": "Uploaded successfully using local ~/.pypirc [pypi] token; values not recorded.",
     "asset_directory": "dist/release-0.1.0-candidate-88ae078",
     "release_notes_local_path": "dist/release-0.1.0-publication/RELEASE-NOTES.md",
     "release_notes_sha256": "ba1e9633855042980629ad7096242ccd5e8eadf07b915709c42d1e6232fa3103",
@@ -168,9 +168,129 @@
     "observation_window_proposal": {
       "hours": 24,
       "starts_after": "All public distribution install checks pass",
-      "accepted": false
+      "accepted": true,
+      "status": "in_progress",
+      "start_utc": "2026-11-17T00:59:47.463608+00:00",
+      "end_utc": "2026-11-18T00:59:47.463608+00:00"
     },
-    "runbook": "docs/releases/0.1.0.md#维护者发布步骤提案尚未执行"
+    "runbook": "docs/releases/0.1.0.md#维护者发布步骤已执行"
   },
-  "next_step": "Confirm the exact publication proposal and observation duration, merge CI-passing PR17, then publish reviewed bytes. Verify actual public installs and observation before G6."
+  "next_step": "After 2026-11-18T00:59:47.463608Z, inspect the scheduled observation-end evidence and any reported issues; only then close G6. Publication already authorized and complete; do not republish or retag. Daily RC4 install unchanged.",
+  "main_integration_commit": "50901b7bd578bd01a777ae4110dfc6a2baa55622",
+  "publication_receipt": {
+    "authorization_date_local": "2026-11-17",
+    "merge_commit": "50901b7bd578bd01a777ae4110dfc6a2baa55622",
+    "merge_method": "merge",
+    "tag": "v0.1.0",
+    "annotated_tag_object": "42f10b67abc53f992b380b51f4b572cf6f8cb5b4",
+    "tag_source_commit": "88ae078eec30549dbdac4be8a1626879455abc75",
+    "github_release_url": "https://github.com/wuqiuwangtian/yescc/releases/tag/v0.1.0",
+    "github_release_id": 447836788,
+    "github_published_at_utc": "2026-11-17T00:49:17Z",
+    "github_assets_verified": 5,
+    "pypi_url": "https://pypi.org/project/yescc/0.1.0/",
+    "pypi_files": [
+      {
+        "name": "yescc-0.1.0-py3-none-any.whl",
+        "sha256": "42bb3960df4bf6dfd0a7aa860b6837a01293e0de7f6fd3ec06e00eea1ee3f03e",
+        "uploaded_at_utc": "2026-11-17T00:47:32.650890Z"
+      },
+      {
+        "name": "yescc-0.1.0.tar.gz",
+        "sha256": "833fccf7614ec6f7fae6c25a91cd2c612e13f58ad1bdbe68dae6cd0dbab6f5b9",
+        "uploaded_at_utc": "2026-11-17T00:47:37.798026Z"
+      }
+    ],
+    "public_install_run": 43990716101,
+    "public_install_head": "50901b7bd578bd01a777ae4110dfc6a2baa55622",
+    "public_install_jobs": [
+      {
+        "artifact": "published-binary-Linux",
+        "passed": 29,
+        "total": 29,
+        "source": "actual_github_release_download",
+        "archive_sha256": "4ad0e3a72d0cab4c2bafa7217dd90b1df2bee18a70150f8b85404072040fe31f",
+        "platform": "Linux",
+        "paid_model_calls": 0
+      },
+      {
+        "artifact": "published-binary-Windows",
+        "passed": 29,
+        "total": 29,
+        "source": "actual_github_release_download",
+        "archive_sha256": "cc0b294abae8efe88b90e35e97fd2e40349134c986502790ff1d45057e62827e",
+        "platform": "Windows",
+        "paid_model_calls": 0
+      },
+      {
+        "artifact": "published-install-Linux-3.11",
+        "passed": 6,
+        "total": 6,
+        "source": "public_pypi",
+        "archive_sha256": null,
+        "platform": "posix",
+        "paid_model_calls": 0
+      },
+      {
+        "artifact": "published-install-Linux-3.14",
+        "passed": 6,
+        "total": 6,
+        "source": "public_pypi",
+        "archive_sha256": null,
+        "platform": "posix",
+        "paid_model_calls": 0
+      },
+      {
+        "artifact": "published-install-Windows-3.11",
+        "passed": 6,
+        "total": 6,
+        "source": "public_pypi",
+        "archive_sha256": null,
+        "platform": "nt",
+        "paid_model_calls": 0
+      },
+      {
+        "artifact": "published-install-Windows-3.14",
+        "passed": 6,
+        "total": 6,
+        "source": "public_pypi",
+        "archive_sha256": null,
+        "platform": "nt",
+        "paid_model_calls": 0
+      }
+    ],
+    "observation": {
+      "schema": "yescc-release-observation-v1",
+      "repository": "wuqiuwangtian/yescc",
+      "version": "0.1.0",
+      "tag": "v0.1.0",
+      "source_commit": "88ae078eec30549dbdac4be8a1626879455abc75",
+      "annotated_tag_object": "42f10b67abc53f992b380b51f4b572cf6f8cb5b4",
+      "expected_assets": {
+        "yescc-0.1.0-windows-x86_64.zip": "cc0b294abae8efe88b90e35e97fd2e40349134c986502790ff1d45057e62827e",
+        "yescc-0.1.0-linux-x86_64.tar.gz": "4ad0e3a72d0cab4c2bafa7217dd90b1df2bee18a70150f8b85404072040fe31f",
+        "yescc-0.1.0-py3-none-any.whl": "42bb3960df4bf6dfd0a7aa860b6837a01293e0de7f6fd3ec06e00eea1ee3f03e",
+        "yescc-0.1.0.tar.gz": "833fccf7614ec6f7fae6c25a91cd2c612e13f58ad1bdbe68dae6cd0dbab6f5b9",
+        "SHA256SUMS": "4c80fbbb0951bfc84444762cd448b50ad7640b6001acf47b6c172084fe6a3a74"
+      },
+      "pypi_assets": [
+        "yescc-0.1.0-py3-none-any.whl",
+        "yescc-0.1.0.tar.gz"
+      ],
+      "public_install_run": 43990716101,
+      "public_install_head": "50901b7bd578bd01a777ae4110dfc6a2baa55622",
+      "accepted_hours": 24,
+      "start_utc": "2026-11-17T00:59:47.463608+00:00",
+      "end_utc": "2026-11-18T00:59:47.463608+00:00",
+      "status": "in_progress",
+      "automatic_repo_changes": false,
+      "accepted": true,
+      "checkpoint_scope": "Public metadata and reported issue checkpoints, not continuous monitoring; repository gate never updated automatically.",
+      "timer_unit": "yescc-0_1_0-observe-20261117.timer"
+    },
+    "local_timer_unit": "yescc-0_1_0-observe-20261117.timer",
+    "local_timer_scheduled_at_utc": "2026-11-18T00:59:48+00:00",
+    "end_evidence_path": "/home/wqwt/ai-tests/yescc-release-2026-11-17/observation-end.json",
+    "timer_writes_repository": false
+  }
 }

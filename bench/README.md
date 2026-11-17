@@ -197,7 +197,7 @@ uv run python -m bench.binary_archive_smoke \
   --output dist/release-0.1.0-publication/local-binary-rehearsal.json
 ```
 
-两个新增校验选项必须同时提供；不提供时保留原候选验收路径。校验和/提案不符在解包前拒绝，来源commit不符在执行CLI前拒绝。原生检查器会调用回环假服务，报告`local_fake_only`；不能称为真实模型质量评测。正式发布操作顺序及待确认事项见[发布说明的维护者步骤](../docs/releases/0.1.0.md#维护者发布步骤提案尚未执行)。
+两个新增校验选项必须同时提供；不提供时保留原候选验收路径。校验和/提案不符在解包前拒绝，来源commit不符在执行CLI前拒绝。原生检查器会调用回环假服务，报告`local_fake_only`；不能称为真实模型质量评测。正式发布已执行步骤及当前观察事项见[发布说明的维护者记录](../docs/releases/0.1.0.md#维护者发布步骤已执行)。
 
 
 ## 运行期未定义行为离线研究

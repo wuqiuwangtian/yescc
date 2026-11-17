@@ -17,11 +17,11 @@ YesCC 是一个「永不扫兴」的 AI 编译器：正确代码原样编译；�
 
 ## 当前状态
 
-**v0.0.1-alpha（0.0.1a2）已发布**（[release](https://github.com/wuqiuwangtian/yescc/releases/tag/v0.0.1-alpha)）：三语言原生直通、C 规则修复、模型修复、自然语言生成与创意兜底可用；AI 产物默认在最小沙箱中运行。这是 alpha，接口与行为仍可能变化。
+**0.1.0 已正式发布**：[PyPI](https://pypi.org/project/yescc/0.1.0/) · [GitHub Release与二进制](https://github.com/wuqiuwangtian/yescc/releases/tag/v0.1.0)。三语言原生直通、C规则/模型修复、自然语言生成和明确标注的创意兜底可用；AI产物默认尽力隔离运行，不能视为强安全边界。
 
-仓库中的后续修复不代表已更新 TestPyPI 安装包；当前开发状态、未发布变更和接续任务统一见[路线图 §10](docs/项目路线图与发布计划.md#10-待决事项与下一步)。
+双平台公开PyPI安装及正式Release归档验证已通过；24小时发布观察仍在进行，G6尚未全部完成。当前开发状态、未发布变更和接续任务统一见[路线图 §10](docs/项目路线图与发布计划.md#10-待决事项与下一步)，固定基准、安装验收与费用见[评测入口](docs/评测/README.md)。
 
-当前源码版本为 `0.1.0`，正在准备正式发布资产；尚未上传正式索引或创建新 Release。固定基准、安装验收与费用见[评测入口](docs/评测/README.md)，待完成项统一见路线图 §10。
+此前的[v0.0.1-alpha（0.0.1a2）](https://github.com/wuqiuwangtian/yescc/releases/tag/v0.0.1-alpha)和TestPyPI包保留作历史版本，不代表当前正式版。
 
 模型创意兜底的真实作品、失败原因与评分口径见[创意质量专项](docs/评测/2026-11-12.md#7-改进后完整复测与推理设置)。模型作品、固定梗和原文回显分别统计；可运行不等于作品质量。
 
@@ -35,23 +35,23 @@ YesCC 是一个「永不扫兴」的 AI 编译器：正确代码原样编译；�
 
 > 开发代号曾为 `fcomp`；仓库、包名与命令已统一为 `yescc`。
 
-## 安装（alpha）
+## 安装
 
-TestPyPI 预览版，依赖仍从 PyPI 拉取：
+需要Python ≥3.11，推荐用独立工具环境从正式PyPI安装：
 
 ```bash
-pipx install --index-url https://test.pypi.org/simple/ \
-  --extra-index-url https://pypi.org/simple/ yescc==0.0.1a2
+pipx install yescc==0.1.0
+# 或者：uv tool install yescc==0.1.0
 yescc --version
 ```
 
-也可以 `uv tool install` 或从源码运行（见下）。
+也可以从源码运行（见下）。
 
-## 免安装二进制（发布候选）
+## 免安装二进制（0.1.0）
 
-候选包保存在 GitHub Actions 的 `Release candidate assets` 工作流 artifact 中，尚未正式发布。Linux x86_64 使用 tar.gz，Windows x86_64 使用 zip；下载后解压并保留整个目录（包含 `_internal`、`licenses`），直接运行 `./yescc --version` 或 PowerShell 的 `.\yescc.exe --version`。CLI 自带运行时，无需安装 YesCC 的 Python 包。
+从[0.1.0 Release](https://github.com/wuqiuwangtian/yescc/releases/tag/v0.1.0)下载对应归档，并与同批`SHA256SUMS`核对。Linux x86_64 使用 tar.gz，Windows x86_64 使用 zip；下载后解压并保留整个目录（包含 `_internal`、`licenses`），直接运行 `./yescc --version` 或 PowerShell 的 `.\yescc.exe --version`。CLI 自带运行时，无需安装 YesCC 的 Python 包。
 
-用户程序仍需要对应工具链在 PATH：C 用 GCC，JavaScript 用 Node.js，Python 用可运行的 Python 3。二进制按 PATH 选择外部 Python；wheel 安装继续使用其所在环境的解释器。Linux 正式候选在 Ubuntu 24.04 构建，记录 glibc 基线，不保证旧 Linux、musl/Alpine、ARM 或 macOS 可用；Windows 候选内置 Python 3.14，其[最低平台为 Windows 10+](https://docs.python.org/3.14/using/windows.html#supported-windows-versions)；本项目仍只以原生 CI 验证范围为准。
+用户程序仍需要对应工具链在 PATH：C 用 GCC，JavaScript 用 Node.js，Python 用可运行的 Python 3。二进制按 PATH 选择外部 Python；wheel 安装继续使用其所在环境的解释器。Linux 归档在 Ubuntu 24.04 构建，记录 glibc 基线，不保证旧 Linux、musl/Alpine、ARM 或 macOS 可用；Windows 归档内置 Python 3.14，其[最低平台为 Windows 10+](https://docs.python.org/3.14/using/windows.html#supported-windows-versions)；本项目仍只以原生 CI 验证范围为准。
 
 解压后在该目录执行：
 
@@ -63,7 +63,7 @@ yescc --version
 
 默认输出保持用户程序原样；若要确认修复状态，可执行 `./yescc examples/broken.c --explain --offline` 读取刚才的报告。
 
-Windows 将 `./yescc` 换为 `.\yescc.exe`。若程序提示缺工具链，先安装对应工具链；二进制不捆绑 GCC/Node 或用户项目依赖。候选的 `MANIFEST.json`、`SHA256SUMS` 和实际许可证审计用于核对资产；许可未知项未清零前不进行正式分发。
+Windows 将 `./yescc` 换为 `.\yescc.exe`。若程序提示缺工具链，先安装对应工具链；二进制不捆绑 GCC/Node 或用户项目依赖。归档的`MANIFEST.json`、同批`SHA256SUMS`及`licenses/`保存实际来源与许可证。正式资产的来源/许可未知项已清零；这不是法律意见或可重现构建证明。
 
 ## 快速开始
 
@@ -202,5 +202,5 @@ YesCC wraps Python, GCC and Node.js. Valid programs use their native toolchain
 without model calls. C errors may be repaired with rules or bounded model attempts;
 every candidate is compiled before use. Natural-language generation targets C.
 Creative fallback is reported separately. Source files are preserved. AI execution
-uses best-effort isolation and is not a security boundary. The current source RC
-has not been published; see the roadmap for verification and remaining release work.
+uses best-effort isolation and is not a security boundary. Version 0.1.0 is available on PyPI and as Linux/Windows native archives.
+See the roadmap for verification scope and the ongoing release observation window.
