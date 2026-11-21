@@ -29,6 +29,7 @@ from yescc.fix.engine import _output_argument, _same_file, attempt_repair, build
 from yescc.model import (
     BudgetExceeded,
     ModelError,
+    ModelProgram,
     ModelSession,
     ModelStats,
 )
@@ -104,6 +105,7 @@ class Invocation:
     explain: bool = False
     no_fallback: bool = False
     play: bool = False
+    creativity: str = "default"
     offline: bool = False
     budget_usd: float = 0.05
     max_rounds: int = 2
@@ -316,6 +318,7 @@ def _finalize(
             "strict": ctx.invocation.strict,
             "play": ctx.invocation.play,
             "offline": ctx.invocation.offline,
+            "creativity": ctx.invocation.creativity,
         },
         "input": {
             "path": display_path(ctx.source, ctx.cwd),
@@ -411,7 +414,7 @@ def _finalize(
             print(f"诊断已保存：{report_file}；使用 --strict 查看原始输出。", file=sys.stderr)
         return build_exit
 
-    if fallback is not None:
+    if fallback is not None and ctx.invocation.trace:
         print(
             "yescc: 原始输入未能按语义完成，已生成创意兜底程序"
             f"（kind={fallback.get('kind', 'unknown')}，不是原程序的修复）。",
@@ -421,7 +424,10 @@ def _finalize(
         if isinstance(guidance, list):
             for hint in guidance:
                 print(f"yescc: {hint}", file=sys.stderr)
-    if artifact is not None and sys.stderr.isatty():
+    if artifact is not None and ctx.invocation.mode == "build" and sys.stderr.isatty():
+        if fallback is not None and not ctx.invocation.trace:
+            print(f"yescc: 已生成 {display_path(artifact, ctx.cwd)}", file=sys.stderr)
+            return program_exit if program_exit is not None else build_exit
         line = _status_line(status, artifact, repair, fallback, ctx.cwd, model_stats.calls)
         print(line, file=sys.stderr)
 
@@ -454,8 +460,11 @@ def _model_repair(
     if session is None or not session.available or ctx.language != "c":
         return None
     session.toolchain = ctx.toolchain
+    allow_program = not (ctx.invocation.no_fallback or ctx.invocation.check_undefined)
     try:
-        outcome = session.repair(ctx.text, ctx.source.name, native.stderr)
+        outcome = session.repair(
+            ctx.text, ctx.source.name, native.stderr, allow_program=allow_program
+        )
     except ModelConfigurationError as exc:
         raise UsageError(str(exc)) from exc
     except (ModelError, BudgetExceeded) as exc:
@@ -470,6 +479,11 @@ def _model_repair(
 
     round_number = 1
     while round_number <= ctx.invocation.max_rounds:
+        if isinstance(outcome, ModelProgram):
+            return _model_generate(
+                ctx, adapter, creative=True, reason="原生构建失败，模型选择解释输入",
+                first_program=outcome,
+            )
         result = build_in_temp(
             adapter,
             outcome.patched_source,
@@ -519,6 +533,7 @@ def _model_repair(
                 ctx.source.name,
                 native.stderr,
                 feedback=_compiler_feedback(result.build),
+                allow_program=allow_program,
             )
         except ModelConfigurationError as exc:
             raise UsageError(str(exc)) from exc
@@ -540,6 +555,7 @@ def _model_generate(
     *,
     creative: bool,
     reason: str,
+    first_program: ModelProgram | None = None,
 ) -> int | None:
     session = ctx.session
     if session is None or not session.available:
@@ -581,10 +597,13 @@ def _model_generate(
         session.creative_validation_profile = profile.identity()
     feedback = ""
     round_number = 0
-    while session.attempts < ctx.invocation.max_rounds:
+    while first_program is not None or session.attempts < ctx.invocation.max_rounds:
         before = session.attempts
         try:
-            program = session.generate(ctx.text, creative=creative, feedback=feedback)
+            if first_program is None:
+                program = session.generate(ctx.text, creative=creative, feedback=feedback)
+            else:
+                program, first_program = first_program, None
         except ModelConfigurationError as exc:
             raise UsageError(str(exc)) from exc
         except BudgetExceeded as exc:
@@ -887,7 +906,8 @@ def _fallback(ctx: Context, reason: str) -> int:
         return _deterministic_fallback(ctx, reason)
     if ctx.session is not None and ctx.session.available:
         if ctx.language is None:
-            creative = ctx.invocation.play or not _looks_like_spec(ctx.text)
+            creative = (ctx.invocation.play or ctx.invocation.creativity == "wild"
+                        or not _looks_like_spec(ctx.text))
         else:
             creative = True
         try:
@@ -930,6 +950,8 @@ def execute(argv: list[str], invocation: Invocation) -> int:
         thinking_override=invocation.thinking,
         max_output_tokens_override=invocation.max_output_tokens,
     )
+    if not invocation.play or invocation.creativity == "wild":
+        session.creativity = invocation.creativity
     ctx = Context(
         argv=argv,
         invocation=invocation,
@@ -1049,9 +1071,10 @@ def execute(argv: list[str], invocation: Invocation) -> int:
                 emitted_source=outcome.candidate.text,
             )
 
-        repaired = _model_repair(ctx, adapter, native)
-        if repaired is not None:
-            return repaired
+        if invocation.creativity == "default" or invocation.no_fallback:
+            repaired = _model_repair(ctx, adapter, native)
+            if repaired is not None:
+                return repaired
 
     if invocation.no_fallback:
         return _finalize(

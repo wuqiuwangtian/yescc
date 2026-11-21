@@ -33,7 +33,8 @@ _HELP = """YesCC（Yes Compiler Collection）
       --json          输出单一 JSON（构建/解释报告或可预期命令错误）
       --check-undefined  仅模型创意 run 可选检查未定义行为（默认关闭）
       --no-fallback   不生成创意兜底；保留用法/输入/构建/预算等失败码
-      --play          强制创意解释（跳过原生与规则）
+      --creativity <档位>  模型解释尺度：default | wild（原生与规则不受影响）
+      --play          0.1 兼容入口（跳过原生与规则）
       --offline       不发模型请求，模型路径降级
       --budget <USD>  单任务模型费用上限（默认 0.05）
       --max-rounds N  候选尝试（含缓存）与请求次数上限（默认 2）
@@ -131,6 +132,12 @@ def parse(argv: Sequence[str]) -> ParsedCommand:
         if arg == "--no-fallback":
             invocation.no_fallback = True
             index += 1
+            continue
+        if arg == "--creativity":
+            value, index = _take_value(args, index, arg)
+            if value not in {"default", "wild"}:
+                raise UsageError("--creativity 需要 default 或 wild。")
+            invocation.creativity = value
             continue
         if arg == "--play":
             invocation.play = True
@@ -258,7 +265,7 @@ def parse(argv: Sequence[str]) -> ParsedCommand:
 
 _CLI_VALUE_FLAGS = {
     "--budget", "--max-rounds", "--provider", "--model", "--lang",
-    "--reasoning-effort", "--thinking", "--max-output-tokens",
+    "--reasoning-effort", "--thinking", "--max-output-tokens", "--creativity",
 }
 
 

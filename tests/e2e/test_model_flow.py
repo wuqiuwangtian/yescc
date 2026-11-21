@@ -208,3 +208,48 @@ def test_budget_block_without_fallback_returns_103(
     report = json.loads(result.stdout)
     assert report["result"]["status"] == "failed"
     assert report["budget"]["blocked_reason"]
+
+
+@pytest.mark.parametrize("scale", ["default", "wild"])
+@pytest.mark.parametrize("punctuation,status", [(";", "native_ok"), ("；", "repaired")])
+def test_scale_leaves_native_and_rule_paths_alone(
+    tmp_path: Path, fake_model: FakeModelServer, scale: str, punctuation: str, status: str,
+) -> None:
+    source = HELLO_SOURCE.replace("return 0;", "return 0" + punctuation)
+    path = tmp_path / "main.c"
+    path.write_text(source, encoding="utf-8")
+    result = _run(["run", path.name, "--creativity", scale], tmp_path)
+    assert (result.returncode, result.stdout, result.stderr) == (0, "hello\n", "")
+    assert _report(tmp_path, "main")["result"]["status"] == status
+    assert not fake_model.requests and path.read_text("utf-8") == source
+
+
+def test_interpretation_on_last_attempt_and_explain_from_cache(
+    tmp_path: Path, fake_model: FakeModelServer,
+) -> None:
+    fake_model.responses.extend([{"source": HELLO_SOURCE, "assumptions": ["interpret emit_hi"]},
+                                 {"source": HELLO_SOURCE, "assumptions": ["wild version"]}])
+    (tmp_path / "main.c").write_text(BROKEN_C, encoding="utf-8")
+    for scale, label in [("default", "interpret emit_hi"), ("wild", "wild version"),
+                         ("default", "interpret emit_hi")]:
+        result = _run(["run", "main.c", "--max-rounds", "1", "--creativity", scale], tmp_path)
+        assert (result.returncode, result.stdout, result.stderr) == (0, "hello\n", "")
+        report = _report(tmp_path, "main")
+        assert report["result"]["generated"]["validation"]["passed"]
+        assert report["result"]["fallback"]["kind"] == "model_creative"
+        explained = _run(["main.c", "--explain"], tmp_path)
+        assert "原生编译失败" in explained.stdout and label in explained.stdout
+        assert report["budget"]["attempts"] == 1
+    assert len(fake_model.requests) == 2 and "缓存命中" in explained.stdout
+
+
+def test_unusable_diff_leaves_one_attempt_for_a_work(
+    tmp_path: Path, fake_model: FakeModelServer,
+) -> None:
+    fake_model.responses.extend([{"diff": "invalid"}, {"source": HELLO_SOURCE}])
+    (tmp_path / "main.c").write_text(BROKEN_C, encoding="utf-8")
+    result = _run(["run", "main.c"], tmp_path)
+    assert (result.returncode, result.stdout, result.stderr) == (0, "hello\n", "")
+    report = _report(tmp_path, "main")
+    assert report["budget"]["attempts"] == len(fake_model.requests) == 2
+    assert report["result"]["fallback"]["kind"] == "model_creative"

@@ -57,6 +57,13 @@ def summarize(payload: dict[str, Any]) -> str:
         f"语言：{language}（{command} {version}）".rstrip(),
         f"耗时：{timings.get('total_ms', 0)} ms（工具链 {timings.get('toolchain_ms', 0)} ms）",
     ]
+    for attempt in payload.get("attempts", []):
+        if attempt.get("kind") == "native" and attempt.get("exit_code"):
+            lines.append(f"原生编译失败（退出码 {attempt['exit_code']}）")
+            diagnostic = str(attempt.get("stderr", "")).strip()
+            if diagnostic:
+                lines.append(diagnostic)
+            break
     if artifact:
         lines.append(f"产物：{artifact}")
     if result.get("program_exit") is not None:
@@ -103,11 +110,16 @@ def summarize(payload: dict[str, Any]) -> str:
             f"{model.get('calls')} 次，{model.get('prompt_tokens', 0)}+"
             f"{model.get('completion_tokens', 0)} tokens，{cost}）"
         )
-    assumptions = result.get("repair") or {}
+    if isinstance(model, dict):
+        for error in model.get("errors", []):
+            lines.append(f"模型尝试记录：{error}")
+    assumptions = result.get("repair") or generated or {}
     if isinstance(assumptions, dict):
         items = assumptions.get("assumptions")
         if isinstance(items, list) and items:
             lines.append("假设：" + "；".join(str(item) for item in items))
+    if isinstance(model, dict) and model.get("cache_hits"):
+        lines.append(f"模型候选缓存命中：{model['cache_hits']} 次")
     return "\n".join(lines)
 
 

@@ -167,8 +167,7 @@ def test_captured_length_preserves_original_output_and_explains_actual_request(
     assert saved["budget"]["blocked_reason"] == "剩余费用不足以支付输入的最大估算费用"
     assert "剩余预算不足以预留下次请求的输入费用" in rendered
     assert "--thinking disabled --reasoning-effort none" in rendered
-    for hint in hints:
-        assert hint.encode("utf-8") in output.err
+    assert output.err == b""
     assert "reasoning_content" not in json.dumps(saved)
     assert "dummy-key" not in json.dumps(saved)
     evidence = os.environ.get("YESCC_DEGRADATION_EVIDENCE_DIR")
@@ -254,8 +253,7 @@ def test_unknown_usage_does_not_describe_known_subtotal_as_total_cost(
     hints = saved["result"]["fallback"]["guidance"]
     rendered = "\n".join(hints)
     assert "模型总费用未知" in rendered and "仅为已知费用小计" in rendered
-    for hint in hints:
-        assert hint.encode("utf-8") in output.err
+    assert output.err == b""
     assert len(raw_model.requests) == 1
 
 

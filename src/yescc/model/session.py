@@ -139,6 +139,7 @@ class ModelSession:
         thinking_override: str | None = None,
         max_output_tokens_override: int | None = None,
     ) -> None:
+        self.creativity = ""
         self.offline = offline
         self.no_cache = no_cache
         self.max_rounds = max_rounds
@@ -354,7 +355,9 @@ class ModelSession:
         filename: str,
         diagnostics: str,
         feedback: str = "",
-    ) -> ModelRepair | None:
+        *,
+        allow_program: bool = False,
+    ) -> ModelRepair | ModelProgram | None:
         if self.offline:
             return None
         # An invalid later tier must not turn earlier paid usage into a command error.
@@ -367,7 +370,8 @@ class ModelSession:
                 tier, settings = self._select("repair", len(source), diagnostics.count("error"))
             except ModelUnavailable:
                 return None
-            messages = repair_messages(source, filename, diagnostics, feedback)
+            messages = repair_messages(source, filename, diagnostics, feedback,
+                                       allow_program=allow_program)
             self.repair_attempts += 1
             try:
                 data = self._call(
@@ -378,6 +382,7 @@ class ModelSession:
                     cache_payload={
                         "source": source,
                         "filename": filename,
+                        **({"interpretation": "default-v3"} if allow_program else {}),
                         "diagnostics": diagnostics,
                         "feedback": feedback,
                     },
@@ -388,10 +393,17 @@ class ModelSession:
                 self.stats.errors.append(str(exc))
                 feedback = str(exc)
                 continue
+            if allow_program and "source" in data and not data.get("diff"):
+                program = self._program(data)
+                if program is not None:
+                    return program
             diff = data.get("diff")
             if not isinstance(diff, str) or not diff.strip():
                 self.discard_response()
                 feedback = "模型未提供可用补丁"
+                if allow_program:
+                    self.stats.errors.append(feedback)
+                    return None
                 continue
             try:
                 normalizations: list[str] = []
@@ -400,6 +412,8 @@ class ModelSession:
                 feedback = str(exc)
                 self.stats.errors.append(f"patch: {exc}")
                 self.discard_response()
+                if allow_program:
+                    return None
                 continue
             assumptions = data.get("assumptions")
             assumption_list = (
@@ -419,14 +433,19 @@ class ModelSession:
             tier, settings = self._select("generate", len(text), 0)
         except ModelUnavailable:
             return None
-        messages = generate_messages(text, creative=creative, feedback=feedback)
+        messages = generate_messages(text, creative=creative, feedback=feedback,
+                                     creativity=self.creativity)
         data = self._call(
             kind="creative" if creative else "generate",
             settings=settings,
             tier=tier,
             messages=messages,
-            cache_payload={"text": text, "creative": creative, "feedback": feedback},
+            cache_payload={"text": text, "creative": creative, "feedback": feedback,
+                           **({"interpretation_v2": self.creativity} if self.creativity else {})},
         )
+        return self._program(data)
+
+    def _program(self, data: dict[str, object]) -> ModelProgram | None:
         source = data.get("source")
         if not isinstance(source, str) or not source.strip():
             self.discard_response()

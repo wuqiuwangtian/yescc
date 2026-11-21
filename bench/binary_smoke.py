@@ -469,9 +469,12 @@ class _Harness:
             _expect(row, "fallback_exit", actual["exit_code"] == 0)
             _expect(row, "rejection_reason_saved", "运行验证" in hints and "拒绝" in hints
                     and f"退出码 {validation.get('exit_code')}" in hints)
-            _expect(row, "rejection_reason_on_stderr", bool(guidance) and all(
-                str(hint) in actual["stderr"] for hint in guidance
-            ))
+            if "creativity" in report["invocation"]:
+                _expect(row, "quiet_fallback", not actual["stderr"])
+            else:  # Published 0.1.0 archives use the original presentation.
+                _expect(row, "rejection_reason_on_stderr", bool(guidance) and all(
+                    str(hint) in actual["stderr"] for hint in guidance
+                ))
             reason = report["budget"]["blocked_reason"]
             _expect(row, "original_attempt_stop_reason_preserved", bool(reason) and reason in hints)
             _expect(row, "original_attempt_limit", report["budget"]["attempts"] == 1)

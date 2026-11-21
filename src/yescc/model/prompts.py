@@ -8,6 +8,15 @@ from yescc.model.base import Message, ModelResponseError
 
 PROMPT_VERSION = "m6-creative-3"
 
+GROUNDED_INTERPRETATION = (
+    "Read function names and their arguments together as a request. Preserve the role "
+    "of every supplied quantity, including desired outcomes. When a fair share can be "
+    "fractional, use the exact share unless the input explicitly requires whole units. "
+    "When premises conflict, show what would have to change to reach the stated goal; "
+    "mark invented conditions as hypothetical. A rhetorical question can be the ending. "
+    "Describe your interpretation briefly in assumptions in the input language."
+)
+
 _SYSTEM = (
     "You are YesCC, a compiler repair and code generation assistant. "
     "Respond with exactly one JSON object and no markdown fences or commentary."
@@ -19,6 +28,8 @@ def repair_messages(
     filename: str,
     diagnostics: str,
     feedback: str = "",
+    *,
+    allow_program: bool = False,
 ) -> list[Message]:
     user = f"""Fix the C compilation errors in the file below with the smallest possible change.
 
@@ -44,10 +55,25 @@ Diagnostics:
 """
     if feedback:
         user += f"\nThe previous attempt failed: {feedback}\n"
-    return [Message(role="system", content=_SYSTEM), Message(role="user", content=user)]
+    messages = [Message(role="system", content=_SYSTEM), Message(role="user", content=user)]
+    if allow_program:
+        messages.append(Message(role="user", content=(
+            "Use diff only for an identifiable code defect with known behavior. Never add "
+            "a no-op stub just to compile. If a function has no implementation and its "
+            "name describes an action in human language, write a complete short C "
+            "program instead of inventing a repair or deleting the meaningful expression. "
+            "Return source, assumptions and io_contract instead of diff. Honor clear "
+            "requests and arithmetic. You can use a joke or a hypothetical to reconcile "
+            "conflicting premises. Print visible output in the input language with no "
+            "stdin required. Use only the standard library, no files, network or shell. "
+            + GROUNDED_INTERPRETATION
+        )))
+    return messages
 
 
-def generate_messages(text: str, *, creative: bool, feedback: str = "") -> list[Message]:
+def generate_messages(
+    text: str, *, creative: bool, feedback: str = "", creativity: str = ""
+) -> list[Message]:
     if creative:
         instruction = (
             "The input below is not a normal program specification. Write a short, "
@@ -74,6 +100,14 @@ def generate_messages(text: str, *, creative: bool, feedback: str = "") -> list[
             "Write a complete, self-contained C program that satisfies the request below. "
             "Infer missing details with conservative defaults and list them as assumptions."
         )
+    if creativity == "wild":
+        instruction += (
+            " You may change the outcome, personify objects or invent a playful premise. "
+            "Build the joke around concrete details of this input. Explain your choice in "
+            "assumptions in the input language."
+        )
+    elif creativity == "default":
+        instruction += " " + GROUNDED_INTERPRETATION
     stdin_rule = (
         "Never read stdin or request additional input."
         if creative

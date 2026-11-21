@@ -144,7 +144,9 @@ def verify(expected_version: str, wheel: Path | None = None) -> dict:
             assert result.returncode == code and result.stdout == stdout, (name, result)
             if stderr is not None:
                 assert result.stderr == stderr, (name, result.stderr)
-            else:
+            elif "creativity" in report["invocation"]:
+                assert result.stderr == "" and report["result"]["fallback"]["kind"] == "print_input"
+            else:  # Published 0.1.0 prints fallback guidance on stderr.
                 assert "creative_fallback" not in result.stdout and "print_input" in result.stderr
             assert report["result"]["status"] == status
             assert report["model"] is None and not report["privacy"]["cloud_used"]

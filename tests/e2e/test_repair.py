@@ -86,7 +86,7 @@ def test_unfixable_source_falls_back(tmp_path: Path) -> None:
 
     fallback = _run([PYTHON, "-m", "yescc", "run", "hopeless.c"], tmp_path)
     assert fallback.returncode == 0
-    assert "创意兜底" in fallback.stderr
+    assert fallback.stderr == ""
     report = json.loads((tmp_path / ".yescc" / "hopeless" / "report.json").read_text("utf-8"))
     assert report["result"]["status"] == "creative_fallback"
     assert report["result"]["fallback"]["kind"] == "print_input"

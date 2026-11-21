@@ -175,8 +175,7 @@ def test_rejected_run_is_explained_alongside_attempt_limit(
     joined = "\n".join(hints)
     assert "非零" in joined and str(attempt["validation"]["exit_code"]) in joined
     assert "拒绝" in joined and "最大候选尝试次数" in joined
-    stderr = built.stderr.decode("utf-8")
-    assert all(hint in stderr for hint in hints)
+    assert built.stderr == b""
     if checked:
         check = attempt["undefined_behavior_check"]
         assert check["performed"] and check["mode"] in {"runtime", "trap"}
