@@ -2,7 +2,7 @@
 
 本项目遵循 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/) 与 [语义化版本](https://semver.org/lang/zh-CN/)。
 
-## [Unreleased]
+## [0.2.0] - 已定版，待发布
 
 - 源码试玩新增“月亮应聘夜班”的原题和历史生成的 C 程序，README 提供免密钥回放和离线修复示例。
 
@@ -171,7 +171,3 @@
 - CI：Linux/Windows × Python 3.11–3.14 的 lint、类型检查、测试与打包冒烟。
 - ADR-0001 至 ADR-0007：首版语言范围、友好终止、实现语言、模型策略、退出码与报告契约、隔离边界、PyPI 分发。
 - 路线图：[docs/项目路线图与发布计划.md](docs/项目路线图与发布计划.md)。
-
-## [0.1.0] - 未发布
-
-首个正式版本目标见路线图 M6。
