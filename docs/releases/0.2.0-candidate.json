@@ -3,9 +3,9 @@
   "version": "0.2.0",
   "source_commit": "24f985cd36c0a261abd5f93c44d496054e7e085b",
   "baseline_main": "519fec28778f73dd71538eccfbff123aa8a5cd14",
-  "published": false,
-  "merged": false,
-  "formal_release_authorized": false,
+  "published": true,
+  "merged": true,
+  "formal_release_authorized": true,
   "pull_requests": [
     18
   ],
@@ -50,11 +50,78 @@
     "evidence": "docs/评测/data/0.2.0-candidate-24f985c.json.gz"
   },
   "license_unresolved": [],
-  "public_pypi_root_install": "pending publication",
+  "public_pypi_root_install": "passed: public PyPI, Linux/Windows x Python 3.11/3.14",
   "suggested_tag": "v0.2.0",
   "tag_target": "24f985cd36c0a261abd5f93c44d496054e7e085b",
   "real_model_api_calls_this_stage": 0,
   "known_findings": [
     "Human-readable changed-character count can overstate insertions; see evaluation record."
-  ]
+  ],
+  "publication_receipt": {
+    "merge_commit": "ce4eefa3d31a209c5c8e029a9e460209da1afa83",
+    "annotated_tag_object": "061c809797419cb724a5fb89e02f5a003ae317b4",
+    "source_commit": "24f985cd36c0a261abd5f93c44d496054e7e085b",
+    "github_release_id": 453480540,
+    "public_install_run": 44874089204,
+    "public_install_jobs": [
+      {
+        "artifact": "published-binary-Linux",
+        "passed": 29,
+        "total": 29,
+        "source": "actual_github_release_download",
+        "archive_sha256": "94d5bffd9a65b41e6ca6b57fe37edcb08522a4fbf7c56b49f551fa7ee470fc21",
+        "platform": "Linux",
+        "paid_model_calls": 0
+      },
+      {
+        "artifact": "published-binary-Windows",
+        "passed": 29,
+        "total": 29,
+        "source": "actual_github_release_download",
+        "archive_sha256": "e2255c523ea450fee1ac17b6c53ba00eeefb88099f87ffa6a36fd654c6946c11",
+        "platform": "Windows",
+        "paid_model_calls": 0
+      },
+      {
+        "artifact": "published-install-Linux-3.11",
+        "passed": 6,
+        "total": 6,
+        "source": "public_pypi",
+        "archive_sha256": null,
+        "platform": "posix",
+        "paid_model_calls": 0
+      },
+      {
+        "artifact": "published-install-Linux-3.14",
+        "passed": 6,
+        "total": 6,
+        "source": "public_pypi",
+        "archive_sha256": null,
+        "platform": "posix",
+        "paid_model_calls": 0
+      },
+      {
+        "artifact": "published-install-Windows-3.11",
+        "passed": 6,
+        "total": 6,
+        "source": "public_pypi",
+        "archive_sha256": null,
+        "platform": "nt",
+        "paid_model_calls": 0
+      },
+      {
+        "artifact": "published-install-Windows-3.14",
+        "passed": 6,
+        "total": 6,
+        "source": "public_pypi",
+        "archive_sha256": null,
+        "platform": "nt",
+        "paid_model_calls": 0
+      }
+    ],
+    "observation_window_start_utc": "2026-11-21T06:09:26.512613+00:00",
+    "observation_window_end_utc": "2026-11-22T06:09:26.512613+00:00",
+    "observation_evidence_at_publication": "baseline_valid",
+    "evidence": "docs/评测/data/release-0.2.0-2026-11-21.json.gz"
+  }
 }

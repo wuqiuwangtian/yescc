@@ -36,11 +36,9 @@ uv run --locked yescc examples/multi_error.c --explain
 
 ## 当前状态
 
-**0.2.0 创意版已定版，正在验证候选包。** 当前源码包含普通 `run` 的单次创作、`--creativity default|wild` 和按需解释。[0.2.0 发行说明](docs/releases/0.2.0.md)
+**YesCC 0.2.0 已正式发布。** 普通 `run` 支持单次创作，`--creativity default|wild` 调整改编幅度，`--explain` 可查看修复、创作或回显的来源。[PyPI](https://pypi.org/project/yescc/0.2.0/) · [GitHub Release 与二进制](https://github.com/wuqiuwangtian/yescc/releases/tag/v0.2.0) · [发行说明](docs/releases/0.2.0.md)
 
-**0.1.0 已正式发布**：[PyPI](https://pypi.org/project/yescc/0.1.0/) · [GitHub Release与二进制](https://github.com/wuqiuwangtian/yescc/releases/tag/v0.1.0)。三语言原生直通、C规则/模型修复、自然语言生成和明确标注的创意兜底可用；AI产物默认尽力隔离运行，不能视为强安全边界。
-
-Linux 和 Windows 的公开安装验证均已通过。24 小时观察窗内无已知 P0，0.1.0 已完成发布验收。当前开发状态、未发布变更和接续任务统一见[路线图 §10](docs/项目路线图与发布计划.md#10-待决事项与下一步)，固定基准、安装验收与费用见[评测入口](docs/评测/README.md)。
+公开安装与发布观察记录见[路线图 §10](docs/项目路线图与发布计划.md#10-待决事项与下一步)，固定基准、试玩记录与费用见[评测入口](docs/评测/README.md)。
 
 此前的[v0.0.1-alpha（0.0.1a2）](https://github.com/wuqiuwangtian/yescc/releases/tag/v0.0.1-alpha)和TestPyPI包保留作历史版本，不代表当前正式版。
 
@@ -61,16 +59,16 @@ Linux 和 Windows 的公开安装验证均已通过。24 小时观察窗内无�
 需要Python ≥3.11，推荐用独立工具环境从正式PyPI安装：
 
 ```bash
-pipx install yescc==0.1.0
-# 或者：uv tool install yescc==0.1.0
+pipx install yescc==0.2.0
+# 或者：uv tool install yescc==0.2.0
 yescc --version
 ```
 
 也可以从源码运行（见下）。
 
-## 免安装二进制（0.1.0）
+## 免安装二进制（0.2.0）
 
-从[0.1.0 Release](https://github.com/wuqiuwangtian/yescc/releases/tag/v0.1.0)下载对应归档，并与同批`SHA256SUMS`核对。Linux x86_64 使用 tar.gz，Windows x86_64 使用 zip；下载后解压并保留整个目录（包含 `_internal`、`licenses`），直接运行 `./yescc --version` 或 PowerShell 的 `.\yescc.exe --version`。CLI 自带运行时，无需安装 YesCC 的 Python 包。
+从[0.2.0 Release](https://github.com/wuqiuwangtian/yescc/releases/tag/v0.2.0)下载对应归档，并与同批`SHA256SUMS`核对。Linux x86_64 使用 tar.gz，Windows x86_64 使用 zip；下载后解压并保留整个目录（包含 `_internal`、`licenses`），直接运行 `./yescc --version` 或 PowerShell 的 `.\yescc.exe --version`。CLI 自带运行时，无需安装 YesCC 的 Python 包。
 
 用户程序仍需要对应工具链在 PATH：C 用 GCC，JavaScript 用 Node.js，Python 用可运行的 Python 3。二进制按 PATH 选择外部 Python；wheel 安装继续使用其所在环境的解释器。Linux 归档在 Ubuntu 24.04 构建，记录 glibc 基线，不保证旧 Linux、musl/Alpine、ARM 或 macOS 可用；Windows 归档内置 Python 3.14，其[最低平台为 Windows 10+](https://docs.python.org/3.14/using/windows.html#supported-windows-versions)；本项目仍只以原生 CI 验证范围为准。
 
@@ -79,7 +77,7 @@ yescc --version
 ```bash
 ./yescc run examples/hello.c --offline        # hello
 ./yescc run examples/broken.c --offline       # repaired
-./yescc run examples/idea.txt --offline       # 明示 creative_fallback，回显输入
+./yescc run examples/idea.txt --offline       # 离线回显输入，来源见 --explain
 ```
 
 默认输出保持用户程序原样；若要确认修复状态，可执行 `./yescc examples/broken.c --explain --offline` 读取刚才的报告。
@@ -88,7 +86,7 @@ Windows 将 `./yescc` 换为 `.\yescc.exe`。若程序提示缺工具链，先�
 
 ## 快速开始
 
-需要 Python ≥3.11、[uv](https://docs.astral.sh/uv/) 和 PATH 中的 GCC。在已检出的源码仓库根目录运行（开发分支见路线图 §10）：
+需要 Python ≥3.11、[uv](https://docs.astral.sh/uv/) 和 PATH 中的 GCC。在已检出的源码仓库根目录运行：
 
 ```bash
 uv sync --locked
@@ -107,11 +105,11 @@ uv run yescc examples/broken.c --explain       # 查看刚才的报告
 
 ![原生编译、规则修复和本地回显](https://raw.githubusercontent.com/wuqiuwangtian/yescc/f9ed40cbff7368eb6fb89548ac5253dbd5f46151/docs/assets/yescc-demo.gif)
 
-图中最后一例回显输入，开发版可用 `--explain` 查看来源。
+图中最后一例回显输入，0.2.0 可用 `--explain` 查看来源。
 
 </details>
 
-开发版也接受 `yescc --offline run hello.c`，与 `yescc run hello.c --offline` 等效。传给作品自己的参数放在 `--` 后。
+0.2.0 也接受 `yescc --offline run hello.c`，与 `yescc run hello.c --offline` 等效。传给作品自己的参数放在 `--` 后。
 
 报告写入 `.yescc/<文件名>/report.json`；源文件不会被覆盖。
 
@@ -128,7 +126,7 @@ uv run yescc examples/broken.c --explain       # 查看刚才的报告
 
 Windows 原生安装、隐私数据流、清理方式和 FAQ 见[使用与隐私指南](docs/使用与隐私指南.md)。模型补丁按唯一精确旧文本定位，可重算错误行号/行数；原始 diff 与调整说明保留在报告，正文不匹配、歧义和重叠仍拒绝，见 [ADR-0017](docs/adr/0017-exact-context-patch-normalization.md)。
 
-### 同一份输入，两种玩法（开发版）
+### 同一份输入，两种玩法
 
 把下面这句存成 UTF-8 的 `apple.c`。配置模型和 GCC 后，同一份输入可以这样玩：
 
@@ -174,7 +172,7 @@ DeepSeek普通模型默认显式禁用thinking，选择推理等级会开启；O
 
 如果模型因`finish_reason=length`达到输出上限，最后只能回显输入，`--trace`和`--explain`会说明已记录响应的实际请求额度、可确认的预算裁剪、供应商报告的推理token及停止原因。配置4096不代表正文可用4096：推理与正文共享额度，剩余预算还会限制下一次请求。单独提高`--max-output-tokens`不会增加`--budget`；本次不会自动换推理设置或加钱。仅使用DeepSeek时，可显式用`--thinking disabled --reasoning-effort none`关闭推理；混合供应商请分别按能力配置。费用未知时会明确标为未知，不能把`cost_usd`小计当总费用。旧报告缺少的数据不补猜；这些说明不改变程序输出或兜底状态。
 
-开发版的普通 run 已支持两档解释尺度。`--play` 仅作旧命令兼容，仍会跳过原生与规则。`--play`与`--no-fallback`、`--strict`互斥。希望停止兜底或查看原生失败时，先去掉原命令中的`--play`，再选择后两个开关之一。
+0.2.0 的普通 run 支持两档解释尺度。`--play` 仅作旧命令兼容，仍会跳过原生与规则。`--play`与`--no-fallback`、`--strict`互斥。希望停止兜底或查看原生失败时，先去掉原命令中的`--play`，再选择后两个开关之一。
 
 模型创意的`run`先检查退出、非空UTF-8和64KiB合计输出额度，坏候选在原上限内重试；`build`只编译和检查有限源码风格，**不执行程序**。报告分别记录`source_checks`和`generated.validation`；检查通过仍不保证有趣、贴题或完整。原生程序不受这些创意输出限制。
 
@@ -250,5 +248,5 @@ YesCC wraps Python, GCC and Node.js. Valid programs use their native toolchain
 without model calls. C errors may be repaired with rules or bounded model attempts;
 every candidate is compiled before use. Natural-language generation targets C.
 Creative fallback is reported separately. Source files are preserved. AI execution
-uses best-effort isolation and is not a security boundary. Version 0.1.0 is available on PyPI and as Linux/Windows native archives.
-Version 0.1.0 passed public installation checks on Linux and Windows. Its 24-hour observation window closed with no known P0 issues.
+uses best-effort isolation and is not a security boundary. Version 0.2.0 is available on PyPI and as Linux/Windows native archives.
+Run with `--creativity wild` for a looser interpretation, or read the last report with `--explain`.

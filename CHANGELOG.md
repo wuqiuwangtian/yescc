@@ -2,7 +2,7 @@
 
 本项目遵循 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/) 与 [语义化版本](https://semver.org/lang/zh-CN/)。
 
-## [0.2.0] - 已定版，待发布
+## [0.2.0] - 2026-11-21
 
 - 源码试玩新增“月亮应聘夜班”的原题和历史生成的 C 程序，README 提供免密钥回放和离线修复示例。
 
