@@ -1,0 +1,60 @@
+{
+  "schema": "yescc-release-candidate-v1",
+  "version": "0.2.0",
+  "source_commit": "24f985cd36c0a261abd5f93c44d496054e7e085b",
+  "baseline_main": "519fec28778f73dd71538eccfbff123aa8a5cd14",
+  "published": false,
+  "merged": false,
+  "formal_release_authorized": false,
+  "pull_requests": [
+    18
+  ],
+  "assets": {
+    "yescc-0.2.0-py3-none-any.whl": "dfc4209098077d7619f6c83d7f14d077ae8f996e7eab83b8c73b6f5f64550364",
+    "yescc-0.2.0.tar.gz": "6231a42c12c4b9f325c459e3743e49df8e9e5e7ba1a6777047b1617d048e8130",
+    "yescc-0.2.0-linux-x86_64.tar.gz": "94d5bffd9a65b41e6ca6b57fe37edcb08522a4fbf7c56b49f551fa7ee470fc21",
+    "yescc-0.2.0-windows-x86_64.zip": "e2255c523ea450fee1ac17b6c53ba00eeefb88099f87ffa6a36fd654c6946c11"
+  },
+  "sha256sums_sha256": "4753d5fce220455227226b0bb1d7f21d35eb06a74e013a2206a14a268203e2df",
+  "candidate_workflow": {
+    "id": 44868610000,
+    "successful_jobs": 7
+  },
+  "source_ci": [
+    {
+      "id": 44868597792,
+      "successful_jobs": 14
+    },
+    {
+      "id": 44868617960,
+      "successful_jobs": 14
+    }
+  ],
+  "validation": {
+    "native_smoke": {
+      "Linux": [
+        29,
+        29
+      ],
+      "Windows": [
+        29,
+        29
+      ]
+    },
+    "wheel_smoke": [
+      18,
+      18
+    ],
+    "public_dependency_rehearsals": 4,
+    "asset_audit_conditions": 2796,
+    "evidence": "docs/评测/data/0.2.0-candidate-24f985c.json.gz"
+  },
+  "license_unresolved": [],
+  "public_pypi_root_install": "pending publication",
+  "suggested_tag": "v0.2.0",
+  "tag_target": "24f985cd36c0a261abd5f93c44d496054e7e085b",
+  "real_model_api_calls_this_stage": 0,
+  "known_findings": [
+    "Human-readable changed-character count can overstate insertions; see evaluation record."
+  ]
+}

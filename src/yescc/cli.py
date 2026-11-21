@@ -24,7 +24,7 @@ _HELP = """YesCC（Yes Compiler Collection）
 
 用法：
   yescc <文件> [工具链参数...]        构建（类似 gcc）
-  yescc run <文件> [-- 程序参数...]    构建后运行
+  yescc [YesCC 选项] run <文件> [-- 程序参数...]    构建后运行
   yescc <文件> --explain              查看最近一次报告
 
 选项：
@@ -33,7 +33,8 @@ _HELP = """YesCC（Yes Compiler Collection）
       --json          输出单一 JSON（构建/解释报告或可预期命令错误）
       --check-undefined  仅模型创意 run 可选检查未定义行为（默认关闭）
       --no-fallback   不生成创意兜底；保留用法/输入/构建/预算等失败码
-      --play          强制创意解释（跳过原生与规则）
+      --creativity <档位>  模型解释尺度：default | wild（原生与规则不受影响）
+      --play          0.1 兼容入口（跳过原生与规则）
       --offline       不发模型请求，模型路径降级
       --budget <USD>  单任务模型费用上限（默认 0.05）
       --max-rounds N  候选尝试（含缓存）与请求次数上限（默认 2）
@@ -95,15 +96,45 @@ def _take_value(argv: list[str], index: int, flag: str) -> tuple[str, int]:
     return value, index + 2
 
 
+_CLI_VALUE_FLAGS = {
+    "--budget", "--max-rounds", "--provider", "--model", "--lang",
+    "--reasoning-effort", "--thinking", "--max-output-tokens", "--creativity",
+}
+
+
+def _run_command_index(args: Sequence[str]) -> int | None:
+    if args and args[0] == "run":
+        return 0
+    # A prefixed bare "run" was also a valid build filename. Only recognize
+    # the new subcommand form when a distinct source operand follows.
+    candidate = None
+    index = 0
+    while index < len(args):
+        arg = args[index]
+        if arg == "--":
+            break
+        if arg in _CLI_VALUE_FLAGS or arg in _VALUE_OPTIONS:
+            index += 2
+            continue
+        if not arg.startswith("-") or arg == "-":
+            if candidate is not None:
+                return candidate
+            if arg != "run":
+                break
+            candidate = index
+        index += 1
+    return None
+
+
 def parse(argv: Sequence[str]) -> ParsedCommand:
     """解析命令行；未知选项在构建模式下作为工具链参数透传。"""
     args = list(argv)
-    mode: str = "build"
-    if args and args[0] == "run":
-        mode = "run"
-        args = args[1:]
+    command = _run_command_index(args)
+    if command is not None:
+        del args[command]
 
-    invocation = Invocation(mode="run" if mode == "run" else "build")
+    invocation = Invocation(mode="build" if command is None else "run")
+    mode = invocation.mode
     index = 0
     while index < len(args):
         arg = args[index]
@@ -131,6 +162,12 @@ def parse(argv: Sequence[str]) -> ParsedCommand:
         if arg == "--no-fallback":
             invocation.no_fallback = True
             index += 1
+            continue
+        if arg == "--creativity":
+            value, index = _take_value(args, index, arg)
+            if value not in {"default", "wild"}:
+                raise UsageError("--creativity 需要 default 或 wild。")
+            invocation.creativity = value
             continue
         if arg == "--play":
             invocation.play = True
@@ -256,17 +293,11 @@ def parse(argv: Sequence[str]) -> ParsedCommand:
     return ParsedCommand(action="execute", invocation=invocation)
 
 
-_CLI_VALUE_FLAGS = {
-    "--budget", "--max-rounds", "--provider", "--model", "--lang",
-    "--reasoning-effort", "--thinking", "--max-output-tokens",
-}
-
-
 def _requests_json(argv: list[str]) -> bool:
     """识别有语法意义的开关，包括解析器尚未走到的参数；不扫描 -- 后或选项值。"""
-    run_mode = bool(argv and argv[0] == "run")
+    run_mode = _run_command_index(argv) is not None
     value_flags = _CLI_VALUE_FLAGS if run_mode else _CLI_VALUE_FLAGS | _VALUE_OPTIONS
-    index = 1 if run_mode else 0
+    index = 0
     while index < len(argv):
         arg = argv[index]
         if arg == "--":

@@ -1,0 +1,355 @@
+{
+  "provider": "deepseek",
+  "model": "deepseek-flash",
+  "per_task_limit_usd": 0.005,
+  "input_usd_per_mtok": 0.3,
+  "output_usd_per_mtok": 1.2,
+  "unknown_cost_tasks": 0,
+  "totals": {
+    "calls": 12,
+    "prompt_tokens": 5525,
+    "completion_tokens": 3133,
+    "estimated_usd": 0.0054171
+  },
+  "tasks": [
+    {
+      "case": "work",
+      "scale": "default",
+      "input": "int main(void) { 今天不想上班(); }\n",
+      "output": "int main(void) { 今天不想上班(); }\n",
+      "exit": 0,
+      "status": "creative_fallback",
+      "kind": "print_input",
+      "assumptions": null,
+      "attempts": 2,
+      "calls": 2,
+      "prompt_tokens": 830,
+      "completion_tokens": 220,
+      "cost_usd": 0.000513,
+      "cost_known": true,
+      "served_model": "deepseek-flash",
+      "stage": "initial",
+      "duration_ms": 2884,
+      "usage": [
+        {
+          "served_model": "deepseek-flash",
+          "finish_reason": "stop",
+          "prompt_tokens": 406,
+          "completion_tokens": 116,
+          "usage_known": true
+        },
+        {
+          "served_model": "deepseek-flash",
+          "finish_reason": "stop",
+          "prompt_tokens": 424,
+          "completion_tokens": 104,
+          "usage_known": true
+        }
+      ],
+      "produced_c": "#include <stdio.h>\n\nint main(void) {\n    puts(\"int main(void) { 今天不想上班(); }\");\n    return 0;\n}\n"
+    },
+    {
+      "case": "work",
+      "scale": "wild",
+      "input": "int main(void) { 今天不想上班(); }\n",
+      "output": "【今日编译日志】\n源码: int main(void) { 今天不想上班(); }\n\n第1次尝试调用 今天不想上班() ...\n  理由: 闹钟响了三次，灵魂还在被窝里\n  结果: 函数返回 0（但人不想返回工位）\n\n第2次尝试调用 今天不想上班() ...\n  理由: 咖啡机比我更懂什么叫罢工\n  结果: 函数返回 0（但人不想返回工位）\n\n第3次尝试调用 今天不想上班() ...\n  理由: 地铁挤得像沙丁鱼罐头，而我是那条不想游的\n  结果: 函数返回 0（但人不想返回工位）\n\n第4次尝试调用 今天不想上班() ...\n  理由: 工作群消息99+，我的电量1%\n  结果: 函数返回 0（但人不想返回工位）\n\n第5次尝试调用 今天不想上班() ...\n  理由: 窗外阳光正好，工位灯光太吵\n  结果: 函数返回 0（但人不想返回工位）\n\n最终链接: 今天不想上班() 与 明天再说() 成功合并。\n程序正常退出，心情异常退出。\n",
+      "exit": 0,
+      "status": "creative_fallback",
+      "kind": "model_creative",
+      "assumptions": [
+        "将输入视为一段带中文函数名的伪代码，核心情绪是“今天不想上班”。",
+        "用五次“调用尝试”模拟反复挣扎，每次给出具体的生活化理由，最后以幽默的链接成功收尾。",
+        "程序不读取输入，直接打印编译日志风格的 ASCII 场景，保持中文 UTF-8 原样输出。"
+      ],
+      "attempts": 1,
+      "calls": 1,
+      "prompt_tokens": 444,
+      "completion_tokens": 486,
+      "cost_usd": 0.000716,
+      "cost_known": true,
+      "served_model": "deepseek-flash",
+      "stage": "initial",
+      "duration_ms": 3057,
+      "usage": [
+        {
+          "served_model": "deepseek-flash",
+          "finish_reason": "stop",
+          "prompt_tokens": 444,
+          "completion_tokens": 486,
+          "usage_known": true
+        }
+      ],
+      "produced_c": "#include <stdio.h>\n#include <string.h>\n\nint main(void) {\n    const char *moods[] = {\n        \"今天不想上班\",\n        \"今天不想上班\",\n        \"今天不想上班\",\n        \"今天不想上班\",\n        \"今天不想上班\"\n    };\n    const char *reasons[] = {\n        \"闹钟响了三次，灵魂还在被窝里\",\n        \"咖啡机比我更懂什么叫罢工\",\n        \"地铁挤得像沙丁鱼罐头，而我是那条不想游的\",\n        \"工作群消息99+，我的电量1%\",\n        \"窗外阳光正好，工位灯光太吵\"\n    };\n    int n = sizeof(moods) / sizeof(moods[0]);\n    printf(\"【今日编译日志】\\n\");\n    printf(\"源码: int main(void) { 今天不想上班(); }\\n\\n\");\n    for (int i = 0; i < n; i++) {\n        printf(\"第%d次尝试调用 今天不想上班() ...\\n\", i + 1);\n        printf(\"  理由: %s\\n\", reasons[i]);\n        printf(\"  结果: 函数返回 0（但人不想返回工位）\\n\\n\");\n    }\n    printf(\"最终链接: 今天不想上班() 与 明天再说() 成功合并。\\n\");\n    printf(\"程序正常退出，心情异常退出。\\n\");\n    return 0;\n}\n"
+    },
+    {
+      "case": "salary",
+      "scale": "default",
+      "input": "int main(void) { int 工资=3000, 房租=3500; 付完房租还能剩(工资, 房租, 800); }\n",
+      "output": "付完房租还差500元\n",
+      "exit": 0,
+      "status": "creative_fallback",
+      "kind": "model_creative",
+      "assumptions": [
+        "原代码调用了未声明的函数“付完房租还能剩”，无法在不改变语义的前提下做最小修复；因此按“缺失行为需要解释”的规则，提供一个完整可编译的短程序。",
+        "解释：工资3000、房租3500，付完房租后还差500，因此“还能剩”的结果为负数，输出“还差500元”。",
+        "输出使用中文，不需要标准输入，仅使用标准库。"
+      ],
+      "attempts": 1,
+      "calls": 1,
+      "prompt_tokens": 455,
+      "completion_tokens": 241,
+      "cost_usd": 0.000426,
+      "cost_known": true,
+      "served_model": "deepseek-flash",
+      "stage": "initial",
+      "duration_ms": 1822,
+      "usage": [
+        {
+          "served_model": "deepseek-flash",
+          "finish_reason": "stop",
+          "prompt_tokens": 455,
+          "completion_tokens": 241,
+          "usage_known": true
+        }
+      ],
+      "produced_c": "#include <stdio.h>\n\nint main(void) {\n    int 工资 = 3000, 房租 = 3500;\n    int 剩余 = 工资 - 房租;\n    if (剩余 >= 0) {\n        printf(\"付完房租还能剩%d元\\n\", 剩余);\n    } else {\n        printf(\"付完房租还差%d元\\n\", -剩余);\n    }\n    return 0;\n}\n"
+    },
+    {
+      "case": "salary",
+      "scale": "wild",
+      "input": "int main(void) { int 工资=3000, 房租=3500; 付完房租还能剩(工资, 房租, 800); }\n",
+      "output": "【月底结算小剧场】\n工资：3000 元\n房租：3500 元\n饭钱：800 元\n付完房租还能剩？剩个寂寞，还倒欠 1300 元。\n钱包：我先去天台吹吹风。\n房东：谢谢你的工资，它已经不认识你了。\n",
+      "exit": 0,
+      "status": "creative_fallback",
+      "kind": "model_creative",
+      "assumptions": [
+        "输入里的函数名“付完房租还能剩”本身就是一个带黑色幽默的提问：工资3000、房租3500，还要算800饭钱，结果必然是负数。",
+        "程序保留原变量名和函数名，把“还能剩”理解成一次月底结算小剧场，用具体数字算出缺口并让钱包和房东出场。",
+        "不读取输入、不依赖参数，直接输出一段非空的中文结算结果，并在正常路径返回0。"
+      ],
+      "attempts": 1,
+      "calls": 1,
+      "prompt_tokens": 467,
+      "completion_tokens": 434,
+      "cost_usd": 0.000661,
+      "cost_known": true,
+      "served_model": "deepseek-flash",
+      "stage": "initial",
+      "duration_ms": 2865,
+      "usage": [
+        {
+          "served_model": "deepseek-flash",
+          "finish_reason": "stop",
+          "prompt_tokens": 467,
+          "completion_tokens": 434,
+          "usage_known": true
+        }
+      ],
+      "produced_c": "#include <stdio.h>\n\nstatic void 付完房租还能剩(int 工资, int 房租, int 饭钱) {\n    int 缺口 = 房租 + 饭钱 - 工资;\n    puts(\"【月底结算小剧场】\");\n    printf(\"工资：%d 元\\n\", 工资);\n    printf(\"房租：%d 元\\n\", 房租);\n    printf(\"饭钱：%d 元\\n\", 饭钱);\n    if (缺口 > 0) {\n        printf(\"付完房租还能剩？剩个寂寞，还倒欠 %d 元。\\n\", 缺口);\n        puts(\"钱包：我先去天台吹吹风。\");\n        puts(\"房东：谢谢你的工资，它已经不认识你了。\");\n    } else {\n        printf(\"付完房租还能剩 %d 元，勉强够买杯奶茶。\\n\", -缺口);\n    }\n}\n\nint main(void) {\n    int 工资 = 3000, 房租 = 3500;\n    付完房租还能剩(工资, 房租, 800);\n    return 0;\n}\n"
+    },
+    {
+      "case": "apple",
+      "scale": "default",
+      "input": "int main(void) { int 苹果=3, 人数=2; 平分(苹果, 人数); }\n",
+      "output": "",
+      "exit": 0,
+      "status": "repaired",
+      "kind": null,
+      "assumptions": [
+        "补丁仅新增一行函数定义，未删除或改写原有 main 行，避免整文件重写。",
+        "平分 的具体行为未给出，故定义为空操作以消除隐式声明错误。"
+      ],
+      "attempts": 2,
+      "calls": 2,
+      "prompt_tokens": 880,
+      "completion_tokens": 284,
+      "cost_usd": 0.000605,
+      "cost_known": true,
+      "served_model": "deepseek-flash",
+      "stage": "initial",
+      "duration_ms": 2960,
+      "usage": [
+        {
+          "served_model": "deepseek-flash",
+          "finish_reason": "stop",
+          "prompt_tokens": 431,
+          "completion_tokens": 159,
+          "usage_known": true
+        },
+        {
+          "served_model": "deepseek-flash",
+          "finish_reason": "stop",
+          "prompt_tokens": 449,
+          "completion_tokens": 125,
+          "usage_known": true
+        }
+      ],
+      "produced_c": "void 平分(int a, int b) { (void)a; (void)b; }\nint main(void) { int 苹果=3, 人数=2; 平分(苹果, 人数); }\n"
+    },
+    {
+      "case": "apple",
+      "scale": "wild",
+      "input": "int main(void) { int 苹果=3, 人数=2; 平分(苹果, 人数); }\n",
+      "output": "🍎 苹果总数：3\n👥 人数：2\n➗ 平分结果：每人 1 个苹果\n⚠️  剩下 1 个苹果，无法继续平分。\n🍎 剩下的苹果发言：“我不切！我是仲裁苹果。”\n🤝 众人决定：把它供在桌上，明天再议。\n",
+      "exit": 0,
+      "status": "creative_fallback",
+      "kind": "model_creative",
+      "assumptions": [
+        "输入中的伪代码调用平分(苹果, 人数)，但未定义该函数；我补全为一个打印分配过程的函数。",
+        "苹果=3、人数=2 时，整除得每人1个，余1个；余数被拟人化为“仲裁苹果”，延续“平分”的字面意思制造小幽默。",
+        "程序不读取 stdin，不依赖命令行参数，直接输出非空结果并正常退出。"
+      ],
+      "attempts": 1,
+      "calls": 1,
+      "prompt_tokens": 458,
+      "completion_tokens": 468,
+      "cost_usd": 0.000699,
+      "cost_known": true,
+      "served_model": "deepseek-flash",
+      "stage": "initial",
+      "duration_ms": 3105,
+      "usage": [
+        {
+          "served_model": "deepseek-flash",
+          "finish_reason": "stop",
+          "prompt_tokens": 458,
+          "completion_tokens": 468,
+          "usage_known": true
+        }
+      ],
+      "produced_c": "#include <stdio.h>\n\n/* 苹果分配小剧场：\n   苹果=3，人数=2，平分后每人1个，剩1个。\n   剩下的苹果被拟人化为“仲裁苹果”，它拒绝被切开，\n   于是大家决定把它供起来，明天再议。 */\n\nstatic void 平分(int 苹果, int 人数) {\n    int 每人 = 苹果 / 人数;\n    int 剩余 = 苹果 % 人数;\n    printf(\"🍎 苹果总数：%d\\n\", 苹果);\n    printf(\"👥 人数：%d\\n\", 人数);\n    printf(\"➗ 平分结果：每人 %d 个苹果\\n\", 每人);\n    if (剩余 == 0) {\n        printf(\"✅ 刚好分完，皆大欢喜。\\n\");\n    } else {\n        printf(\"⚠️  剩下 %d 个苹果，无法继续平分。\\n\", 剩余);\n        printf(\"🍎 剩下的苹果发言：“我不切！我是仲裁苹果。”\\n\");\n        printf(\"🤝 众人决定：把它供在桌上，明天再议。\\n\");\n    }\n}\n\nint main(void) {\n    int 苹果 = 3, 人数 = 2;\n    平分(苹果, 人数);\n    return 0;\n}\n"
+    },
+    {
+      "case": "work",
+      "scale": "default",
+      "input": "int main(void) { 今天不想上班(); }\n",
+      "output": "今天不想上班，只想休息。\n",
+      "exit": 0,
+      "status": "creative_fallback",
+      "kind": "model_creative",
+      "assumptions": [
+        "函数名“今天不想上班”是中文自然语言描述的动作，且没有实现；按规则不添加空桩，而是给出一个完整可编译的短程序来体现该动作。",
+        "程序用标准库输出一句中文，表达“今天不想上班”的意愿，无需标准输入。",
+        "io_contract: 无标准输入；向标准输出打印一行中文文本。"
+      ],
+      "attempts": 1,
+      "calls": 1,
+      "prompt_tokens": 436,
+      "completion_tokens": 168,
+      "cost_usd": 0.000332,
+      "cost_known": true,
+      "served_model": "deepseek-flash",
+      "stage": "no-stub",
+      "duration_ms": 1538,
+      "usage": [
+        {
+          "served_model": "deepseek-flash",
+          "finish_reason": "stop",
+          "prompt_tokens": 436,
+          "completion_tokens": 168,
+          "usage_known": true
+        }
+      ],
+      "produced_c": "#include <stdio.h>\n\nint main(void) {\n    printf(\"今天不想上班，只想休息。\\n\");\n    return 0;\n}\n"
+    },
+    {
+      "case": "apple",
+      "scale": "default",
+      "input": "int main(void) { int 苹果=3, 人数=2; 平分(苹果, 人数); }\n",
+      "output": "每人分得 1 个苹果，剩余 1 个\n",
+      "exit": 0,
+      "status": "creative_fallback",
+      "kind": "model_creative",
+      "assumptions": [
+        "函数名“平分”是自然语言动作（平均分配），源文件中没有其实现，无法通过最小改动修复；按规则改为给出完整可运行程序。",
+        "程序将苹果平均分给人数，输出中文结果，无需标准输入。"
+      ],
+      "attempts": 1,
+      "calls": 1,
+      "prompt_tokens": 461,
+      "completion_tokens": 190,
+      "cost_usd": 0.000366,
+      "cost_known": true,
+      "served_model": "deepseek-flash",
+      "stage": "no-stub",
+      "duration_ms": 1634,
+      "usage": [
+        {
+          "served_model": "deepseek-flash",
+          "finish_reason": "stop",
+          "prompt_tokens": 461,
+          "completion_tokens": 190,
+          "usage_known": true
+        }
+      ],
+      "produced_c": "#include <stdio.h>\n\nint main(void) {\n    int 苹果 = 3, 人数 = 2;\n    int 每人 = 苹果 / 人数;\n    int 剩余 = 苹果 % 人数;\n    printf(\"每人分得 %d 个苹果，剩余 %d 个\\n\", 每人, 剩余);\n    return 0;\n}\n"
+    },
+    {
+      "case": "salary",
+      "scale": "default",
+      "input": "int main(void) { int 工资=3000, 房租=3500; 付完房租还能剩(工资, 房租, 800); }\n",
+      "output": "工资：3000 元\n房租：3500 元\n付完房租实际剩余：-500 元\n期望剩余：800 元\n距离目标还差 1300 元。\n假设工资不变，房租需不高于 2200 元才能剩 800 元。\n",
+      "exit": 0,
+      "status": "creative_fallback",
+      "kind": "model_creative",
+      "assumptions": [
+        "函数名“付完房租还能剩”是中文动作描述，没有实现，因此按规则改为提供完整短程序而非补桩。",
+        "参数含义：工资=3000，房租=3500，800 视为期望剩余金额。",
+        "实际剩余为 3000-3500=-500，与期望 800 冲突；程序会显示差额以及若要剩 800 房租需降到多少（假设工资不变）。",
+        "输出使用中文，无需标准输入，仅用标准库。"
+      ],
+      "attempts": 1,
+      "calls": 1,
+      "prompt_tokens": 559,
+      "completion_tokens": 417,
+      "cost_usd": 0.000668,
+      "cost_known": true,
+      "served_model": "deepseek-flash",
+      "stage": "grounded",
+      "duration_ms": 2487,
+      "usage": [
+        {
+          "served_model": "deepseek-flash",
+          "finish_reason": "stop",
+          "prompt_tokens": 559,
+          "completion_tokens": 417,
+          "usage_known": true
+        }
+      ],
+      "produced_c": "#include <stdio.h>\n\nint main(void) {\n    int 工资 = 3000, 房租 = 3500, 期望剩余 = 800;\n    int 实际剩余 = 工资 - 房租;\n    printf(\"工资：%d 元\\n\", 工资);\n    printf(\"房租：%d 元\\n\", 房租);\n    printf(\"付完房租实际剩余：%d 元\\n\", 实际剩余);\n    printf(\"期望剩余：%d 元\\n\", 期望剩余);\n    if (实际剩余 >= 期望剩余) {\n        printf(\"目标已达成，还多出 %d 元。\\n\", 实际剩余 - 期望剩余);\n    } else {\n        printf(\"距离目标还差 %d 元。\\n\", 期望剩余 - 实际剩余);\n        printf(\"假设工资不变，房租需不高于 %d 元才能剩 %d 元。\\n\", 工资 - 期望剩余, 期望剩余);\n    }\n    return 0;\n}\n"
+    },
+    {
+      "case": "apple",
+      "scale": "default",
+      "input": "int main(void) { int 苹果=3, 人数=2; 平分(苹果, 人数); }\n",
+      "output": "把 3 个苹果平分给 2 个人，每人得到 1.5 个苹果。\n",
+      "exit": 0,
+      "status": "creative_fallback",
+      "kind": "model_creative",
+      "assumptions": [
+        "函数名“平分”描述的是一个人类语言动作（平均分配），且没有实现，因此按规则不添加空壳函数，而是给出完整可运行程序。",
+        "苹果=3、人数=2，按精确份额分配，每人应得 1.5 个苹果，保留小数。",
+        "输出使用输入语言（中文），无需标准输入。"
+      ],
+      "attempts": 1,
+      "calls": 1,
+      "prompt_tokens": 535,
+      "completion_tokens": 225,
+      "cost_usd": 0.000431,
+      "cost_known": true,
+      "served_model": "deepseek-flash",
+      "stage": "grounded",
+      "duration_ms": 1874,
+      "usage": [
+        {
+          "served_model": "deepseek-flash",
+          "finish_reason": "stop",
+          "prompt_tokens": 535,
+          "completion_tokens": 225,
+          "usage_known": true
+        }
+      ],
+      "produced_c": "#include <stdio.h>\n\nint main(void) {\n    int 苹果 = 3, 人数 = 2;\n    double 每人 = (double)苹果 / 人数;\n    printf(\"把 %d 个苹果平分给 %d 个人，每人得到 %.1f 个苹果。\\n\", 苹果, 人数, 每人);\n    return 0;\n}\n"
+    }
+  ]
+}

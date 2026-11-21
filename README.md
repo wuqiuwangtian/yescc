@@ -5,21 +5,42 @@
 > **The compiler that never says no.**
 > 语法是可选的，编译是必然的。
 
-YesCC 是一个「永不扫兴」的 AI 编译器：正确代码原样编译；错误代码尽力修复；连自然语言或胡言乱语，也尽量变成一个能运行的程序。
+给 YesCC 一段程序，能编译就直接跑，少了分号就试着补。你也可以只给它一句话，让模型把这句话编成一个 C 程序。
 
-- **正确代码绝不打扰**：原生工具链成功即结束，不改源码、不调模型、不注入参数。
-- **错误代码尽力挽救**：规则 → 便宜/本地模型 → 强模型，每层都交真实工具链验证。
-- **无意义输入也给出创造性解释**：确定性兜底、文化梗、模型创意解释；结果状态单独标注，绝不冒充原程序。
+> 月亮来咖啡馆应聘夜班，老板担心它总是缺一块。写写他们的对话。
 
-![真实离线 CLI 三例](https://raw.githubusercontent.com/wuqiuwangtian/yescc/f9ed40cbff7368eb6fb89548ac5253dbd5f46151/docs/assets/yescc-demo.gif)
+这道题曾让模型写出一个 C 程序，给月亮排了 30 天夜班。程序运行时会打印这段对话和排班表：
 
-图中为实际离线输出；创意兜底仅回显输入，不表示实现原始意图。
+```text
+老板：你总是缺一块，客人会投诉的。
+月亮：那是我的阴晴圆缺，不是缺勤。
+
+老板翻出排班表，决定先试一个月：
+第 1天 🌑  第 2天 🌒  第 3天 🌓  第 4天 🌔  第 5天 🌕
+```
+
+**在本机跑完这场面试。** 在当前源码仓库根目录运行，需要 uv、Python 3.11+ 和 GCC。这个例子带着已经生成的源码，不需要模型密钥。
+
+```bash
+uv run --locked yescc run examples/moon_cafe.c --offline
+```
+
+**看它救回一段坏 C。** 这个例子连 `main` 都拼成了 `mian`，还漏了分号。第一条会打印 `value=7`；第二条能看它用了哪些规则，原文件里的错字还在。
+
+```bash
+uv run --locked yescc run examples/multi_error.c --offline --no-fallback
+uv run --locked yescc examples/multi_error.c --explain
+```
+
+想给月亮换一份工作？改一行 `examples/moon_interview.txt`，配置模型后运行 `uv run --locked yescc run examples/moon_interview.txt --budget 0.005`，就能试试新题。单次模型预算上限是 0.005 美元。[原题](examples/moon_interview.txt) · [排班程序源码](examples/moon_cafe.c) · [模型配置](#模型配置)
 
 ## 当前状态
 
+**0.2.0 创意版已定版，正在验证候选包。** 当前源码包含普通 `run` 的单次创作、`--creativity default|wild` 和按需解释。[0.2.0 发行说明](docs/releases/0.2.0.md)
+
 **0.1.0 已正式发布**：[PyPI](https://pypi.org/project/yescc/0.1.0/) · [GitHub Release与二进制](https://github.com/wuqiuwangtian/yescc/releases/tag/v0.1.0)。三语言原生直通、C规则/模型修复、自然语言生成和明确标注的创意兜底可用；AI产物默认尽力隔离运行，不能视为强安全边界。
 
-双平台公开PyPI安装及正式Release归档验证已通过；24小时发布观察仍在进行，G6尚未全部完成。当前开发状态、未发布变更和接续任务统一见[路线图 §10](docs/项目路线图与发布计划.md#10-待决事项与下一步)，固定基准、安装验收与费用见[评测入口](docs/评测/README.md)。
+Linux 和 Windows 的公开安装验证均已通过。24 小时观察窗内无已知 P0，0.1.0 已完成发布验收。当前开发状态、未发布变更和接续任务统一见[路线图 §10](docs/项目路线图与发布计划.md#10-待决事项与下一步)，固定基准、安装验收与费用见[评测入口](docs/评测/README.md)。
 
 此前的[v0.0.1-alpha（0.0.1a2）](https://github.com/wuqiuwangtian/yescc/releases/tag/v0.0.1-alpha)和TestPyPI包保留作历史版本，不代表当前正式版。
 
@@ -75,11 +96,22 @@ uv run yescc --version
 uv run yescc run examples/hello.c --offline    # 输出 hello，原生直通
 uv run yescc run examples/broken.c --offline   # 输出 repaired，规则修复
 uv run yescc run examples/multi_error.c --offline --no-fallback  # 输出 value=7，多错误 C
-uv run yescc run examples/idea.txt --offline   # 明示 creative_fallback
+uv run yescc run examples/idea.txt --offline   # 本地回显，来源见 --explain
 uv run yescc examples/broken.c --explain       # 查看刚才的报告
 ```
 
 上述四例不需要模型密钥。`--offline` 禁止模型请求；最后的 `idea.txt` 演示本地确定性创意兜底，并非按原意修复。源码中的全角分号是故意保留的错误，YesCC 的修复产物另存。
+
+<details>
+<summary>查看 0.1.0 发布前录制的离线 CLI 三例</summary>
+
+![原生编译、规则修复和本地回显](https://raw.githubusercontent.com/wuqiuwangtian/yescc/f9ed40cbff7368eb6fb89548ac5253dbd5f46151/docs/assets/yescc-demo.gif)
+
+图中最后一例回显输入，开发版可用 `--explain` 查看来源。
+
+</details>
+
+开发版也接受 `yescc --offline run hello.c`，与 `yescc run hello.c --offline` 等效。传给作品自己的参数放在 `--` 后。
 
 报告写入 `.yescc/<文件名>/report.json`；源文件不会被覆盖。
 
@@ -95,6 +127,22 @@ uv run yescc examples/broken.c --explain       # 查看刚才的报告
 | 运行 | 是 | 是 | 是 |
 
 Windows 原生安装、隐私数据流、清理方式和 FAQ 见[使用与隐私指南](docs/使用与隐私指南.md)。模型补丁按唯一精确旧文本定位，可重算错误行号/行数；原始 diff 与调整说明保留在报告，正文不匹配、歧义和重叠仍拒绝，见 [ADR-0017](docs/adr/0017-exact-context-patch-normalization.md)。
+
+### 同一份输入，两种玩法（开发版）
+
+把下面这句存成 UTF-8 的 `apple.c`。配置模型和 GCC 后，同一份输入可以这样玩：
+
+```c
+int main(void) { int 苹果=3, 人数=2; 平分(苹果, 人数); }
+```
+
+```bash
+uv run yescc run apple.c --budget 0.005
+uv run yescc run apple.c --creativity wild --budget 0.005
+uv run yescc apple.c --explain
+```
+
+真实试用中，默认档算出每人 1.5 个；放飞档里，剩下的苹果宣布“我不切！我是仲裁苹果。”每次运行可能得到不同作品。正确程序与能机械修好的 C 在两个档位都不调用模型。两个档位都尽量遵守你写明的范围：“整张小票只印暗号”就收在一行；“最后一行印暗号”则给前面的剧情留下空间。最后一条只读最近报告，可以查看原生错误、模型交付的源码和它列出的假设。[试用记录](docs/评测/2026-11-21.md)
 
 ## 模型配置
 
@@ -116,24 +164,24 @@ export YESCC_MODEL_L2_NAME=llama3.2
 推理与输出额度可调整，仍共享同一任务预算：
 
 ```bash
-# 已按上面配置DeepSeek、密钥和当前价格；直接创作，不先花额度修复
-uv run yescc run examples/idea.txt --play --thinking disabled --budget 0.005
+# 已按上面配置DeepSeek、密钥和当前价格；用普通 run 创作
+uv run yescc run examples/idea.txt --thinking disabled --budget 0.005
 # 愿意用更多输出额度思考时显式开启；实际额度仍会按剩余费用下调
-uv run yescc run examples/idea.txt --play --reasoning-effort low --max-output-tokens 4096 --budget 0.005
+uv run yescc run examples/idea.txt --reasoning-effort low --max-output-tokens 4096 --budget 0.005
 ```
 
 DeepSeek普通模型默认显式禁用thinking，选择推理等级会开启；OpenAI使用其reasoning_effort，不接受DeepSeek式thinking开关。具体模型支持的等级不同，兼容端点不会自动获得这些能力。环境可用`YESCC_MODEL_L3_THINKING/REASONING_EFFORT/MAX_OUTPUT_TOKENS`（L2同理）；CLI覆盖环境，thinking/effort的显式auto重置该项为项目默认。输出默认上限仍1024，最大可设16384，不增加费用或候选次数。完整规则见[模型控制与创意检查](docs/adr/0021-creative-quality-and-model-controls.md)。
 
-如果模型因`finish_reason=length`达到输出上限，最后只能回显输入，stderr和`--explain`会说明已记录响应的实际请求额度、可确认的预算裁剪、供应商报告的推理token及停止原因。配置4096不代表正文可用4096：推理与正文共享额度，剩余预算还会限制下一次请求。单独提高`--max-output-tokens`不会增加`--budget`；本次不会自动换推理设置或加钱。仅使用DeepSeek时，可显式用`--thinking disabled --reasoning-effort none`关闭推理；混合供应商请分别按能力配置。费用未知时会明确标为未知，不能把`cost_usd`小计当总费用。旧报告缺少的数据不补猜；这些说明不改变程序输出或兜底状态。
+如果模型因`finish_reason=length`达到输出上限，最后只能回显输入，`--trace`和`--explain`会说明已记录响应的实际请求额度、可确认的预算裁剪、供应商报告的推理token及停止原因。配置4096不代表正文可用4096：推理与正文共享额度，剩余预算还会限制下一次请求。单独提高`--max-output-tokens`不会增加`--budget`；本次不会自动换推理设置或加钱。仅使用DeepSeek时，可显式用`--thinking disabled --reasoning-effort none`关闭推理；混合供应商请分别按能力配置。费用未知时会明确标为未知，不能把`cost_usd`小计当总费用。旧报告缺少的数据不补猜；这些说明不改变程序输出或兜底状态。
 
-`--play`与`--no-fallback`、`--strict`互斥。希望停止兜底或查看原生失败时，先去掉原命令中的`--play`，再选择后两个开关之一。
+开发版的普通 run 已支持两档解释尺度。`--play` 仅作旧命令兼容，仍会跳过原生与规则。`--play`与`--no-fallback`、`--strict`互斥。希望停止兜底或查看原生失败时，先去掉原命令中的`--play`，再选择后两个开关之一。
 
 模型创意的`run`先检查退出、非空UTF-8和64KiB合计输出额度，坏候选在原上限内重试；`build`只编译和检查有限源码风格，**不执行程序**。报告分别记录`source_checks`和`generated.validation`；检查通过仍不保证有趣、贴题或完整。原生程序不受这些创意输出限制。
 
 需要额外检查越界、整数溢出等执行错误时，可显式开启：
 
 ```bash
-uv run yescc run examples/idea.txt --play --check-undefined --budget 0.005
+uv run yescc run examples/idea.txt --check-undefined --budget 0.005
 # 查看刚才的检查模式、实际候选执行及降级原因
 uv run yescc examples/idea.txt --explain
 ```
@@ -148,7 +196,7 @@ uv run yescc examples/idea.txt --explain
 
 云端模型必须配置两项单价，未知价格时不发请求；请求前保守估算并预留费用，剩余预算限制输出 token。缺 usage 或请求失败会保留预留，`model.cost_known=false` 时费用总额未知，`cost_usd` 只表示已知部分小计。回环本地端点可不填价格，但不能声称受到金额限制。`--max-rounds` 同时限制候选尝试（含缓存）与实际请求；L2 修复失败后有 L3 就升级，显式 `--model` / `--provider` 跳过自动 L2。详见 [ADR-0015](docs/adr/0015-alpha-reliability-contracts.md)。
 
-C 规则阶段最多构建 24 个候选、每条路径最多细化 4 次；可组合机械标点/拼写错误并使用 GCC 的分号建议。遇到 C++ 写法或语义错误仍可能无法修复。确定性兜底会在 stderr 和报告中说明模型路径与失败原因；`print_input` 只回显输入。规则与报告边界见 [ADR-0018](docs/adr/0018-bounded-rule-refinement-and-degradation.md)。
+C 规则阶段最多构建 24 个候选、每条路径最多细化 4 次；可组合机械标点/拼写错误并使用 GCC 的分号建议。遇到 C++ 写法或语义错误仍可能无法修复。确定性兜底会在 trace、explain 和报告中说明模型路径与失败原因；`print_input` 只回显输入。规则与报告边界见 [ADR-0018](docs/adr/0018-bounded-rule-refinement-and-degradation.md)。
 
 构建/解释模式的 `--json` 在可预期命令错误时也返回一个 JSON 对象：若 `report_kind` 为 `command_error`，读取 `error.exit_code` / `error.message`；否则按原 schema v1 构建报告处理。错误对象只输出到 stdout，不覆盖旧构建报告。显式指定不支持的 `--lang`（包括带 `--play` 时）返回 101，不进入创意兜底；已支持的语言别名保留。`--no-fallback` 不改退出码分类：用法 100、不支持输入 101、构建失败 102、预算等限制 103。见 [ADR-0019](docs/adr/0019-command-error-json-envelope.md)。
 
@@ -203,4 +251,4 @@ without model calls. C errors may be repaired with rules or bounded model attemp
 every candidate is compiled before use. Natural-language generation targets C.
 Creative fallback is reported separately. Source files are preserved. AI execution
 uses best-effort isolation and is not a security boundary. Version 0.1.0 is available on PyPI and as Linux/Windows native archives.
-See the roadmap for verification scope and the ongoing release observation window.
+Version 0.1.0 passed public installation checks on Linux and Windows. Its 24-hour observation window closed with no known P0 issues.

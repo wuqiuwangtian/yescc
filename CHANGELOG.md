@@ -2,13 +2,17 @@
 
 本项目遵循 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/) 与 [语义化版本](https://semver.org/lang/zh-CN/)。
 
-## [Unreleased]
+## [0.2.0] - 已定版，待发布
 
-暂无新变更。
+- 源码试玩新增“月亮应聘夜班”的原题和历史生成的 C 程序，README 提供免密钥回放和离线修复示例。
+
+运行单文件时，YesCC 选项也可放在 `run` 前，例如 `yescc --offline run hello.c`。
+
+普通 run 在成功修复、创作或回显后只呈现程序输出，原生诊断与模型假设可用 `--explain` 查看。新增模型解释尺度 `--creativity default|wild`，普通坏 C 同一次请求可提交补丁或可运行作品。两个档位均优先遵守对全篇、局部台词和动作顺序的明确限定。
 
 ## [0.1.0] - 2026-11-17
 
-已发布到[正式PyPI](https://pypi.org/project/yescc/0.1.0/)和[GitHub Release](https://github.com/wuqiuwangtian/yescc/releases/tag/v0.1.0)，固定资产来源88ae078；公开双平台安装验证通过，发布观察窗仍在进行。以下合并了此前尚未发布的0.1.0变更，研究工具不等于生产默认启用。
+已发布到[正式PyPI](https://pypi.org/project/yescc/0.1.0/)和[GitHub Release](https://github.com/wuqiuwangtian/yescc/releases/tag/v0.1.0)，固定资产来源88ae078；公开双平台安装验证通过，24 小时发布观察窗于 11 月 18 日结束，窗内无已知 P0。以下合并了此前尚未发布的0.1.0变更，研究工具不等于生产默认启用。
 
 ### Added
 
@@ -167,7 +171,3 @@
 - CI：Linux/Windows × Python 3.11–3.14 的 lint、类型检查、测试与打包冒烟。
 - ADR-0001 至 ADR-0007：首版语言范围、友好终止、实现语言、模型策略、退出码与报告契约、隔离边界、PyPI 分发。
 - 路线图：[docs/项目路线图与发布计划.md](docs/项目路线图与发布计划.md)。
-
-## [0.1.0] - 未发布
-
-首个正式版本目标见路线图 M6。

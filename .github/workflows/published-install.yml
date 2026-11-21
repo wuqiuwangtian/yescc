@@ -72,7 +72,7 @@ jobs:
           --archive "dist/published-assets/$ARCHIVE_NAME"
           --expected-version "$EXPECTED_VERSION"
           --release-checksums dist/published-assets/SHA256SUMS
-          --candidate-proposal docs/releases/0.1.0-candidate.json
+          --candidate-proposal "docs/releases/$EXPECTED_VERSION-candidate.json"
           --output dist/published-binary.json
       - uses: actions/upload-artifact@v7.0.2
         if: always()

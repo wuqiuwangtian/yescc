@@ -3,7 +3,7 @@
 > **The compiler that never says no.**
 > 语法是可选的，编译是必然的。
 
-YesCC 是一个「永不扫兴」的 AI 编译器：正确代码交给原生工具链，错误 C 代码尽力修复；自然语言或胡言乱语也可以变成 C 程序，或者明确标注的创意兜底。
+给 YesCC 一句「洗衣机说，每少一只袜子，就有一只成功脱单了。请社区调解员跟它谈赔偿」，它可以把调解现场写成一个 C 程序。给它一段能编译的代码，它就直接运行；少了分号，会先试着补上。
 
 - Python、C、JavaScript 原生直通。原生构建成功就结束，不改源码、不调用模型。
 - C 修复依次尝试有限规则和受限模型候选，每份候选都交真实工具链验证。
@@ -12,21 +12,19 @@ YesCC 是一个「永不扫兴」的 AI 编译器：正确代码交给原生工�
 
 ## 安装
 
-以下命令针对正式 PyPI 版本 `0.1.0`；版本与资产状态以 [PyPI](https://pypi.org/project/yescc/) 和 [GitHub Releases](https://github.com/wuqiuwangtian/yescc/releases) 为准。
-
 需要 Python ≥3.11，推荐使用独立工具环境：
 
 ```bash
-pipx install yescc==0.1.0
-# 或者：uv tool install yescc==0.1.0
+pipx install yescc
+# 或者：uv tool install yescc
 yescc --version
 ```
 
-C 程序需要 PATH 中的 GCC，JavaScript 需要 Node.js；Python 程序使用安装环境的解释器。Linux/Windows x86_64 免安装归档见 [0.1.0 Release](https://github.com/wuqiuwangtian/yescc/releases/tag/v0.1.0)：解压后保留整个目录，包括 `_internal`、`licenses` 和 `MANIFEST.json`；其用户程序仍需要外部工具链，冻结版 Python 从 PATH 选择外部 Python 3。
+C 程序需要 PATH 中的 GCC，JavaScript 需要 Node.js；Python 程序使用安装环境的解释器。Linux/Windows x86_64 免安装归档见 [GitHub Releases](https://github.com/wuqiuwangtian/yescc/releases)：解压后保留整个目录，包括 `_internal`、`licenses` 和 `MANIFEST.json`；其用户程序仍需要外部工具链，冻结版 Python 从 PATH 选择外部 Python 3。
 
 ## 快速体验
 
-解压原生归档时，将下列`yescc`换成Linux的`./yescc`或Windows的`.\yescc.exe`；归档自带`examples/`三例，`START-HERE.txt`给出直接运行命令。
+解压原生归档时，将下列`yescc`换成Linux的`./yescc`或Windows的`.\yescc.exe`；归档自带 `examples/` 目录，`START-HERE.txt`给出直接运行命令。
 
 把下面的 C 程序保存为 `hello.c`：
 
@@ -44,14 +42,14 @@ yescc hello.c --explain --offline
 
 同一目录下的`hello.py`与`hello.c`等同stem文件共用最近一次报告。查询`--explain`时若报告已属于另一文件，会明确返回100并提示重新构建，避免展示错对象；它仍可读取同一文件的历史结果。
 
-把一句自然语言保存为 UTF-8 的 `idea.txt`：
+把开头的洗衣机题保存为 UTF-8 的 `idea.txt`：
 
 ```bash
 yescc run idea.txt --offline
 yescc idea.txt --explain --offline
 ```
 
-没有模型时，普通未知文本只会进入明确标注的 `print_input` 回显，不会实现自然语言意图。配置模型后可用 `yescc run idea.txt --play --budget 0.005` 体验模型创意；预算单位为 USD，云端必须先配置单价。配置与推理参数见 [使用与隐私指南](https://github.com/wuqiuwangtian/yescc/blob/main/docs/使用与隐私指南.md) 和 [完整 README](https://github.com/wuqiuwangtian/yescc/blob/main/README.md)。
+这里的离线运行会原样打印题目，解释报告会显示 `print_input`。配置模型及单价后，运行 `yescc run idea.txt --budget 0.005` 就能让它编一出调解现场，预算单位为 USD。想看改编幅度更大的版本，可加 `--creativity wild`。配置与推理参数见 [使用与隐私指南](https://github.com/wuqiuwangtian/yescc/blob/main/docs/使用与隐私指南.md) 和 [完整 README](https://github.com/wuqiuwangtian/yescc/blob/main/README.md)。
 
 ## 边界
 
