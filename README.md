@@ -1,252 +1,96 @@
-# YesCC（Yes Compiler Collection）
+# YesCC · Yes Compiler Collection
 
-[![CI](https://github.com/wuqiuwangtian/yescc/actions/workflows/ci.yml/badge.svg)](https://github.com/wuqiuwangtian/yescc/actions/workflows/ci.yml)
+**语法是可选的，编译是必然的。** 给 YesCC 一段能跑的代码，它就照常跑。给它一句离谱的设定，它会请模型顺着你的话，写个 C 程序跑给你看。
 
-> **The compiler that never says no.**
-> 语法是可选的，编译是必然的。
+[![这也能编译？Hell world! 点开观看 YesCC 演示短片](docs/assets/hell-world-cover.jpg)](https://www.bilibili.com/video/BV14eyYzNEMF/)
 
-给 YesCC 一段程序，能编译就直接跑，少了分号就试着补。你也可以只给它一句话，让模型把这句话编成一个 C 程序。
-
-> 月亮来咖啡馆应聘夜班，老板担心它总是缺一块。写写他们的对话。
-
-这道题曾让模型写出一个 C 程序，给月亮排了 30 天夜班。程序运行时会打印这段对话和排班表：
-
-```text
-老板：你总是缺一块，客人会投诉的。
-月亮：那是我的阴晴圆缺，不是缺勤。
-
-老板翻出排班表，决定先试一个月：
-第 1天 🌑  第 2天 🌒  第 3天 🌓  第 4天 🌔  第 5天 🌕
-```
-
-**在本机跑完这场面试。** 在当前源码仓库根目录运行，需要 uv、Python 3.11+ 和 GCC。这个例子带着已经生成的源码，不需要模型密钥。
-
-```bash
-uv run --locked yescc run examples/moon_cafe.c --offline
-```
-
-**看它救回一段坏 C。** 这个例子连 `main` 都拼成了 `mian`，还漏了分号。第一条会打印 `value=7`；第二条能看它用了哪些规则，原文件里的错字还在。
-
-```bash
-uv run --locked yescc run examples/multi_error.c --offline --no-fallback
-uv run --locked yescc examples/multi_error.c --explain
-```
-
-想给月亮换一份工作？改一行 `examples/moon_interview.txt`，配置模型后运行 `uv run --locked yescc run examples/moon_interview.txt --budget 0.005`，就能试试新题。单次模型预算上限是 0.005 美元。[原题](examples/moon_interview.txt) · [排班程序源码](examples/moon_cafe.c) · [模型配置](#模型配置)
-
-## 当前状态
-
-**YesCC 0.2.0 已正式发布。** 普通 `run` 支持单次创作，`--creativity default|wild` 调整改编幅度，`--explain` 可查看修复、创作或回显的来源。[PyPI](https://pypi.org/project/yescc/0.2.0/) · [GitHub Release 与二进制](https://github.com/wuqiuwangtian/yescc/releases/tag/v0.2.0) · [发行说明](docs/releases/0.2.0.md)
-
-公开安装与发布观察记录见[路线图 §10](docs/项目路线图与发布计划.md#10-待决事项与下一步)，固定基准、试玩记录与费用见[评测入口](docs/评测/README.md)。
-
-此前的[v0.0.1-alpha（0.0.1a2）](https://github.com/wuqiuwangtian/yescc/releases/tag/v0.0.1-alpha)和TestPyPI包保留作历史版本，不代表当前正式版。
-
-模型创意兜底的真实作品、失败原因与评分口径见[创意质量专项](docs/评测/2026-11-12.md#7-改进后完整复测与推理设置)。模型作品、固定梗和原文回显分别统计；可运行不等于作品质量。
-
-约束提取与独立自检的[离线研究](docs/评测/2026-11-13.md)单独评估识错、误拒绝和开销，尚未接入默认创意流程。
-
-生成阶段的[推理设置对照](bench/README.md#生成阶段推理设置对照准备)提供冻结输入、量表和离线预检；[受限真实对照](docs/评测/2026-11-14.md#生成阶段推理设置真实对照)未支持提高默认输出额度或开启推理，生产默认配置保持。
-
-已保存生成C的UBSan普通/插桩对照见[研究工具说明](bench/README.md#运行期未定义行为离线研究)，独立测量运行期错误和平台支持；研究命令会执行C，不等于默认验证或安全保证。
-
-首版范围：C 为 AI 修复/生成目标；Python / C / JavaScript 保留原生直通；MIT 许可，PyPI + 独立二进制发布。长期目标「所有语言」与「编辑器插件」不变。进度见[路线图](docs/项目路线图与发布计划.md)。
-
-> 开发代号曾为 `fcomp`；仓库、包名与命令已统一为 `yescc`。
+[P1 · 演示短片](https://www.bilibili.com/video/BV14eyYzNEMF/) · [P2 · 真实终端实录](https://www.bilibili.com/video/BV14eyYzNEMF/?p=2)
 
 ## 安装
 
-需要Python ≥3.11，推荐用独立工具环境从正式PyPI安装：
+用 Python 3.11+ 和 pipx 安装命令行工具。编译 C 或把点子变成程序，还需要 PATH 里有 GCC。
 
 ```bash
 pipx install yescc==0.2.0
-# 或者：uv tool install yescc==0.2.0
 yescc --version
 ```
 
-也可以从源码运行（见下）。
-
-## 免安装二进制（0.2.0）
-
-从[0.2.0 Release](https://github.com/wuqiuwangtian/yescc/releases/tag/v0.2.0)下载对应归档，并与同批`SHA256SUMS`核对。Linux x86_64 使用 tar.gz，Windows x86_64 使用 zip；下载后解压并保留整个目录（包含 `_internal`、`licenses`），直接运行 `./yescc --version` 或 PowerShell 的 `.\yescc.exe --version`。CLI 自带运行时，无需安装 YesCC 的 Python 包。
-
-用户程序仍需要对应工具链在 PATH：C 用 GCC，JavaScript 用 Node.js，Python 用可运行的 Python 3。二进制按 PATH 选择外部 Python；wheel 安装继续使用其所在环境的解释器。Linux 归档在 Ubuntu 24.04 构建，记录 glibc 基线，不保证旧 Linux、musl/Alpine、ARM 或 macOS 可用；Windows 归档内置 Python 3.14，其[最低平台为 Windows 10+](https://docs.python.org/3.14/using/windows.html#supported-windows-versions)；本项目仍只以原生 CI 验证范围为准。
-
-解压后在该目录执行：
-
-```bash
-./yescc run examples/hello.c --offline        # hello
-./yescc run examples/broken.c --offline       # repaired
-./yescc run examples/idea.txt --offline       # 离线回显输入，来源见 --explain
-```
-
-默认输出保持用户程序原样；若要确认修复状态，可执行 `./yescc examples/broken.c --explain --offline` 读取刚才的报告。
-
-Windows 将 `./yescc` 换为 `.\yescc.exe`。若程序提示缺工具链，先安装对应工具链；二进制不捆绑 GCC/Node 或用户项目依赖。归档的`MANIFEST.json`、同批`SHA256SUMS`及`licenses/`保存实际来源与许可证。正式资产的来源/许可未知项已清零；这不是法律意见或可重现构建证明。
-
-## 快速开始
-
-需要 Python ≥3.11、[uv](https://docs.astral.sh/uv/) 和 PATH 中的 GCC。在已检出的源码仓库根目录运行：
-
-```bash
-uv sync --locked
-uv run yescc --version
-uv run yescc run examples/hello.c --offline    # 输出 hello，原生直通
-uv run yescc run examples/broken.c --offline   # 输出 repaired，规则修复
-uv run yescc run examples/multi_error.c --offline --no-fallback  # 输出 value=7，多错误 C
-uv run yescc run examples/idea.txt --offline   # 本地回显，来源见 --explain
-uv run yescc examples/broken.c --explain       # 查看刚才的报告
-```
-
-上述四例不需要模型密钥。`--offline` 禁止模型请求；最后的 `idea.txt` 演示本地确定性创意兜底，并非按原意修复。源码中的全角分号是故意保留的错误，YesCC 的修复产物另存。
-
 <details>
-<summary>查看 0.1.0 发布前录制的离线 CLI 三例</summary>
+<summary>免安装二进制（Windows / Linux x86_64）</summary>
 
-![原生编译、规则修复和本地回显](https://raw.githubusercontent.com/wuqiuwangtian/yescc/f9ed40cbff7368eb6fb89548ac5253dbd5f46151/docs/assets/yescc-demo.gif)
+从 [0.2.0 Release](https://github.com/wuqiuwangtian/yescc/releases/tag/v0.2.0) 下载对应压缩包，用同页的 `SHA256SUMS` 校验，解压后保留整个目录。可以先试包里的这三个例子。Linux 在解压目录运行以下命令，Windows 将 `./yescc` 换为 `.\yescc.exe`。
 
-图中最后一例回显输入，0.2.0 可用 `--explain` 查看来源。
+```bash
+./yescc run examples/hello.c --offline    # 打印 hello
+./yescc run examples/broken.c --offline   # 换掉全角分号，打印 repaired
+./yescc run examples/idea.txt --offline   # 原样念出你的点子
+```
 
 </details>
 
-0.2.0 也接受 `yescc --offline run hello.c`，与 `yescc run hello.c --offline` 等效。传给作品自己的参数放在 `--` 后。
+## 试玩视频里的进度条
 
-报告写入 `.yescc/<文件名>/report.json`；源文件不会被覆盖。
+> 显示一根从 97% 走到 100% 的进度条。屏幕只有四行，每行写百分比和电脑此刻在做的事。
 
-## 能力矩阵（当前源码）
-
-| 能力 | Python | C | JavaScript |
-| --- | --- | --- | --- |
-| 原生直通 | 是 | 是 | 是 |
-| 规则修复 | 规划 0.2 | 是 | 规划 0.2 |
-| 模型修复 | 规划 0.2 | 是 | 规划 0.2 |
-| 自然语言生成 | 规划 0.2 | 是 | 规划 0.2 |
-| 创意兜底 | 是 | 是 | 是 |
-| 运行 | 是 | 是 | 是 |
-
-Windows 原生安装、隐私数据流、清理方式和 FAQ 见[使用与隐私指南](docs/使用与隐私指南.md)。模型补丁按唯一精确旧文本定位，可重算错误行号/行数；原始 diff 与调整说明保留在报告，正文不匹配、歧义和重叠仍拒绝，见 [ADR-0017](docs/adr/0017-exact-context-patch-normalization.md)。
-
-### 同一份输入，两种玩法
-
-把下面这句存成 UTF-8 的 `apple.c`。配置模型和 GCC 后，同一份输入可以这样玩：
-
-```c
-int main(void) { int 苹果=3, 人数=2; 平分(苹果, 人数); }
-```
+把这句话存成 UTF-8 的 `progress.txt`，配好模型后，在文件所在目录运行。第一条让模型照题发挥，第二条让它放飞一点。[模型配置](#模型配置)
 
 ```bash
-uv run yescc run apple.c --budget 0.005
-uv run yescc run apple.c --creativity wild --budget 0.005
-uv run yescc apple.c --explain
+yescc run progress.txt --budget 0.005
+yescc run progress.txt --creativity wild --budget 0.005
 ```
 
-真实试用中，默认档算出每人 1.5 个；放飞档里，剩下的苹果宣布“我不切！我是仲裁苹果。”每次运行可能得到不同作品。正确程序与能机械修好的 C 在两个档位都不调用模型。两个档位都尽量遵守你写明的范围：“整张小票只印暗号”就收在一行；“最后一行印暗号”则给前面的剧情留下空间。最后一条只读最近报告，可以查看原生错误、模型交付的源码和它列出的假设。[试用记录](docs/评测/2026-11-21.md)
+录制时，放飞档走到 99% 正在「给缓存里的猫顺毛」。换你来跑，电脑可能又有别的事要忙。好奇它怎么理解了这道题？运行 `yescc progress.txt --explain` 看上一次的报告。
+
+**想先离线试玩？** 在源码仓库根目录运行下面这条。它会把 `mian` 改成 `main`，补上漏掉的分号，打印 `value=7`，原文件里的错字还在。[示例源码](examples/multi_error.c)
+
+```bash
+uv run --locked yescc run examples/multi_error.c --offline
+```
 
 ## 模型配置
 
-默认读取环境变量；密钥只放在环境变量或本地 env 文件里，不要写进配置或仓库：
+原生运行和机械修复都在本机完成。想让模型接梗，再配置服务。`--budget 0.005` 表示本次模型预算为 0.005 美元，云端单价填全后才会发请求。
+
+<details>
+<summary>用 DeepSeek 试玩</summary>
+
+下面以 `deepseek-flash` 为例。单价单位是美元／百万 token，按官方价格表的高峰价填写，输入取缓存未命中价。[DeepSeek 模型与价格](https://api-docs.deepseek.com/quick_start/pricing/)
+
+**Bash** · 在当前终端粘贴，最后按提示输入密钥。
 
 ```bash
-export YESCC_MODEL_L3_PROVIDER=deepseek
-export YESCC_MODEL_L3_BASE_URL=https://api.deepseek.com/v1
-export YESCC_MODEL_L3_NAME=deepseek-flash
-export YESCC_MODEL_L3_API_KEY=...
-export YESCC_MODEL_L3_INPUT_PRICE_PER_MTOK=...   # 当前输入单价，USD/百万 token
-export YESCC_MODEL_L3_OUTPUT_PRICE_PER_MTOK=...  # 当前输出单价，USD/百万 token
-export YESCC_MODEL_L2_BASE_URL=http://localhost:11434/v1   # 可选，本地小模型
-export YESCC_MODEL_L2_NAME=llama3.2
+export YESCC_MODEL_L3_PROVIDER=deepseek YESCC_MODEL_L3_NAME=deepseek-flash
+export YESCC_MODEL_L3_INPUT_PRICE_PER_MTOK=0.30
+export YESCC_MODEL_L3_OUTPUT_PRICE_PER_MTOK=1.20
+read -rsp 'DeepSeek API key: ' YESCC_MODEL_L3_API_KEY && export YESCC_MODEL_L3_API_KEY && echo
 ```
 
-常用开关：`--offline`（不发模型请求）、`--budget 0.05`（USD）、`--max-rounds 2`、`--no-cache`、`--trace`、`--emit-source`。没有可用密钥时自动降级为规则 + 确定性兜底。
+**PowerShell** · 在当前窗口粘贴，最后按提示输入密钥。
 
-推理与输出额度可调整，仍共享同一任务预算：
-
-```bash
-# 已按上面配置DeepSeek、密钥和当前价格；用普通 run 创作
-uv run yescc run examples/idea.txt --thinking disabled --budget 0.005
-# 愿意用更多输出额度思考时显式开启；实际额度仍会按剩余费用下调
-uv run yescc run examples/idea.txt --reasoning-effort low --max-output-tokens 4096 --budget 0.005
+```powershell
+$env:YESCC_MODEL_L3_PROVIDER = 'deepseek'
+$env:YESCC_MODEL_L3_NAME = 'deepseek-flash'
+$env:YESCC_MODEL_L3_INPUT_PRICE_PER_MTOK = '0.30'
+$env:YESCC_MODEL_L3_OUTPUT_PRICE_PER_MTOK = '1.20'
+$env:YESCC_MODEL_L3_API_KEY = (Get-Credential -UserName DeepSeek -Message '在密码框输入 API key').GetNetworkCredential().Password
 ```
 
-DeepSeek普通模型默认显式禁用thinking，选择推理等级会开启；OpenAI使用其reasoning_effort，不接受DeepSeek式thinking开关。具体模型支持的等级不同，兼容端点不会自动获得这些能力。环境可用`YESCC_MODEL_L3_THINKING/REASONING_EFFORT/MAX_OUTPUT_TOKENS`（L2同理）；CLI覆盖环境，thinking/effort的显式auto重置该项为项目默认。输出默认上限仍1024，最大可设16384，不增加费用或候选次数。完整规则见[模型控制与创意检查](docs/adr/0021-creative-quality-and-model-controls.md)。
+</details>
 
-如果模型因`finish_reason=length`达到输出上限，最后只能回显输入，`--trace`和`--explain`会说明已记录响应的实际请求额度、可确认的预算裁剪、供应商报告的推理token及停止原因。配置4096不代表正文可用4096：推理与正文共享额度，剩余预算还会限制下一次请求。单独提高`--max-output-tokens`不会增加`--budget`；本次不会自动换推理设置或加钱。仅使用DeepSeek时，可显式用`--thinking disabled --reasoning-effort none`关闭推理；混合供应商请分别按能力配置。费用未知时会明确标为未知，不能把`cost_usd`小计当总费用。旧报告缺少的数据不补猜；这些说明不改变程序输出或兜底状态。
+[模型参数与输出额度](docs/使用与隐私指南.md#推理设置与创意运行检查) · [哪些内容会发给模型](docs/使用与隐私指南.md#数据流与清理)
 
-0.2.0 的普通 run 支持两档解释尺度。`--play` 仅作旧命令兼容，仍会跳过原生与规则。`--play`与`--no-fallback`、`--strict`互斥。希望停止兜底或查看原生失败时，先去掉原命令中的`--play`，再选择后两个开关之一。
+## 能力矩阵 · 0.2.0
 
-模型创意的`run`先检查退出、非空UTF-8和64KiB合计输出额度，坏候选在原上限内重试；`build`只编译和检查有限源码风格，**不执行程序**。报告分别记录`source_checks`和`generated.validation`；检查通过仍不保证有趣、贴题或完整。原生程序不受这些创意输出限制。
+| 给它什么 | 先在本机做什么 | 模型可以做什么 |
+| --- | --- | --- |
+| C | GCC 编译。失败时先尝试补分号、改拼写等机械修复 | 尝试修复剩下的错误，或另写一个 C 程序 |
+| Python / JavaScript | 用 Python 3 / Node.js 检查语法，通过后原样运行 | 语法检查失败时，可以另写一个 C 程序 |
+| 一段话（`.txt`） | 识别内置彩蛋 | 把设定写成一个 C 程序 |
 
-需要额外检查越界、整数溢出等执行错误时，可显式开启：
-
-```bash
-uv run yescc run examples/idea.txt --check-undefined --budget 0.005
-# 查看刚才的检查模式、实际候选执行及降级原因
-uv run yescc examples/idea.txt --explain
-```
-
-`--check-undefined`默认关闭，不通过环境变量自动开启；普通用户保持原有体验。仅模型创意`run`应用，沿用当前GCC，先实际探测runtime，缺运行库时尝试trap；均不可用则在新创意请求前明确失败102，不静默放弃检查。每份候选只编译为带检查的产物、执行一次；runtime产物可能依赖运行库。原生成功、规则/模型修复、普通生成、固定梗和离线回显不应用；`build`带此开关报用法错误100，连能力探针也不执行。
-
-检查失败仍共享原两次候选和费用上限。报告的`undefined_behavior_check`区分能力探针与候选实际执行；命中缓存也重新构建/检查，关闭时旧缓存保持。部分编译模式、sanitizer配置、response file或无法验证的工具链转发参数与此检查不兼容，会明确报错，不改用户标准/优化参数。trap异常不能认证具体UB，检查沉默也不保证内存安全、语义或趣味；完整契约见[ADR-0022](docs/adr/0022-optional-undefined-behavior-check.md)。
-
-若模型创意候选曾被实际运行验证拒绝，最终回显说明会列出最近一次运行拒绝原因（如非零退出、空输出、超时），并点明当时实际使用的可选检查模式。详细诊断用`--explain`查看；失败作品的输出不直接转发，预算/尝试次数停止原因仍保留。
-
-有限源码检查也会拒绝`'☀'`等普通非ASCII字符常量，要求用完整UTF-8字符串。另有[离线一致性评测器](bench/README.md#创意一致性回归)，核对冻结题目的显式输出约束；它不在生产运行中裁决作品语义。
-
-云端模型必须配置两项单价，未知价格时不发请求；请求前保守估算并预留费用，剩余预算限制输出 token。缺 usage 或请求失败会保留预留，`model.cost_known=false` 时费用总额未知，`cost_usd` 只表示已知部分小计。回环本地端点可不填价格，但不能声称受到金额限制。`--max-rounds` 同时限制候选尝试（含缓存）与实际请求；L2 修复失败后有 L3 就升级，显式 `--model` / `--provider` 跳过自动 L2。详见 [ADR-0015](docs/adr/0015-alpha-reliability-contracts.md)。
-
-C 规则阶段最多构建 24 个候选、每条路径最多细化 4 次；可组合机械标点/拼写错误并使用 GCC 的分号建议。遇到 C++ 写法或语义错误仍可能无法修复。确定性兜底会在 trace、explain 和报告中说明模型路径与失败原因；`print_input` 只回显输入。规则与报告边界见 [ADR-0018](docs/adr/0018-bounded-rule-refinement-and-degradation.md)。
-
-构建/解释模式的 `--json` 在可预期命令错误时也返回一个 JSON 对象：若 `report_kind` 为 `command_error`，读取 `error.exit_code` / `error.message`；否则按原 schema v1 构建报告处理。错误对象只输出到 stdout，不覆盖旧构建报告。显式指定不支持的 `--lang`（包括带 `--play` 时）返回 101，不进入创意兜底；已支持的语言别名保留。`--no-fallback` 不改退出码分类：用法 100、不支持输入 101、构建失败 102、预算等限制 103。见 [ADR-0019](docs/adr/0019-command-error-json-envelope.md)。
-
-缺少GCC、Node.js或独立二进制所需的外部Python时，正常构建报告以102失败，并在`result.failure_message`保留实际原因，文本`--explain`也会显示。没有启动编译器时不填造编译命令、版本或源码诊断；历史报告没有该字段时不补猜原因。
-
-同一工作目录下，同stem文件（例如`hello.py`与`hello.c`，或两个子目录中的`main.py`）只保留最近一次报告。`--explain`会核对报告中的输入路径；属于另一文件或无法确认身份时返回100，提示先重新构建所请求文件，不会显示另一文件的成功报告。仍可查看同一文件的历史报告，不要求源文件当前存在或内容未变。
+两个创意档位只影响模型。模型没能交付作品时，默认会尝试本地彩蛋或原文回显。`--explain` 会告诉你走了哪条路。
 
 ## 已知限制
 
-- 只支持单文件；跨文件与项目构建不支持，未识别语言返回退出码 101。
-- 源码仅支持 UTF-8（可带 BOM）。
-- Windows 上原生调用（非 WSL），C 工具链使用系统 GCC/MinGW；MSVC 不支持。
-- 部分 MinGW 链接器不支持含非 ASCII 字符的绝对输出路径；可在目标工作目录使用相对输出文件名。此类原生工具链失败会如实保留。
-- 通过管道重定向时，用户程序自身的编码设置仍生效，YesCC 不替用户程序改写环境。
-- 沙箱是「尽力隔离」：独立临时目录、超时、环境变量白名单、POSIX 资源限额；**不是安全边界**。Linux 上 `unshare -n` 无权限时不会断网。POSIX 清理独立进程组；Windows 以 `taskkill /T` 尽力清理超时/中断的进程树，没有 Job Object，不保证清理已脱离任务树的后代。
-- AI 产物默认使用临时 cwd，相对路径不再指向原目录；绝对路径仍可访问宿主文件。需要真实 cwd 与环境时使用 `--unsafe-run`，仍保留超时和进程清理。
-- `--offline` 控制 YesCC 的模型请求，不改变原生用户程序的网络行为。费用估算依赖配置单价和服务遵守 token 限额，不能约束供应商隐藏计费；HTTP 分阶段超时也不是操作系统级的任务硬截止。
+一次处理一个 UTF-8 文件。模型写的 C 会交给 GCC 编译，是否接住了梗由你判断。生成的程序在本机运行，仍可访问宿主文件。处理陌生代码请用容器或虚拟机。`--offline` 只关闭 YesCC 的模型请求。[使用与隐私指南](docs/使用与隐私指南.md)
 
-## 文档
-
-- [初版需求报告](docs/初版需求报告.md)：完整愿景、兼容性边界、命令行体验、处理流程、性能成本、验收和分期。
-- [技术参考与验证计划](docs/技术参考与验证计划.md)：程序修复研究、工具链与编辑器依据、实验设计。
-- [GitHub 开源项目调研](docs/GitHub开源项目调研.md)：5 个相关候选，区分创意参照、修复组件与真实执行后端。
-- [项目路线图与发布计划](docs/项目路线图与发布计划.md)：里程碑与验收门、技术契约、MIT 许可与 GitHub + PyPI 发布流程。
-- [ADR 索引](docs/adr/README.md)：已确认的架构与产品决策。
-- [评测记录](docs/评测/2026-11-03.md)：M1 原生一致性与包装开销 baseline。
-
-## 开发
-
-```bash
-uv sync --extra dev
-uv run ruff check .
-uv run mypy
-uv run pytest
-```
-
-真实模型评测不在 CI 中执行，记录写入 [docs/评测](docs/评测/README.md)。
-
-固定 200 例基准和离线/真实/暖缓存模式见 [bench/README](bench/README.md)。离线执行明确区分 130 个已评测样本和 70 个模型任务未评测；Linux/Windows CI 保留各自原始 JSON。
-
-接手开发先读 [AGENTS.md](AGENTS.md) 和[路线图 §10](docs/项目路线图与发布计划.md#10-待决事项与下一步)；贡献流程见 [CONTRIBUTING.md](CONTRIBUTING.md)。
-
-## 许可
-
-[MIT](LICENSE) © 2026 五秋望田（wuqiuwangtian）
-
-
-## English summary
-
-YesCC wraps Python, GCC and Node.js. Valid programs use their native toolchain
-without model calls. C errors may be repaired with rules or bounded model attempts;
-every candidate is compiled before use. Natural-language generation targets C.
-Creative fallback is reported separately. Source files are preserved. AI execution
-uses best-effort isolation and is not a security boundary. Version 0.2.0 is available on PyPI and as Linux/Windows native archives.
-Run with `--creativity wild` for a looser interpretation, or read the last report with `--explain`.
+[0.2.0 发行说明](docs/releases/0.2.0.md) · [试玩与评测记录](docs/评测/README.md) · [贡献指南](CONTRIBUTING.md) · [MIT 许可](LICENSE)
