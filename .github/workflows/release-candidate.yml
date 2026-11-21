@@ -29,7 +29,10 @@ jobs:
           enable-cache: true
       - run: uv sync --extra dev --locked
       - run: uv build --wheel
-      - run: uv run python -m bench.index_smoke --expected-version 0.1.0 --wheel dist/yescc-0.1.0-py3-none-any.whl --output dist/index-rehearsal.json
+      - shell: bash
+        run: |
+          version=$(uv version --short)
+          uv run python -m bench.index_smoke --expected-version "$version" --wheel "dist/yescc-$version-py3-none-any.whl" --output dist/index-rehearsal.json
       - uses: actions/upload-artifact@v7.0.2
         with:
           name: index-rehearsal-${{ runner.os }}-${{ matrix.python }}
@@ -47,7 +50,10 @@ jobs:
       - run: uv sync --extra dev --extra release --locked
       - run: uv build --out-dir dist/python
       - run: uv run twine check --strict dist/python/*
-      - run: uv run python -m bench.package_smoke --wheel dist/python/yescc-0.1.0-py3-none-any.whl --output dist/python/package-smoke.json
+      - shell: bash
+        run: |
+          version=$(uv version --short)
+          uv run python -m bench.package_smoke --wheel "dist/python/yescc-$version-py3-none-any.whl" --output dist/python/package-smoke.json
       - uses: actions/upload-artifact@v7.0.2
         with:
           name: candidate-python
@@ -81,7 +87,8 @@ jobs:
         shell: bash
         run: |
           archive=$(find dist/native -maxdepth 1 -type f \( -name '*.tar.gz' -o -name '*.zip' \))
-          uv run python -m bench.binary_archive_smoke --archive "$archive" --expected-version 0.1.0 --output dist/native/binary-smoke.json
+          version=$(uv version --short)
+          uv run python -m bench.binary_archive_smoke --archive "$archive" --expected-version "$version" --output dist/native/binary-smoke.json
       - name: Retain candidates and audit evidence
         if: always()
         uses: actions/upload-artifact@v7.0.2
