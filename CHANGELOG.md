@@ -12,7 +12,7 @@
 
 ## [0.1.0] - 2026-11-17
 
-已发布到[正式PyPI](https://pypi.org/project/yescc/0.1.0/)和[GitHub Release](https://github.com/wuqiuwangtian/yescc/releases/tag/v0.1.0)，固定资产来源88ae078；公开双平台安装验证通过，发布观察窗仍在进行。以下合并了此前尚未发布的0.1.0变更，研究工具不等于生产默认启用。
+已发布到[正式PyPI](https://pypi.org/project/yescc/0.1.0/)和[GitHub Release](https://github.com/wuqiuwangtian/yescc/releases/tag/v0.1.0)，固定资产来源88ae078；公开双平台安装验证通过，24 小时发布观察窗于 11 月 18 日结束，窗内无已知 P0。以下合并了此前尚未发布的0.1.0变更，研究工具不等于生产默认启用。
 
 ### Added
 

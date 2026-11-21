@@ -141,7 +141,7 @@
   "actual_native_builder_wheels_retained": true,
   "builder_wheel_comparison": "Both actual input wheels match manifest hashes and fixed Git source; package descriptions match Git. Only two license line endings and corresponding RECORD differ across wheel member bodies.",
   "public_pypi_root_install": "passed actual public PyPI root installation on Linux/Windows x Python 3.11/3.14 (four groups, each 6/6)",
-  "g6": "pending_observation",
+  "g6": "passed",
   "daily_install_updated": false,
   "real_model_api_calls_this_stage": 0,
   "host_agent_cost_known": false,
@@ -175,7 +175,7 @@
     },
     "runbook": "docs/releases/0.1.0.md#维护者发布步骤已执行"
   },
-  "next_step": "After 2026-11-18T00:59:47.463608Z, inspect the scheduled observation-end evidence and any reported issues; only then close G6. Publication already authorized and complete; do not republish or retag. Daily RC4 install unchanged.",
+  "next_step": "Triage post-release feedback and track development work in roadmap section 10.",
   "main_integration_commit": "50901b7bd578bd01a777ae4110dfc6a2baa55622",
   "publication_receipt": {
     "authorization_date_local": "2026-11-17",
@@ -291,6 +291,12 @@
     "local_timer_unit": "yescc-0_1_0-observe-20261117.timer",
     "local_timer_scheduled_at_utc": "2026-11-18T00:59:48+00:00",
     "end_evidence_path": "/home/wqwt/ai-tests/yescc-release-2026-11-17/observation-end.json",
-    "timer_writes_repository": false
+    "timer_writes_repository": false,
+    "observation_end_review": {
+      "review_date_local": "2026-11-21",
+      "check_completed_at_utc": "2026-11-18T01:50:43.511414+00:00",
+      "known_p0_in_window": false,
+      "archive": "docs/评测/data/release-0.1.0-observation-end-2026-11-18.json.gz"
+    }
   }
 }

@@ -38,7 +38,7 @@ uv run --locked yescc examples/multi_error.c --explain
 
 **0.1.0 已正式发布**：[PyPI](https://pypi.org/project/yescc/0.1.0/) · [GitHub Release与二进制](https://github.com/wuqiuwangtian/yescc/releases/tag/v0.1.0)。三语言原生直通、C规则/模型修复、自然语言生成和明确标注的创意兜底可用；AI产物默认尽力隔离运行，不能视为强安全边界。
 
-双平台公开PyPI安装及正式Release归档验证已通过；24小时发布观察仍在进行，G6尚未全部完成。当前开发状态、未发布变更和接续任务统一见[路线图 §10](docs/项目路线图与发布计划.md#10-待决事项与下一步)，固定基准、安装验收与费用见[评测入口](docs/评测/README.md)。
+Linux 和 Windows 的公开安装验证均已通过。24 小时观察窗内无已知 P0，0.1.0 已完成发布验收。当前开发状态、未发布变更和接续任务统一见[路线图 §10](docs/项目路线图与发布计划.md#10-待决事项与下一步)，固定基准、安装验收与费用见[评测入口](docs/评测/README.md)。
 
 此前的[v0.0.1-alpha（0.0.1a2）](https://github.com/wuqiuwangtian/yescc/releases/tag/v0.0.1-alpha)和TestPyPI包保留作历史版本，不代表当前正式版。
 
@@ -249,4 +249,4 @@ without model calls. C errors may be repaired with rules or bounded model attemp
 every candidate is compiled before use. Natural-language generation targets C.
 Creative fallback is reported separately. Source files are preserved. AI execution
 uses best-effort isolation and is not a security boundary. Version 0.1.0 is available on PyPI and as Linux/Windows native archives.
-See the roadmap for verification scope and the ongoing release observation window.
+Version 0.1.0 passed public installation checks on Linux and Windows. Its 24-hour observation window closed with no known P0 issues.
