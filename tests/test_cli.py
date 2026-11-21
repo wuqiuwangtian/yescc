@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 from importlib.metadata import version
 from pathlib import Path
 
@@ -96,3 +97,31 @@ def test_play_allowed_in_run_mode() -> None:
 def test_budget_requires_finite_positive_value(value: str) -> None:
     with pytest.raises(UsageError):
         parse(["main.c", "--budget", value])
+
+
+def test_run_after_options_preserves_values_and_program_args() -> None:
+    args = ["--model", "run", "--offline", "--lang=c", "run", "--no-cache", "hello.c",
+            "--", "run", "--json"]
+    invocation = parse(args).invocation
+    assert invocation.mode == "run" and invocation.source == Path("hello.c")
+    assert invocation.model == "run" and invocation.lang == "c"
+    assert invocation.offline and invocation.no_cache
+    assert invocation.run_args == ["run", "--json"]
+
+
+@pytest.mark.parametrize("args", [
+    ["--lang", "run", "hello.c"], ["-o", "run", "hello.c"], ["--offline", "run", "-o", "out"],
+    ["--offline", "run", "--", "run"], ["hello.c", "-o", "run"],
+])
+def test_build_operands_named_run(args: list[str]) -> None:
+    assert parse(args).invocation.mode == "build"
+
+
+def test_prefixed_run_keeps_json_error_contract(capsys: pytest.CaptureFixture[str]) -> None:
+    args = ["--offline", "run", "hello.c", "-o", "--json"]
+    assert main(args) == int(ExitCode.USAGE)
+    output = capsys.readouterr()
+    error = json.loads(output.out)
+    assert output.err == ""
+    assert error["invocation"]["argv"] == args
+    assert "工具链参数" in error["error"]["message"]

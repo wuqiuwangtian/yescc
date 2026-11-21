@@ -95,6 +95,8 @@ uv run yescc examples/broken.c --explain       # 查看刚才的报告
 
 上述四例不需要模型密钥。`--offline` 禁止模型请求；最后的 `idea.txt` 演示本地确定性创意兜底，并非按原意修复。源码中的全角分号是故意保留的错误，YesCC 的修复产物另存。
 
+开发版也接受 `yescc --offline run hello.c`，与 `yescc run hello.c --offline` 等效。传给作品自己的参数放在 `--` 后。
+
 报告写入 `.yescc/<文件名>/report.json`；源文件不会被覆盖。
 
 ## 能力矩阵（当前源码）
