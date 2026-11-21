@@ -17,6 +17,13 @@ GROUNDED_INTERPRETATION = (
     "Describe your interpretation briefly in assumptions in the input language."
 )
 
+OUTPUT_SCOPE = (
+    "Identify exactly what each explicit constraint applies to: the whole output, "
+    "a particular line, a speaker's actions, or part of a sequence. Honor it within "
+    "that scope, including any final step. Use the remaining freedom for the work. "
+    "If the entire output is specified, printing just that is a complete performance."
+)
+
 _SYSTEM = (
     "You are YesCC, a compiler repair and code generation assistant. "
     "Respond with exactly one JSON object and no markdown fences or commentary."
@@ -66,7 +73,7 @@ Diagnostics:
             "requests and arithmetic. You can use a joke or a hypothetical to reconcile "
             "conflicting premises. Print visible output in the input language with no "
             "stdin required. Use only the standard library, no files, network or shell. "
-            + GROUNDED_INTERPRETATION
+            + GROUNDED_INTERPRETATION + " " + OUTPUT_SCOPE
         )))
     return messages
 
@@ -108,6 +115,8 @@ def generate_messages(
         )
     elif creativity == "default":
         instruction += " " + GROUNDED_INTERPRETATION
+    if creativity in {"default", "wild"}:
+        instruction += " " + OUTPUT_SCOPE
     stdin_rule = (
         "Never read stdin or request additional input."
         if creative

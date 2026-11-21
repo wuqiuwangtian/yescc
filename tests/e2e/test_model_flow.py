@@ -253,3 +253,18 @@ def test_unusable_diff_leaves_one_attempt_for_a_work(
     report = _report(tmp_path, "main")
     assert report["budget"]["attempts"] == len(fake_model.requests) == 2
     assert report["result"]["fallback"]["kind"] == "model_creative"
+
+
+@pytest.mark.parametrize("scale", ["default", "wild"])
+@pytest.mark.parametrize("filename,source", [("main.c", BROKEN_C), ("idea.txt", "写张演出票")])
+def test_output_scope_reaches_the_first_request(
+    tmp_path: Path, fake_model: FakeModelServer, scale: str, filename: str, source: str,
+) -> None:
+    from yescc.model.prompts import OUTPUT_SCOPE
+
+    fake_model.responses.append({"source": HELLO_SOURCE})
+    (tmp_path / filename).write_text(source, encoding="utf-8")
+    result = _run(["run", filename, "--creativity", scale], tmp_path)
+    assert result.returncode == 0 and result.stdout == "hello\n"
+    request, = fake_model.requests
+    assert any(OUTPUT_SCOPE in message["content"] for message in request["messages"])

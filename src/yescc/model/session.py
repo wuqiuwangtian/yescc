@@ -382,7 +382,7 @@ class ModelSession:
                     cache_payload={
                         "source": source,
                         "filename": filename,
-                        **({"interpretation": "default-v3"} if allow_program else {}),
+                        **({"interpretation": "default-v4"} if allow_program else {}),
                         "diagnostics": diagnostics,
                         "feedback": feedback,
                     },
@@ -441,7 +441,7 @@ class ModelSession:
             tier=tier,
             messages=messages,
             cache_payload={"text": text, "creative": creative, "feedback": feedback,
-                           **({"interpretation_v2": self.creativity} if self.creativity else {})},
+                           **({"interpretation_v3": self.creativity} if self.creativity else {})},
         )
         return self._program(data)
 
