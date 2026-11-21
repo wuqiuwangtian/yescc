@@ -5,29 +5,34 @@
 > **The compiler that never says no.**
 > 语法是可选的，编译是必然的。
 
-YesCC 是一个「永不扫兴」的 AI 编译器：正确代码原样编译；错误代码尽力修复；连自然语言或胡言乱语，也尽量变成一个能运行的程序。
+给 YesCC 一段程序，能编译就直接跑，少了分号就试着补。你也可以只给它一句话，让模型把这句话编成一个 C 程序。
 
-- **正确代码绝不打扰**：原生工具链成功即结束，不改源码、不调模型、不注入参数。
-- **错误代码尽力挽救**：规则 → 便宜/本地模型 → 强模型，每层都交真实工具链验证。
-- **无意义输入也给出创造性解释**：确定性兜底、文化梗、模型创意解释；结果状态单独标注，绝不冒充原程序。
+> 月亮来咖啡馆应聘夜班，老板担心它总是缺一块。写写他们的对话。
 
-![真实离线 CLI 三例](https://raw.githubusercontent.com/wuqiuwangtian/yescc/f9ed40cbff7368eb6fb89548ac5253dbd5f46151/docs/assets/yescc-demo.gif)
+这道题曾让模型写出一个 C 程序，给月亮排了 30 天夜班。程序运行时会打印这段对话和排班表：
 
-图中为实际离线输出；创意兜底仅回显输入，不表示实现原始意图。
+```text
+老板：你总是缺一块，客人会投诉的。
+月亮：那是我的阴晴圆缺，不是缺勤。
 
-**开发版试玩**　把下面这句存成 UTF-8 的 `apple.c`。配置模型和 GCC 后，同一份输入可以这样玩：
-
-```c
-int main(void) { int 苹果=3, 人数=2; 平分(苹果, 人数); }
+老板翻出排班表，决定先试一个月：
+第 1天 🌑  第 2天 🌒  第 3天 🌓  第 4天 🌔  第 5天 🌕
 ```
+
+**在本机跑完这场面试。** 在当前源码仓库根目录运行，需要 uv、Python 3.11+ 和 GCC。这个例子带着已经生成的源码，不需要模型密钥。
 
 ```bash
-uv run yescc run apple.c --budget 0.005
-uv run yescc run apple.c --creativity wild --budget 0.005
-uv run yescc apple.c --explain
+uv run --locked yescc run examples/moon_cafe.c --offline
 ```
 
-真实试用中，默认档算出每人 1.5 个；放飞档里，剩下的苹果宣布“我不切！我是仲裁苹果。”每次运行可能得到不同作品。正确程序与能机械修好的 C 在两个档位都不调用模型。两个档位都尽量遵守你写明的范围：“整张小票只印暗号”就收在一行；“最后一行印暗号”则给前面的剧情留下空间。最后一条只读最近报告，可以查看原生错误、模型交付的源码和它列出的假设。[试用记录](docs/评测/2026-11-21.md)
+**看它救回一段坏 C。** 这个例子连 `main` 都拼成了 `mian`，还漏了分号。第一条会打印 `value=7`；第二条能看它用了哪些规则，原文件里的错字还在。
+
+```bash
+uv run --locked yescc run examples/multi_error.c --offline --no-fallback
+uv run --locked yescc examples/multi_error.c --explain
+```
+
+想给月亮换一份工作？改一行 `examples/moon_interview.txt`，配置模型后运行 `uv run --locked yescc run examples/moon_interview.txt --budget 0.005`，就能试试新题。单次模型预算上限是 0.005 美元。[原题](examples/moon_interview.txt) · [排班程序源码](examples/moon_cafe.c) · [模型配置](#模型配置)
 
 ## 当前状态
 
@@ -95,6 +100,15 @@ uv run yescc examples/broken.c --explain       # 查看刚才的报告
 
 上述四例不需要模型密钥。`--offline` 禁止模型请求；最后的 `idea.txt` 演示本地确定性创意兜底，并非按原意修复。源码中的全角分号是故意保留的错误，YesCC 的修复产物另存。
 
+<details>
+<summary>查看 0.1.0 发布前录制的离线 CLI 三例</summary>
+
+![原生编译、规则修复和本地回显](https://raw.githubusercontent.com/wuqiuwangtian/yescc/f9ed40cbff7368eb6fb89548ac5253dbd5f46151/docs/assets/yescc-demo.gif)
+
+图中最后一例回显输入，开发版可用 `--explain` 查看来源。
+
+</details>
+
 开发版也接受 `yescc --offline run hello.c`，与 `yescc run hello.c --offline` 等效。传给作品自己的参数放在 `--` 后。
 
 报告写入 `.yescc/<文件名>/report.json`；源文件不会被覆盖。
@@ -111,6 +125,22 @@ uv run yescc examples/broken.c --explain       # 查看刚才的报告
 | 运行 | 是 | 是 | 是 |
 
 Windows 原生安装、隐私数据流、清理方式和 FAQ 见[使用与隐私指南](docs/使用与隐私指南.md)。模型补丁按唯一精确旧文本定位，可重算错误行号/行数；原始 diff 与调整说明保留在报告，正文不匹配、歧义和重叠仍拒绝，见 [ADR-0017](docs/adr/0017-exact-context-patch-normalization.md)。
+
+### 同一份输入，两种玩法（开发版）
+
+把下面这句存成 UTF-8 的 `apple.c`。配置模型和 GCC 后，同一份输入可以这样玩：
+
+```c
+int main(void) { int 苹果=3, 人数=2; 平分(苹果, 人数); }
+```
+
+```bash
+uv run yescc run apple.c --budget 0.005
+uv run yescc run apple.c --creativity wild --budget 0.005
+uv run yescc apple.c --explain
+```
+
+真实试用中，默认档算出每人 1.5 个；放飞档里，剩下的苹果宣布“我不切！我是仲裁苹果。”每次运行可能得到不同作品。正确程序与能机械修好的 C 在两个档位都不调用模型。两个档位都尽量遵守你写明的范围：“整张小票只印暗号”就收在一行；“最后一行印暗号”则给前面的剧情留下空间。最后一条只读最近报告，可以查看原生错误、模型交付的源码和它列出的假设。[试用记录](docs/评测/2026-11-21.md)
 
 ## 模型配置
 
