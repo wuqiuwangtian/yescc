@@ -23,7 +23,7 @@
 | [0017](0017-exact-context-patch-normalization.md) | 唯一精确上下文与补丁元数据重算 | 已实施，用户确认 |
 | [0018](0018-bounded-rule-refinement-and-degradation.md) | 有界组合修复与离线降级说明 | 已实施，用户确认方向 |
 | [0019](0019-command-error-json-envelope.md) | 可预期命令错误的 JSON 对象 | 已实施，用户确认方案 |
-| [0020](0020-native-release-candidates.md) | 原生发布候选与外部工具链 | 已实施，待正式发布 |
+| [0020](0020-native-release-candidates.md) | 原生发布候选与外部工具链 | 已随 0.1.0 正式发布 |
 | [0021](0021-creative-quality-and-model-controls.md) | 创意输出检查与模型推理控制 | 已实施 |
 | [0022](0022-optional-undefined-behavior-check.md) | 可选的创意运行期未定义行为检查 | 已实施，用户确认默认关闭 |
 | [0023](0023-creative-default.md) | 单次创意编译与按需解释 | 已实施于开发分支 |
